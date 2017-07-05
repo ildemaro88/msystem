@@ -1,0 +1,53 @@
+<div id="pan-nueva-cita" class="panel [[panel.class_heading]]">
+   <div class="panel-heading">
+      <h4 id="heading" class="[[panel.class_text_title]]"><i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
+   </div>
+   <div class="panel-body" style="[[panel.style_body]]">
+      <div class="container-fluid container-full">
+         <form action="[[ panel.url ]]" method="post" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate>
+            <input ng-model="agenda_id" type="hidden" name="agenda_id" value="  '+ AGENDA_ID +'  "> <input ng-model="medico_id" type="hidden" name="medico_id" value="  '+ MEDICO_ID +'  "> <input name="autorizacion" type="hidden" value="[[autorizacion]]"> <input name="fecha_autorizacion" type="hidden" value="[[fecha_autorizacion]]"> <input name="fecha_vence" type="hidden" value="[[fecha_vence]]"> <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> 
+            <div class="form-group"> <label for=""> Seleccione el paciente:</label> <select id="select-paciente" class="form-control select2" name="idpaciente"> '+OPTIONS_PACIENTE+' </select> </div>
+            <div class="col-sm-6">
+               <div class="row">
+                  <div class="form-group"> <button type="button" ng-click="showModalDate()" class="btn btn-default"><i class="fa fa-clock-o"></i> Fecha y Hora </button> </div>
+               </div>
+               <div class="row">
+                  <div class="col-xs-12" style="padding-left: 0px;">
+                     <div class="form-group"> <select id="sel_convenio" name="sel_convenio" ng-options="item for item in options_convenio" ng-model="sel_convenio" ng-change="show_convenio()" class="selectpicker form-control" show-menu-arrow data-style="btn-primary"> </select> </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <h5 style="margin:0px"><b style="font-size:13px">Fecha:</b> <a id="p_fecha" ng-bind="cita.fecha | date: mediumDate"></a></h5>
+               <h5 for=""><b>Desde:</b> <a id="p_desde" ng-bind="horaInicio | date: shortTime"></a></h5>
+               <h5 for=""><b>Hasta:</b> <a id="p_hasta" ng-bind="horaFin | date: shortTime"></a></h5>
+            </div>
+            <div class="row">
+               <div class="col-xs-10 col-xs-offset-1">
+                  <div class="form-group"> <label for="">Observaciones</label> <textarea id="descripcion" ng-model="cita.descripcion" class="form-control" name="descripcion"cols="30"rows="6"></textarea> </div>
+               </div>
+            </div>
+            <div class="row pull-left" ng-show="panel.buttons.trash">
+               <div class="col-xs-12">
+                  <div class="form-group"> <button ng-click="eliminarCita([[cita_id]])" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button> </div>
+               </div>
+            </div>
+            <div class="row pull-left" ng-show="panel.buttons.cancelar">
+               <div class="col-xs-12">
+                  <div class="form-group"> <button ng-click="cancelarCita()" style="margin-right: 5px;" type="reset" class="btn btn-default"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button> </div>
+               </div>
+            </div>
+            <div class="row pull-left" ng-show="panel.buttons.modificar">
+               <div class="col-xs-12">
+                  <div class="form-group"> <button type="submit" class="btn btn-warning"><i class="fa fa-check"></i> Modificar </button> </div>
+               </div>
+            </div>
+            <div class="row" ng-show="panel.buttons.agendar">
+               <div class="col-xs-12 col-xs-offset-7">
+                  <div class="form-group"> <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Agendar </button> </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

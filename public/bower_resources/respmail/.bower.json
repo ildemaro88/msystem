@@ -1,0 +1,14 @@
+{
+  "name": "respmail",
+  "homepage": "https://github.com/charlesmudy/responsive-html-email-template",
+  "_release": "c91b8af7b4",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c91b8af7b4fe89fecf80f1828dc730cd2f63ae04"
+  },
+  "_source": "https://github.com/charlesmudy/responsive-html-email-template.git",
+  "_target": "*",
+  "_originalSource": "respmail",
+  "_direct": true
+}
