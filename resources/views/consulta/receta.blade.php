@@ -14,6 +14,13 @@
       @page { margin-top: 170px;margin-bottom: 170px; margin-right:20px;}
       #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px;text-align: left; padding-top: 20px;}
       #footer { position: fixed; left: 0px; border-top: 1px solid; padding-top: 10px;bottom: -160px; right: 0px; height: 90px;  }
+      .div_content{
+        width: 484px;
+        height: 200px;
+        background-color: #F5F5F5;
+        padding: 5px;
+        word-wrap: break-word;
+      }
       #footer .page:after { content: counter(page, upper-roman); }
       #page_break{page-break-before: always;}
       #content{height:auto;width: 100%; overflow: hidden;}
@@ -33,7 +40,7 @@
       td{ padding-top: 5px !important;}
     </style>
 
-    <title>{{$examenes[0]->paciente}}</title>
+    <title>{{$receta->paciente}}</title>
 </head>
 <body>
 
@@ -47,25 +54,33 @@
 
       <div id="der" >
 
-        <h4 style="display: inline;">PEDIDO DE EXÁMENES</h4>
-        <h4 style="display: inline;">N°{{$examenes[0]->nro_orden}}</h4><br>
-        <h5 style="display: inline;">Fecha: {{$examenes[0]->fecha}} </h5>
+        <h4 style="display: inline;">RECETA</h4>
+        <h4 style="display: inline;">{{$examenes[0]->nro_orden}}</h4><br>
+        <h5 style="display: inline;">Fecha: {{$receta->fecha}} </h5>
       </div>
 
     </div>
     <hr>
     <div class="paciente">
       <div id="izq" >
-        <p>Nombre: <b>{{$examenes[0]->paciente}}</b></p>
-  		  <p>Fecha de Nacimiento: <b>{{$examenes[0]->nacimiento}}</b></p>
-  		  <p>Empresa: <b>Almagro C.A.</b></p>
+        <p>Nombre: <b>{{$receta->paciente}}</b></p>
+  		  <p>Dirección: <b>{{$optometria->direccion}}</b></p>
+  		  <!--p>Empresa: <b>Almagro C.A.</b></p-->
       </div>
 
       <div id="der" >
 
-        <p>Edad: <b>{{$examenes[0]->edad}}</b></p>
-        <p>Teléfono: <b>{{$examenes[0]->telefono}}</b></p>
-        <p>C.I.: <b>{{$examenes[0]->ci}}</b></p>
+        <p>Edad: <b>{{$receta->edad}}</b></p>
+        <p>Teléfono: <b>{{$receta->telefono}} @if($receta->telefono_d)
+                                                /{{$receta->telefono_d}}
+                                              @endif
+                                              @if($receta->telefono_r)
+                                               /{{$receta->telefono_r}}
+                                              @endif
+                                              @if($receta->telefono_t) 
+                                                /{{$receta->telefono_t}}
+                                              @endif </b></p>
+        <!--p>C.I.: <b>{{$examenes[0]->ci}}</b></p-->
 
       </div>
     </div>
@@ -75,8 +90,8 @@
     <div class="doctor">
       <div id="izq" >
         <p>FIRMA:..........................................................................<br>
-  		   {{$examenes[0]->medico}}.<br>
-         Teléfono: {{$examenes[0]->telefonom}}.
+  		   {{$receta->medico}}.<br>
+         Teléfono: {{$receta->telefonom}}.
          </p>
       </div>
 
@@ -92,76 +107,42 @@
   </div>
 
     <div id="content">
-      <?php $i = 0; ?>
-      <?php $j = 0; ?>
-
-
-        @foreach($tipos as $tipo)
-          @if($i==1)
-            <table id="page_break" class="table table-borderless" >
-              <?php $j = 0; ?>
-          @else
-            <table class="table table-borderless" >
-          @endif
+     
+            <!--table id="" class="table table-borderless" >
+            
             <tbody>
-              @foreach($examenes as $examen)
-
-              @if($examen->tipo_id == $tipo->tipo_id)
-              <?php $j++; ?>
-              @if( $j<5 )
-
-                <tr>
+             
                   <td style="background-color: #fff"  >
                     <div class="categoria "><b>{{$examen->categoria}}</b>:</div>
                     <div style="background-color: #f9f9f9">
-                      <?php $examen->lista = str_replace("\\n",". ",$examen->lista);
-                            $examen->lista = str_replace(" "," ",$examen->lista);
-                      ?>
+                      
                         <p>  {{$examen->lista}}<br>
                     </div>
       						</td>
       					</tr>
 
-              @else
-
-              @if($j == 5 )
-              <?php $j = 1; ?>
+             
             </tbody>
-          </table>
-          <table id="page_break" class="table table-borderless" >
-            <tbody>
-            <tr>
-              <td style="background-color: #fff"  >
-                <div class="categoria "><b>{{$examen->categoria}}</b>:</div>
-                <div style="background-color: #f9f9f9">
-                  <?php $examen->lista = str_replace("\\n",". ",$examen->lista); ?>
-                    <p>  {{$examen->lista}}<br>
-                </div>
-              </td>
+          </table-->
+
+      <table width="100%" border="1" class="table table-bordered table-striped  table-condensed ">
+          <tbody>  
+          <tr align="left">
+              <td colspan="20" class="active"><strong>MEDICAMENTOS E INDICACIONES:</strong></td>
             </tr>
-
-            @else
-          <table class="table table-borderless" >
-            <tbody>
-          <tr>
-            <td style="background-color: #fff"  >
-              <div class="categoria "><b>{{$examen->categoria}}</b>:</div>
-              <div style="background-color: #f9f9f9">
-                <?php $examen->lista = str_replace("\\n",". ",$examen->lista); ?>
-                  <p>  {{$examen->lista}}<br>
-              </div>
-            </td>
-          </tr>
-@endif
-              @endif
-
-              @endif
-
-              @endforeach
-            </tbody>
-          </table>
-          <?php $i = 1; ?>
-        @endforeach
+            <tr>
+              <?php //$receta->descripcion = str_replace("\\n","<br/>",$receta->descripcion);
+               //$receta->descripcion = nl2br( $receta->descripcion);
+                           // $examen->lista = str_replace(" "," ",$examen->lista);
+                      ?>
+             <div class="div_content">{!! $receta->descripcion !!}</div>
+             
+              
+            
+         </tbody>
+          </table>  
+          
+       
 
     </div>
 

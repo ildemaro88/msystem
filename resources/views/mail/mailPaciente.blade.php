@@ -247,7 +247,7 @@ Sizes: [
                                                                     <tbody>
                                                                         <tr>
                                                                             <td class="textContent" align="left">
-                                                                                <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">CL&Iacute;NICA EL BAT&Aacute;N</div>
+                                                                                <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">Centros Médicos Populares</div>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -360,7 +360,7 @@ Sizes: [
                                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Observaciones: </strong>{{$cita->detalle_cita}}</div>
                                                                                             <br><br><br>
                                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;">Atentamente,
-                                                                                                <br><br> Call Center <br> <strong>OPTAMED</strong></div>
+                                                                                                <br><br> Call Center <br> <strong>Centros Médicos Populares</strong></div>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
@@ -407,7 +407,7 @@ Sizes: [
                                                                         <tr>
                                                                             <td valign="top" bgcolor="#E1E1E1">
                                                                                 <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">
-                                                                                    <div>Copyright &copy;2017 <a style="text-decoration: none; color: #828282;" href="http://www.optamed.com/" target="_blank"><span style="color: #828282;">OPTAMED</span></a>. Todos los derechos reservados.</div>
+                                                                                    <div>Copyright &copy;2017 <a style="text-decoration: none; color: #828282;" href="http://www.oyzecuador.com/centrosmedicos/" target="_blank"><span style="color: #828282;">Centros Médicos Populares</span></a>. Todos los derechos reservados.</div>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>

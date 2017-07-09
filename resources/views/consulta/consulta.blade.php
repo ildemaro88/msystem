@@ -531,9 +531,9 @@
 					<tr align="center">
 					    <td colspan="12"><textarea id="txtPlanDiagnostico" class="typeahead form-control" style=" border-width:0px; height:100%; width:98%" ng-model="txtPlanDiagnostico" name="txtPlanDiagnostico"></textarea>
 					    </td>
-					    @if(Session::get('operation') == 'guardado')
+					    @if(Session::get('operation') == 'guardado' || !empty($recetas[0]))
 					    <td>
-					    	<a   onclick="printReceta()" id="d3" data-toggle="modal" class="btn btn-xs btn-info imprimir " role="button"><i class="fa fa-print "></i> Imprimir Receta</a>
+					    	<a   id="imprimir_r" target="_blank" data-toggle="modal" class="btn btn-xs btn-info imprimir " role="button"><i class="fa fa-print "></i> Imprimir Receta</a>
 					    	<input type="hidden" name="id" id="id">
 					    </td>
 					    @endif
@@ -641,16 +641,20 @@ $(document).ready(function(){
 function verReceta(id){
 	var path = URL_BASE+"receta/"+id;
     $.get(path, function (data) {
-    	textarea_line = data.descripcion;
-    	textarea_line =  (textarea_line.split('\\n')).join('\n');    	
+    	textarea_line1 = data.descripcion;
+    	textarea_line =  (textarea_line1.split('\\n')).join('\n');    	
     	$("#txtPlanDiagnostico").val(textarea_line);
+    	var descripcion =$("#txtPlanDiagnostico").val();
+    	descripcion = textarea_line1.replace('/','@');
+    	descripcion = descripcion.replace('\\n','<');
+    	$("#imprimir_r").attr("href",URL_BASE+"receta/print/{{$consulta->id}}/"+descripcion);
     });              
 
 }
 
 function printReceta(){
-	var path = URL_BASE+"receta/print/"+$("#txtPlanDiagnostico").val();
-    $.get(path,{ id_consulta: '{{$consulta->id}}' }, function (data) {
+	var path = URL_BASE+"receta/print/{{$consulta->id}}/"+$("#txtPlanDiagnostico").val();
+    $.get(path, function (data) {
     	
     });         
 }

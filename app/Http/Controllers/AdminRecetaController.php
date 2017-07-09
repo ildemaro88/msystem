@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ModReceta;
+use Illuminate\Support\Facades\DB;
 
 class AdminRecetaController extends Controller
 {
@@ -86,20 +87,39 @@ class AdminRecetaController extends Controller
     }
 
 
-    public function printPDF(request $request,$id){
-        $receta = self::show($id);
+    public function printPDF($id_consuta,$descripcion){
+        
+        $descripcion = str_replace("@","/",$descripcion);
+         $descripcion = str_replace("<","\\n",$descripcion);
+         //dd($descripcion);
+        $receta = self::buscar($id_consuta,$descripcion);
+
         if(empty($receta)){
             $receta = new ModReceta;
-            $receta->id_consulta = $request->id_consulta;
-            $receta->descripcion = $id;
+            $receta->id_consulta =$id_consuta;
+            $receta->descripcion = $descripcion;
             $receta->save();
           //Session::put('operation','guardado');
 
         }
-        dd($request->id_consulta);
+        $receta->descripcion = str_replace("\\n","\n",$receta->descripcion );
+        $receta->descripcion =nl2br($receta->descripcion, false );
+       // dd($receta->descripcion);
+       // dd(nl2br($receta->descripcion ));
+        //$receta->descripcion = nl2br($receta->descripcion,false);
+        //dd(nl2br( $descripcion),false);
         $pdf = \PDF::loadView('consulta.receta',['receta' => $receta]);
         $pdf->setPaper('A5');
 
         return $pdf->stream();
+    }
+
+    public function buscar($id_consuta,$descripcion){
+        $receta = DB::table('recetas')->select('*')->where('id_consulta',$id_consuta)->where('descripcion',$descripcion)->first();
+        //$receta = ModReceta::Where('id_consulta',$id_consuta)->where('descripcion',$descripcion)->first();
+       // dd($id_consuta);
+        //dd($receta);
+        return $receta;
+
     }
 }

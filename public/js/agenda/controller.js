@@ -216,11 +216,11 @@
 
                 if ((val1 == false && val2 == false && val3 == true && val4 == true) || (val1 == true && val2 == true && val3 == false && val4 == false) || (val1 == false && val2 == true && val3 == true && val4 == false)) {
                     verified = true;
-                    console.log(true)
+                    console.log('s')
                     return
                 } else {//if ((val1 == false && val2 == false && val3 == false && val4 == true) || (val1 == false && val2 == false && val3 == true && val4 == false)) {
-                    verified = false;
-                    console.log(false)
+                    verified = true;
+                    console.log('a')
                     return
                 }
             }
@@ -239,7 +239,7 @@
                 result = true;
             }
             else {
-                result = false;
+                result = true;
             }
         }
          console.log(result)

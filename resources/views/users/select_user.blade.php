@@ -73,6 +73,7 @@
                 $scope.select = true; // muestra u oculta el select2
                 
                 $("#id_cms_privileges").append('<option value="4">Medico</option>');
+				 $("#id_cms_privileges").append('<option value="7">a</option>');
 
                 $("#id_cms_privileges").val(4);
                 $("#form-group-id_cms_privileges").attr("style","display : none;");
@@ -81,6 +82,7 @@
                 $scope.select = false; // muestra u oculta el select2
                 $("#form-group-id_cms_privileges").removeAttr("style");
                 $("#id_cms_privileges option[value='4']").remove();
+				$("#id_cms_privileges option[value='7']").remove();
                 $("#id_cms_privileges").val("");
                 console.log( $("#id_cms_privileges").val());
             }

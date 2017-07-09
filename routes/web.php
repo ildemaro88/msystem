@@ -38,7 +38,7 @@ Route::post('admin/consulta', 'AdminConsultasController@store');
 Route::get('admin/consulta/ingresar/{id}', 'AdminConsultasController@ingresar');
 
 Route::put('admin/consulta/{id}', 'AdminConsultasController@update');
-Route::get('admin/receta/print/{id}', 'AdminRecetaController@printPDF');
+Route::get('admin/receta/print/{id_consulta}/{descripcion}', 'AdminRecetaController@printPDF');
 // ------  End Route consulta ----/////
 
 

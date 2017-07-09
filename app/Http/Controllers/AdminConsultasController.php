@@ -6,6 +6,7 @@
   use App\ModMedico;
   use Illuminate\Support\Facades\DB;
   use App\Http\Controllers\AdminCieController as Cie;
+  use App\Http\Controllers\AdminRecetaController as Receta;
   use App\Http\Controllers\AdminVademecumController as vademecum;
   use App\ModPaciente;
   use App\ModConsulta;
@@ -1378,7 +1379,8 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        //Your code here
+	        $medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+          $query->where('id_medico',$medico_id->id);
 	            
 	    }
 
@@ -1889,11 +1891,14 @@
         $response = $consulta->save();
 
        if(!empty($request->get('txtPlanDiagnostico'))){
-          
+          $receta = new Receta();
+          $receta = $receta->buscar($consulta->id,$request->get('txtPlanDiagnostico'));
+          if(!$receta){
           $receta = new ModReceta;
           $receta->id_consulta = $consulta->id;
           $receta->descripcion = $request->get('txtPlanDiagnostico');
           $receta->save();
+          }
           Session::put('operation','guardado');
         }
 
