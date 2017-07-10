@@ -351,7 +351,13 @@ Sizes: [
                                                                                             <h3 style="color: #5f5f5f; line-height: 125%; font-family: 'Roboto',sans-serif; font-size: 20px; font-weight: normal; margin-top: 0; margin-bottom: 3px; text-align: left;">Detalle de la Cita:</h3>
                                                                                             <br>
                                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>M&eacute;dico:</strong> {{ $medico->titulo." ".$medico->nombre." ".$medico->apellido}}</div>
-                                                                                            <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Especialidad: </strong>{{ $medico->especialidad }}</div>
+                                                                                            <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Especialidad: </strong>
+                                                                                            @foreach($especialidades as $especialidad)
+                                                                                                @if($especialidad->id == $medico->especialidad )
+                                                                                                    {{ $especialidad->descripcion }}
+                                                                                                @endif
+                                                                                            @endforeach
+                                                                                            </div>
                                                                                             <br>
                                                                                             <h3 style="color: #5f5f5f; line-height: 125%; font-family: Helvetica,Arial,sans-serif; font-size: 20px; font-weight: normal; margin-top: 0; margin-bottom: 3px; text-align: left;"></h3>
                                                                                             <?php setlocale(LC_TIME, 'es_ES'); ?>

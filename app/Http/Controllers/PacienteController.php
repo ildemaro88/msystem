@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\ModMedico;
 use App\ModAgenda;
 use App\ModPaciente;
+use App\ModEspecialidad;
+use Illuminate\Support\Collection as Collection;
 use Carbon\Carbon;
 use App\HorarioMedico;
 use Session;
@@ -23,7 +25,8 @@ class PacienteController extends Controller
     {
         $paciente = $this->getPaciente(\CRUDBooster::myId());
         $sucursales =  DB::table('institucion')->select('nombre','id')->get();
-        return view('paciente.index',["paciente"=>$paciente,"sucursales"=>$sucursales]);
+        $especialidades = ModEspecialidad::all();
+        return view('paciente.index',["paciente"=>$paciente,"sucursales"=>$sucursales,"especialidades"=>$especialidades]);
     }
 
     /**
@@ -111,9 +114,17 @@ class PacienteController extends Controller
         Session::put('sucursal_m',$sucursal);
         //dd(Session::get('sucursal_m'));
        // return Session::get('sucursal_m');
-                $medico = ModMedico::where("id_institucion",$sucursal)->get();;
+               // $medico = ModMedico::join('especialidad','especialidad.id','medico.especialidad')->where("id_institucion",$sucursal)->get();
+                 $medico =  DB::table('medico')->join('especialidad','especialidad.id','=','medico.especialidad')->select('medico.*','especialidad.descripcion')->get();
+//$medicos =  array( );
+                foreach ($medico as $m) {
+                    $m->especialidad = $m->descripcion;
+                    $medicos[] = $m;
+                }
+                $medicos = Collection::make($medicos);
+               // dd($collection);
         return response()->json([
-            "medico"=>$medico
+            "medico"=>$medicos
         ]);
     }
      public function allMedicU(){
@@ -137,6 +148,7 @@ class PacienteController extends Controller
                                                 ->where("trash","=",null)
                                                 ->orderBy("start","asc");
                                     }])->get();
+                                    //dd($resultado);
         return response()->json([
             "agenda"=>$resultado
         ]);

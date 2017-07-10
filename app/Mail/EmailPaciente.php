@@ -3,6 +3,7 @@
 namespace App\Mail;
 use App\ModCita;
 use App\ModMedico;
+use App\ModEspecialidad;
 use App\ModPaciente;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -35,10 +36,12 @@ class EmailPaciente extends Mailable
      */
     public function build()
     {
+        $especialidades = ModEspecialidad::all();
         return $this->view('mail.mailPaciente')->with([
             'paciente' => $this->paciente,
             'medico' => $this->medico,
-            'cita' => $this->cita
+            'cita' => $this->cita,
+            'especialidades' =>$especialidades
         ]);
     }
 }

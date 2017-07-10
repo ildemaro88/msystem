@@ -129,11 +129,10 @@ class="portlet light portlet-fit bordered">
             <select ng-model="especialidad" ng-change="buscar()" name="especialidad"
             class="selectpicker show-menu-arrow" title="Especialidad">
             <option value=""></option>
-            <option value="Traumatología">Traumatología</option>
-            <option value="Odontolo">Odontología</option>
-            <option value="Urolog">Urología</option>
-            <option value="Cirug">Cirugía</option>
-            <option value="Laboratorio">Laboratorio</option>
+            @foreach($especialidades as $especialidad)
+              <option value="{{$especialidad->descripcion}}">{{$especialidad->descripcion}}</option>
+            @endforeach
+            
           </select>
           <input type="hidden" name="id_sucursal" id="id_sucursal">
         </div>
