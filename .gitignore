@@ -1,1 +1,3 @@
-
+#Ignorar los archivos de configuración
+.env
+configServer.js
