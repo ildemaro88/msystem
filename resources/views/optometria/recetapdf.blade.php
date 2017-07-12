@@ -41,7 +41,7 @@
   <div id="header ">
     <div id="pr">
       <div id="izq" >
-        <img  height="80px" width="250px" src="img/optamed.png" alt="">
+        <img  height="80px" width="250px" src="img/cmp.jpg" alt="">
 
       </div>
 

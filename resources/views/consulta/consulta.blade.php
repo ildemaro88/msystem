@@ -635,6 +635,17 @@ $(document).ready(function(){
 	    	$('#d'+id).attr('style','visibility:visible');
 	    });              
 	});
+		
+
+	// se carga la última receta que se creo en la consulta
+	var descripcion =$("#txtPlanDiagnostico").val();
+	descripcion=JSON.stringify(descripcion);
+	descripcion= descripcion.replace(/"/g, "");
+    descripcion= descripcion.replace(/\r\n|\r|\n|\n/g, "\n");
+	descripcion = descripcion.replace('/','@');
+	descripcion = descripcion.replace('\\n','<');
+	console.log(descripcion);
+	$("#imprimir_r").attr("href",URL_BASE+"receta/print/{{$consulta->id}}/"+descripcion);
 
 });
 
@@ -645,8 +656,10 @@ function verReceta(id){
     	textarea_line =  (textarea_line1.split('\\n')).join('\n');    	
     	$("#txtPlanDiagnostico").val(textarea_line);
     	var descripcion =$("#txtPlanDiagnostico").val();
+    	console.log(textarea_line1);
     	descripcion = textarea_line1.replace('/','@');
     	descripcion = descripcion.replace('\\n','<');
+    	console.log(descripcion);
     	$("#imprimir_r").attr("href",URL_BASE+"receta/print/{{$consulta->id}}/"+descripcion);
     });              
 
