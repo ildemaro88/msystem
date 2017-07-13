@@ -30,12 +30,15 @@ Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');
 Route::post('admin/optometria', 'AdminOptometriaController@store');
 Route::get('admin/optometria/ingresar/{id}', 'AdminOptometriaController@ingresar');
+Route::get('admin/optometria/finalizar/{id}', 'AdminOptometriaController@finalizar');
 Route::put('admin/optometria/{id}', 'AdminOptometriaController@update');
 // ------  End Route Optometria ----/////
 
 //----- Start Route consulta -----//
 Route::post('admin/consulta', 'AdminConsultasController@store');
 Route::get('admin/consulta/ingresar/{id}', 'AdminConsultasController@ingresar');
+Route::get('admin/consulta/finalizar/{id}', 'AdminConsultasController@finalizar');
+Route::get('admin/consultas/print_r/{id}', 'AdminConsultasController@print_rPDF');
 
 Route::put('admin/consulta/{id}', 'AdminConsultasController@update');
 Route::get('admin/receta/print/{id_consulta}/{descripcion}', 'AdminRecetaController@printPDF');

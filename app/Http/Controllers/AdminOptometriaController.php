@@ -1417,7 +1417,8 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        //Your code here
+	        $medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+          $query->where('id_medico',$medico_id->id);
 	            
 	    }
 
@@ -1542,6 +1543,23 @@
       }
 
 
+      public function finalizar($id){
+        $optometria = ModOptometria::where('id',$id)->firstOrFail();
+        $optometria->id_estado = "2";
+        try {
+          $response = $optometria->save();
+          return response()->json([
+          "response" => $response,          
+          "consulta" =>$optometria]);
+          
+        } catch (Exception $e) {
+          return $e;
+          
+        }
+        
+      }
+
+
       public function getAdd(){
 
         //Título y tipo de operación a realizar.
@@ -1555,17 +1573,20 @@
           
         }else{
           $paciente_ingresado = 0;
+          return redirect('admin/medico/dashboard');
         }
 
-        //Buscamos si el el paciente tiene alguna consulta sin finalizar
-        $optometria = ModOptometria::where('id_paciente',$paciente_ingresado)->where('id_estado',1)->first();
-        if($optometria){
-           $operation = 'update';
-        }
+       
 
 
         //Buscamos los datos del médico
         $medico = DB::table('medico')->select('*')->where('cms_user_id',CRUDBooster::myId())->first();
+
+         //Buscamos si el el paciente tiene alguna consulta sin finalizar
+        $optometria = ModOptometria::where('id_paciente',$paciente_ingresado)->where('id_estado',"1")->where('id_medico',$medico->id)->first();
+        if($optometria){
+           $operation = 'update';
+        }
 
         //Todos los vademecums activos
         $vademecum = new vademecum();

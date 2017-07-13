@@ -40,7 +40,7 @@ class AdminMedico1Controller extends \crocodicstudio\crudbooster\controllers\CBC
 			$this->col[] = ["label"=>"Titulo","name"=>"titulo"];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
 			$this->col[] = ["label"=>"Apellido","name"=>"apellido"];
-			$this->col[] = ["label"=>"Especialidad","name"=>"especialidad"];
+			$this->col[] = ["label"=>"Especialidad","name"=>"especialidad","join"=>"especialidad,descripcion"];
 			$this->col[] = ["label"=>"Telefono","name"=>"telefono"];
 			$this->col[] = ["label"=>"Email","name"=>"email"];
 			$this->col[] = ["label"=>"Institucion","name"=>"id_institucion","join"=>"institucion,nombre"];
@@ -339,20 +339,24 @@ class AdminMedico1Controller extends \crocodicstudio\crudbooster\controllers\CBC
         $medico = ModMedico::findOrFail($id);
         $medico->titulo= Input::get("titulo");
         $medico->especialidad= Input::get("especialidad");
-        $user = CmsUser::findOrFail($medico->cms_user_id);
-        if($medico->especialidad == 1){
-          
-          $user->id_cms_privileges = 7;
-        }else{
-          $user->id_cms_privileges = 4;
+        $user = CmsUser::find($medico->cms_user_id);
+        if($user){
+          if($medico->especialidad == 1){
+            
+            $user->id_cms_privileges = 7;
+          }else{
+            $user->id_cms_privileges = 4;
+          }
+          $user->save();
         }
 
-        $user->save();
+        
         
         $medico->nombre= Input::get("nombre");
         $medico->apellido= Input::get("apellido");
         $medico->telefono= Input::get("telefono");
         $medico->email= Input::get("email");
+        $medico->id_institucion = Input::get("id_institucion");
         $medico->save();
         
         if(Input::get("lunes") == "on"){

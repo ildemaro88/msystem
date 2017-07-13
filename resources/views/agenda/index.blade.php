@@ -99,7 +99,13 @@
     </div>
     {{--fin modal edicion de evento--}}
     <div class="box-header">
-        <a href="{{CRUDBooster::adminPath($slug='medico')}}">
+        @if(Session::get('is_medico') )
+            <a href="{{CRUDBooster::adminPath($slug='')}}/medico/agenda">
+        @else
+            <a href="{{CRUDBooster::adminPath($slug='medico')}}">
+
+        @endif
+        
             <button id="btn-agregar-cita" class="btn btn-info btn-sm">
                 <i class="fa fa-calendar-check-o"></i> Agendar
             </button>

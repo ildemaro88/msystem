@@ -42,7 +42,7 @@
     </style>
     {{--modal edicion de evento--}}
     <div ng-app="AppAgenda"
-         ng-init="cita.fecha=('{{Carbon\Carbon::now()->format('d/m/Y')}}');descripcion=('');agendar=(true);cita.hoy=('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
+         ng-init="cita.fecha=('{{Carbon\Carbon::now()->format('d/m/Y')}}');descripcion=('');agendar=(true);fecha_autorizacion=('{{Carbon\Carbon::now()->format('d/m/Y')}}');fecha_vence=('{{Carbon\Carbon::now()->format('d/m/Y')}}');cita.hoy=('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
          ng-controller="CtrlApp" ng-cloack>
         @include("agenda.modals")
         <div class="box">
@@ -84,6 +84,9 @@
         OPTIONS_PACIENTE = '@foreach($paciente as $p)' +
             '<option value="{{$p->id}}">{{$p->nombre." ".$p->apellido}}</option>' +
             '@endforeach';
+        OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
+            '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
+            '@endforeach';
         /*
         * Si viene por historial rellenar la variable cita
         * */
@@ -121,6 +124,11 @@
             ];
         HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
         HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
+
+        $(document).ready(function(){
+            $('#fecha').val(HOY);   
+        });
+
         /*
          * -->
          */

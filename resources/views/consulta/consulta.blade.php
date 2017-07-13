@@ -49,7 +49,7 @@
 <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Consultas</a><div id="message">
 </div></p>
 
-<div class = "box" ng-app="MyApp" ng-controller="controllerConsulta">
+<div class = "box" ng-app="MyApp" ng-controller="controllerConsulta" ng-init="cita.fecha=('{{Carbon\Carbon::now()->format('d/m/Y')}}');">
 	<div class = "box-body">
 		<form id="form_consulta" method="POST" action="" name="form_consulta" >
 			{{ csrf_field() }}
@@ -580,7 +580,7 @@
 	    <div >
           <input class = "btn btn-success imprimir" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
           @if($operation == 'update')
-          <input class = "btn btn-danger" id="btnSave" type = "button" style = "margin-left: 10px" value = "Finalizar"ng-click = "toggle('finalizar')">
+          <input class = "btn btn-danger" id="btnFinalizr" type = "button" style = "margin-left: 10px" value = "Finalizar" ng-click = "toggle('finalizar')">
           @endif
 	    </div>
 	</div>
@@ -750,6 +750,13 @@ $(document).on('ajaxComplete ajaxReady ready', function () {
        autoclose: true,
        language: "es",
     }).trigger('blur');
+    if("{{$consulta->txtFechaAgendDoct}}"){
+
+    }else{
+    	$('#txtFechaAgendDoct').datepicker("setDate", "0");
+    }
+    
+
 
 });
   //Declaracion de la aplicacion
@@ -943,7 +950,12 @@ $(document).on('ajaxComplete ajaxReady ready', function () {
     $scope.txtic3 = "{{($operation == 'update')?$consulta->txtic3 :''}}";
     $scope.cb_6PRE = "{{($operation == 'update')?$consulta->cb_6PRE :''}}";
     $scope.cb_6DEF = "{{($operation == 'update')?$consulta->cb_6DEF :''}}";
-    $scope.txtFechaAgendDoct = "{{($operation == 'update')?$consulta->txtFechaAgendDoct :''}}";
+    if("{{$operation == 'update' }}"){
+    	$scope.txtFechaAgendDoct ="{{$consulta->txtFechaAgendDoct}}";
+    }else{
+    	$('#txtFechaAgendDoct').datepicker("setDate", "0");
+    
+    }
     $scope.nombremedico = "{{$medico->nombre." ".$medico->apellido}}";
     $scope.firmaDoc = "{{($operation == 'update')?$consulta->firmaDoc :''}}";
     $scope.txtAntePer = "{{($operation == 'update')?$consulta->txtAntePer :''}}";
@@ -1067,6 +1079,41 @@ $(document).on('ajaxComplete ajaxReady ready', function () {
             }
           });
           break;
+
+      case 'finalizar':
+      $(".modal").modal('show');
+         console.log($scope.serializeObject($("#form_consulta")));
+        $http({
+          url    : API_URL + 'consulta/finalizar/{{$consulta->id}}',
+          method : 'GET',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).then(function (response)
+        {
+          $(".modal").modal('hide');
+          if (response.data.response) {
+            swal({
+              title: "Buen trabajo!",
+              text: "Consulta finalizada!",
+              type: "success",
+              showCancelButton: false,
+              confirmButtonClass: "btn-succes",
+              confirmButtonText: "OK",
+              closeOnConfirm: true,
+              showLoaderOnConfirm: true
+            },
+            function(){
+              $(".modal").modal('show');
+            //	document.location.reload();
+              window.location = "{{ url('/admin/consultas?m=38') }}";
+            });
+            } else {
+              swal("Error", "No se actualizó", "error");
+            }
+          });
+        break;
+
     }
   }
   });

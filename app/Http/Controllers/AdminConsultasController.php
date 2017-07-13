@@ -1270,7 +1270,8 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction = array();
+	       $this->addaction = array(['label'=>'','icon'=>'fa fa-file-text','target'=>'_blank','color'=>'primary print_r','url'=>CRUDBooster::mainpath($slug='').'/print_r/[id]']);
+
 
 
 	        /* 
@@ -1341,7 +1342,44 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js = '$(function() {
+      // corregir error de doble calendario
+      //alert("hola");
+      $(".print").attr("title","Imprimir Optometría");
+      $(".print_r").attr("title","Imprimir última receta");
+      $(".print").attr("target","_blank");
+      $(".print_r").attr("target","_blank");
+      $(".btn-xs.btn-warning").click(function(e){
+        e.preventDefault();
+        var $this = $(this);
+        var id = $this.attr("href");
+        swal({
+          title: "Estás seguro ?",
+          text: "No podrá recuperar estos datos de registro!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#dd6b55",
+          confirmButtonText: "OK",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+        },
+        function(){
+          var url1 ="admin/orden_examenes/"+id;
+          $this.attr("href",url1);
+          $.ajax({
+            url: "orden_examenes/delete/"+id,
+            type: "GET",
+            success: function(){
+              document.location.reload();
+            },
+
+          });
+
+
+        });
+      });
+    });
+    ';
 
 
 
@@ -1486,15 +1524,17 @@
           return redirect('admin/medico/dashboard');
         }
 
-        //Buscamos si el el paciente tiene alguna consulta sin finalizar
-        $consulta = ModConsulta::where('id_paciente',$paciente_ingresado)->where('id_estado',1)->first();
-        if($consulta){
-           $operation = 'update';
-        }
 
         //Buscamos los datos del médico
         $medico = DB::table('medico')->select('*')->where('cms_user_id',CRUDBooster::myId())->first();
       
+
+        //Buscamos si el el paciente tiene alguna consulta sin finalizar
+        $consulta = ModConsulta::where('id_paciente',$paciente_ingresado)->where('id_estado',"1")->where('id_medico',$medico->id)->first();
+        if($consulta){
+           $operation = 'update';
+        }
+
         //Todos los vademecums activos
         $vademecum = new vademecum();
         $allVademecum = $vademecum->allVademecum();
@@ -1539,6 +1579,37 @@
         Session::put('paciente_ingresao',$id);
         return self::getAdd();
         //dd($id);
+      }
+
+      public function finalizar($id){
+        $consulta = ModConsulta::where('id',$id)->firstOrFail();
+        $consulta->id_estado = "2";
+        try {
+          $response = $consulta->save();
+          return response()->json([
+          "response" => $response,          
+          "consulta" =>$consulta]);
+          
+        } catch (Exception $e) {
+          return $e;
+          
+        }
+        
+      }
+
+      public function print_rPDF($id){
+        $receta =  $receta = DB::table('recetas')->select('*')->where('id_consulta',$id)->get();
+        $receta = $receta->last();
+        $receta->descripcion = str_replace("\\n","\n",$receta->descripcion );
+        $receta->descripcion =nl2br($receta->descripcion, false );
+       // dd($receta->descripcion);
+       // dd(nl2br($receta->descripcion ));
+        //$receta->descripcion = nl2br($receta->descripcion,false);
+        //dd(nl2br( $descripcion),false);
+        $pdf = \PDF::loadView('consulta.receta',['receta' => $receta]);
+        $pdf->setPaper('A5');
+
+        return $pdf->stream();
       }
 
       public function store(Request $request){
@@ -1702,7 +1773,7 @@
         $consulta->txtExaFisico = $request->get('txtExaFisico');
         $consulta->txtPlanTrat = $request->get('txtPlanTrat');
         $consulta->txtPlanDiagnostico = $request->get('txtPlanDiagnostico');
-        
+        $consulta->id_estado = 1;
         $response = $consulta->save();
         try {
          // dd($request->get('txtPlanDiagnostico'));

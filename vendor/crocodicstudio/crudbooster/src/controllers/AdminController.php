@@ -74,6 +74,7 @@ class AdminController extends CBController {
 
 		if(\Hash::check($password,$users->password)) {
 			$priv = DB::table("cms_privileges")->where("id",$users->id_cms_privileges)->first();
+			$medico = DB::table("medico")->where("cms_user_id",$users->id)->first();
 
 			$roles = DB::table('cms_privileges_roles')
 			->where('id_cms_privileges',$users->id_cms_privileges)
@@ -82,7 +83,11 @@ class AdminController extends CBController {
 			->get();
 			
 			$photo = ($users->photo)?asset($users->photo):'https://www.gravatar.com/avatar/'.md5($users->email).'?s=100';
-			Session::put('admin_id',$users->id);			
+			
+			if($medico){
+				Session::put('is_medico',true);	
+			}	
+			Session::put('admin_id',$users->id);	
 			Session::put('admin_is_superadmin',$priv->is_superadmin);
 			Session::put('admin_name',$users->name);			
 			Session::put('admin_photo',$photo);

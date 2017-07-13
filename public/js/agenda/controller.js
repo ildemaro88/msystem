@@ -1,4 +1,5 @@
-﻿agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
+﻿
+agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*variables de inicializacion*/
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
@@ -30,9 +31,13 @@
     };
     // Borra los campos del ingreso de datos de actualizacion
     $scope.resetAutorizacion = function () {
+
+
         $scope.autorizacion = "";
-        $scope.fecha_autorizacion = "";
-        $scope.fecha_vence = "";
+        $scope.fecha_autorizacion = HOY;
+        $scope.fecha_vence = HOY;
+     
+       
     };
     /*
      * Panel de modificacion de la cita
@@ -105,8 +110,13 @@
         $('#fecha, .datepicker').datepicker({
             language: 'es',
             autoclose: true,
-            format: 'dd/mm/yyyy'
-        });
+            "setDate": new Date(),
+            format: 'dd/mm/yyyy',
+            defaultDate: new Date()
+        }).datepicker('setStartDate', new Date());
+        $('#fecha, .datepicker').datepicker("setDate", "0");
+        $('#fecha, .datepicker').trigger('chosen:updated');
+
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next, today',
@@ -280,7 +290,7 @@
      * */
     $scope.eval_convenio = function () {
         console.log($scope.sel_convenio)
-        if ($scope.sel_convenio == 'I.E.S.S.') {
+        if ($scope.sel_convenio != 'PARTICULAR') {
             $scope.tipo_convenio = true;
         } else {
             $scope.tipo_convenio = false;
@@ -318,6 +328,7 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
                 } else {
                     swal("Error!", "No se pudo borrar la cita!", "error");
@@ -392,6 +403,7 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
                 } else {
                     swal("Error!", "Error en la transacción!", "error");
@@ -463,6 +475,7 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
                 } else if (data.status == 500){
                     swal("Error!", "Contacte al administrador!", "error");

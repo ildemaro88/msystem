@@ -10,6 +10,7 @@ use App\ModPaciente;
 use App\ModMedico;
 use App\ModAgenda;
 use App\ModCita;
+use App\ModConvenios;
 use App\Mail\EmailPaciente;
 use App\Mail\EmailMedico;
 use App\HorarioMedico;
@@ -28,11 +29,12 @@ class AdminAgendaController extends Controller
         $medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
         $paciente = ModPaciente::all();
         $medico = ModMedico::find($medico_id->id);
+        $convenios = ModConvenios::all();
         $page_title = "Agendar Cita";
         $horario_medico = HorarioMedico::where("medico_id",$medico->id)->get();
         $agenda = ModAgenda::where("medico_id",$medico->id)->first();
 
-        return view('agenda.create',compact('page_title'),["paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
+        return view('agenda.create',compact('page_title'),["convenios"=>$convenios,"paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
     }
 
     /**
@@ -67,8 +69,8 @@ class AdminAgendaController extends Controller
             $cita->start = $request->get("start");
             $cita->end = $request->get("end");
             $cita->constraint = $request->get("constraint");
-            $sel_convenio = explode(":",$request->get("sel_convenio"));
-            $sel_convenio = $sel_convenio[1];
+            $sel_convenio = $request->get("sel_convenio");
+           // $sel_convenio = $sel_convenio[1];
             $cita->sel_convenio = $sel_convenio;
             if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
                 $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
@@ -84,7 +86,7 @@ class AdminAgendaController extends Controller
             $response = $cita->save();
 
             if($response){// si se guarda la cita
-               if($sel_convenio == "I.E.S.S." && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))){ // si el convenio es I.E.S.S.
+               if($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))){ // si el convenio es I.E.S.S.
                    /*
                 * Insertar el convenio si se ingresa datos
                 * */
@@ -137,10 +139,11 @@ class AdminAgendaController extends Controller
     {
         $agenda = ModAgenda::where("medico_id",$id)->first();
         $paciente = ModPaciente::all();
+        $convenios = ModConvenios::all();
         $medico = ModMedico::find($id);
         $horario_medico = HorarioMedico::where("medico_id",$medico->id)->get();
         $page_title = "Agendar Cita";
-        return view('agenda.create',compact('page_title'),["paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
+        return view('agenda.create',compact('page_title'),["convenios"=>$convenios,"paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
     }
 
     /**

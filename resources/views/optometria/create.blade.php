@@ -537,7 +537,7 @@
 		<div>
 		<input class = "btn btn-success imprimir" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
           @if($operation == 'update')
-          <input class = "btn btn-danger" id="btnSave" type = "button" style = "margin-left: 10px" value = "Finalizar"ng-click = "toggle('finalizar')">
+          <input class = "btn btn-danger" id="btnFinalizar" type = "button" style = "margin-left: 10px" value = "Finalizar"ng-click = "toggle('finalizar')">
           @endif
 		</div>
 
@@ -856,6 +856,40 @@ $(document).ready(function(){
 						}
 					});
 					break;
+
+			case 'finalizar':
+		      $(".modal").modal('show');
+		         console.log($scope.serializeObject($("#form_consulta")));
+		        $http({
+		          url    : API_URL + 'optometria/finalizar/{{$optometria->id}}',
+		          method : 'GET',
+		          headers: {
+		            'Content-Type': 'application/x-www-form-urlencoded'
+		          }
+		        }).then(function (response)
+		        {
+		          $(".modal").modal('hide');
+		          if (response.data.response) {
+		            swal({
+		              title: "Buen trabajo!",
+		              text: "Consulta finalizada!",
+		              type: "success",
+		              showCancelButton: false,
+		              confirmButtonClass: "btn-succes",
+		              confirmButtonText: "OK",
+		              closeOnConfirm: true,
+		              showLoaderOnConfirm: true
+		            },
+		            function(){
+		              $(".modal").modal('show');
+		            //	document.location.reload();
+		              window.location = "{{ url('/admin/optometria?m=62') }}";
+		            });
+		            } else {
+		              swal("Error", "No se actualizó", "error");
+		            }
+		        });
+		    break;
 		}
 	}
 });

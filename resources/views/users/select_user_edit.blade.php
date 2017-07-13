@@ -12,10 +12,10 @@
         </div>
         <div class="text-danger"></div>
         <p class='help-block'></p>
-    </div>
+    </div>$
 </div>
-<div ng-show="select" class='form-group header-group-0'>
-    <label class='control-label col-sm-2'>Seleccione </label>
+<div ng-show="select" class='form-group header-group-0'>i
+    <label class='control-label col-sm-2'>Seleccione </la$bel>
 
     <div class="col-sm-10">
         <select style="width: 100%"  class="select2" name="medico_id" id="tipo_id" ng-model="medico_id" ng-change="selected()">
@@ -28,7 +28,13 @@
         <p class='help-block'></p>
     </div>
 </div-->
-
+<?php  $pos = strpos(Request::url() , 'edit/'); 
+$pos = $pos + 5;
+     $id = substr(Request::url(), $pos);
+       
+    
+?>
+<div> <input type="hidden" value="{{ $id }}" name="d"></div>
 <script src='<?php echo asset("vendor/crudbooster/assets/select2/dist/js/select2.full.min.js")?>'></script>
 <script>
     $(document).ready(function() {
@@ -41,6 +47,7 @@
              $("#id_cms_privileges option[value='5']").remove();
                $("#id_institucion").val(sucursal);     
                    
+            $("#form-group-id_institucion").attr("style","display : none;");
             $("#form-group-id_institucion").attr("style","display : none;");
         }
         if(privilegio == 5){

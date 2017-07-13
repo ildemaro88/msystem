@@ -20,7 +20,7 @@
     <div class="col-sm-10">
         <select style="width: 100%"  class="select2" name="medico_id" id="tipo_id" ng-model="medico_id" ng-change="selected()">
             <option value="">Seleccione...</option>
-            <option data-correo="[[i.email]]" value="[[i.id]]" data-especialidad="[[i.especialidad]]" ng-repeat="i in item">[[i.nombre+' '+i.apellido]] </option>
+            <option data-correo="[[i.email]]" data-sucursal="[[i.id_institucion]]" value="[[i.id]]" data-especialidad="[[i.especialidad]]" ng-repeat="i in item">[[i.nombre+' '+i.apellido]] </option>
         </select>
         <div class="text-danger"></div>
         <p class='help-block'></p>
@@ -42,7 +42,7 @@
                     $("#id_cms_privileges").val("");
                    
                      $("#id_institucion").val(sucursal);
-                      $("#form-group-id_institucion").attr("style","display : none;");
+                      //$("#form-group-id_institucion").attr("style","display : none;");
         }
         if(privilegio == 5){
             //alert(privilegio);
@@ -59,7 +59,10 @@
             if(especialidad == 1){
                 $("#id_cms_privileges").val(7);
             }
-            console.log($("#id_cms_privileges").val());
+        var sucursal = $("#tipo_id option:selected").attr("data-sucursal");
+
+            $("#id_institucion").val(sucursal);
+            console.log($("#id_institucion").val()+" ass");
     });
     $(".select2").select2();
     var app = angular.module('App',[],function($interpolateProvider){
@@ -77,10 +80,12 @@
 
                 $("#id_cms_privileges").val(4);
                 $("#form-group-id_cms_privileges").attr("style","display : none;");
+                $("#form-group-id_institucion").attr("style","display : none;");
                 console.log( $("#id_cms_privileges").val());
             }else {
                 $scope.select = false; // muestra u oculta el select2
                 $("#form-group-id_cms_privileges").removeAttr("style");
+                 $("#form-group-id_institucion").removeAttr("style");
                 $("#id_cms_privileges option[value='4']").remove();
 				$("#id_cms_privileges option[value='7']").remove();
                 $("#id_cms_privileges").val("");
@@ -95,10 +100,10 @@
                 params:{medico_id:$scope.medico_id},
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function(data){
-                console.log(data.data.medico);
+                //console.log(data.data.medico);
                 if(data.data.medico.length < 1){
                     //alert("hola");
-                    console.log(data.data.medico.length);
+                  //  console.log(data.data.medico.length);
                    $("#check_medico").attr("style","display : none;");
 
                 }else{

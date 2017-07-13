@@ -163,7 +163,8 @@ class ModConsulta extends Model
 		'txtRevisOrgs',
 		'txtExaFisico',
 		'txtPlanTrat',
-		'txtPlanDiagnostico'
+		'txtPlanDiagnostico',
+		'id_estado'
 
  	];
 	 protected $guarded=[];
