@@ -130,8 +130,8 @@ class AdminCitaController extends Controller
             $cita->estado_cita = 1;
             $cita->start = $request->get("start");
             $cita->end = $request->get("end");
-            $sel_convenio = explode(":",$request->get("sel_convenio"));
-            $sel_convenio = $sel_convenio[1];
+            $sel_convenio = $sel_convenio;
+           // $sel_convenio = $sel_convenio[1];
             $cita->sel_convenio = $sel_convenio;
             $agenda_id = $request->get("agenda_id");
             $medico = ModMedico::find($request->get("medico_id"));
@@ -140,7 +140,7 @@ class AdminCitaController extends Controller
 
             $response = $cita->save();
             if($response){// si se guarda la cita
-                if($sel_convenio == "I.E.S.S."){ // si el convenio es I.E.S.S.
+                if($sel_convenio != "PARTICULAR"){ // si el convenio es I.E.S.S.
                  /*
                  * Insertar el convenio si se ingresa datos
                  * */
