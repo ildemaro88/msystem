@@ -269,13 +269,37 @@
 				    	<td colspan="20" class="active"><strong>7. LENSOMETRÍA</strong></td>
 				  	</tr>
 			  		<tr align="center">
-					    <td class="active" colspan="2">OD</td>
-					    <td colspan="18" class="active"><textarea id="txt_lensometria_od" style=" border-width:0px; height:100%; width:98%" ng-model="txt_lensometria_od" name="txt_lensometria_od"></textarea></td>
+					    <td colspan="2" class="active">&nbsp;</td>
+					    <td colspan="4" class="active">ESFERA</td>
+					    <td colspan="3" class="active">CILINDRO</td>
+					    <td colspan="4" class="active">EJE</td>
+					    <td colspan="3" class="active">AVL</td>
+					    <td colspan="3" class="active">AVC</td>
+					    <td colspan="3" class="active">&nbsp;</td>
 					    
-					</tr>
-					<tr align="center">
-						<td class="active" colspan="2">OI</td>
-						<td colspan="18" class="active"><textarea id="txt_lensometria_oi" style=" border-width:0px; height:100%; width:98%" ng-model="txt_lensometria_oi" name="txt_lensometria_oi"></textarea></td>
+				  	</tr>
+				  	<tr style="font-size:10px; " align="center">
+					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
+					    <td colspan="4" class="active"><input id="txt_lensometria_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_esfera" name="txt_lensometria_od_esfera"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_cilindro" name="txt_lensometria_od_cilindro"></td>
+					    <td colspan="4" class="active"><input id="txt_lensometria_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_eje" name="txt_lensometria_od_eje"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_od_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_avl" name="txt_lensometria_od_avl"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_od_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_avc" name="txt_lensometria_od_avc"></td>					    
+					    <td colspan="3" class="active">&nbsp;</td>
+				  	</tr>
+				  	<tr style="font-size:10px; " class="active" align="center">
+					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
+					    <td colspan="4" class="active"><input id="txt_lensometria_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_esfera" name="txt_lensometria_oi_esfera"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_cilindro" name="txt_lensometria_oi_cilindro"></td>
+					    <td colspan="4" class="active"><input id="txt_lensometria_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_eje" name="txt_lensometria_oi_eje"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_oi_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_avl" name="txt_lensometria_oi_avl"></td>
+					    <td colspan="3" class="active"><input id="txt_lensometria_oi_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_avc" name="txt_lensometria_oi_avc"></td>
+					    <td colspan="3" class="active">&nbsp;</td>	    
+				  	</tr>
+				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
+				  	<tr height="10px">
+
+					    <td colspan="20" class="active"><textarea id="txt_lensometria" style=" border-width:0px; height:100%; width:98%" ng-model="txt_lensometria" name="txt_lensometria"></textarea></td>
 					</tr>
 					<tr>
 				    	<td colspan="20" class="active"><strong>8. RETINOSCOPIA</strong></td>
@@ -684,6 +708,17 @@ $(document).ready(function(){
 		$scope.txt_ao_vl_cc = "{{($operation == 'update')?$optometria->txt_ao_vl_cc :''}}";
 		$scope.txt_ao_vp_cc = "{{($operation == 'update')?$optometria->txt_ao_vp_cc :''}}";
 		$scope.txt_ao_vp_ph = "{{($operation == 'update')?$optometria->txt_ao_vp_ph :''}}";
+		$scope.txt_lensometria_od_esfera = "{{($operation == 'update')?$optometria->txt_lensometria_od_esfera :''}}";
+		$scope.txt_lensometria_od_cilindro = "{{($operation == 'update')?$optometria->txt_lensometria_od_cilindro :''}}";
+		$scope.txt_lensometria_od_eje = "{{($operation == 'update')?$optometria->txt_lensometria_od_eje :''}}";
+		$scope.txt_lensometria_od_avl = "{{($operation == 'update')?$optometria->txt_lensometria_od_avl :''}}";
+		$scope.txt_lensometria_od_avc = "{{($operation == 'update')?$optometria->txt_lensometria_od_avc :''}}";
+		$scope.txt_lensometria_oi_esfera = "{{($operation == 'update')?$optometria->txt_lensometria_oi_esfera :''}}";
+		$scope.txt_lensometria_oi_cilindro = "{{($operation == 'update')?$optometria->txt_lensometria_oi_cilindro :''}}";
+		$scope.txt_lensometria_oi_eje = "{{($operation == 'update')?$optometria->txt_lensometria_oi_eje :''}}";
+		$scope.txt_lensometria_oi_avl = "{{($operation == 'update')?$optometria->txt_lensometria_oi_avl :''}}";
+		$scope.txt_lensometria_oi_avc = "{{($operation == 'update')?$optometria->txt_lensometria_oi_avc :''}}";
+
 		$scope.txt_retinoscopia_od_esfera = "{{($operation == 'update')?$optometria->txt_retinoscopia_od_esfera :''}}";
 		$scope.txt_retinoscopia_od_cilindro = "{{($operation == 'update')?$optometria->txt_retinoscopia_od_cilindro :''}}";
 		$scope.txt_retinoscopia_od_eje = "{{($operation == 'update')?$optometria->txt_retinoscopia_od_eje :''}}";
@@ -741,8 +776,8 @@ $(document).ready(function(){
 		$scope.txt_ojo_derecho = "{{($operation == 'update')?$optometria->txt_ojo_derecho :''}}";
 		$scope.txt_ojo_izquierdo = "{{($operation == 'update')?$optometria->txt_ojo_izquierdo :''}}";
 		$scope.txt_agudeza_visual = "{{($operation == 'update')?$optometria->txt_agudeza_visual :''}}";
-		$scope.txt_lensometria_od = "{{($operation == 'update')?$optometria->txt_lensometria_od :''}}";
-		$scope.txt_lensometria_oi = "{{($operation == 'update')?$optometria->txt_lensometria_oi :''}}";
+		
+		$scope.txt_lensometria= "{{($operation == 'update')?$optometria->txt_lensometria :''}}";
 		$scope.txt_retinoscopia = "{{($operation == 'update')?$optometria->txt_retinoscopia :''}}";
 		$scope.txt_subjetivo = "{{($operation == 'update')?$optometria->txt_subjetivo :''}}";
 		$scope.txt_distancia = "{{($operation == 'update')?$optometria->txt_distancia :''}}";

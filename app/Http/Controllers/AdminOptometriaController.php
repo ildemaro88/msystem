@@ -1682,6 +1682,17 @@
         $optometria->txt_ao_vl_cc = $request->get('txt_ao_vl_cc');
         $optometria->txt_ao_vp_cc = $request->get('txt_ao_vp_cc');
         $optometria->txt_ao_vp_ph = $request->get('txt_ao_vp_ph');
+        $optometria->txt_lensometria_od_esfera = $request->get('txt_lensometria_od_esfera');
+        $optometria->txt_lensometria_od_cilindro = $request->get('txt_lensometria_od_cilindro');
+        $optometria->txt_lensometria_od_eje = $request->get('txt_lensometria_od_eje');
+        $optometria->txt_lensometria_od_avl = $request->get('txt_lensometria_od_avl');
+        $optometria->txt_lensometria_od_avc = $request->get('txt_lensometria_od_avc');
+        $optometria->txt_lensometria_oi_esfera = $request->get('txt_lensometria_oi_esfera');
+        $optometria->txt_lensometria_oi_cilindro = $request->get('txt_lensometria_oi_cilindro');
+        $optometria->txt_lensometria_oi_eje = $request->get('txt_lensometria_oi_eje');
+        $optometria->txt_lensometria_oi_avl = $request->get('txt_lensometria_oi_avl');
+        $optometria->txt_lensometria_oi_avc = $request->get('txt_lensometria_oi_avc');
+
         $optometria->txt_retinoscopia_od_esfera = $request->get('txt_retinoscopia_od_esfera');
         $optometria->txt_retinoscopia_od_cilindro = $request->get('txt_retinoscopia_od_cilindro');
         $optometria->txt_retinoscopia_od_eje = $request->get('txt_retinoscopia_od_eje');
@@ -1738,8 +1749,7 @@
         $optometria->txt_ojo_derecho = $request->get('txt_ojo_derecho');
         $optometria->txt_ojo_izquierdo = $request->get('txt_ojo_izquierdo');
         $optometria->txt_agudeza_visual = $request->get('txt_agudeza_visual');
-        $optometria->txt_lensometria_od = $request->get('txt_lensometria_od');
-        $optometria->txt_lensometria_oi = $request->get('txt_lensometria_oi');
+        $optometria->txt_lensometria = $request->get('txt_lensometria');
         $optometria->txt_retinoscopia = $request->get('txt_retinoscopia');
         $optometria->txt_subjetivo = $request->get('txt_subjetivo');
         $optometria->txt_distancia = $request->get('txt_distancia');
@@ -1807,6 +1817,16 @@
   $optometria->txt_ao_vl_cc = $request->get('txt_ao_vl_cc');
   $optometria->txt_ao_vp_cc = $request->get('txt_ao_vp_cc');
   $optometria->txt_ao_vp_ph = $request->get('txt_ao_vp_ph');
+  $optometria->txt_lensometria_od_esfera = $request->get('txt_lensometria_od_esfera');
+  $optometria->txt_lensometria_od_cilindro = $request->get('txt_lensometria_od_cilindro');
+  $optometria->txt_lensometria_od_eje = $request->get('txt_lensometria_od_eje');
+  $optometria->txt_lensometria_od_avl = $request->get('txt_lensometria_od_avl');
+  $optometria->txt_lensometria_od_avc = $request->get('txt_lensometria_od_avc');
+  $optometria->txt_lensometria_oi_esfera = $request->get('txt_lensometria_oi_esfera');
+  $optometria->txt_lensometria_oi_cilindro = $request->get('txt_lensometria_oi_cilindro');
+  $optometria->txt_lensometria_oi_eje = $request->get('txt_lensometria_oi_eje');
+  $optometria->txt_lensometria_oi_avl = $request->get('txt_lensometria_oi_avl');
+  $optometria->txt_lensometria_oi_avc = $request->get('txt_lensometria_oi_avc');
   $optometria->txt_retinoscopia_od_esfera = $request->get('txt_retinoscopia_od_esfera');
   $optometria->txt_retinoscopia_od_cilindro = $request->get('txt_retinoscopia_od_cilindro');
   $optometria->txt_retinoscopia_od_eje = $request->get('txt_retinoscopia_od_eje');
