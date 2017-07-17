@@ -1883,8 +1883,6 @@
   $optometria->txt_ojo_derecho = $request->get('txt_ojo_derecho');
   $optometria->txt_ojo_izquierdo = $request->get('txt_ojo_izquierdo');
   $optometria->txt_agudeza_visual = $request->get('txt_agudeza_visual');
-  $optometria->txt_lensometria_od = $request->get('txt_lensometria_od');
-  $optometria->txt_lensometria_oi = $request->get('txt_lensometria_oi');
   $optometria->txt_retinoscopia = $request->get('txt_retinoscopia');
   $optometria->txt_subjetivo = $request->get('txt_subjetivo');
   $optometria->txt_distancia = $request->get('txt_distancia');

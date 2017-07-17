@@ -45,6 +45,8 @@
       margin-top: 33px;
   }
 
+
+
 </style>
 <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Optometrías</a><div id="message">
 </div></p>
@@ -235,29 +237,392 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="4" class="active"><input id="txt_od_vl_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_od_vl_sc" name="txt_od_vl_sc"></td>
-					    <td colspan="3" class="active"><input id="txt_od_vp_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_od_vp_sc" name="txt_od_vp_sc"></td>
-					    <td colspan="4" class="active"><input id="txt_od_vl_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_od_vl_cc" name="txt_od_vl_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_od_vp_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_od_vp_cc" name="txt_od_vp_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_od_vp_ph" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_od_vp_ph" name="txt_od_vp_ph"></td>					    
+					    <td colspan="4" class="active">
+					    	<div class="col-md-12">
+						    		
+							    <select id="txt_od_vl_sc"  style="width: 100px;" ng-model="txt_od_vl_sc"  name="txt_od_vl_sc">
+							    	<option value="">...</option>
+							    	<option value="20/200">20/200</option>
+							    	<option value="20/190">20/190</option>
+							    	<option value="20/180">20/180</option>
+							    	<option value="20/170">20/170</option>
+							    	<option value="20/160">20/160</option>
+							    	<option value="20/150">20/150</option>
+							    	<option value="20/140">20/140</option>
+							    	<option value="20/130">20/130</option>
+							    	<option value="20/120">20/120</option>
+							    	<option value="20/110">20/110</option>
+							    	<option value="20/100">20/100</option>
+							    	<option value="20/90">20/90</option>
+							    	<option value="20/80">20/80</option>
+							    	<option value="20/70">20/70</option>
+							    	<option value="20/60">20/60</option>
+							    	<option value="20/50">20/50</option>
+							    	<option value="20/40">20/40</option>
+							    	<option value="20/30">20/30</option>
+							    	<option value="20/20">20/20</option>
+							    	<option value="20/10">20/10</option>
+							    </select>
+					    	</div>
+					    </td>
+					    <td colspan="3" class="active">
+					     	<select id="txt_od_vp_sc" style="width: 100px;" ng-model="txt_od_vp_sc" name="txt_od_vp_sc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_od_vl_cc" style="width: 100px;" ng-model="txt_od_vl_cc" name="txt_od_vl_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_od_vp_cc" style="width: 100px;" ng-model="txt_od_vp_cc" name="txt_od_vp_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_od_vp_ph" style="width: 100px;" ng-model="txt_od_vp_ph" name="txt_od_vp_ph">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>					    
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="4" class="active"><input id="txt_oi_vl_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_oi_vl_sc" name="txt_oi_vl_sc"></td>
-					    <td colspan="3" class="active"><input id="txt_oi_vp_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_oi_vp_sc" name="txt_oi_vp_sc"></td>
-					    <td colspan="4" class="active"><input id="txt_oi_vl_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_oi_vl_cc" name="txt_oi_vl_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_oi_vp_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_oi_vp_cc" name="txt_oi_vp_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_oi_vp_ph" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_oi_vp_ph" name="txt_oi_vp_ph"></td>	
+					    <td colspan="4" class="active">
+							<select id="txt_oi_vl_sc" style="width: 100px;" ng-model="txt_oi_vl_sc" name="txt_oi_vl_sc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_oi_vp_sc" style="width: 100px;" ng-model="txt_oi_vp_sc" name="txt_oi_vp_sc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_oi_vl_cc" style="width: 100px;" ng-model="txt_oi_vl_cc" name="txt_oi_vl_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_oi_vp_cc" style="width: 100px;" ng-model="txt_oi_vp_cc" name="txt_oi_vp_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_oi_vp_ph" style="width: 100px;" ng-model="txt_oi_vp_ph" name="txt_oi_vp_ph">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>	
 					    <td colspan="3" class="active">&nbsp;</td>				    
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">AO</td>
-					    <td colspan="4" class="active"><input id="txt_ao_vl_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_ao_vl_sc" name="txt_ao_vl_sc"></td>
-					    <td colspan="3" class="active"><input id="txt_ao_vp_sc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_ao_vp_sc" name="txt_ao_vp_sc"></td>
-					    <td colspan="4" class="active"><input id="txt_ao_vl_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_ao_vl_cc" name="txt_ao_vl_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_ao_vp_cc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_ao_vp_cc" name="txt_ao_vp_cc"></td>
-					    <td colspan="3" class="active"><input id="txt_ao_vp_ph" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_ao_vp_ph" name="txt_ao_vp_ph"></td>		
+					    <td colspan="4" class="active">
+							<select id="txt_ao_vl_sc" style="width: 100px;" ng-model="txt_ao_vl_sc" name="txt_ao_vl_sc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_ao_vp_sc" style="width: 100px;" ng-model="txt_ao_vp_sc" name="txt_ao_vp_sc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_ao_vl_cc" style="width: 100px;" ng-model="txt_ao_vl_cc" name="txt_ao_vl_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_ao_vp_cc" style="width: 100px;" ng-model="txt_ao_vp_cc" name="txt_ao_vp_cc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_ao_vp_ph" style="width: 100px;" ng-model="txt_ao_vp_ph" name="txt_ao_vp_ph">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+						    </select>
+					    </td>		
 					    <td colspan="3" class="active">&nbsp;</td>			    
 				  	</tr>
 				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
@@ -280,20 +645,663 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="4" class="active"><input id="txt_lensometria_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_esfera" name="txt_lensometria_od_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_cilindro" name="txt_lensometria_od_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_lensometria_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_eje" name="txt_lensometria_od_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_od_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_avl" name="txt_lensometria_od_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_od_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_od_avc" name="txt_lensometria_od_avc"></td>					    
+					    <td colspan="4" class="active">
+							<select id="txt_lensometria_od_esfera" style="width: 100px;" ng-model="txt_lensometria_od_esfera" name="txt_lensometria_od_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_od_cilindro" style="width: 100px;" ng-model="txt_lensometria_od_cilindro" name="txt_lensometria_od_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_lensometria_od_eje" style="width: 100px;" ng-model="txt_lensometria_od_eje" name="txt_lensometria_od_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>
+										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_od_avl"  style="width: 100px;" ng-model="txt_lensometria_od_avl"  name="txt_lensometria_od_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_od_avc"  style="width: 100px;" ng-model="txt_lensometria_od_avc"  name="txt_lensometria_od_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>					    
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="4" class="active"><input id="txt_lensometria_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_esfera" name="txt_lensometria_oi_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_cilindro" name="txt_lensometria_oi_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_lensometria_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_eje" name="txt_lensometria_oi_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_oi_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_avl" name="txt_lensometria_oi_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_lensometria_oi_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_lensometria_oi_avc" name="txt_lensometria_oi_avc"></td>
+					    <td colspan="4" class="active">
+							<select id="txt_lensometria_oi_esfera" style="width: 100px;" ng-model="txt_lensometria_oi_esfera" name="txt_lensometria_oi_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_oi_cilindro" style="width: 100px;" ng-model="txt_lensometria_oi_cilindro" name="txt_lensometria_oi_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_lensometria_oi_eje" style="width: 100px;" ng-model="txt_lensometria_oi_eje" name="txt_lensometria_oi_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_oi_avl"  style="width: 100px;" ng-model="txt_lensometria_oi_avl"  name="txt_lensometria_oi_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_lensometria_oi_avc"  style="width: 100px;" ng-model="txt_lensometria_oi_avc"  name="txt_lensometria_oi_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
 					    <td colspan="3" class="active">&nbsp;</td>	    
 				  	</tr>
 				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
@@ -316,20 +1324,662 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="4" class="active"><input id="txt_retinoscopia_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_od_esfera" name="txt_retinoscopia_od_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_od_cilindro" name="txt_retinoscopia_od_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_retinoscopia_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_od_eje" name="txt_retinoscopia_od_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_od_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_od_avl" name="txt_retinoscopia_od_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_od_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_od_avc" name="txt_retinoscopia_od_avc"></td>					    
+					    <td colspan="4" class="active">
+							<select id="txt_retinoscopia_od_esfera" style="width: 100px;" ng-model="txt_retinoscopia_od_esfera" name="txt_retinoscopia_od_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_od_cilindro" style="width: 100px;" ng-model="txt_retinoscopia_od_cilindro" name="txt_retinoscopia_od_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_retinoscopia_od_eje" style="width: 100px;" ng-model="txt_retinoscopia_od_eje" name="txt_retinoscopia_od_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_od_avl"  style="width: 100px;" ng-model="txt_retinoscopia_od_avl"  name="txt_retinoscopia_od_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_od_avc"  style="width: 100px;" ng-model="txt_retinoscopia_od_avc"  name="txt_retinoscopia_od_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>					    
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="4" class="active"><input id="txt_retinoscopia_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_oi_esfera" name="txt_retinoscopia_oi_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_oi_cilindro" name="txt_retinoscopia_oi_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_retinoscopia_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_oi_eje" name="txt_retinoscopia_oi_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_oi_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_oi_avl" name="txt_retinoscopia_oi_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_retinoscopia_oi_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_retinoscopia_oi_avc" name="txt_retinoscopia_oi_avc"></td>
+					    <td colspan="4" class="active">
+							<select id="txt_retinoscopia_oi_esfera" style="width: 100px;" ng-model="txt_retinoscopia_oi_esfera" name="txt_retinoscopia_oi_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_oi_cilindro" style="width: 100px;" ng-model="txt_retinoscopia_oi_cilindro" name="txt_retinoscopia_oi_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_retinoscopia_oi_eje" style="width: 100px;" ng-model="txt_retinoscopia_oi_eje" name="txt_retinoscopia_oi_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_oi_avl"  style="width: 100px;" ng-model="txt_retinoscopia_oi_avl"  name="txt_retinoscopia_oi_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_retinoscopia_oi_avc"  style="width: 100px;" ng-model="txt_retinoscopia_oi_avc"  name="txt_retinoscopia_oi_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
 					    <td colspan="3" class="active">&nbsp;</td>	    
 				  	</tr>
 				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
@@ -353,20 +2003,662 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="4" class="active"><input id="txt_subjetivo_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_od_esfera" name="txt_subjetivo_od_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_od_cilindro" name="txt_subjetivo_od_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_subjetivo_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_od_eje" name="txt_subjetivo_od_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_od_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_od_avl" name="txt_subjetivo_od_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_od_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_od_avc" name="txt_subjetivo_od_avc"></td>					    
+					    <td colspan="4" class="active">
+							<select id="txt_subjetivo_od_esfera" style="width: 100px;" ng-model="txt_subjetivo_od_esfera" name="txt_subjetivo_od_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_od_cilindro" style="width: 100px;" ng-model="txt_subjetivo_od_cilindro" name="txt_subjetivo_od_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_subjetivo_od_eje" style="width: 100px;" ng-model="txt_subjetivo_od_eje" name="txt_subjetivo_od_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_od_avl"  style="width: 100px;" ng-model="txt_subjetivo_od_avl"  name="txt_subjetivo_od_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_od_avc"  style="width: 100px;" ng-model="txt_subjetivo_od_avc"  name="txt_subjetivo_od_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>					    
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="4" class="active"><input id="txt_subjetivo_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_oi_esfera" name="txt_subjetivo_oi_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_oi_cilindro" name="txt_subjetivo_oi_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_subjetivo_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_oi_eje" name="txt_subjetivo_oi_eje"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_oi_avl" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_oi_avl" name="txt_subjetivo_oi_avl"></td>
-					    <td colspan="3" class="active"><input id="txt_subjetivo_oi_avc" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_subjetivo_oi_avc" name="txt_subjetivo_oi_avc"></td>	    
+					    <td colspan="4" class="active">
+							<select id="txt_subjetivo_oi_esfera" style="width: 100px;" ng-model="txt_subjetivo_oi_esfera" name="txt_subjetivo_oi_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_oi_cilindro" style="width: 100px;" ng-model="txt_subjetivo_oi_cilindro" name="txt_subjetivo_oi_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_subjetivo_oi_eje" style="width: 100px;" ng-model="txt_subjetivo_oi_eje" name="txt_subjetivo_oi_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_oi_avl"  style="width: 100px;" ng-model="txt_subjetivo_oi_avl"  name="txt_subjetivo_oi_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_subjetivo_oi_avc"  style="width: 100px;" ng-model="txt_subjetivo_oi_avc"  name="txt_subjetivo_oi_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>	    
 
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
@@ -394,9 +2686,282 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="3" class="active"><input id="txt_distancia_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_esfera" name="txt_distancia_od_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_cilindro" name="txt_distancia_od_cilindro"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_eje" name="txt_distancia_od_eje"></td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_od_esfera" style="width: 100px;" ng-model="txt_distancia_od_esfera" name="txt_distancia_od_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_od_cilindro" style="width: 100px;" ng-model="txt_distancia_od_cilindro" name="txt_distancia_od_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_od_eje" style="width: 100px;" ng-model="txt_distancia_od_eje" name="txt_distancia_od_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
 					    <td colspan="3" class="active"><input id="txt_distancia_od_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_dp" name="txt_distancia_od_dp"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_od_adicion" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_adicion" name="txt_distancia_od_adicion"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_altura" name="txt_distancia_od_altura"></td>
@@ -405,9 +2970,282 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="3" class="active"><input id="txt_distancia_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_esfera" name="txt_distancia_oi_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_cilindro" name="txt_distancia_oi_cilindro"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_eje" name="txt_distancia_oi_eje"></td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_oi_esfera" style="width: 100px;" ng-model="txt_distancia_oi_esfera" name="txt_distancia_oi_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_oi_cilindro" style="width: 100px;" ng-model="txt_distancia_oi_cilindro" name="txt_distancia_oi_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_oi_eje" style="width: 100px;" ng-model="txt_distancia_oi_eje" name="txt_distancia_oi_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
 					    <td colspan="3" class="active"><input id="txt_distancia_oi_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_dp" name="txt_distancia_oi_dp"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_oi_adicion" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_adicion" name="txt_distancia_oi_adicion"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_altura" name="txt_distancia_oi_altura"></td>	    
@@ -435,18 +3273,564 @@
 				  	</tr>
 				  	<tr style="font-size:10px; " align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OD</td>
-					    <td colspan="4" class="active"><input id="txt_cercano_od_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_esfera" name="txt_cercano_od_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_cercano_od_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_cilindro" name="txt_cercano_od_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_cercano_od_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_eje" name="txt_cercano_od_eje"></td>
+					    <td colspan="4" class="active">
+							<select id="txt_cercano_od_esfera" style="width: 100px;" ng-model="txt_cercano_od_esfera" name="txt_cercano_od_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_cercano_od_cilindro" style="width: 100px;" ng-model="txt_cercano_od_cilindro" name="txt_cercano_od_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_cercano_od_eje" style="width: 100px;" ng-model="txt_cercano_od_eje" name="txt_cercano_od_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
 					    <td colspan="3" class="active"><input id="txt_cercano_od_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_dp" name="txt_cercano_od_dp"></td>
 					    <!--td colspan="3" class="active"><input id="txt_cercano_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_altura" name="txt_cercano_od_altura"></td-->					    
 					    <td colspan="6" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
 					    <td class="active" style="font-size:12px; " colspan="2">OI</td>
-					    <td colspan="4" class="active"><input id="txt_cercano_oi_esfera" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_esfera" name="txt_cercano_oi_esfera"></td>
-					    <td colspan="3" class="active"><input id="txt_cercano_oi_cilindro" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_cilindro" name="txt_cercano_oi_cilindro"></td>
-					    <td colspan="4" class="active"><input id="txt_cercano_oi_eje" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_eje" name="txt_cercano_oi_eje"></td>
+					    <td colspan="4" class="active">
+							<select id="txt_cercano_oi_esfera" style="width: 100px;" ng-model="txt_cercano_oi_esfera" name="txt_cercano_oi_esfera">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>
+					    		<option value="0.25">0.25</option>
+								<option value="0.50">0.50</option>
+								<option value="0.75">0.75</option>
+								<option value="1.00">1.00</option>
+								<option value="1.25">1.25</option>
+								<option value="1.50">1.50</option>
+								<option value="1.75">1.75</option>
+								<option value="2.00">2.00</option>
+								<option value="2.25">2.25</option>
+								<option value="2.50">2.50</option>
+								<option value="2.75">2.75</option>
+								<option value="3.00">3.00</option>
+								<option value="3.25">3.25</option>
+								<option value="3.50">3.50</option>
+								<option value="3.75">3.75</option>
+								<option value="4.00">4.00</option>
+								<option value="4.25">4.25</option>
+								<option value="4.50">4.50</option>
+								<option value="4.75">4.75</option>
+								<option value="5.00">5.00</option>
+								<option value="5.25">5.25</option>
+								<option value="5.50">5.50</option>
+								<option value="5.75">5.75</option>
+								<option value="6.00">6.00</option>
+								<option value="6.25">6.25</option>
+								<option value="6.50">6.50</option>
+								<option value="6.75">6.75</option>
+								<option value="7.00">7.00</option>
+								<option value="7.25">7.25</option>
+								<option value="7.50">7.50</option>
+								<option value="7.75">7.75</option>
+								<option value="8.00">8.00</option>
+								<option value="8.25">8.25</option>
+								<option value="8.50">8.50</option>
+								<option value="8.75">8.75</option>
+								<option value="9.00">9.00</option>
+								<option value="9.25">9.25</option>
+								<option value="9.50">9.50</option>
+								<option value="9.75">9.75</option>
+								<option value="10.00">10.00</option>
+								<option value="10.25">10.25</option>
+								<option value="10.50">10.50</option>
+								<option value="10.75">10.75</option>
+								<option value="11.00">11.00</option>
+								<option value="11.25">11.25</option>
+								<option value="11.50">11.50</option>
+								<option value="11.75">11.75</option>
+								<option value="12.00">12.00</option>
+								<option value="12.25">12.25</option>
+								<option value="12.50">12.50</option>
+								<option value="12.75">12.75</option>
+								<option value="13.00">13.00</option>
+								<option value="13.25">13.25</option>
+								<option value="13.50">13.50</option>
+								<option value="13.75">13.75</option>
+								<option value="14.00">14.00</option>
+								<option value="14.25">14.25</option>
+								<option value="14.50">14.50</option>
+								<option value="14.75">14.75</option>
+								<option value="15.00">15.00</option>
+								<option value="15.25">15.25</option>
+								<option value="15.50">15.50</option>
+								<option value="15.75">15.75</option>
+								<option value="16.00">16.00</option>
+								<option value="16.25">16.25</option>
+								<option value="16.50">16.50</option>
+								<option value="16.75">16.75</option>
+								<option value="17.00">17.00</option>
+								<option value="17.25">17.25</option>
+								<option value="17.50">17.50</option>
+								<option value="17.75">17.75</option>
+								<option value="18.00">18.00</option>
+								<option value="18.25">18.25</option>
+								<option value="18.50">18.50</option>
+								<option value="18.75">18.75</option>
+								<option value="19.00">19.00</option>
+								<option value="19.25">19.25</option>
+								<option value="19.50">19.50</option>
+								<option value="19.75">19.75</option>
+								<option value="20.00">20.00</option>
+						    </select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_cercano_oi_cilindro" style="width: 100px;" ng-model="txt_cercano_oi_cilindro" name="txt_cercano_oi_cilindro">
+						    	<option value="">...</option>
+								<option  value="-20.00">-20.00</option>
+								<option  value="-19.75">-19.75</option>
+								<option  value="-19.50">-19.50</option>
+								<option  value="-19.25">-19.25</option>
+								<option  value="-19.00">-19.00</option>
+								<option  value="-18.75">-18.75</option>
+								<option  value="-18.50">-18.50</option>
+								<option  value="-18.25">-18.25</option>
+								<option  value="-18.00">-18.00</option>
+								<option  value="-17.75">-17.75</option>
+								<option  value="-17.50">-17.50</option>
+								<option  value="-17.25">-17.25</option>
+								<option  value="-17.00">-17.00</option>
+								<option  value="-16.75">-16.75</option>
+								<option  value="-16.50">-16.50</option>
+								<option  value="-16.25">-16.25</option>
+								<option  value="-16.00">-16.00</option>
+								<option  value="-15.75">-15.75</option>
+								<option  value="-15.50">-15.50</option>
+								<option  value="-15.25">-15.25</option>
+								<option  value="-15.00">-15.00</option>
+								<option  value="-14.75">-14.75</option>
+								<option  value="-14.50">-14.50</option>
+								<option  value="-14.25">-14.25</option>
+								<option  value="-14.00">-14.00</option>
+								<option  value="-13.75">-13.75</option>
+								<option  value="-13.50">-13.50</option>	
+								<option  value="-13.25">-13.25</option>
+								<option  value="-13.00">-13.00</option>
+								<option  value="-12.75">-12.75</option>
+								<option  value="-12.50">-12.50</option>
+								<option  value="-12.25">-12.25</option>
+								<option  value="-12.00">-12.00</option>
+								<option  value="-11.75">-11.75</option>
+								<option  value="-11.50">-11.50</option>
+								<option  value="-11.25">-11.25</option>
+								<option  value="-11.00">-11.00</option>
+								<option  value="-10.75">-10.75</option>
+								<option  value="-10.50">-10.50</option>
+								<option  value="-10.25">-10.25</option>
+								<option  value="-10.00">-10.00</option>
+								<option value="-9.75">-9.75</option>
+								<option value="-9.50">-9.50</option>
+								<option value="-9.25">-9.25</option>
+								<option value="-9.00">-9.00</option>
+								<option value="-8.75">-8.75</option>
+								<option value="-8.50">-8.50</option>
+								<option value="-8.25">-8.25</option>
+								<option value="-8.00">-8.00</option>
+								<option value="-7.75">-7.75</option>
+								<option value="-7.50">-7.50</option>
+								<option value="-7.25">-7.25</option>
+								<option value="-7.00">-7.00</option>
+								<option value="-6.75">-6.75</option>
+								<option value="-6.50">-6.50</option>
+								<option value="-6.25">-6.25</option>
+								<option value="-6.00">-6.00</option>
+								<option value="-5.75">-5.75</option>
+								<option value="-5.50">-5.50</option>
+								<option value="-5.25">-5.25</option>
+								<option value="-5.00">-5.00</option>
+								<option value="-4.75">-4.75</option>										
+								<option value="-4.50">-4.50</option>												
+								<option value="-4.25">-4.25</option>
+								<option value="-4.00">-4.00</option>
+								<option value="-3.75">-3.75</option>
+								<option value="-3.50">-3.50</option>
+								<option value="-3.25">-3.25</option>
+								<option value="-3.00">-3.00</option>
+								<option value="-2.75">-2.75</option>
+								<option value="-2.50">-2.50</option>
+								<option value="-2.25">-2.25</option>
+								<option value="-2.00">-2.00</option>
+								<option value="-1.75">-1.75</option>
+								<option value="-1.50">-1.50</option>
+								<option value="-1.25">-1.25</option>																		
+								<option value="-1.00">-1.00</option>
+								<option value="-0.75">-0.75</option>
+								<option value="-0.50">-0.50</option>
+								<option value="-0.25">-0.25</option>
+					    		<option value="0.00">0.00</option>					    		
+						    </select>
+					    </td>
+					    <td colspan="4" class="active">
+							<select id="txt_cercano_oi_eje" style="width: 100px;" ng-model="txt_cercano_oi_eje" name="txt_cercano_oi_eje">
+						    	<option value="">...</option>
+								<option value="0">0</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="40">40</option>
+								<option value="50">50</option>
+								<option value="60">60</option>
+								<option value="70">70</option>
+								<option value="80">80</option>
+								<option value="90">90</option>
+								<option value="100">100</option>
+								<option value="110">110</option>
+								<option value="120">120</option>
+								<option value="130">130</option>
+								<option value="140">140</option>
+								<option value="150">150</option>
+								<option value="160">160</option>
+								<option value="170">170</option>
+								<option value="180">180</option>										    		
+						    </select>
+					    </td>
 					    <td colspan="3" class="active"><input id="txt_cercano_oi_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_dp" name="txt_cercano_oi_dp"></td>
 					    <!--td colspan="3" class="active"><input id="txt_cercano_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_altura" name="txt_cercano_oi_altura"></td-->	    
 
@@ -619,8 +4003,65 @@ $(document).ready(function(){
 
 });
 
-
-
+	$("#txt_od_vl_sc").select2();
+	$("#txt_od_vp_sc").select2();
+	$("#txt_od_vl_cc").select2();
+	$("#txt_od_vp_cc").select2();
+	$("#txt_od_vp_ph").select2();
+	$("#txt_oi_vl_sc").select2();
+	$("#txt_oi_vp_sc").select2();
+	$("#txt_oi_vl_cc").select2();
+	$("#txt_oi_vp_cc").select2();
+	$("#txt_oi_vp_ph").select2();
+	$("#txt_ao_vl_sc").select2();
+	$("#txt_ao_vp_sc").select2();
+	$("#txt_ao_vl_cc").select2();
+	$("#txt_ao_vp_cc").select2();
+	$("#txt_ao_vp_ph").select2();
+	$("#txt_lensometria_od_esfera").select2();
+	$("#txt_lensometria_oi_esfera").select2();	
+	$("#txt_retinoscopia_od_esfera").select2();
+	$("#txt_retinoscopia_oi_esfera").select2();
+	$("#txt_subjetivo_od_esfera").select2();
+	$("#txt_subjetivo_oi_esfera").select2();
+	$("#txt_distancia_od_esfera").select2();
+	$("#txt_distancia_oi_esfera").select2();
+	$("#txt_cercano_od_esfera").select2();
+	$("#txt_cercano_oi_esfera").select2();
+	$("#txt_lensometria_od_cilindro").select2();   
+	$("#txt_lensometria_oi_cilindro").select2();    
+	$("#txt_retinoscopia_od_cilindro").select2();    
+	$("#txt_retinoscopia_oi_cilindro").select2();   
+	$("#txt_subjetivo_od_cilindro").select2();    
+	$("#txt_subjetivo_oi_cilindro").select2();    
+	$("#txt_distancia_od_cilindro").select2();    
+	$("#txt_distancia_oi_cilindro").select2();    
+	$("#txt_cercano_od_cilindro").select2();       
+	$("#txt_cercano_oi_cilindro").select2();     
+	$("#txt_lensometria_od_eje").select2();
+	$("#txt_lensometria_od_avl").select2();
+	$("#txt_lensometria_od_avc").select2();
+	$("#txt_lensometria_oi_eje").select2();
+	$("#txt_lensometria_oi_avl").select2();
+	$("#txt_lensometria_oi_avc").select2();
+	$("#txt_retinoscopia_od_eje").select2();
+	$("#txt_retinoscopia_od_avl").select2();
+	$("#txt_retinoscopia_od_avc").select2();
+	$("#txt_retinoscopia_oi_eje").select2();
+	$("#txt_retinoscopia_oi_avl").select2();
+	$("#txt_retinoscopia_oi_avc").select2();
+	$("#txt_subjetivo_od_eje").select2();
+	$("#txt_subjetivo_od_avl").select2();
+	$("#txt_subjetivo_od_avc").select2();
+	$("#txt_subjetivo_oi_eje").select2();
+	$("#txt_subjetivo_oi_avl").select2();
+	$("#txt_subjetivo_oi_avc").select2();
+	$("#txt_distancia_od_eje").select2();
+	$("#txt_distancia_oi_eje").select2();
+	$("#txt_subjetivo_oi_avc").select2();
+	$("#txt_distancia_oi_eje").select2();
+	$("#txt_cercano_od_eje").select2();
+	$("#txt_cercano_oi_eje").select2();
 	//Declaracion de la aplicacion
 
 	 var app = angular.module('MyApp', [], function ($interpolateProvider)
@@ -647,17 +4088,7 @@ $(document).ready(function(){
     //if("{{$paciente_ingresado}}"){
     	
     
-	    if("{{$operation == 'update'}}"){
-	    	$("#id_medico").val("{{$optometria->id_medico}}");
-	      	$("#id_paciente").val("{{$optometria->id_paciente}}");
-	      	//$("#id_medico").val("{{$consulta->id_medico}}").trigger("change");
-	     	//$("#id_paciente").val("{{$consulta->id_paciente}}").trigger("change");
-	    }else{
-	      	//$("#id_medico").val("").trigger("change");
-	    	$("#id_medico").val("{{$medico->id}}");
-	      	$("#id_paciente").val("{{$paciente->id}}");
-	      //$("#id_paciente").val("").trigger("change");	      
-	    }
+
 	    
 		$scope.cb_vacunas = "{{($operation == 'update')?$optometria->cb_vacunas :''}}";
 		$scope.cb_alergica = "{{($operation == 'update')?$optometria->cb_alergica :''}}";
@@ -693,7 +4124,7 @@ $(document).ready(function(){
 		$scope.cb_enfinfecciosa = "{{($operation == 'update')?$optometria->cb_enfinfecciosa :''}}";
 		$scope.cb_malformacion = "{{($operation == 'update')?$optometria->cb_malformacion :''}}";
 		$scope.cb_afotro = "{{($operation == 'update')?$optometria->cb_afotro :''}}";
-		$scope.txt_od_vl_sc = "{{($operation == 'update')?$optometria->txt_od_vl_sc :''}}";
+		$scope.txt_od_vl_sc = "{{($operation == 'update')?$optometria->txt_od_vl_sc :''}}";	
 		$scope.txt_od_vp_sc = "{{($operation == 'update')?$optometria->txt_od_vp_sc :''}}";
 		$scope.txt_od_vl_cc = "{{($operation == 'update')?$optometria->txt_od_vl_cc :''}}";
 		$scope.txt_od_vp_cc = "{{($operation == 'update')?$optometria->txt_od_vp_cc :''}}";
@@ -742,23 +4173,96 @@ $(document).ready(function(){
 		$scope.txt_distancia_od_esfera = "{{($operation == 'update')?$optometria->txt_distancia_od_esfera :''}}";
 		$scope.txt_distancia_od_cilindro = "{{($operation == 'update')?$optometria->txt_distancia_od_cilindro :''}}";
 		$scope.txt_distancia_od_eje = "{{($operation == 'update')?$optometria->txt_distancia_od_eje :''}}";
-		$scope.txt_distancia_od_dp = "{{($operation == 'update')?$optometria->txt_distancia_od_dp :''}}";
-		$scope.txt_distancia_od_adicion = "{{($operation == 'update')?$optometria->txt_distancia_od_dp :''}}";
-		$scope.txt_distancia_od_altura = "{{($operation == 'update')?$optometria->txt_distancia_od_altura :''}}";
 		$scope.txt_distancia_oi_esfera = "{{($operation == 'update')?$optometria->txt_distancia_oi_esfera :''}}";
 		$scope.txt_distancia_oi_cilindro = "{{($operation == 'update')?$optometria->txt_distancia_oi_cilindro :''}}";
 		$scope.txt_distancia_oi_eje = "{{($operation == 'update')?$optometria->txt_distancia_oi_eje :''}}";
-		$scope.txt_distancia_oi_dp = "{{($operation == 'update')?$optometria->txt_distancia_oi_dp :''}}";
-		$scope.txt_distancia_oi_adicion = "{{($operation == 'update')?$optometria->txt_distancia_oi_dp :''}}";
-		$scope.txt_distancia_oi_altura = "{{($operation == 'update')?$optometria->txt_distancia_oi_altura :''}}";
 		$scope.txt_cercano_od_esfera = "{{($operation == 'update')?$optometria->txt_cercano_od_esfera :''}}";
 		$scope.txt_cercano_od_cilindro = "{{($operation == 'update')?$optometria->txt_cercano_od_cilindro :''}}";
 		$scope.txt_cercano_od_eje = "{{($operation == 'update')?$optometria->txt_cercano_od_eje :''}}";
-		$scope.txt_cercano_od_dp = "{{($operation == 'update')?$optometria->txt_cercano_od_dp :''}}";
-		$scope.txt_cercano_od_altura = "{{($operation == 'update')?$optometria->txt_cercano_od_altura :''}}";
+
 		$scope.txt_cercano_oi_esfera = "{{($operation == 'update')?$optometria->txt_cercano_oi_esfera :''}}";
 		$scope.txt_cercano_oi_cilindro = "{{($operation == 'update')?$optometria->txt_cercano_oi_cilindro :''}}";
 		$scope.txt_cercano_oi_eje = "{{($operation == 'update')?$optometria->txt_cercano_oi_eje :''}}";
+		if("{{($operation == 'update')}}"){
+			$("#txt_od_vl_sc").val("{{$optometria->txt_od_vl_sc}}").trigger('change');
+			$("#txt_od_vp_sc").val("{{$optometria->txt_od_vp_sc}}").trigger('change');
+			$("#txt_od_vl_cc").val("{{$optometria->txt_od_vl_cc}}").trigger('change');
+			$("#txt_od_vp_cc").val("{{$optometria->txt_od_vp_cc}}").trigger('change');
+			$("#txt_od_vp_ph").val("{{$optometria->txt_od_vp_ph}}").trigger('change');
+			$("#txt_oi_vl_sc").val("{{$optometria->txt_oi_vl_sc}}").trigger('change');
+			$("#txt_oi_vp_sc").val("{{$optometria->txt_oi_vp_sc}}").trigger('change');
+			$("#txt_oi_vl_cc").val("{{$optometria->txt_oi_vl_cc}}").trigger('change');
+			$("#txt_oi_vp_cc").val("{{$optometria->txt_oi_vp_cc}}").trigger('change');
+			$("#txt_oi_vp_ph").val("{{$optometria->txt_oi_vp_ph}}").trigger('change');
+			$("#txt_ao_vl_sc").val("{{$optometria->txt_ao_vl_sc}}").trigger('change');
+			$("#txt_ao_vp_sc").val("{{$optometria->txt_ao_vp_sc}}").trigger('change');
+			$("#txt_ao_vl_cc").val("{{$optometria->txt_ao_vl_cc}}").trigger('change');
+			$("#txt_ao_vp_cc").val("{{$optometria->txt_ao_vp_cc}}").trigger('change');
+			$("#txt_ao_vp_ph").val("{{$optometria->txt_ao_vp_ph}}").trigger('change');
+			$("#txt_lensometria_od_esfera").val("{{$optometria->txt_lensometria_od_esfera}}").trigger('change');
+			$("#txt_lensometria_oi_esfera").val("{{$optometria->txt_lensometria_oi_esfera}}").trigger('change');
+			$("#txt_retinoscopia_od_esfera").val("{{$optometria->txt_retinoscopia_od_esfera}}").trigger('change');
+			$("#txt_retinoscopia_oi_esfera").val("{{$optometria->txt_retinoscopia_oi_esfera}}").trigger('change');
+			$("#txt_subjetivo_od_esfera").val("{{$optometria->txt_subjetivo_od_esfera}}").trigger('change');
+			$("#txt_subjetivo_oi_esfera").val("{{$optometria->txt_subjetivo_oi_esfera}}").trigger('change');
+			$("#txt_distancia_od_esfera").val("{{$optometria->txt_distancia_od_esfera}}").trigger('change');
+			$("#txt_distancia_oi_esfera").val("{{$optometria->txt_distancia_oi_esfera}}").trigger('change');
+			$("#txt_cercano_od_esfera").val("{{$optometria->txt_cercano_od_esfera}}").trigger('change');
+			$("#txt_cercano_oi_esfera").val("{{$optometria->txt_cercano_oi_esfera}}").trigger('change');
+			$("#txt_lensometria_od_cilindro").val("{{$optometria->txt_lensometria_od_cilindro}}").trigger('change');
+			$("#txt_lensometria_oi_cilindro").val("{{$optometria->txt_lensometria_oi_cilindro}}").trigger('change');
+			$("#txt_retinoscopia_od_cilindro").val("{{$optometria->txt_retinoscopia_od_cilindro}}").trigger('change');
+			$("#txt_retinoscopia_oi_cilindro").val("{{$optometria->txt_retinoscopia_oi_cilindro}}").trigger('change');
+			$("#txt_subjetivo_od_cilindro").val("{{$optometria->txt_subjetivo_od_cilindro}}").trigger('change');
+			$("#txt_subjetivo_oi_cilindro").val("{{$optometria->txt_subjetivo_oi_cilindro}}").trigger('change');
+			$("#txt_distancia_od_cilindro").val("{{$optometria->txt_distancia_od_cilindro}}").trigger('change');
+			$("#txt_distancia_oi_cilindro").val("{{$optometria->txt_distancia_oi_cilindro}}").trigger('change');
+			$("#txt_cercano_od_cilindro").val("{{$optometria->txt_cercano_od_cilindro}}").trigger('change');
+			$("#txt_cercano_oi_cilindro").val("{{$optometria->txt_cercano_oi_cilindro}}").trigger('change');
+			$("#txt_lensometria_od_eje").val("{{$optometria->txt_lensometria_od_eje}}").trigger('change');
+			$("#txt_lensometria_od_avl").val("{{$optometria->txt_lensometria_od_avl}}").trigger('change');
+			$("#txt_lensometria_od_avc").val("{{$optometria->txt_lensometria_od_avc}}").trigger('change');
+			$("#txt_lensometria_oi_eje").val("{{$optometria->txt_lensometria_oi_eje}}").trigger('change');
+			$("#txt_lensometria_oi_avl").val("{{$optometria->txt_lensometria_oi_avl}}").trigger('change');
+			$("#txt_lensometria_oi_avc").val("{{$optometria->txt_lensometria_oi_avc}}").trigger('change');
+			$("#txt_retinoscopia_od_eje").val("{{$optometria->txt_retinoscopia_od_eje}}").trigger('change');
+			$("#txt_retinoscopia_od_avl").val("{{$optometria->txt_retinoscopia_od_avl}}").trigger('change');
+			$("#txt_retinoscopia_od_avc").val("{{$optometria->txt_retinoscopia_od_avc}}").trigger('change');
+			$("#txt_retinoscopia_oi_eje").val("{{$optometria->txt_retinoscopia_oi_eje}}").trigger('change');
+			$("#txt_retinoscopia_oi_avl").val("{{$optometria->txt_retinoscopia_oi_avl}}").trigger('change');
+			$("#txt_retinoscopia_oi_avc").val("{{$optometria->txt_retinoscopia_oi_avc}}").trigger('change');
+			$("#txt_subjetivo_od_eje").val("{{$optometria->txt_subjetivo_od_eje}}").trigger('change');
+			$("#txt_subjetivo_od_avl").val("{{$optometria->txt_subjetivo_od_avl}}").trigger('change');
+			$("#txt_subjetivo_od_avc").val("{{$optometria->txt_subjetivo_od_avc}}").trigger('change');
+			$("#txt_subjetivo_oi_eje").val("{{$optometria->txt_subjetivo_oi_eje}}").trigger('change');
+			$("#txt_subjetivo_oi_avl").val("{{$optometria->txt_subjetivo_oi_avl}}").trigger('change');
+			$("#txt_subjetivo_oi_avc").val("{{$optometria->txt_subjetivo_oi_avc}}").trigger('change');
+			$("#txt_distancia_od_eje").val("{{$optometria->txt_distancia_od_eje}}").trigger('change');
+			$("#txt_distancia_oi_eje").val("{{$optometria->txt_distancia_oi_eje}}").trigger('change');
+			$("#txt_subjetivo_oi_avc").val("{{$optometria->txt_subjetivo_oi_avc}}").trigger('change');
+			$("#txt_distancia_oi_eje").val("{{$optometria->txt_distancia_oi_eje}}").trigger('change');
+			$("#txt_cercano_od_eje").val("{{$optometria->txt_cercano_od_eje}}").trigger('change');
+			$("#txt_cercano_oi_eje").val("{{$optometria->txt_cercano_oi_eje}}").trigger('change');
+
+
+		}
+		
+		
+		$scope.txt_distancia_od_dp = "{{($operation == 'update')?$optometria->txt_distancia_od_dp :''}}";
+		$scope.txt_distancia_od_adicion = "{{($operation == 'update')?$optometria->txt_distancia_od_dp :''}}";
+		$scope.txt_distancia_od_altura = "{{($operation == 'update')?$optometria->txt_distancia_od_altura :''}}";
+
+		
+		$scope.txt_distancia_oi_dp = "{{($operation == 'update')?$optometria->txt_distancia_oi_dp :''}}";
+		$scope.txt_distancia_oi_adicion = "{{($operation == 'update')?$optometria->txt_distancia_oi_dp :''}}";
+		$scope.txt_distancia_oi_altura = "{{($operation == 'update')?$optometria->txt_distancia_oi_altura :''}}";
+
+		
+		
+		$scope.txt_cercano_od_dp = "{{($operation == 'update')?$optometria->txt_cercano_od_dp :''}}";
+		$scope.txt_cercano_od_altura = "{{($operation == 'update')?$optometria->txt_cercano_od_altura :''}}";
+
+		
 		$scope.txt_cercano_oi_dp = "{{($operation == 'update')?$optometria->txt_cercano_oi_dp :''}}";
 		$scope.txt_cercano_oi_altura = "{{($operation == 'update')?$optometria->txt_cercano_oi_altura :''}}";
 		$scope.rd_cover_test = "{{($operation == 'update')?$optometria->rd_cover_test :''}}";
@@ -784,6 +4288,32 @@ $(document).ready(function(){
 		$scope.txt_cercano = "{{($operation == 'update')?$optometria->txt_cercano :''}}";
 		$scope.txt_plan_diagnostico = "{{($operation == 'update')?$optometria->txt_plan_diagnostico :''}}";
 		$scope.txt_disposiciones_finales = "{{($operation == 'update')?$optometria->txt_disposiciones_finales :''}}";
+
+		if("{{$operation == 'update'}}"){
+	    	$("#id_medico").val("{{$optometria->id_medico}}");
+	      	$("#id_paciente").val("{{$optometria->id_paciente}}");
+	      	/*$("#txt_od_vl_sc").trigger();
+			$("#txt_od_vp_sc").trigger('change');
+			$("#txt_od_vl_cc").trigger('change');
+			$("#txt_od_vp_cc").trigger('change');
+			$("#txt_od_vp_ph").trigger('change');
+			$("#txt_oi_vl_sc").trigger('change');
+			$("#txt_oi_vp_sc").trigger('change');
+			$("#txt_oi_vl_cc").trigger('change');
+			$("#txt_oi_vp_cc").trigger('change');
+			$("#txt_oi_vp_ph").trigger('change');
+			$("#txt_ao_vl_sc").trigger('change');
+			$("#txt_ao_vp_sc").trigger('change');
+			$("#txt_ao_vl_cc").trigger('change');
+			$("#txt_ao_vp_cc").trigger('change');
+			$("#txt_ao_vp_ph").trigger('change');*/
+	      		
+	    }else{
+	      	//$("#id_medico").val("").trigger("change");
+	    	$("#id_medico").val("{{$medico->id}}");
+	      	$("#id_paciente").val("{{$paciente->id}}");
+	       
+	    }
 	};
 
 	 //Ejecuto la funcion anterior init()
