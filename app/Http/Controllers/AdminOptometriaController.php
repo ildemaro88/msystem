@@ -1543,21 +1543,7 @@
       }
 
 
-      public function finalizar($id){
-        $optometria = ModOptometria::where('id',$id)->firstOrFail();
-        $optometria->id_estado = "2";
-        try {
-          $response = $optometria->save();
-          return response()->json([
-          "response" => $response,          
-          "consulta" =>$optometria]);
-          
-        } catch (Exception $e) {
-          return $e;
-          
-        }
-        
-      }
+      
 
 
       public function getAdd(){
@@ -1565,8 +1551,7 @@
         //Título y tipo de operación a realizar.
         $operation = 'add';
         $page_title = 'Optometria';
-        //return view("optometria_",compact('page_title', 'operation')); 
-
+       
         //Sí se ha ingresado un paciente, se toma el Id del mismo.
         if(Session::has('paciente_ingresao')){
           $paciente_ingresado = Session::get('paciente_ingresao');
@@ -1766,6 +1751,7 @@
       public function update(Request $request, $id)
 {
   $optometria = ModOptometria::findOrFail($id); 
+  $optometria->id_estado = $request->get('id_estado');
   $optometria->id_paciente = $request->get('id_paciente');
   $optometria->id_medico = $request->get('id_medico');
   $optometria->cb_vacunas = $request->get('cb_vacunas');

@@ -18,6 +18,7 @@ Route::get('admin/verifyPaciente','PacienteController@verifyPaciente');
 Route::get('admin/getPaciente','PacienteController@getPaciente');
 Route::resource('admin/user','CmsUserController');
 Route::resource('admin/receta','AdminRecetaController');
+
 //----- Start Route Orden_examen -----//
 Route::get('admin/orden_examenes/{id}/print', 'AdminOrdenExamenesController@printPDF');
 Route::post('admin/orden_examenes', 'AdminOrdenExamenesController@store');
@@ -30,7 +31,7 @@ Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');
 Route::post('admin/optometria', 'AdminOptometriaController@store');
 Route::get('admin/optometria/ingresar/{id}', 'AdminOptometriaController@ingresar');
-Route::get('admin/optometria/finalizar/{id}', 'AdminOptometriaController@finalizar');
+//sRoute::get('admin/optometria/finalizar/{id}', 'AdminOptometriaController@finalizar');
 Route::put('admin/optometria/{id}', 'AdminOptometriaController@update');
 // ------  End Route Optometria ----/////
 
@@ -39,11 +40,22 @@ Route::post('admin/consulta', 'AdminConsultasController@store');
 Route::get('admin/consulta/ingresar/{id}', 'AdminConsultasController@ingresar');
 Route::get('admin/consulta/finalizar/{id}', 'AdminConsultasController@finalizar');
 Route::get('admin/consultas/print_r/{id}', 'AdminConsultasController@print_rPDF');
-
 Route::put('admin/consulta/{id}', 'AdminConsultasController@update');
 Route::get('admin/receta/print/{id_consulta}/{descripcion}', 'AdminRecetaController@printPDF');
 // ------  End Route consulta ----/////
 
+//----- Start Route Empresa -----//
+Route::post('admin/empresa', 'AdminEmpresaController@store');
+Route::put('admin/empresa/{id}', 'AdminEmpresaController@update');
+Route::get('admin/empresa/{id}/add/sucursal', 'AdminEmpresaController@addSucursal');
+Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursales');
+// ------  End Route Empresa ----/////
+
+//----- Start Route Paciente -----//
+
+Route::post('admin/paciente', 'AdminPaciente1Controller@store');
+Route::put('admin/paciente/{id}', 'AdminPaciente1Controller@update');
+// ------  End Route Paciente ----/////
 
 Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'SearchController@autocomplete'));
 Route::get('autocompleteEspecialidad',array('as'=>'autocompleteEspecialidad','uses'=>'SearchController@autocompleteEspecialidad'));

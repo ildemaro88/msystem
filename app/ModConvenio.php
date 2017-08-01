@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModConvenio extends Model
 {
-    protected $table ="convenio";
+    protected $table ="convenio_paciente";
     protected $primaryKey = "id";
     protected $fillable = [
         "cita_calendario_id",

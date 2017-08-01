@@ -1,11 +1,15 @@
 <?php namespace App\Http\Controllers;
 
 	use Session;
-	use Request;
+	
+  use Illuminate\Http\Request;
 	use DB;
 	use CRUDBooster;
+	use App\ModEmpresa;
+	use App\ModConvenios;
 
-	class AdminConveniosController extends \crocodicstudio\crudbooster\controllers\CBController {
+
+	class AdminEmpresaController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -19,17 +23,22 @@
 			$this->button_add = true;
 			$this->button_edit = true;
 			$this->button_delete = true;
-			$this->button_detail = true;
+			$this->button_detail = false;
 			$this->button_show = true;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "convenio";
+			$this->table = "empresa";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
+			$this->col[] = ["label"=>"Ruc","name"=>"ruc"];
+			$this->col[] = ["label"=>"Telefono","name"=>"telefono"];
+			$this->col[] = ["label"=>"Direccion","name"=>"direccion"];
+			$this->col[] = ["label"=>"Correo","name"=>"correo"];
+			$this->col[] = ["label"=>"Convenio","name"=>"id_convenio","join"=>"convenio,nombre"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -44,6 +53,82 @@
   'name' => 'nombre',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Ruc',
+  'name' => 'ruc',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Telefono',
+  'name' => 'telefono',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Direccion',
+  'name' => 'direccion',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Correo',
+  'name' => 'correo',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'empresa,nombre',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Padre',
+  'name' => 'id_padre',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'convenio,nombre',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Convenio',
+  'name' => 'id_convenio',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
   'width' => 'col-sm-10',
 );
 			# END FORM DO NOT REMOVE THIS LINE
@@ -73,7 +158,7 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction = array();
+	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-plus','target'=>'_blank','color'=>'primary add_sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/add/sucursal'],['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales']);
 
 
 	        /* 
@@ -144,7 +229,45 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js = '$(function() {
+      // corregir error de doble calendario
+      //alert("hola");
+      $(".sucursales").attr("title","Ver sucursales");
+      $(".add_sucursales").attr("title","Agregar sucursal");
+      $(".eliminar").attr("title","Eliminar");
+      $(".print").attr("target","_blank");
+      $(".print_r").attr("target","_blank");
+      $(".eliminar").click(function(e){
+        e.preventDefault();
+        var $this = $(this);
+        var id = $this.attr("href");
+        swal({
+          title: "Estás seguro ?",
+          text: "No podrá recuperar estos datos de registro!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#dd6b55",
+          confirmButtonText: "OK",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+        },
+        function(){
+          var url1 ="admin/orden_examenes/"+id;
+          $this.attr("href",url1);
+          $.ajax({
+            url: "orden_examenes/delete/"+id,
+            type: "GET",
+            success: function(){
+              document.location.reload();
+            },
+
+          });
+
+
+        });
+      });
+    });
+    ';
 
 
 
@@ -182,7 +305,7 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        //Your code here
+	        $query->where('empresa.id_padre',0);
 	            
 	    }
 
@@ -271,7 +394,92 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+	    public function getAdd(){
+
+     	    //Título y tipo de operación a realizar.
+	        $operation = 'add';
+	        $page_title = 'Agregar Empresa';
+	        //Buscamos todos los convenios creados
+	        $convenios = ModConvenios::all();
+	        return view("empresa.create",compact('page_title', 'operation','convenios')); 
+	    }
+
+
+		public function getEdit($id){
+
+			//Título y tipo de operación a realizar.
+			$operation = 'update';
+			$page_title = 'Editar Empresa';
+
+			//se busca la empresa a editar
+			$empresa = ModEmpresa::where('id',$id)->firstOrFail();
+
+			if($empresa->id_padre != 0){
+				//se busca la empresa padre
+				$empresa_padre = ModEmpresa::where('id',$empresa->id_padre)->firstOrFail();
+				$page_title = 'Editar Surcursal de la empresa: '.$empresa_padre->nombre;
+			}
+
+			//Se toman todos los convenios creados
+	        $convenios = ModConvenios::all();
+	        return view("empresa.create",compact('page_title', 'operation','convenios','empresa')); 
+		}
+
+	    public function store(Request $request){
+			$empresa =  new ModEmpresa;
+			$empresa->nombre = $request->get('nombre');
+			$empresa->ruc = $request->get('ruc');
+			$empresa->telefono = $request->get('telefono');
+			$empresa->correo = $request->get('correo');
+			$empresa->direccion = $request->get('direccion');
+			$empresa->id_convenio = $request->get('id_convenio');
+			$empresa->id_padre = ($request->get('id_padre'))?$request->get('id_padre'):0;
+			
+			$response = $empresa->save();
+			return response()->json([
+				"response" => $response,
+				"empresa" =>$empresa]
+			);
+		}
+
+		public function update(Request $request, $id){
+		 	$empresa = ModEmpresa::findOrFail($id); 
+			$empresa->nombre = $request->get('nombre');
+			$empresa->ruc = $request->get('ruc');
+			$empresa->telefono = $request->get('telefono');
+			$empresa->correo = $request->get('correo');
+			$empresa->direccion = $request->get('direccion');
+			$empresa->id_convenio = $request->get('id_convenio');
+			$empresa->id_padre = ($request->get('id_padre'))?$request->get('id_padre'):0;
+			$sucursales = ModEmpresa::where('id_padre',$id)->get();
+			foreach ($sucursales as $sucursal) {
+				$sucursal_updated = ModEmpresa::findOrFail($sucursal->id);
+				$sucursal_updated->id_convenio = $request->get('id_convenio');
+				$sucursal_updated->save();
+				
+			}
+			$response = $empresa->save();
+			return response()->json([
+				"response" => $response,
+				"empresa" =>$empresa]);
+		}
+
+		public function addSucursal($id){
+			$empresa = ModEmpresa::findOrFail($id); 
+			//dd($empresa);
+			//Título y tipo de operación a realizar.
+			$operation = 'add';
+			$page_title = 'Agragar sucursal a la empresa: '.$empresa->nombre;
+			return view("empresa.sucursal",compact('page_title', 'operation','empresa'));
+
+		}
+
+		public function getSucursales($id){
+			Session::put('id_padre',$id);
+			$empresa = ModEmpresa::findOrFail($id); 
+			$page_title = 'Sucursales de la empresa: '.$empresa->nombre;
+			return redirect('admin/sucursal?m=92')->with('page_title', ['hola']);
+		}
 
 
 	}

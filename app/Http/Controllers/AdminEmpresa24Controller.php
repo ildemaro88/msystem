@@ -4,8 +4,9 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
+	use App\Http\Controllers\AdminEmpresaController as Empresa;
 
-	class AdminConveniosController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminEmpresa24Controller extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -17,19 +18,24 @@
 			$this->button_table_action = true;
 			$this->button_action_style = "button_icon";
 			$this->button_add = true;
-			$this->button_edit = true;
+			$this->button_edit = false;
 			$this->button_delete = true;
 			$this->button_detail = true;
-			$this->button_show = true;
+			$this->button_show = false;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "convenio";
+			$this->table = "empresa";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
+			$this->col[] = ["label"=>"Ruc","name"=>"ruc"];
+			$this->col[] = ["label"=>"Telefono","name"=>"telefono"];
+			$this->col[] = ["label"=>"Direccion","name"=>"direccion"];
+			$this->col[] = ["label"=>"Correo","name"=>"correo"];
+			$this->col[] = ["label"=>"Empresa Matriz","name"=>"id_padre","join"=>"empresa,nombre"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -44,6 +50,82 @@
   'name' => 'nombre',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Ruc',
+  'name' => 'ruc',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Telefono',
+  'name' => 'telefono',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Direccion',
+  'name' => 'direccion',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Correo',
+  'name' => 'correo',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'padre,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Padre',
+  'name' => 'id_padre',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'convenio,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Convenio',
+  'name' => 'id_convenio',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
   'width' => 'col-sm-10',
 );
 			# END FORM DO NOT REMOVE THIS LINE
@@ -73,7 +155,8 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction = array();
+	        $this->addaction = array(['label'=>'','icon'=>'fa fa-pencil','target'=>'_blank','color'=>'success sucursales','url'=>url('/').'/admin/empresa/edit/[id]']);
+
 
 
 	        /* 
@@ -182,7 +265,8 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        //Your code here
+
+	         $query->where('empresa.id_padre',Session::get('id_padre'));
 	            
 	    }
 
@@ -271,7 +355,11 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+	    public function getAdd(){
+	    	$empresa = new Empresa();
+	    	return $empresa->addSucursal(Session::get('id_padre'));
+
+	    }
 
 
 	}

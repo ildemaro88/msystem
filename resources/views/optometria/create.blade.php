@@ -3919,7 +3919,7 @@
 					<tr align="center">
 					    <td colspan="20"><textarea id="txt_disposiciones_finales" class="typeahead form-control" style=" border-width:0px; height:100%; width:98%" ng-model="txt_disposiciones_finales" name="txt_disposiciones_finales"></textarea>
 					    </td>
-					   
+					   <input type="hidden" id="id_estado" name="id_estado" ng-model="id_estado">
 					</tr>
 					<!--tr height="50PX" align="center">
 					    <td colspan="2" class="active" style="font-size:12px;">FECHA</td>
@@ -4354,7 +4354,7 @@ $(document).ready(function(){
 	{
 		switch (operation) {
 			case 'add':
-
+				$("#id_estado").val(1);
 				$(".modal").modal('show');
 				console.log($scope.serializeObject($("#form_optometria")));
 				$http({
@@ -4379,6 +4379,7 @@ $(document).ready(function(){
 						},
 						function(){
 							$(".modal").modal('show');
+							
 							window.location = "{{ url('/admin/optometria?m=62') }}";
 						});
 					} else {
@@ -4391,7 +4392,7 @@ $(document).ready(function(){
 			case 'update':
 
 				$(".modal").modal('show');
-
+				$("#id_estado").val(1);
 				$http({
 					url    : API_URL + 'optometria/{{$optometria->id}}',
 					method : 'PUT',
@@ -4423,11 +4424,12 @@ $(document).ready(function(){
 					break;
 
 			case 'finalizar':
+			  $("#id_estado").val(2);
 		      $(".modal").modal('show');
 		         console.log($scope.serializeObject($("#form_consulta")));
 		        $http({
-		          url    : API_URL + 'optometria/finalizar/{{$optometria->id}}',
-		          method : 'GET',
+		          url    : API_URL + 'optometria/{{$optometria->id}}',
+		          method : 'PUT',
 		          headers: {
 		            'Content-Type': 'application/x-www-form-urlencoded'
 		          }

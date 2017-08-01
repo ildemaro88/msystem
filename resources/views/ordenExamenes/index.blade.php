@@ -1890,6 +1890,8 @@
                   $(this).next('span').removeClass('error').addClass('valid');
               }
           });
+
+          
           $(':checkbox').click(checked);
           $(":checkbox:checked").each(checked);
           $("input:text, textarea").keyup(checked);

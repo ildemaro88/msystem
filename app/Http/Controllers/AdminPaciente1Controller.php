@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use Session;
-use Request;
 use DB;
 use CRUDBooster;
+use App\ModEmpresa;
+use App\ModConvenios;
+use App\ModPaciente;
+use Illuminate\Http\Request;
 
 class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\CBController
 {
@@ -615,7 +618,88 @@ $this->sub_module = array();
         //Your code here
     }
 
-    //By the way, you can still create your own method in here... :)
+    public function getAdd(){
 
+      //Título y tipo de operación a realizar.
+      $operation = 'add';
+      $page_title = 'Agregar Paciente';
+
+      //Buscamos todas las empresas
+      $empresas = ModEmpresa::all();
+      return view("paciente.create",compact('page_title', 'operation','empresas')); 
+    }
+
+
+    public function getEdit($id){
+
+      //Título y tipo de operación a realizar.
+      $operation = 'update';
+      $page_title = 'Editar Paciente';
+
+      //Buscamos todas las empresas
+      $empresas = ModEmpresa::all();
+
+      $paciente = ModPaciente::findOrFail($id);
+
+      return view("paciente.create",compact('page_title', 'operation','empresas','paciente')); 
+    }
+
+    public function store(Request $request){
+      $paciente =  new ModPaciente;
+      $paciente->nombre = $request->get('nombre');
+      $paciente->apellido = $request->get('apellido');
+      $paciente->cedula = $request->get('cedula');
+      $paciente->pasaporte = $request->get('pasaporte');
+      $paciente->otro = $request->get('otro');
+      $paciente->fecha_nac = $request->get('fecha_nac');
+      $paciente->lugar_nac = $request->get('lugar_nac');
+      $paciente->email = $request->get('email');
+      $paciente->direccion = $request->get('direccion');
+      $paciente->telf_domicilio = $request->get('telf_domicilio');
+      $paciente->telf_trabajo = $request->get('telf_trabajo');
+      $paciente->celular = $request->get('celular');
+      $paciente->referencia = $request->get('referencia');
+      $paciente->telf_referencia = $request->get('telf_referencia');
+      $paciente->sexo = $request->get('sexo');
+      $paciente->raza = $request->get('raza');
+      $paciente->estado_civil = $request->get('estado_civil');
+      $paciente->instruccion = $request->get('instruccion');
+      $paciente->id_empresa = $request->get('id_empresa');
+
+      $response = $paciente->save();
+      return response()->json([
+        "response" => $response,
+        "paciente" =>$paciente]);
+    }
+
+
+    public function update(Request $request, $id){
+      
+      $paciente = ModPaciente::findOrFail($id); 
+      $paciente->nombre = $request->get('nombre');
+      $paciente->apellido = $request->get('apellido');
+      $paciente->cedula = $request->get('cedula');
+      $paciente->pasaporte = $request->get('pasaporte');
+      $paciente->otro = $request->get('otro');
+      $paciente->fecha_nac = $request->get('fecha_nac');
+      $paciente->lugar_nac = $request->get('lugar_nac');
+      $paciente->email = $request->get('email');
+      $paciente->direccion = $request->get('direccion');
+      $paciente->telf_domicilio = $request->get('telf_domicilio');
+      $paciente->telf_trabajo = $request->get('telf_trabajo');
+      $paciente->celular = $request->get('celular');
+      $paciente->referencia = $request->get('referencia');
+      $paciente->telf_referencia = $request->get('telf_referencia');
+      $paciente->sexo = $request->get('sexo');
+      $paciente->raza = $request->get('raza');
+      $paciente->estado_civil = $request->get('estado_civil');
+      $paciente->instruccion = $request->get('instruccion');
+      $paciente->id_empresa = $request->get('id_empresa');
+
+      $response = $paciente->save();
+      return response()->json([
+        "response" => $response,
+        "paciente" =>$paciente]);
+    }
 
   }

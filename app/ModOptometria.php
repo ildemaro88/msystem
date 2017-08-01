@@ -70,7 +70,7 @@ class ModOptometria extends Model
 		'txt_lensometria_oi_eje',
 		'txt_lensometria_oi_avl',
 		'txt_lensometria_oi_avc',
-
+		'id_estado',
 		'txt_retinoscopia_od_esfera',
 		'txt_retinoscopia_od_cilindro',
 		'txt_retinoscopia_od_eje',

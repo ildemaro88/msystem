@@ -12,6 +12,22 @@ class ModPaciente extends Model
         'cedula',
         'nombre',
         'apellido',
+        'pasaporte',
+        'otro',
+        'fecha_nac',
+        'lugar_nac',
+        'raza',
+        'instruccion',
+        'sexo',
+        'estado_civil',
+        'email',
+        'direccion',
+        'telf_domicilio',
+        'telf_trabajo',
+        'celular',
+        'referencia',
+        'telf_referencia',
+        'id_empresa'
     ];
     //public $timestamps = false;
     public function cms_user(){
