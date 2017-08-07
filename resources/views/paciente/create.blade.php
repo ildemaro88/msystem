@@ -58,12 +58,12 @@
 	            </div>
 	           <div class="col-md-4 div">
 	                <label class="control-label" for="telefono_user">Pasaporte</label>
-	                <span class="text-danger" title="Este campo es obligatorio">*</span>                                
+	                <span class="text-danger" title="Este campo es obligatorio"></span>                                
 	                <input onkeypress="return isNumberKey(this);" type="text" class="form-control" id="pasaporte" name="pasaporte" placeholder="Introduzca número de cédula " ng-model="pasaporte">
 	            </div>
 	            <div class="col-md-4 div">
 	                <label class="control-label" for="telefono_user">Otro</label>
-	                <span class="text-danger" title="Este campo es obligatorio">*</span>                                
+	                <span class="text-danger" title="Este campo es obligatorio"></span>                                
 	                <input onkeypress="return isNumberKey(this);" type="text" class="form-control" id="otro" name="otro" placeholder="Introduzca número de cédula " ng-model="otro">
 	            </div>
 	            	    	           
@@ -241,8 +241,7 @@
 			nombre: "required",
 			apellido:"required",
 			cedula: "required",
-			pasaporte:"required",
-			otro: "required",
+			
 			email:"required",
 		},
 		messages: {
