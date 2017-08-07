@@ -48,7 +48,7 @@
   <div id="header ">
     <div id="pr">
       <div id="izq" >
-        <img  height="80px" width="250px" src="img/optamed.jpg" alt="">
+        <img  height="80px" width="250px" src="img/logo.jpg" alt="">
 
       </div>
 
@@ -91,7 +91,7 @@
       <div id="izq" >
         <p>FIRMA:..........................................................................<br>
   		   {{$receta->medico}}.<br>
-         Teléfono: {{$receta->telefonom}}.
+         
          </p>
       </div>
 

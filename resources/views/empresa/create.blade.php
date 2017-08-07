@@ -128,11 +128,6 @@
             
             return false;
         }else{
-           /* if (evt.value[0] == "0") {
-        //  return false;
-            // se eliminan los ceros delanteros
-            evt.value = evt.value.replace(/^0+/, '');
-            }*/
             return true;
         }
     }

@@ -1602,10 +1602,6 @@
         $receta = $receta->last();
         $receta->descripcion = str_replace("\\n","\n",$receta->descripcion );
         $receta->descripcion =nl2br($receta->descripcion, false );
-       // dd($receta->descripcion);
-       // dd(nl2br($receta->descripcion ));
-        //$receta->descripcion = nl2br($receta->descripcion,false);
-        //dd(nl2br( $descripcion),false);
         $pdf = \PDF::loadView('consulta.receta',['receta' => $receta]);
         $pdf->setPaper('A5');
 

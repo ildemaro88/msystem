@@ -52,7 +52,7 @@ Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursale
 // ------  End Route Empresa ----/////
 
 //----- Start Route Paciente -----//
-
+Route::get('admin/recetas/print_r/{id}', 'AdminRecetasController@print_rPDF');
 Route::post('admin/paciente', 'AdminPaciente1Controller@store');
 Route::put('admin/paciente/{id}', 'AdminPaciente1Controller@update');
 // ------  End Route Paciente ----/////

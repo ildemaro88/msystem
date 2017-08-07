@@ -211,8 +211,82 @@
 	        
 <script type="text/javascript">
 
+	function isNumberKey(evt)
+    {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
 				
 	$('.datepicker').datepicker({language:'es',autoclose:true,format:'yyyy-mm-dd'});
+
+	$(document).ready(function(){
+		
+		$.validator.setDefaults( {
+			submitHandler: function () {
+				alert( "submitted!" );
+			}
+		} );
+		
+	});
+          
+
+
+	$( "#form_paciente" ).validate( {
+		rules: {
+			nombre: "required",
+			apellido:"required",
+			cedula: "required",
+			pasaporte:"required",
+			otro: "required",
+			email:"required",
+		},
+		messages: {
+			nombre: "Este campo es obligatorio",
+			apellido:"Este campo es obligatorio",
+			cedula: "Este campo es obligatorio",
+			pasaporte:"Este campo es obligatorio",
+			otro: "Este campo es obligatorio",
+			email:"Este campo es obligatorio",
+
+		},
+		errorElement: "em",
+		errorPlacement: function ( error, element ) {
+
+		error.addClass( "help-block" );
+		// Add the `help-block` class to the error element
+		if (element.hasClass('select2-hidden-accessible')) {
+			error.insertAfter(element.closest('.has-error').find('.select2'));
+		} else if (element.parent('.input-group').length) {
+			error.insertAfter(element.parent());
+		} else {
+			error.insertAfter(element);
+		}
+
+		},
+		highlight: function ( element, errorClass, validClass ) {
+			$( element ).parents( ".col-md-6" ).addClass( "has-error" ).removeClass( "has-success" );
+            $( element ).parents( ".col-md-12" ).addClass( "has-error" ).removeClass( "has-success" );
+			$( element ).parents( ".col-md-4" ).addClass( "has-error" ).removeClass( "has-success" );
+            $( element ).parents( ".col-md-12" ).addClass( "has-error" ).removeClass( "has-success" );
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$( element ).parents( ".col-md-6" ).addClass( "has-success" ).removeClass( "has-error" );
+            $( element ).parents( ".col-md-12" ).addClass( "has-success" ).removeClass( "has-error" );
+			$( element ).parents( ".col-md-4" ).addClass( "has-success" ).removeClass( "has-error" );
+            $( element ).parents( ".col-md-12" ).addClass( "has-success" ).removeClass( "has-error" );
+		}
+	});
+
+	$('.select2-hidden-accessible').on('change', function() {
+		if($(this).valid()) {
+			$(this).next('span').removeClass('error').addClass('valid');
+		}
+	});
 			
 	//Declaracion de la aplicacion
 
@@ -293,75 +367,77 @@
 
 	$scope.toggle = function (operation)
 	{
-		switch (operation) {
-			case 'add':
+		if($("#form_paciente").valid()){
+			switch (operation) {
+				case 'add':
 
-				$(".modal").modal('show');
-				console.log($scope.serializeObject($("#form_paciente")));
-				$http({
-					url    : API_URL + 'paciente',
-					method : 'POST',
-					params : $scope.serializeObject($("#form_paciente")),
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					}
-				}).then(function (response)
-				{
-					$(".modal").modal('hide');
-					if (response.data.response) {
-						swal({
-							title: "Buen trabajo!",
-							text: "Se ha guardado exitosamente!",
-							type: "success",
-							showCancelButton: false,
-							confirmButtonClass: "btn-succes",
-							confirmButtonText: "OK",
-							closeOnConfirm: true
-						},
-						function(){
-							$(".modal").modal('show');
-							window.location = "{{ url('/admin/paciente?m=11') }}";
-						});
-					} else {
-						swal("Error", "¡No se guardó!", "error");
-					}
-				});
-
-				break;
-
-			case 'update':
-
-				$(".modal").modal('show');
-
-				$http({
-					url    : API_URL + 'paciente/{{$paciente->id}}',
-					method : 'PUT',
-					params : $scope.serializeObject($("#form_paciente")),
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded'
-					}
-				}).then(function (response)
-				{
-					$(".modal").modal('hide');
-					if (response.data.response) {
-						swal({
-							title: "Buen trabajo!",
-							text: "Actualización exitosa!",
-							type: "success",
-							showCancelButton: false,
-							confirmButtonClass: "btn-succes",
-							confirmButtonText: "OK",
-							closeOnConfirm: true
-						},
-						function(){
-							$(".modal").modal('show');
-							window.location = "{{ url('/admin/paciente?m=11') }}";
-						});
+					$(".modal").modal('show');
+					console.log($scope.serializeObject($("#form_paciente")));
+					$http({
+						url    : API_URL + 'paciente',
+						method : 'POST',
+						params : $scope.serializeObject($("#form_paciente")),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					}).then(function (response)
+					{
+						$(".modal").modal('hide');
+						if (response.data.response) {
+							swal({
+								title: "Buen trabajo!",
+								text: "Se ha guardado exitosamente!",
+								type: "success",
+								showCancelButton: false,
+								confirmButtonClass: "btn-succes",
+								confirmButtonText: "OK",
+								closeOnConfirm: true
+							},
+							function(){
+								$(".modal").modal('show');
+								window.location = "{{ url('/admin/paciente?m=11') }}";
+							});
 						} else {
-							swal("Error", "No se actualizó", "error");
+							swal("Error", "¡No se guardó!", "error");
 						}
 					});
+
 					break;
+
+				case 'update':
+
+					$(".modal").modal('show');
+
+					$http({
+						url    : API_URL + 'paciente/{{$paciente->id}}',
+						method : 'PUT',
+						params : $scope.serializeObject($("#form_paciente")),
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					}).then(function (response)
+					{
+						$(".modal").modal('hide');
+						if (response.data.response) {
+							swal({
+								title: "Buen trabajo!",
+								text: "Actualización exitosa!",
+								type: "success",
+								showCancelButton: false,
+								confirmButtonClass: "btn-succes",
+								confirmButtonText: "OK",
+								closeOnConfirm: true
+							},
+							function(){
+								$(".modal").modal('show');
+								window.location = "{{ url('/admin/paciente?m=11') }}";
+							});
+							} else {
+								swal("Error", "No se actualizó", "error");
+							}
+						});
+						break;
+			}
 		}
 	}
 });

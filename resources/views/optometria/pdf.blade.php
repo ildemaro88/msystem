@@ -40,12 +40,11 @@
 
   <div id="header ">
     <div id="pr">
-      <div id="izq" >
-        <img  height="80px" width="250px" src="img/optamed.jpg" alt="">
+      <div id="izq">
+        <img  height="80px" width="250px" src="img/logo.jpg" alt="">
 
       </div>
-
-      <div id="der" >
+      <div id="der">
 
         <p><h4 style="display: inline;"></h4></p><br/>
         <<p><h4 style="display: inline;">HISTORIA CLÍNICA</h4></p>
