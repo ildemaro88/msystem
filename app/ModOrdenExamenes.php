@@ -10,14 +10,13 @@ class ModOrdenExamenes extends Model
   protected $primaryKey = 'id';
   protected $fillable = [
       'id_orden',
-      'id_medico',
-      'id_paciente',
+      'id_examen',
       'observacion',
-      'fecha'
+      'id_estado'
   ];
 
-  public function scopeExamenes($query, $id){
-        return $query->where('id_orden',$id)->select('id_examen');
-  }
+  
+
+
 
 }

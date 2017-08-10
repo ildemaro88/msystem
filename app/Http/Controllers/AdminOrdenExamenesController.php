@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use crocodicstudio\crudbooster\helpers\CRUDBooster;
 use App\ModOrdenExamenes;
+use App\ModOrden;
 use App\ModMedico;
+use App\ModExamen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection as Collection;
 use App\ModPaciente;
@@ -314,50 +316,22 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		$examenes = DB::table('examen')->select('examen.id','examen.slug','examen.nombre','examen.id_categoria_examen','categoria_examen.nombre as categoria','tipo_examen.nombre as tipo','tipo_examen.id as id_tipo_examen')->join('categoria_examen','categoria_examen.id','=','examen.id_categoria_examen')->join('tipo_examen','tipo_examen.id','=','categoria_examen.id_tipo_examen')->get();
 		if(Session::has('paciente_ingresao')){
           $paciente_ingresado = Session::get('paciente_ingresao');
-          //dd($paciente_ingresado);
         }else{
           $paciente_ingresado = 0;
         }
 		$tipos =DB::table('tipo_examen')->select('nombre','id')->get();
 		$categorias =DB::table('categoria_examen')->select('nombre','id','id_tipo_examen')->get();
 
-		//$categorias = json_decode($categorias,true);
 		foreach ($tipos as $tipo) {
-			//foreach ($categorias as $categoria ) {
-				foreach ($examenes as $examen) {
-					
-					/*foreach ($examenes as $examen) {
-						if($tipo->id == $examen->id_tipo_examen){
-							$pruebas[$tipo->id][] =$examen;
-							//$pruebas[$tipo->id]['nombre']=$tipo->nombre;
-						}
-					}*/
-				
+			foreach ($examenes as $examen) {
 				if($tipo->id == $examen->id_tipo_examen){
-					//if($categoria->id == $examen->id_categoria_examen){
-							//$categoria->examen[$examen->id] =$examen;
-							//$pruebas[$tipo->id]['nombre']=$tipo->nombre;
-					//	}
 					$pruebas[$tipo->id][] =$examen;
-					//$pruebas[$tipo->id]['tipo'] =$tipo->id;
-					//$pruebas[$tipo->id]['nombre']=$tipo->nombre;
-					//dd($pruebas);
-				}											
-
-			
-				}
-			//}	
+				}														
 			}
-	
-		
-		
-			
+		}
 
-		//$categorias['']
-		//$pruebas= json_encode($pruebas);
-			$pruebas = Collection::make($pruebas);
+		$pruebas = Collection::make($pruebas);
 		
-		//dd($pruebas);
 		$medicos =  ModMedico::all();
 		$pacientes = ModPaciente::all();
 		//$medicos = $medico->all();
@@ -370,14 +344,17 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
 		$medico = ModMedico::find($medico_id->id);
 		$page_title = 'Orden Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
-		$orden = ModOrdenExamenes::where('id_orden',$id)->where('id_medico',$medico_id->id)->firstOrFail();
 		$medicos =  ModMedico::all();
 		$pacientes = ModPaciente::all();
-		$examenes= DB::table('orden_examen')->select('orden_examen.id_orden','orden_examen.observacion','orden_examen.id_examen','examen.slug')->join('examen','examen.id','=','orden_examen.id_examen')->where(['orden_examen.id_orden' => $id])->get();
-		$examenes = json_decode($examenes,true);
+		$orden = ModOrden::find($id);
+		$examenes= $orden->examenes;		
+		$examenes = json_decode($examenes,true);		
 		$txt = 'txt';
-
+		
 		foreach ($examenes as $examen) {
+			$exa = ModExamen::find($examen['id_examen']);
+			$examen['slug'] = $exa->slug;
+			
 			$pos = strpos($examen['slug'], $txt);
 			if($pos === false){
 				$a[$examen['slug']]="on";
@@ -388,13 +365,14 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 
 		$a = json_encode($a);
 
+
 		return view("ordenExamenes.index", ["orden"=>$orden,"examenes"=>$a],compact('page_title', 'operation','medicos','pacientes'));
 
 	}
 
 	public function printPDF($id){
-		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-		$orden = ModOrdenExamenes::where('id_orden',$id)->where('id_medico',$medico_id->id)->firstOrFail();
+		$medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+		$orden = ModOrdenExamenes::where('id_orden',$id)->firstOrFail();
 		$tipos =DB::table('orden_pdf')->select('tipo_id')->where(['id' => $id])->groupBy('tipo_id')->get();
 		$examenes= DB::table('orden_pdf')->select('*')->where(['id' => $id])->get();
 		$pdf = \PDF::loadView('ordenExamenes.pdf',['examenes' => $examenes,'tipos' => $tipos]);
@@ -415,26 +393,29 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		$hoy= Carbon::now();
 		$hoy = $hoy->format('Y-m-d');
 		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+		$orden = new ModOrden;
+		$orden->id_medico   = $medico_id->id;
+		$orden->id_tipo_orden = 4;
+		$orden->id_paciente = $request->get('id_paciente');
+		$orden->fecha = $hoy;
+		$orden->save();
 		$examenes = $request->input('examenes');
 		$examenes = array_filter($examenes);
-		$lastId = DB::table('orden_examen')->max('id_orden');
+		
 
 		foreach ($examenes as $key => $value) {
 
-			$orden =  new ModOrdenExamenes;
-			$orden->id_orden  = $lastId+1;
-			$orden->id_medico   = $medico_id->id;
-			$orden->id_paciente = $request->get('id_paciente');
-			$orden->fecha = $hoy;
-			$orden->id_examen = $key;
-			($value != "on")?$orden->observacion =$value:$orden->observacion =" ";
+			$orden_examen =  new ModOrdenExamenes;
+			$orden_examen->id_orden  = $orden->id;						
+			$orden_examen->id_examen = $key;
+			($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
 
-			$response = $orden->save();
+			$response = $orden_examen->save();
 		}
 
 		return response()->json([
 			"response" => $response,
-			"laboratorio" =>$orden]);
+			"orden_examen" =>$orden_examen]);
 		}
 
 		/**
@@ -446,24 +427,23 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		*/
 		public function update(Request $request, $id)
 		{
-			$hoy= Carbon::now();
+			$hoy = Carbon::now();
 			$hoy = $hoy->format('Y-m-d');
-
-			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$orden = ModOrden::findOrFail($id);
+			$orden->id_paciente = $request->get('id_paciente');
+			$orden->fecha = $hoy;
+			$orden->save();
 			$examenes = $request->input('examenes');
 			$examenes = array_filter($examenes);
-			$examenesBD= DB::table('orden_examen')->select('orden_examen.id_orden','orden_examen.observacion','orden_examen.id_examen','examen.id')->join('examen','examen.id','=','orden_examen.id_examen')->where(['orden_examen.id_orden' => $id])->get();
-			$delete= ModOrdenExamenes::where('id_orden', $id)->where('id_medico',$medico_id->id)->delete();
+			$delete= ModOrdenExamenes::where('id_orden', $id)->delete();
 
 			foreach ($examenes as $key => $value) {
-				$orden =  new ModOrdenExamenes;
-				$orden->id_orden  = $id;
-				$orden->id_medico   = $medico_id->id;
-				$orden->id_paciente = $request->get('id_paciente');
-				$orden->fecha = $hoy;
-				$orden->id_examen = $key;
-				($value != "on")?$orden->observacion =$value:$orden->observacion =" ";
-				$response = $orden->save();
+				$orden_examen =  new ModOrdenExamenes;
+				$orden_examen->id_orden  = $id;
+				
+				$orden_examen->id_examen = $key;
+				($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+				$response = $orden_examen->save();
 			}
 
 			return response()->json([
@@ -483,7 +463,7 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		public function getDelete($id)
 		{
 			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			$delete= ModOrdenExamenes::where('id_orden', $id)->where('id_medico',$medico_id->id)->delete();
+			$delete= ModOrden::find($id)->delete();
 
 			return $delete;
 		}

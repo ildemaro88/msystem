@@ -26,12 +26,10 @@ Route::put('admin/orden_examenes/{id}', 'AdminOrdenExamenesController@update');
 // ------  End Route orden_examen ----/////
 
 //----- Start Route Optometria -----//
-//Route::get('admin/orden_examenes/{id}/print', 'AdminOrdenExamenesController@printPDF');
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');
 Route::post('admin/optometria', 'AdminOptometriaController@store');
 Route::get('admin/optometria/ingresar/{id}', 'AdminOptometriaController@ingresar');
-//sRoute::get('admin/optometria/finalizar/{id}', 'AdminOptometriaController@finalizar');
 Route::put('admin/optometria/{id}', 'AdminOptometriaController@update');
 // ------  End Route Optometria ----/////
 

@@ -64,8 +64,13 @@
 
     <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Ordenes</a><div id="message">
     </div></p>
-
+     
     <div class = "box" ng-app="MyApp" ng-controller="controllerLaboratorio">
+    <div class = "panel-footer">
+      <div class="text-right">
+            <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
+      </div>
+    </div>
     	<div class = "box-body">
     		<form id="form_laboratorio" method="POST" action="" name="form_laboratorio" >
     			{{ csrf_field() }}
@@ -1823,11 +1828,7 @@
     		</form>
     	</div>      
     </div>
-    <div class = "panel-footer">
-      <div>
-            <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
-      </div>
-    </div>
+   
 
     <!-- HTML del Modal de Loading-->
 
@@ -2164,7 +2165,7 @@
                     $(".modal").modal('show');
 
                     $http({
-                      url    : API_URL + 'orden_examenes/{{$orden->id_orden}}',
+                      url    : API_URL + 'orden_examenes/{{$orden->id}}',
                       method : 'PUT',
                       params : $scope.serializeObject($("#form_laboratorio")),
                       headers: {
