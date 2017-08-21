@@ -25,6 +25,10 @@ Route::post('admin/orden_examenes', 'AdminOrdenExamenesController@store');
 Route::put('admin/orden_examenes/{id}', 'AdminOrdenExamenesController@update');
 // ------  End Route orden_examen ----/////
 
+//----- Start Route Orden_examen_ocupacional -----//
+Route::post('admin/orden_examenes26', 'AdminOrdenExamenes26Controller@store');
+// ------  End Route Orden_examen_ocupacional ----/////
+
 //----- Start Route Optometria -----//
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');

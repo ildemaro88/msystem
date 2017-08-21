@@ -219,7 +219,7 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 	*/
 	public function hook_query_index(&$query) {
 		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-		$query->where('id_medico',$medico_id->id);
+		$query->where('id_medico',$medico_id->id)->where('tipo_orden','PARTICULAR');
 
 
 	}

@@ -1,19 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use crocodicstudio\crudbooster\helpers\CRUDBooster;
-use App\ModOrdenExamenes;
-use App\ModOrden;
-use App\ModMedico;
-use App\ModExamen;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection as Collection;
-use App\ModPaciente;
-use Session;
-use Carbon\Carbon;
+	use Session;
+	use Request;
+	use DB;
+	use CRUDBooster;
 
-	class AdminOrdenExamenes26Controller extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminOrdenExamenesCargaController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -24,25 +16,24 @@ use Carbon\Carbon;
 			$this->global_privilege = false;
 			$this->button_table_action = true;
 			$this->button_action_style = "button_icon";
-			$this->button_add = true;
-			$this->button_edit = true;
-			$this->button_delete = true;
+			$this->button_add = false;
+			$this->button_edit = false;
+			$this->button_delete = false;
 			$this->button_detail = true;
 			$this->button_show = true;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "orden_examenes";
+			$this->table = "orden_examenes_carga";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Tipo de Orden","name"=>"tipo_orden"];
-			$this->col[] = ["label"=>"Tipo de Examen","name"=>"tipo"];
-			$this->col[] = ["label"=>"Ci","name"=>"ci"];
+			$this->col[] = ["label"=>"Tipo Orden","name"=>"tipo_orden"];
+			$this->col[] = ["label"=>"Tipo Examen","name"=>"tipo"];
+			$this->col[] = ["label"=>"C.I.","name"=>"ci"];
 			$this->col[] = ["label"=>"Paciente","name"=>"paciente"];
 			$this->col[] = ["label"=>"Empresa","name"=>"empresa"];
-			$this->col[] = ["label"=>"Fecha","name"=>"fecha"];
 			$this->col[] = ["label"=>"Exámenes","name"=>"lista"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
@@ -54,8 +45,8 @@ use Carbon\Carbon;
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Tipo',
-  'name' => 'tipo',
+  'label' => 'Lista',
+  'name' => 'lista',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
@@ -73,31 +64,15 @@ use Carbon\Carbon;
   'width' => 'col-sm-10',
 );
 			$this->form[] = array (
-  'dataenum' => NULL,
-  'datatable' => 'medico,id',
   'style' => NULL,
   'help' => NULL,
-  'datatable_where' => NULL,
-  'datatable_format' => NULL,
-  'datatable_exception' => NULL,
-  'label' => 'Medico',
-  'name' => 'id_medico',
-  'type' => 'select2',
-  'validation' => 'required|integer|min:0',
-  'width' => 'col-sm-10',
-);
-			$this->form[] = array (
-  'dataenum' => NULL,
-  'datatable' => 'paciente,id',
-  'style' => NULL,
-  'help' => NULL,
-  'datatable_where' => NULL,
-  'datatable_format' => NULL,
-  'datatable_exception' => NULL,
-  'label' => 'Paciente',
-  'name' => 'id_paciente',
-  'type' => 'select2',
-  'validation' => 'required|integer|min:0',
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Nacimiento',
+  'name' => 'nacimiento',
+  'type' => 'date',
+  'validation' => 'required|date',
   'width' => 'col-sm-10',
 );
 			$this->form[] = array (
@@ -106,8 +81,8 @@ use Carbon\Carbon;
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Fecha',
-  'name' => 'fecha',
+  'label' => 'Telefono',
+  'name' => 'telefono',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
@@ -118,8 +93,20 @@ use Carbon\Carbon;
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Paciente',
-  'name' => 'paciente',
+  'label' => 'Empresa',
+  'name' => 'empresa',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Telefonom',
+  'name' => 'telefonom',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
@@ -142,10 +129,188 @@ use Carbon\Carbon;
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Lista',
-  'name' => 'lista',
-  'type' => 'textarea',
-  'validation' => 'required|string|min:5|max:5000',
+  'label' => 'Paciente',
+  'name' => 'paciente',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Tipo Orden',
+  'name' => 'tipo_orden',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Tipo',
+  'name' => 'tipo',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'tipo,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Tipo Id',
+  'name' => 'tipo_id',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Categoria',
+  'name' => 'categoria',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Fecha',
+  'name' => 'fecha',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'categoria,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Categoria',
+  'name' => 'id_categoria',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'examen,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Examen',
+  'name' => 'id_examen',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Slug',
+  'name' => 'slug',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Nombre Examen',
+  'name' => 'nombre_examen',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'orden,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Orden Id',
+  'name' => 'orden_id',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Observacion',
+  'name' => 'observacion',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Pacienteid',
+  'name' => 'pacienteid',
+  'type' => 'number',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'medico,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Medico',
+  'name' => 'id_medico',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Estado',
+  'name' => 'estado',
+  'type' => 'number',
+  'validation' => 'required|integer|min:0',
   'width' => 'col-sm-10',
 );
 			# END FORM DO NOT REMOVE THIS LINE
@@ -284,9 +449,7 @@ use Carbon\Carbon;
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	       
-			$query->where('tipo_orden','!=','PARTICULAR');
-
+	        //Your code here
 	            
 	    }
 
@@ -375,143 +538,7 @@ use Carbon\Carbon;
 
 
 
-	    public function getAdd(){
-			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			$medico = ModMedico::find($medico_id->id);
-			$operation = 'add';
-			$examenes = DB::table('examen')->select('examen.id','examen.slug','examen.nombre','examen.id_categoria_examen','categoria_examen.nombre as categoria','tipo_examen.nombre as tipo','tipo_examen.id as id_tipo_examen')->join('categoria_examen','categoria_examen.id','=','examen.id_categoria_examen')->join('tipo_examen','tipo_examen.id','=','categoria_examen.id_tipo_examen')->get();
-			if(Session::has('paciente_ingresao')){
-	          $paciente_ingresado = Session::get('paciente_ingresao');
-	        }else{
-	          $paciente_ingresado = 0;
-	        }
-			$tipos =DB::table('tipo_examen')->select('nombre','id')->get();
-			$categorias =DB::table('categoria_examen')->select('nombre','id','id_tipo_examen')->get();
-
-			foreach ($tipos as $tipo) {
-				foreach ($examenes as $examen) {
-					if($tipo->id == $examen->id_tipo_examen){
-						$pruebas[$tipo->id][] =$examen;
-					}														
-				}
-			}
-
-			$pruebas = Collection::make($pruebas);
-			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
-			$medicos =  ModMedico::all();
-			$pacientes = DB::table('pacientes')->select('*')->where('empresa','!=','')->get();
-			$page_title = 'Orden Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
-			return view("ordenExamenOcupacional.create",compact('page_title', 'tipos_ordenes','categorias','operation','medico','pacientes','pruebas','tipos','paciente_ingresado'));
-		}
-
-		/**
-		* Store a newly created resource in storage.
-		*
-		* @param  \Illuminate\Http\Request  $request
-		* @return \Illuminate\Http\Response
-		*/
-		public function store(Request $request){
-
-			$pacientes = $request->input('pacientes');
-			//dd($request->id_tipo_orden);
-			
-			
-			$hoy= Carbon::now();
-			$hoy = $hoy->format('Y-m-d');
-			$medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			
-			$examenes = $request->input('examenes');
-			$examenes = array_filter($examenes);
-			
-			foreach ($pacientes as $paciente) {
-				$orden = new ModOrden;
-				$orden->id_medico   = $medico->id;
-				$orden->id_tipo_orden = $request->id_tipo_orden;
-				$orden->id_paciente = $paciente;
-				$orden->fecha = $hoy;
-				$orden->save();
-				foreach ($examenes as $key => $value) {
-
-					$orden_examen =  new ModOrdenExamenes;
-					$orden_examen->id_orden  = $orden->id;						
-					$orden_examen->id_examen = $key;
-					($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
-
-					$response = $orden_examen->save();
-				}
-				
-			}
-			
-
-			return response()->json([
-				"response" => $response,
-				"orden_examen" =>$orden_examen]
-			);
-		}
-
-		public function getEdit($id){
-			$operation = 'update';
-			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			$medico = ModMedico::find($medico_id->id);
-			$page_title = 'Orden de Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
-			$medicos =  ModMedico::all();
-			$pacientes = ModPaciente::all();
-			$orden = ModOrden::find($id);
-			$examenes= $orden->examenes;		
-			$examenes = json_decode($examenes,true);		
-			$txt = 'txt';
-			
-			foreach ($examenes as $examen) {
-				$exa = ModExamen::find($examen['id_examen']);
-				$examen['slug'] = $exa->slug;
-				
-				$pos = strpos($examen['slug'], $txt);
-				if($pos === false){
-					$a[$examen['slug']]="on";
-				}else{
-					$a[$examen['slug']]=$examen['observacion'];
-				}
-			}
-
-			$a = json_encode($a);
-			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
-			return view("ordenExamenOcupacional.create", ["orden"=>$orden,'tipos_ordenes'=>$tipos_ordenes,"examenes"=>$a],compact('page_title', 'operation','medicos','pacientes'));
-		}
+	    //By the way, you can still create your own method in here... :) 
 
 
-		/**
-		* Update the specified resource in storage.
-		*
-		* @param  \Illuminate\Http\Request  $request
-		* @param  int  $id
-		* @return \Illuminate\Http\Response
-		*/
-		public function update(Request $request, $id)
-		{
-			dd($request->id_tipo_orden);
-			$hoy = Carbon::now();
-			$hoy = $hoy->format('Y-m-d');
-			$orden = ModOrden::findOrFail($id);
-			$orden->id_paciente = $request->get('id_paciente');
-			$orden->fecha = $hoy;
-			$orden->id_tipo_orden = $request->id_tipo_orden;
-			$orden->save();
-			$examenes = $request->input('examenes');
-			$examenes = array_filter($examenes);
-			$delete= ModOrdenExamenes::where('id_orden', $id)->delete();
-
-			foreach ($examenes as $key => $value) {
-				$orden_examen =  new ModOrdenExamenes;
-				$orden_examen->id_orden  = $id;
-				
-				$orden_examen->id_examen = $key;
-				($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
-				$response = $orden_examen->save();
-			}
-
-			return response()->json([
-				"response" => $response,
-				"laboratorio" =>$orden]
-			);
-		}
 	}
