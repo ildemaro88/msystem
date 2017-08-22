@@ -624,8 +624,12 @@ $this->sub_module = array();
       $operation = 'add';
       $page_title = 'Agregar Paciente';
 
-      //Buscamos todas las empresas
-      $empresas = ModEmpresa::all();
+      //Buscamos todas las sucursales, o empresas sin sucursales
+      $empresas = ModEmpresa::whereNotIn('id', function($q){
+          $q->select('id_padre')
+            ->from('empresa');
+      })->get();
+
       return view("paciente.create",compact('page_title', 'operation','empresas')); 
     }
 
@@ -645,28 +649,7 @@ $this->sub_module = array();
     }
 
     public function store(Request $request){
-      $paciente =  new ModPaciente;
-      $paciente->nombre = $request->get('nombre');
-      $paciente->apellido = $request->get('apellido');
-      $paciente->cedula = $request->get('cedula');
-      $paciente->pasaporte = $request->get('pasaporte');
-      $paciente->otro = $request->get('otro');
-      $paciente->fecha_nac = $request->get('fecha_nac');
-      $paciente->lugar_nac = $request->get('lugar_nac');
-      $paciente->email = $request->get('email');
-      $paciente->direccion = $request->get('direccion');
-      $paciente->telf_domicilio = $request->get('telf_domicilio');
-      $paciente->telf_trabajo = $request->get('telf_trabajo');
-      $paciente->celular = $request->get('celular');
-      $paciente->referencia = $request->get('referencia');
-      $paciente->telf_referencia = $request->get('telf_referencia');
-      $paciente->sexo = $request->get('sexo');
-      $paciente->raza = $request->get('raza');
-      $paciente->estado_civil = $request->get('estado_civil');
-      $paciente->instruccion = $request->get('instruccion');
-      $paciente->id_empresa = $request->get('id_empresa');
-
-      $response = $paciente->save();
+      $response = ModPaciente::create($request->all());
       return response()->json([
         "response" => $response,
         "paciente" =>$paciente]);
@@ -676,25 +659,7 @@ $this->sub_module = array();
     public function update(Request $request, $id){
       
       $paciente = ModPaciente::findOrFail($id); 
-      $paciente->nombre = $request->get('nombre');
-      $paciente->apellido = $request->get('apellido');
-      $paciente->cedula = $request->get('cedula');
-      $paciente->pasaporte = $request->get('pasaporte');
-      $paciente->otro = $request->get('otro');
-      $paciente->fecha_nac = $request->get('fecha_nac');
-      $paciente->lugar_nac = $request->get('lugar_nac');
-      $paciente->email = $request->get('email');
-      $paciente->direccion = $request->get('direccion');
-      $paciente->telf_domicilio = $request->get('telf_domicilio');
-      $paciente->telf_trabajo = $request->get('telf_trabajo');
-      $paciente->celular = $request->get('celular');
-      $paciente->referencia = $request->get('referencia');
-      $paciente->telf_referencia = $request->get('telf_referencia');
-      $paciente->sexo = $request->get('sexo');
-      $paciente->raza = $request->get('raza');
-      $paciente->estado_civil = $request->get('estado_civil');
-      $paciente->instruccion = $request->get('instruccion');
-      $paciente->id_empresa = $request->get('id_empresa');
+      $paciente->fill($request->all());
 
       $response = $paciente->save();
       return response()->json([

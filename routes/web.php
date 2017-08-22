@@ -27,6 +27,7 @@ Route::put('admin/orden_examenes/{id}', 'AdminOrdenExamenesController@update');
 
 //----- Start Route Orden_examen_ocupacional -----//
 Route::post('admin/orden_examenes26', 'AdminOrdenExamenes26Controller@store');
+Route::put('admin/orden_examenes26/{id}', 'AdminOrdenExamenes26Controller@update');
 // ------  End Route Orden_examen_ocupacional ----/////
 
 //----- Start Route Optometria -----//

@@ -7,6 +7,7 @@ use App\ModOrdenExamenes;
 use App\ModOrden;
 use App\ModMedico;
 use App\ModExamen;
+use App\ModTipoExamen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection as Collection;
 use App\ModPaciente;
@@ -36,16 +37,16 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		$this->table = "orden_examenes";
 		# END CONFIGURATION DO NOT REMOVE THIS LINE
 
-		# START COLUMNS DO NOT REMOVE THIS LINE
-		$this->col = [];
-		$this->col[] = ["label"=>"Cedúla","name"=>"ci"];
-		$this->col[] = ["label"=>"Paciente","name"=>"paciente"];
-		$this->col[] = ["label"=>"Fecha","name"=>"fecha"];
-		$this->col[] = ["label"=>"Examenes","name"=>"lista"];
+			# START COLUMNS DO NOT REMOVE THIS LINE
+			$this->col = [];
+			$this->col[] = ["label"=>"Tipo de Examen","name"=>"tipo"];
+			$this->col[] = ["label"=>"Cedúla","name"=>"ci"];
+			$this->col[] = ["label"=>"Paciente","name"=>"paciente"];
+			$this->col[] = ["label"=>"Fecha","name"=>"fecha"];
+			$this->col[] = ["label"=>"Examenes","name"=>"lista"];
+			# END COLUMNS DO NOT REMOVE THIS LINE
 
-		# END COLUMNS DO NOT REMOVE THIS LINE
-
-		# START FORM DO NOT REMOVE THIS LINE
+			# START FORM DO NOT REMOVE THIS LINE
 		$this->form = array();
 
 		# END FORM DO NOT REMOVE THIS LINE
@@ -353,6 +354,7 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		
 		foreach ($examenes as $examen) {
 			$exa = ModExamen::find($examen['id_examen']);
+
 			$examen['slug'] = $exa->slug;
 			
 			$pos = strpos($examen['slug'], $txt);
@@ -393,80 +395,106 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 		$hoy= Carbon::now();
 		$hoy = $hoy->format('Y-m-d');
 		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-		$orden = new ModOrden;
-		$orden->id_medico   = $medico_id->id;
-		$orden->id_tipo_orden = 4;
-		$orden->id_paciente = $request->get('id_paciente');
-		$orden->fecha = $hoy;
-		$orden->save();
+		$tipos = ModTipoExamen::all();
 		$examenes = $request->input('examenes');
 		$examenes = array_filter($examenes);
+		$examen = ModExamen::find(key($examenes));
 		
+		foreach ($tipos as $tipo) {
+			$orden = new ModOrden;
+			$orden->id_medico   = $medico_id->id;
+			$orden->id_tipo_orden = 4;
+			$orden->id_paciente = $request->get('id_paciente');
+			$orden->fecha = $hoy;
+			foreach ($examenes as $key => $value) {
+			
+				$examen = ModExamen::find($key);
+				$tipo2 = $examen->categoria->tipo->id;
+				if($tipo2 == $tipo->id){
+					$orden->save();
+					$orden_examen =  new ModOrdenExamenes;
+					$orden_examen->id_orden  = $orden->id;						
+					$orden_examen->id_examen = $key;
+					($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+					$response = $orden_examen->save();
+				}
 
-		foreach ($examenes as $key => $value) {
-
-			$orden_examen =  new ModOrdenExamenes;
-			$orden_examen->id_orden  = $orden->id;						
-			$orden_examen->id_examen = $key;
-			($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
-
-			$response = $orden_examen->save();
+			}		
+			
 		}
+		
+		
 
 		return response()->json([
 			"response" => $response,
-			"orden_examen" =>$orden_examen]);
-		}
+			"orden_examen" =>$orden_examen]
+		);
+	}
 
-		/**
-		* Update the specified resource in storage.
-		*
-		* @param  \Illuminate\Http\Request  $request
-		* @param  int  $id
-		* @return \Illuminate\Http\Response
-		*/
-		public function update(Request $request, $id)
-		{
-			$hoy = Carbon::now();
-			$hoy = $hoy->format('Y-m-d');
-			$orden = ModOrden::findOrFail($id);
+	/**
+	* Update the specified resource in storage.
+	*
+	* @param  \Illuminate\Http\Request  $request
+	* @param  int  $id
+	* @return \Illuminate\Http\Response
+	*/
+	public function update(Request $request, $id)
+	{
+		$hoy = Carbon::now();
+		$hoy = $hoy->format('Y-m-d');
+		$orden = ModOrden::findOrFail($id);		
+		$id_medico = $orden->id_medico;
+		$orden->delete();
+		$examenes = $request->input('examenes');
+		$examenes = array_filter($examenes);
+		$delete = ModOrdenExamenes::where('id_orden', $id)->delete();
+		$tipos = ModTipoExamen::all();
+
+		foreach ($tipos as $tipo) {
+			$orden = new ModOrden;
+			$orden->id_medico   = $id_medico;
+			$orden->id_tipo_orden = 4;
 			$orden->id_paciente = $request->get('id_paciente');
 			$orden->fecha = $hoy;
-			$orden->save();
-			$examenes = $request->input('examenes');
-			$examenes = array_filter($examenes);
-			$delete= ModOrdenExamenes::where('id_orden', $id)->delete();
-
 			foreach ($examenes as $key => $value) {
-				$orden_examen =  new ModOrdenExamenes;
-				$orden_examen->id_orden  = $id;
-				
-				$orden_examen->id_examen = $key;
-				($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
-				$response = $orden_examen->save();
-			}
+			
+				$examen = ModExamen::find($key);
+				$tipo2 = $examen->categoria->tipo->id;
+				if($tipo2 == $tipo->id){
+					$orden->save();
+					$orden_examen =  new ModOrdenExamenes;
+					$orden_examen->id_orden  = $orden->id;						
+					$orden_examen->id_examen = $key;
+					($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+					$response = $orden_examen->save();
+				}
 
-			return response()->json([
-				"response" => $response,
-				"laboratorio" =>$orden]
-			);
-
+			}		
+			
 		}
+		
+
+		return response()->json([
+			"response" => $response,
+			"laboratorio" =>$orden]
+		);
+
+	}
 
 
-		/**
-		* Remove the specified resource from storage.
-		*
-		* @param  int  $id
-		* @return \Illuminate\Http\Response
-		*/
-		public function getDelete($id)
-		{
-			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			$delete= ModOrden::find($id)->delete();
+	/**
+	* Remove the specified resource from storage.
+	*
+	* @param  int  $id
+	* @return \Illuminate\Http\Response
+	*/
+	public function getDelete($id)
+	{
+		$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+		$delete= ModOrden::find($id)->delete();
 
-			return $delete;
-		}
+		return $delete;
+	}
 
 
 

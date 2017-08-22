@@ -81,32 +81,12 @@
               TIPO DE ORDEN:                            
               
               @foreach($tipos_ordenes as $tipo_orden)
-              @if($tipo_orden->id == 1)
-                  <?php $checked = 'checked'; ?>
-              @else
-                  <?php $checked = ''; ?>
-              @endif
+              
               <label class="radio-inline">                              
-                <input type="radio" name="id_tipo_orden" value="{{$tipo_orden->id}}" class="minimal" {{$checked}}>
+                <input type="radio" name="id_tipo_orden" value="{{$tipo_orden->id}}" class="minimal">
                 {{$tipo_orden->descripcion}}
               </label>
               @endforeach
-              <!--label class="radio-inline">
-                <input type="radio" name="id_tipo_orden" value="3" class="minimal">
-                PERIÓDICO
-              </label> {{$checked}} {{$orden->id_tipo_orden==$tipo_orden->id?checked:''}}
-              <label class="radio-inline">
-                <input type="radio" name="id_tipo_orden" value="6" class="minimal" >
-                REUBICACIÓN
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="id_tipo_orden" value="5" class="minimal">
-                REINGRESO
-              </label>
-              <label class="radio-inline"> 
-                <input type="radio" name="id_tipo_orden" value="2" class="minimal" >
-                RETIRO/EGRESO
-              </label-->     
               <div class="pull-right">
                 <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
               </div>             
@@ -166,7 +146,32 @@
                         Fecha de Creación
                       </th>
                     </tr>
-                  </thead>                   
+                  </thead>    
+                  <tfoot>
+                    <tr role="row">
+                      <th >
+                        
+                      </th>
+                      <th >
+                        Cédula
+                      </th>
+                      <th >
+                        Nombre y Apellido
+                      </th>
+                      <th >
+                        Sexo
+                      </th>
+                      <th >
+                        Edad
+                      </th>
+                      <th >
+                        Empresa
+                      </th>
+                      <th >
+                        Fecha de Creación
+                      </th>
+                    </tr>
+                </tfoot>               
                   <tbody>
                      @foreach($pacientes as $paciente) 
                       <tr role="row" class="odd">
@@ -2226,10 +2231,8 @@
       {
 
         $scope.setRadio = function(name, SelectdValue){
-          //function RadionButtonSelectedValueSet() {
-            console.log(SelectdValue);
-     $('input[name="' + name + '"][value="' + SelectdValue + '"]').attr('checked',true);
-//}
+          console.log(SelectdValue);
+          $('input[name="' + name + '"][value="' + SelectdValue + '"]').attr('checked',true);
         }
 
         //Como inician los campos
@@ -2245,6 +2248,7 @@
             $("#id_paciente").val("{{$orden->id_paciente}}").trigger("change");
 
           }else{
+            $scope.setRadio('id_tipo_orden',"1");
             $("#id_medico").val("").trigger("change");
             $("#id_paciente").val("{{$paciente_ingresado}}").trigger("change");
           }
@@ -2364,7 +2368,7 @@
                     $(".modal").modal('show');
 
                     $http({
-                      url    : API_URL + 'orden_examenes/{{$orden->id}}',
+                      url    : API_URL + 'orden_examenes26/{{$orden->id}}',
                       method : 'PUT',
                       params : $scope.serializeObject($("#form_laboratorio")),
                       headers: {

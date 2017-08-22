@@ -7,6 +7,7 @@ use App\ModOrdenExamenes;
 use App\ModOrden;
 use App\ModMedico;
 use App\ModExamen;
+use App\ModTipoExamen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection as Collection;
 use App\ModPaciente;
@@ -412,33 +413,39 @@ use Carbon\Carbon;
 		*/
 		public function store(Request $request){
 
-			$pacientes = $request->input('pacientes');
-			//dd($request->id_tipo_orden);
-			
-			
+			$pacientes = $request->input('pacientes');		
 			$hoy= Carbon::now();
 			$hoy = $hoy->format('Y-m-d');
 			$medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			
+			$tipos = ModTipoExamen::all();
 			$examenes = $request->input('examenes');
 			$examenes = array_filter($examenes);
 			
 			foreach ($pacientes as $paciente) {
-				$orden = new ModOrden;
-				$orden->id_medico   = $medico->id;
-				$orden->id_tipo_orden = $request->id_tipo_orden;
-				$orden->id_paciente = $paciente;
-				$orden->fecha = $hoy;
-				$orden->save();
-				foreach ($examenes as $key => $value) {
 
-					$orden_examen =  new ModOrdenExamenes;
-					$orden_examen->id_orden  = $orden->id;						
-					$orden_examen->id_examen = $key;
-					($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+				foreach ($tipos as $tipo) {
+					$orden = new ModOrden;
+					$orden->id_medico   = $medico->id;
+					$orden->id_tipo_orden = $request->id_tipo_orden;
+					$orden->id_paciente = $paciente;
+					$orden->fecha = $hoy;
 
-					$response = $orden_examen->save();
-				}
+					foreach ($examenes as $key => $value) {					
+						$tipo2 = ModExamen::find($key)->categoria->tipo->id;
+						//$tipo2 = $examen->categoria->tipo->id;
+						
+						if($tipo2 == $tipo->id){
+							$orden->save();
+							$orden_examen =  new ModOrdenExamenes;
+							$orden_examen->id_orden  = $orden->id;						
+							$orden_examen->id_examen = $key;
+							($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+							$response = $orden_examen->save();
+						}
+
+					}		
+					
+				}				
 				
 			}
 			
@@ -488,30 +495,44 @@ use Carbon\Carbon;
 		*/
 		public function update(Request $request, $id)
 		{
-			dd($request->id_tipo_orden);
 			$hoy = Carbon::now();
 			$hoy = $hoy->format('Y-m-d');
-			$orden = ModOrden::findOrFail($id);
-			$orden->id_paciente = $request->get('id_paciente');
-			$orden->fecha = $hoy;
-			$orden->id_tipo_orden = $request->id_tipo_orden;
-			$orden->save();
+			$orden = ModOrden::findOrFail($id);		
+			$id_medico = $orden->id_medico;
+			$orden->delete();
 			$examenes = $request->input('examenes');
 			$examenes = array_filter($examenes);
-			$delete= ModOrdenExamenes::where('id_orden', $id)->delete();
+			$delete = ModOrdenExamenes::where('id_orden', $id)->delete();
+			$tipos = ModTipoExamen::all();
 
-			foreach ($examenes as $key => $value) {
-				$orden_examen =  new ModOrdenExamenes;
-				$orden_examen->id_orden  = $id;
+			foreach ($tipos as $tipo) {
+				$orden = new ModOrden;
+				$orden->id_medico   = $id_medico;
+				$orden->id_tipo_orden = 4;
+				$orden->id_paciente = $request->get('id_paciente');
+				$orden->fecha = $hoy;
+				foreach ($examenes as $key => $value) {
 				
-				$orden_examen->id_examen = $key;
-				($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
-				$response = $orden_examen->save();
+					$examen = ModExamen::find($key);
+					$tipo2 = $examen->categoria->tipo->id;
+					if($tipo2 == $tipo->id){
+						$orden->save();
+						$orden_examen =  new ModOrdenExamenes;
+						$orden_examen->id_orden  = $orden->id;						
+						$orden_examen->id_examen = $key;
+						($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+						$response = $orden_examen->save();
+					}
+
+				}		
+				
 			}
+			
 
 			return response()->json([
 				"response" => $response,
 				"laboratorio" =>$orden]
 			);
+
 		}
 	}
