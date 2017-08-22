@@ -19,23 +19,23 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 
 	public function cbInit() {
 
-		# START CONFIGURATION DO NOT REMOVE THIS LINE
-		$this->title_field = "id";
-		$this->limit = "20";
-		$this->orderby = "id,desc";
-		$this->global_privilege = false;
-		$this->button_table_action = true;
-		$this->button_action_style = "button_icon";
-		$this->button_add = true;
-		$this->button_edit = false;
-		$this->button_delete = false;
-		$this->button_detail = false;
-		$this->button_show = false;
-		$this->button_filter = true;
-		$this->button_import = false;
-		$this->button_export = false;
-		$this->table = "orden_examenes";
-		# END CONFIGURATION DO NOT REMOVE THIS LINE
+			# START CONFIGURATION DO NOT REMOVE THIS LINE
+			$this->title_field = "id";
+			$this->limit = "20";
+			$this->orderby = "id,desc";
+			$this->global_privilege = false;
+			$this->button_table_action = true;
+			$this->button_action_style = "button_icon";
+			$this->button_add = true;
+			$this->button_edit = false;
+			$this->button_delete = false;
+			$this->button_detail = false;
+			$this->button_show = false;
+			$this->button_filter = true;
+			$this->button_import = false;
+			$this->button_export = false;
+			$this->table = "orden_examenes";
+			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
@@ -408,9 +408,8 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 			$orden->fecha = $hoy;
 			foreach ($examenes as $key => $value) {
 			
-				$examen = ModExamen::find($key);
-				$tipo2 = $examen->categoria->tipo->id;
-				if($tipo2 == $tipo->id){
+				$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
+				if($tipo_examen == $tipo->id){
 					$orden->save();
 					$orden_examen =  new ModOrdenExamenes;
 					$orden_examen->id_orden  = $orden->id;						
@@ -458,9 +457,8 @@ class AdminOrdenExamenesController extends \crocodicstudio\crudbooster\controlle
 			$orden->fecha = $hoy;
 			foreach ($examenes as $key => $value) {
 			
-				$examen = ModExamen::find($key);
-				$tipo2 = $examen->categoria->tipo->id;
-				if($tipo2 == $tipo->id){
+				$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
+				if($tipo_examen == $tipo->id){
 					$orden->save();
 					$orden_examen =  new ModOrdenExamenes;
 					$orden_examen->id_orden  = $orden->id;						

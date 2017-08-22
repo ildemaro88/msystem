@@ -431,10 +431,9 @@ use Carbon\Carbon;
 					$orden->fecha = $hoy;
 
 					foreach ($examenes as $key => $value) {					
-						$tipo2 = ModExamen::find($key)->categoria->tipo->id;
-						//$tipo2 = $examen->categoria->tipo->id;
+						$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
 						
-						if($tipo2 == $tipo->id){
+						if($tipo_examen == $tipo->id){
 							$orden->save();
 							$orden_examen =  new ModOrdenExamenes;
 							$orden_examen->id_orden  = $orden->id;						
@@ -508,14 +507,13 @@ use Carbon\Carbon;
 			foreach ($tipos as $tipo) {
 				$orden = new ModOrden;
 				$orden->id_medico   = $id_medico;
-				$orden->id_tipo_orden = 4;
+				$orden->id_tipo_orden = $request->id_tipo_orden;
 				$orden->id_paciente = $request->get('id_paciente');
 				$orden->fecha = $hoy;
 				foreach ($examenes as $key => $value) {
 				
-					$examen = ModExamen::find($key);
-					$tipo2 = $examen->categoria->tipo->id;
-					if($tipo2 == $tipo->id){
+					$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
+					if($tipo_examen == $tipo->id){
 						$orden->save();
 						$orden_examen =  new ModOrdenExamenes;
 						$orden_examen->id_orden  = $orden->id;						
