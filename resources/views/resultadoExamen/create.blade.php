@@ -68,7 +68,10 @@
       <form id="form_resultado" method="POST" action="" name="form_resultado" accept-charset="UTF-8" enctype="multipart/form-data">
       	<div class = "box-body">
     			{{ csrf_field() }}
-          
+           <div class = "panel-footer text-right">
+          <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
+                <!--input class = "btn btn-success" id="btnSave" type = "submit" style = "margin-left: 10px" value = "Guardar"-->
+        </div>
   			  <div class="form-group col-md-12">
               <label class="col-md-4 control-label">Subir resultados</label>
               <div class="col-md-6">
@@ -86,10 +89,7 @@
               </div>
           </div>       
         </div>
-        <div class = "panel-footer">
-          <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
-                <!--input class = "btn btn-success" id="btnSave" type = "submit" style = "margin-left: 10px" value = "Guardar"-->
-        </div>
+       
     	</form>
     </div>      
     
