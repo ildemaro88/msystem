@@ -8,6 +8,7 @@ use App\ModOrden;
 use App\ModMedico;
 use App\ModExamen;
 use App\ModTipoExamen;
+use App\ModResultadoExamen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection as Collection;
 use App\ModPaciente;
@@ -176,7 +177,7 @@ use Carbon\Carbon;
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction = array();
+	        $this->addaction = array(['label'=>'','icon'=>'fa fa-cloud-upload','target'=>'_blank','color'=>'primary upload','url'=>CRUDBooster::mainpath($slug='').'/[id]/upload']);
 
 
 	        /* 
@@ -247,7 +248,41 @@ use Carbon\Carbon;
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js = '$(function() {
+			// corregir error de doble calendario
+			//alert("hola");
+			$(".upload").attr("title","Cargar Resultados");
+			$(".btn-xs.btn-warning").click(function(e){
+				e.preventDefault();
+				var $this = $(this);
+				var id = $this.attr("href");
+				swal({
+					title: "Estás seguro ?",
+					text: "No podrá recuperar estos datos de registro!",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#dd6b55",
+					confirmButtonText: "OK",
+					closeOnConfirm: false,
+					showLoaderOnConfirm: true
+				},
+				function(){
+					var url1 ="admin/orden_examenes/"+id;
+					$this.attr("href",url1);
+					$.ajax({
+						url: "orden_examenes/delete/"+id,
+						type: "GET",
+						success: function(){
+							document.location.reload();
+						},
+
+					});
+
+
+				});
+			});
+		});
+		';
 
 
 
@@ -532,5 +567,68 @@ use Carbon\Carbon;
 				"laboratorio" =>$orden]
 			);
 
+		}
+
+
+		/**
+		* upload the specified resource in storage.
+		*
+		* @param  \Illuminate\Http\Request  $request
+		* @param  int  $id
+		* @return \Illuminate\Http\Response
+		*/
+		public function uploadResult($id)
+		{
+			$operation = 'add';
+			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$medico = ModMedico::find($medico_id->id);
+			$page_title = 'Orden de Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
+			$medicos =  ModMedico::all();
+			$pacientes = ModPaciente::all();
+			$orden = ModOrden::find($id);
+			$examenes= $orden->examenes;		
+			//dd($examenes);
+			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
+			return view("resultadoExamen.create", compact('page_title', 'operation','orden','examenes'));
+
+		}
+
+		/**
+		* guarda un archivo en nuestro directorio local.
+		*
+		* @return Response
+		*/
+		public function saveResult(Request $request)
+		{
+			
+			$mime = $request->file('archivo')->getMimeType();
+			if($mime == 'application/pdf'){
+				$resultado = (new ModResultadoExamen)->fill($request->all());
+				$resultado->archivo = $request->file('archivo')->store('public');
+
+				$response = $resultado->save();
+				$title ="Buen trabajo!";
+				$type = 'success';
+				$mensaje = 'Se ha guardado exitosamente!';
+				$close = false;
+				$show = true;
+			}else{
+				$title ="Error";
+				$type = 'error';
+				$mensaje = 'El archivo debe ser un PDF';
+				$close = true;
+				$show = false;
+				
+			}
+			//dd($mime);
+			$response=["response" => $response,
+				"title" => $title,
+				"mensaje" => $mensaje,
+				"type" => $type,
+				"close"=> $close,
+				"show" => $show];
+				//dd($response);
+			return $response;
+		      // $request->file('archivo')->store('public');
 		}
 	}

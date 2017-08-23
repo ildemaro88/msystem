@@ -29,6 +29,7 @@
     <script src="{{asset('js/jquery.textcomplete.min.js')}}"></script>
     {{--<script src="{{asset("bower_resources/angular/angular.min.js")}}"></script>--}}
     <script src="{{asset("js/jquery.validate.min.js")}}"></script>
+    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
     <!-- load js -->
     <script type="text/javascript">
       var site_url = "{{url('/')}}" ;
