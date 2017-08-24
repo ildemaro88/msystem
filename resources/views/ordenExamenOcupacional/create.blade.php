@@ -2311,22 +2311,24 @@
         // El parametro (operation) puede tomar valores de
         //add o update
 
-        $scope.toggle = function (operation)
-          {
+        $scope.toggle = function (operation){
 
-             var allchecked = $("#form_laboratorio input.chkExamenes[type=checkbox]:checked").length;
-             var textall = 0;
-              //Se itera sobre todos los textarea para ver si alguno tiene valor. input:checked
-              $('#form_laboratorio .textarea').each(function(){
-                if($.trim($(this).val())){
-                 textall = 1;//si al menos uno tiene algun valor diferente a espacios en blanco, existe será igual a 1
-                console.log($(this).attr("id"));
-              }
-             });
+         var allchecked = $("#form_laboratorio input.chkExamenes[type=checkbox]:checked").length;
+         var pacientechecked = $("#form_laboratorio input.checkecs[type=checkbox]:checked").length;
+         
+         var textall = 0;
+          //Se itera sobre todos los textarea para ver si alguno tiene valor. input:checked
+          $('#form_laboratorio .textarea').each(function(){
+            if($.trim($(this).val())){
+             textall = 1;//si al menos uno tiene algun valor diferente a espacios en blanco, existe será igual a 1
+            console.log($(this).attr("id"));
+          }
+         });
 
-               if($("#form_laboratorio").valid()){
+          if($("#form_laboratorio").valid()){
 
-                if(allchecked >= 1 || textall ==1 ){
+            if(allchecked >= 1 || textall ==1 ){
+              if(pacientechecked >= 1){
                 switch (operation) {
                   case 'add':
 
@@ -2399,10 +2401,13 @@
                       break;
                 }
               }else{
-                swal("Error", "Debe seleccionar algún examen para generar la orden.", "error");
-            }
+                swal("Error", "Debe seleccionar al menos un paciente para generar la orden.", "error");
               }
+            }else{
+              swal("Error", "Debe seleccionar algún examen para generar la orden.", "error");
+            }
           }
+        }
     });
   </script>
 

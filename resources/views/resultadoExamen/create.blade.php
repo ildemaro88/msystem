@@ -55,7 +55,9 @@
           padding-bottom: 3px;
        }
 
-
+      .chb{
+        margin-left: 15px !important;
+      }
        .panel-collapse{
          padding-left: 3px;
        }
@@ -68,24 +70,30 @@
       <form id="form_resultado" method="POST" action="" name="form_resultado" accept-charset="UTF-8" enctype="multipart/form-data">
       	<div class = "box-body">
     			{{ csrf_field() }}
-           <div class = "panel-footer text-right">
-          <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
-                <!--input class = "btn btn-success" id="btnSave" type = "submit" style = "margin-left: 10px" value = "Guardar"-->
-        </div>
-  			  <div class="form-group col-md-12">
-              <label class="col-md-4 control-label">Subir resultados</label>
-              <div class="col-md-6">
-                <input type="file" class="form-control" name="archivo" ng-model='file' >
-                <input type="hidden" class="form-control" name="id_orden" value="{{$orden->id}}" >
-              </div>
-          </div>    
-          <div class="form-group">Exámenes: 
+
+          <div class = "panel-footer col-md-12">                                
+            <label class="col-md-3 control-label">Subir resultados</label>                  
+            <div class="col-md-6">
+              <input type="file" class="form-control" name="archivo" ng-model='file' >
+              <input type="hidden" class="form-control" name="id_orden" value="{{$orden->id}}" >  
+            </div>  
+            <div class="pull-right">
+              <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
+            </div>                             
+          </div> 
+          <br>
+          <div class="form-group col-md-12">
               <div class="">
-                <ul>
+              <div>
+              <label class="col-md-6 "> Marque los exámenes que fueron realizados:</label>    
+                  </div>
+                  <br><br>
+                  <div>
+                  <input type="checkbox" class="checkbox inline chb" id="checkAll">  Todos. <br/>
                   @foreach($examenes as $examen)
-                  <li>{{$examen->examen->nombre}}</li>
+                  <input type="checkbox" class="checkbox checkecs inline chb" name="examenes[]" value="{{$examen->examen->id}}"> {{$examen->examen->nombre}}.<br/>
                   @endforeach
-                </ul>
+                </div>
               </div>
           </div>       
         </div>
@@ -112,27 +120,33 @@
             }
           } );
 
-
-          
+$("#checkAll").change(function () {
+            $(".checkecs").prop('checked', $(this).prop("checked"));
           });
  $( "#form_resultado" ).validate( {
             rules: {
               archivo: {
                 required:true,
                  accept: "application/pdf"
-              }
+              },
+              "examenes[]": {required: true}
 
             },
             messages: {
               archivo:{
-                required:"Seleccione el Archivo",
+                required:"Seleccione el archivo",
                accept: "El archivo debe ser un PDF",
-              } 
+              },
+              "examenes[]": "Debe marcar al menos un examen.",
+
 
             },
             errorElement: "em",
             errorPlacement: function ( error, element ) {
-
+               if (element.attr("type") == "checkbox") {
+                //$("#consolaerror").append(error);
+                 error.insertAfter(element.parent());
+              }else{
               error.addClass( "help-block" );
               // Add the `help-block` class to the error element
               if (element.hasClass('select2-hidden-accessible')) {
@@ -142,7 +156,7 @@
               } else {
                   error.insertAfter(element);
               }
-
+            }
             },
             highlight: function ( element, errorClass, validClass ) {
               $( element ).parents( ".col-md-6" ).addClass( "has-error" ).removeClass( "has-success" );
@@ -161,6 +175,8 @@
               if($(this).valid()) {
                   $(this).next('span').removeClass('error').addClass('valid');
               }
+          });
+          
           });
       //Declaracion de la aplicacion
 
@@ -232,7 +248,7 @@
                     
                     console.log($scope.serializeObject($("#form_resultado")));
                     $.ajax({
-                      url:API_URL + 'orden_examenes26/uploadSave/{{$orden->id}}',
+                      url:API_URL + 'orden_examenes_carga/uploadSave/{{$orden->id}}',
                       data:
                         new FormData($("#form_resultado")[0]),
                         
@@ -243,7 +259,6 @@
                       contentType: false,
                       success:function(response){
                          $(".modal").modal('hide');
-                      //if (response.data.response) {
                         swal({
                           title: response.title,
                           text: response.mensaje,
@@ -256,11 +271,9 @@
                         },
                         function(){
                           if(response.type == 'success'){
-                            window.location = "{{ url('/admin/orden_examenes26?m=102') }}";
+                            window.location = "{{ url('/admin/orden_examenes_carga?m=108') }}";
 
                           }
-                          //$(".modal").modal('show');
-                         // window.location = "{{ url('/admin/orden_examenes26?m=102') }}";
                         });
                       } ,
                       error: function (xhr, ajaxOptions, thrownError) {
@@ -271,35 +284,6 @@
                       
                       }
                     );
-                    /*$http({
-                      url    : API_URL + 'orden_examenes26/uploadSave/{{$orden->id}}',
-                      method : 'POST',
-                      params : $(this).serialize(),
-                      headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                      }
-                    }).then(function (response)
-                    {
-                      $(".modal").modal('hide');
-                      if (response.data.response) {
-                        swal({
-                          title: "Buen trabajo!",
-                          text: "Se ha guardado exitosamente!",
-                          type: "success",
-                          showCancelButton: false,
-                          confirmButtonClass: "btn-succes",
-                          confirmButtonText: "OK",
-                          closeOnConfirm: false,
-                          showLoaderOnConfirm: true
-                        },
-                        function(){
-                          //$(".modal").modal('show');
-                          window.location = "{{ url('/admin/orden_examenes26?m=102') }}";
-                        });
-                      } else {
-                        swal("Error", "¡No se guardó!", "error");
-                      }
-                    });*/
 
                     break;
 
@@ -329,7 +313,6 @@
                           showLoaderOnConfirm: true
                         },
                         function(){
-                          //$(".modal").modal('show');
                           window.location = "{{ url('/admin/orden_examenes?m=33') }}";
                         });
                         } else {

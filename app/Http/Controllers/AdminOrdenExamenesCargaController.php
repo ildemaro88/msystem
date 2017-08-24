@@ -1,9 +1,19 @@
 <?php namespace App\Http\Controllers;
 
+	use Illuminate\Http\Request;
+	use App\Http\Controllers\Controller;
+	use crocodicstudio\crudbooster\helpers\CRUDBooster;
+	use App\ModOrdenExamenes;
+	use App\ModOrden;
+	use App\ModMedico;
+	use App\ModExamen;
+	use App\ModTipoExamen;
+	use App\ModResultadoExamen;
+	use Illuminate\Support\Facades\DB;
+	use Illuminate\Support\Collection as Collection;
+	use App\ModPaciente;
 	use Session;
-	use Request;
-	use DB;
-	use CRUDBooster;
+	use Carbon\Carbon;
 
 	class AdminOrdenExamenesCargaController extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -19,7 +29,7 @@
 			$this->button_add = false;
 			$this->button_edit = false;
 			$this->button_delete = false;
-			$this->button_detail = true;
+			$this->button_detail = false;
 			$this->button_show = true;
 			$this->button_filter = true;
 			$this->button_import = false;
@@ -340,7 +350,7 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction = array();
+	        $this->addaction = array(['label'=>'','icon'=>'fa fa-cloud-upload','target'=>'_blank','color'=>'success upload','url'=>CRUDBooster::mainpath($slug='').'/[id]/upload']);
 
 
 	        /* 
@@ -411,7 +421,41 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js = '$(function() {
+			// corregir error de doble calendario
+			//alert("hola");
+			$(".upload").attr("title","Cargar Resultados");
+			$(".btn-xs.btn-warning").click(function(e){
+				e.preventDefault();
+				var $this = $(this);
+				var id = $this.attr("href");
+				swal({
+					title: "Estás seguro ?",
+					text: "No podrá recuperar estos datos de registro!",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#dd6b55",
+					confirmButtonText: "OK",
+					closeOnConfirm: false,
+					showLoaderOnConfirm: true
+				},
+				function(){
+					var url1 ="admin/orden_examenes/"+id;
+					$this.attr("href",url1);
+					$.ajax({
+						url: "orden_examenes/delete/"+id,
+						type: "GET",
+						success: function(){
+							document.location.reload();
+						},
+
+					});
+
+
+				});
+			});
+		});
+		';
 
 
 
@@ -538,7 +582,77 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+	    
+		/**
+		* upload the specified resource in storage.
+		*
+		* @param  \Illuminate\Http\Request  $request
+		* @param  int  $id
+		* @return \Illuminate\Http\Response
+		*/
+		public function uploadResult($id)
+		{
+			$operation = 'add';
+			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$medico = ModMedico::find($medico_id->id);
+			$page_title = 'Orden de Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
+			$medicos =  ModMedico::all();
+			$pacientes = ModPaciente::all();
+			$orden = ModOrden::find($id);
+			$examenes= $orden->examenes()->where('id_estado', '3')->get();		
+			//dd($examenes);
+			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
+			return view("resultadoExamen.create", compact('page_title', 'operation','orden','examenes'));
+
+		}
+
+		/**
+		* guarda un archivo en nuestro directorio local.
+		*
+		* @return Response
+		*/
+		public function saveResult(Request $request)
+		{
+
+			$examenes_realizados = $request->input('examenes');		
+			$examenes_realizados = array_filter($examenes_realizados);
+			
+			foreach ($examenes_realizados as $examen_realizado) {
+				$orden = ModOrdenExamenes::where('id_orden',$request->get('id_orden'))->where('id_examen',$examen_realizado)->first();
+				$orden->id_estado = 4;
+				$orden->save();				
+			}
+			
+			$mime = $request->file('archivo')->getMimeType();
+			if($mime == 'application/pdf'){
+				$resultado = (new ModResultadoExamen)->fill($request->all());
+				$resultado->archivo = $request->file('archivo')->store('public');
+
+				$response = $resultado->save();
+				$title ="Buen trabajo!";
+				$type = 'success';
+				$mensaje = 'Se ha guardado exitosamente!';
+				$close = false;
+				$show = true;
+			}else{
+				$title ="Error";
+				$type = 'error';
+				$mensaje = 'El archivo debe ser un PDF';
+				$close = true;
+				$show = false;
+				
+			}
+			//dd($mime);
+			$response=["response" => $response,
+				"title" => $title,
+				"mensaje" => $mensaje,
+				"type" => $type,
+				"close"=> $close,
+				"show" => $show];
+				//dd($response);
+			return $response;
+		      // $request->file('archivo')->store('public');
+		}
 
 
 	}
