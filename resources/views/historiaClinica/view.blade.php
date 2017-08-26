@@ -160,7 +160,7 @@
           <div id="gabinete" class="tab-pane fade">
             <div class="panel-group col-md-5 gabinete" id="accordion_gabinete">
               <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class=" btn-primary panel-heading">
                   <h4 class="panel-title">
                     <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#examenes">
                       EXÁMENES</a>
