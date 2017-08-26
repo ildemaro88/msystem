@@ -626,7 +626,7 @@
 			$mime = $request->file('archivo')->getMimeType();
 			if($mime == 'application/pdf'){
 				$resultado = (new ModResultadoExamen)->fill($request->all());
-				$resultado->archivo = $request->file('archivo')->store('public');
+				$resultado->archivo = $request->file('archivo')->store('pdfs');
 
 				$response = $resultado->save();
 				$title ="Buen trabajo!";

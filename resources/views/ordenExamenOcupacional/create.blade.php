@@ -121,7 +121,7 @@
              @else   
               <div>
                 <div id="consolaerror" style="color:#a94442; font-weight: 900;" class="consola has-error"></div>
-                <table id="example" id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table  id="tbl_pacientes" class="table table-striped table-bordered" cellspacing="0" width="100%">
                   <thead>
                     <tr role="row">
                       <th >
@@ -2028,7 +2028,7 @@
                 }
           }
 
-          $('#example').DataTable({
+          $('#tbl_pacientes').DataTable({
               "language": idioma_espanol
             });
 

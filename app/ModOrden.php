@@ -20,4 +20,7 @@ class ModOrden extends Model
     public function examenes(){
         return $this->hasMany('\App\ModOrdenExamenes','id_orden');
     }
+    public function resultados(){
+        return $this->hasMany('\App\ModResultadoExamen','id_orden');
+    }
 }
