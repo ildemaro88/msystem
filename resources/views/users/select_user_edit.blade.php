@@ -28,32 +28,44 @@
         <p class='help-block'></p>
     </div>
 </div-->
-<?php  $pos = strpos(Request::url() , 'edit/'); 
-$pos = $pos + 5;
-     $id = substr(Request::url(), $pos);
+<?php  $pos = strpos(Request::url() , '/profile'); 
+//$pos = $pos + 5;
+$url = strpos(Request::url() , 'profile'); 
+     $id = substr(Request::url(), $url);
        
     
 ?>
 <div> <input type="hidden" value="{{ $id }}" name="d"></div>
 <script src='<?php echo asset("vendor/crudbooster/assets/select2/dist/js/select2.full.min.js")?>'></script>
 <script>
+
     $(document).ready(function() {
 
        var privilegio = "{{Session::get(admin_privileges)}}";
        var sucursal = "{{Session::get(sucursal)}}";
+       var url = "{{$id}}"; 
+      
         //alert(sucursal);
-        if(privilegio == 6){
+        if(url =='profile'){
+             $("#form-group-id_institucion").attr("style","display : none;");
+              console.log(url);
+        }
+        if(privilegio != 5 || privilegio !=1){
             $("#id_cms_privileges option[value='6']").remove();
              $("#id_cms_privileges option[value='5']").remove();
-               $("#id_institucion").val(sucursal);     
-                   
-            $("#form-group-id_institucion").attr("style","display : none;");
-            $("#form-group-id_institucion").attr("style","display : none;");
+             console.log(sucursal)
+             $('#id_institucion').removeAttr("required");
+            //$("#id_institucion").val(sucursal);      
+
+           
+            //$("#form-group-id_institucion").attr("style","display : none;");
         }
-        if(privilegio == 5){
+        else{
+            if(privilegio == 5){
             //alert(privilegio);
+            $("#form-group-id_institucion").attr("style","display : block;");
             $("#id_cms_privileges option[value='5']").remove();
-                    
+            }        
 
         }
     } );

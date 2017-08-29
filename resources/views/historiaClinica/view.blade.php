@@ -76,11 +76,19 @@
       <div class="nav-tabs-custom">
           <ul class="nav nav-tabs">
           <?php $order = "active"; ?>
+          @if(Session::get('admin_privileges') == 9)
+              
+           
             @if(!empty($ordenes[0]))
               <?php $order = ""; $orden = "in active"; ?>
               <li class="ordenes active"><a data-toggle="tab" href="#ordenes">EXAMENES</a></li>
             @endif
-             @if(!empty($consultas))
+         @else
+            @if(!empty($ordenes[0]))
+              <?php $order = ""; $orden = "in active"; ?>
+              <li class="ordenes active"><a data-toggle="tab" href="#ordenes">EXAMENES</a></li>
+            @endif
+            <!--  @if(!empty($consultas))
               
               <li class="consultas {{$order}} "><a data-toggle="tab" href="#consultas">CONSULTAS</a></li>
               @if($order == 'active')
@@ -93,18 +101,20 @@
               @if($order == 'active')
                 <?php $receta = "in active";  $order = ""; ?>
               @endif
-            @endif
-            
+            @endif -->
+           @endif 
           </ul>
         </div>
         <div class="tab-content">
+        @if(Session::get('admin_privileges') == 9)
           <div id="ordenes" class="tab-pane fade {{ $orden or ''}}">
+
           <div class="panel-group col-md-12 {{$tipo->id}}" id="accordion_gabinete">
             @foreach($tipoOrden as $tipo)
-              
+             
               
                 <div class="panel panel-default">
-                  <div class="panel-heading">
+                  <div class=" btn-primary panel-heading" style="color:white;background-color:#367fa9;">
                     <h4 class="panel-title">
                       <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#{{$tipo->id}}">
 
@@ -148,14 +158,66 @@
               </div>
              
           </div>
-          <div id="consultas" class="tab-pane fade {{ $consulta or ''}}">
+          @else
+          <div id="ordenes" class="tab-pane fade {{ $orden or ''}}">
+
+          <div class="panel-group col-md-12 {{$tipo->id}}" id="accordion_gabinete">
+            @foreach($tipoOrden as $tipo)
+             
+              
+                <div class="panel panel-default">
+                  <div class=" btn-primary panel-heading" style="color:white;background-color:#367fa9;">
+                    <h4 class="panel-title">
+                      <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#{{$tipo->id}}">
+
+                        {{$tipo->descripcion}}</a>
+                    </h4>
+                  </div>
+                 
+                  <div id="{{$tipo->id}}" class="panel-collapse collapse in " style="overflow-x:auto;">
+                    <table>
+                      <tbody>
+                      <?php $count = count($ordenes); ?>
+                      <tr>
+                         @foreach($ordenes as $orden)
+                         
+                          @if($orden->id_tipo_orden == $tipo->id)
+
+                            
+                              <td style="border: 1px solid #ddd;padding: 15px;" >
+                                <a id='resultado_{{$orden->id}}' target="_blank" onclick='openPDF("{{$orden->id}}")'  class="btn btn-default">{{$orden->tipo}}<br/> Fecha: {{$orden->fecha}}</a>
+                                @foreach($resultados as $resultado)
+                                  @if($resultado->id_orden == $orden->id)
+                                    <a id='{{$resultado->id}}' target="_blank" href="{{route('openPDF',$resultado->id)}}"  ></a>
+                                   @endif
+                                @endforeach  
+                              </td>  
+                               
+
+                               
+                          @endif 
+                         
+                        @endforeach    
+                         </tr>                
+                      </tbody>
+                    </table>
+                  </div>     
+                         
+                </div>
+                
+              
+              @endforeach 
+              </div>
+             
+          </div>
+          <!--div id="consultas" class="tab-pane fade {{ $consulta or ''}}">
               chao
           </div>
           <div id="recetas" class="tab-pane fade {{ $receta or ''}}">
               receta
           </div>
-        </div>
-          
+        </div-->
+          @endif
           <!--Inicio pestaña Gabinete-->
           <div id="gabinete" class="tab-pane fade">
             <div class="panel-group col-md-5 gabinete" id="accordion_gabinete">

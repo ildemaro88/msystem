@@ -78,6 +78,9 @@
             <!--th >
               <input type="checkbox" id="checkAll">
             </th-->
+            @if(Session::get('admin_privileges') == 9)
+              <th >  Sucursal </th>
+            @endif
             <th >  Cédula </th>
             <th >  Nombre y Apellido </th>
             <th >  Sexo </th>
@@ -88,6 +91,9 @@
         </thead>    
         <tfoot>
           <tr role="row">
+           @if(Session::get('admin_privileges') == 9)
+              <th >  Sucursal </th>
+            @endif
             <th > Cédula </th>
             <th > Nombre y Apellido </th>
             <th > Sexo </th>
@@ -99,6 +105,9 @@
         <tbody>
            @foreach($pacientes as $paciente) 
             <tr role="row" class="odd">
+             @if(Session::get('admin_privileges') == 9)
+              <td>{{$paciente->empresa}}</td>
+             @endif
               <!--td><input type="checkbox" class="checkbox checkecs" name="pacientes[]" value="{{$paciente->id}}"></td-->
               <td>{{$paciente->cedula}}</td>
               <td>{{$paciente->nombre}}</td>

@@ -1,19 +1,11 @@
 <?php namespace App\Http\Controllers;
 
 	use Session;
-	
-  	use Illuminate\Http\Request;
+	use Request;
 	use DB;
 	use CRUDBooster;
-	use App\ModEmpresa;
-	use App\ModUsuarioEmpresa;
-	use App\ModConvenios;	
-	use App\CmsUser;
-	use App\Mail\EmailEmpresa;	
-	use Mail;
 
-
-	class AdminEmpresaController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminPacienteImportarController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -27,26 +19,53 @@
 			$this->button_add = true;
 			$this->button_edit = true;
 			$this->button_delete = true;
-			$this->button_detail = false;
+			$this->button_detail = true;
 			$this->button_show = true;
 			$this->button_filter = true;
-			$this->button_import = false;
+			$this->button_import = true;
 			$this->button_export = false;
-			$this->table = "empresa";
+			$this->table = "paciente";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
+			$this->col[] = ["label"=>"Empresa","name"=>"id_empresa","join"=>"empresa,id"];
+			$this->col[] = ["label"=>"Cedula","name"=>"cedula"];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
-			$this->col[] = ["label"=>"Ruc","name"=>"ruc"];
-			$this->col[] = ["label"=>"Telefono","name"=>"telefono"];
-			$this->col[] = ["label"=>"Direccion","name"=>"direccion"];
-			$this->col[] = ["label"=>"Correo","name"=>"correo"];
-			$this->col[] = ["label"=>"Convenio","name"=>"id_convenio","join"=>"convenio,nombre"];
+			$this->col[] = ["label"=>"Apellido","name"=>"apellido"];
+			$this->col[] = ["label"=>"Email","name"=>"email"];
+			$this->col[] = ["label"=>"Pasaporte","name"=>"pasaporte"];
+			$this->col[] = ["label"=>"Otro","name"=>"otro"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
+			$this->form[] = array (
+  'dataenum' => NULL,
+  'datatable' => 'empresa,id',
+  'style' => NULL,
+  'help' => NULL,
+  'datatable_where' => NULL,
+  'datatable_format' => NULL,
+  'datatable_exception' => NULL,
+  'label' => 'Empresa',
+  'name' => 'id_empresa',
+  'type' => 'select2',
+  'validation' => 'required|integer|min:0',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Cedula',
+  'name' => 'cedula',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
 			$this->form[] = array (
   'style' => NULL,
   'help' => NULL,
@@ -65,8 +84,32 @@
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Ruc',
-  'name' => 'ruc',
+  'label' => 'Apellido',
+  'name' => 'apellido',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => 'Por favor, introduce una dirección de correo electrnico válida',
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Email',
+  'name' => 'email',
+  'type' => 'email',
+  'validation' => 'required|min:3|max:255|email|unique:paciente',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Pasaporte',
+  'name' => 'pasaporte',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
@@ -77,8 +120,80 @@
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Telefono',
-  'name' => 'telefono',
+  'label' => 'Otro',
+  'name' => 'otro',
+  'type' => 'textarea',
+  'validation' => 'required|string|min:5|max:5000',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Fecha Nac',
+  'name' => 'fecha_nac',
+  'type' => 'date',
+  'validation' => 'required|date',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Lugar Nac',
+  'name' => 'lugar_nac',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Sexo',
+  'name' => 'sexo',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Raza',
+  'name' => 'raza',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Estado Civil',
+  'name' => 'estado_civil',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Instruccion',
+  'name' => 'instruccion',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
@@ -101,36 +216,70 @@
   'placeholder' => NULL,
   'readonly' => NULL,
   'disabled' => NULL,
-  'label' => 'Correo',
-  'name' => 'correo',
+  'label' => 'Telf Domicilio',
+  'name' => 'telf_domicilio',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Telf Trabajo',
+  'name' => 'telf_trabajo',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Celular',
+  'name' => 'celular',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Referencia',
+  'name' => 'referencia',
+  'type' => 'text',
+  'validation' => 'required|min:3|max:255',
+  'width' => 'col-sm-10',
+);
+			$this->form[] = array (
+  'style' => NULL,
+  'help' => NULL,
+  'placeholder' => NULL,
+  'readonly' => NULL,
+  'disabled' => NULL,
+  'label' => 'Telf Referencia',
+  'name' => 'telf_referencia',
   'type' => 'text',
   'validation' => 'required|min:3|max:255',
   'width' => 'col-sm-10',
 );
 			$this->form[] = array (
   'dataenum' => NULL,
-  'datatable' => 'empresa,nombre',
+  'datatable' => 'cms_user,id',
   'style' => NULL,
   'help' => NULL,
   'datatable_where' => NULL,
   'datatable_format' => NULL,
   'datatable_exception' => NULL,
-  'label' => 'Padre',
-  'name' => 'id_padre',
-  'type' => 'select2',
-  'validation' => 'required|integer|min:0',
-  'width' => 'col-sm-10',
-);
-			$this->form[] = array (
-  'dataenum' => NULL,
-  'datatable' => 'convenio,nombre',
-  'style' => NULL,
-  'help' => NULL,
-  'datatable_where' => NULL,
-  'datatable_format' => NULL,
-  'datatable_exception' => NULL,
-  'label' => 'Convenio',
-  'name' => 'id_convenio',
+  'label' => 'Cms User Id',
+  'name' => 'cms_user_id',
   'type' => 'select2',
   'validation' => 'required|integer|min:0',
   'width' => 'col-sm-10',
@@ -162,7 +311,7 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-plus','target'=>'_blank','color'=>'primary add_sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/add/sucursal'],['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales']);
+	        $this->addaction = array();
 
 
 	        /* 
@@ -233,45 +382,7 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = '$(function() {
-      // corregir error de doble calendario
-      //alert("hola");
-      $(".sucursales").attr("title","Ver sucursales");
-      $(".add_sucursales").attr("title","Agregar sucursal");
-      $(".eliminar").attr("title","Eliminar");
-      $(".print").attr("target","_blank");
-      $(".print_r").attr("target","_blank");
-      $(".eliminar").click(function(e){
-        e.preventDefault();
-        var $this = $(this);
-        var id = $this.attr("href");
-        swal({
-          title: "Estás seguro ?",
-          text: "No podrá recuperar estos datos de registro!",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#dd6b55",
-          confirmButtonText: "OK",
-          closeOnConfirm: false,
-          showLoaderOnConfirm: true
-        },
-        function(){
-          var url1 ="admin/orden_examenes/"+id;
-          $this.attr("href",url1);
-          $.ajax({
-            url: "orden_examenes/delete/"+id,
-            type: "GET",
-            success: function(){
-              document.location.reload();
-            },
-
-          });
-
-
-        });
-      });
-    });
-    ';
+	        $this->script_js = NULL;
 
 
 
@@ -309,7 +420,7 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        $query->where('empresa.id_padre',0);
+	        //Your code here
 	            
 	    }
 
@@ -398,144 +509,7 @@
 
 
 
-	    public function getAdd(){
-
-     	    //Título y tipo de operación a realizar.
-	        $operation = 'add';
-	        $page_title = 'Agregar Empresa';
-	        //Buscamos todos los convenios creados
-	        $convenios = ModConvenios::all();
-	        return view("empresa.create",compact('page_title', 'operation','convenios')); 
-	    }
-
-
-		public function getEdit($id){
-
-			//Título y tipo de operación a realizar.
-			$operation = 'update';
-			$page_title = 'Editar Empresa';
-
-			//se busca la empresa a editar
-			$empresa = ModEmpresa::where('id',$id)->firstOrFail();
-
-			if($empresa->id_padre != 0){
-				//se busca la empresa padre
-				$empresa_padre = ModEmpresa::where('id',$empresa->id_padre)->firstOrFail();
-				$page_title = 'Editar Surcursal de la empresa: '.$empresa_padre->nombre;
-			}
-
-			//Se toman todos los convenios creados
-	        $convenios = ModConvenios::all();
-	        return view("empresa.create",compact('page_title', 'operation','convenios','empresa')); 
-		}
-
-	    public function store(Request $request){
-			$empresa =  new ModEmpresa;
-			$empresa->nombre = $request->get('nombre');
-			$empresa->ruc = $request->get('ruc');
-			$empresa->telefono = $request->get('telefono');
-			$empresa->correo = $request->get('correo');
-			$empresa->direccion = $request->get('direccion');
-			$empresa->id_convenio = $request->get('id_convenio');
-
-			if($request->get('id_padre')){// validamos sí es una sucursal 
-				$empresa->id_padre = $request->get('id_padre');	
-				$response = $empresa->save();			
-			}else{ // Sí no es una sucursal creamos el usuario para la empresa
-				$empresa->id_padre = 0;
-				$response = $empresa->save();
-				$this->createUser($empresa);
-				
-			}			
-			
-			return response()->json([
-				"response" => $response,
-				"empresa" =>$empresa]
-			);
-		}
-
-		public function update(Request $request, $id){
-		 	$empresa = ModEmpresa::findOrFail($id); 
-		 	$correoEmpresa = $empresa->correo;
-		 	$rucEmpresa = $empresa->ruc;
-			$empresa->nombre = $request->get('nombre');
-			$empresa->ruc = $request->get('ruc');
-			$empresa->telefono = $request->get('telefono');
-			$empresa->correo = $request->get('correo');
-			$empresa->direccion = $request->get('direccion');
-			$empresa->id_convenio = $request->get('id_convenio');
-			if($request->get('id_padre')){
-				$empresa->id_padre = $request->get('id_padre');
-			}else{
-				$empresa->id_padre = 0;
-				if($correoEmpresa != $empresa->correo || $rucEmpresa != $empresa->ruc){
-					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 
-					$usuario = CmsUser::findOrFail($relacion->id_cms_users);
-					$usuario->name = $empresa->nombre;
-			        $usuario->email = $empresa->correo;
-			        $usuario->password = bcrypt($empresa->ruc);
-			        $usuario->save();
-
-			         /*
-			          * Envio de e-mail cuando se actualiza el usuario para la empresa
-			          * 
-			         */
-			         Mail::to(trim($empresa->correo))->send(new EmailEmpresa($empresa,true));
-
-					
-				}
-			}
-			$sucursales = ModEmpresa::where('id_padre',$id)->get();
-			foreach ($sucursales as $sucursal) {
-				$sucursal_updated = ModEmpresa::findOrFail($sucursal->id);
-				$sucursal_updated->id_convenio = $request->get('id_convenio');
-				$sucursal_updated->save();
-				
-			}
-			$response = $empresa->save();
-			return response()->json([
-				"response" => $response,
-				"empresa" =>$empresa]);
-		}
-
-		public function addSucursal($id){
-			$empresa = ModEmpresa::findOrFail($id); 
-			
-			//Título y tipo de operación a realizar.
-			$operation = 'add';
-			$page_title = 'Agregar sucursal a la empresa: '.$empresa->nombre;
-			return view("empresa.sucursal",compact('page_title', 'operation','empresa'));
-
-		}
-
-		public function getSucursales($id){
-			Session::put('id_padre',$id);
-			$empresa = ModEmpresa::findOrFail($id); 
-			$page_title = 'Sucursales de la empresa: '.$empresa->nombre;
-			return redirect('admin/sucursal?m=92')->with('page_title', ['hola']);
-		}
-
-		public function createUser(ModEmpresa $empresa){
-	        $usuario = new CmsUser;
-	        $usuario->name = $empresa->nombre;
-	        $usuario->photo = null;
-	        $usuario->email = $empresa->correo;
-	        $usuario->password = bcrypt($empresa->ruc);
-	        $usuario->id_cms_privileges = 9;
-	        $usuario->save();
-
-	        $usuarioEmpresa = new ModUsuarioEmpresa;
-	        $usuarioEmpresa->id_cms_users = $usuario->id;
-	        $usuarioEmpresa->id_empresa = $empresa->id;
-	        $usuarioEmpresa->save();
-
-	         /*
-	          * Envio de e-mail cuando se genera el usuario para la empresa
-	          * 
-	         */
-	         Mail::to(trim($usuario->email))->send(new EmailEmpresa($empresa,false));
-
-		}
+	    //By the way, you can still create your own method in here... :) 
 
 
 	}

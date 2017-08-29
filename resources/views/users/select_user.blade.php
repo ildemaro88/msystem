@@ -39,6 +39,7 @@
         if(privilegio == 6){
             $("#id_cms_privileges option[value='6']").remove();
              $("#id_cms_privileges option[value='5']").remove();
+             $("#id_cms_privileges option[value='9']").remove();
                     $("#id_cms_privileges").val("");
                    
                      $("#id_institucion").val(sucursal);
@@ -47,6 +48,7 @@
         if(privilegio == 5){
             //alert(privilegio);
             $("#id_cms_privileges option[value='5']").remove();
+            $("#id_cms_privileges option[value='9']").remove();
                     $("#id_cms_privileges").val("");
 
         }

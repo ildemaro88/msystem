@@ -63,7 +63,7 @@
        }
        </style>
 
-    <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Órdenes</a><div id="message">
+    <p><a title="Volver" id = "volver" href="{{ url()->previous() }}"><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Órdenes</a><div id="message">
     </div></p>
      
     <div class = "box" ng-app="MyApp" ng-controller="controllerResultado">

@@ -594,12 +594,13 @@
 		{
 			$operation = 'add';
 			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
-			$medico = ModMedico::find($medico_id->id);
-			$page_title = 'Orden de Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
-			$medicos =  ModMedico::all();
-			$pacientes = ModPaciente::all();
+			$medico = ModMedico::find($medico_id->id);			
+			$medicos =  ModMedico::all();			
 			$orden = ModOrden::find($id);
+			$paciente = ModPaciente::find($orden->id_paciente);
+			$page_title = 'Orden de Examen ('.$paciente->nombre.' '.$paciente->apellido.")";
 			$examenes= $orden->examenes()->where('id_estado', '3')->get();		
+
 			//dd($examenes);
 			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
 			return view("resultadoExamen.create", compact('page_title', 'operation','orden','examenes'));
@@ -626,7 +627,7 @@
 			$mime = $request->file('archivo')->getMimeType();
 			if($mime == 'application/pdf'){
 				$resultado = (new ModResultadoExamen)->fill($request->all());
-				$resultado->archivo = $request->file('archivo')->store('pdfs');
+				$resultado->archivo = $request->file('archivo')->store('public');
 
 				$response = $resultado->save();
 				$title ="Buen trabajo!";

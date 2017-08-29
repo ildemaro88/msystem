@@ -7,35 +7,38 @@ use App\ModMedico;
 use App\ModExamen;
 use App\ModTipoExamen;
 use App\ModResultadoExamen;
+use App\ModUsuarioEmpresa;
+use App\ModEmpresa;
+use App\ModConvenios;
+use App\ModPaciente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection as Collection;
 use Response;
 use CRUDBooster;
-use App\ModEmpresa;
-use App\ModConvenios;
-use App\ModPaciente;
+
 use Illuminate\Http\Request;
 
 class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\CBController
 {
   public function cbInit()
   {
+
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-   $this->title_field = "id";
-   $this->limit = "20";
-   $this->orderby = "id,desc";
-   $this->global_privilege = false;
-   $this->button_table_action = true;
-   $this->button_action_style = "button_icon";
-   $this->button_add = true;
-   $this->button_edit = true;
-   $this->button_delete = true;
-   $this->button_detail = true;
-   $this->button_show = true;
-   $this->button_filter = true;
-   $this->button_import = false;
-   $this->button_export = false;
-   $this->table = "paciente";
+			$this->title_field = "id";
+			$this->limit = "20";
+			$this->orderby = "id,desc";
+			$this->global_privilege = false;
+			$this->button_table_action = true;
+			$this->button_action_style = "button_icon";
+			$this->button_add = true;
+			$this->button_edit = true;
+			$this->button_delete = true;
+			$this->button_detail = true;
+			$this->button_show = true;
+			$this->button_filter = true;
+			$this->button_import = false;
+			$this->button_export = false;
+			$this->table = "paciente";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
@@ -676,13 +679,18 @@ $this->sub_module = array();
     }
 
     public function listHistoria(){
-       //Título y tipo de operación a realizar.
-      $operation = 'add';
-      $page_title = 'Historias Clínicas';
+        //Título y tipo de operación a realizar.
+        $operation = 'add';
+        $page_title = 'Historias Clínicas';
 
-      //Buscamos todos los pacientes.
-      $pacientes = DB::table('pacientes')->select('*')->get();
-     
+        //Buscamos todos los pacientes.
+        if(Session::get('admin_privileges') == 9){
+            $relacion = ModUsuarioEmpresa::select('id_empresa')->where('id_cms_users',CRUDBooster::myId())->first();
+            $empresas = ModEmpresa::select('id')->where('id',$relacion->id_empresa)->orWhere('id_padre',$relacion->id_empresa)->get();
+            $pacientes = DB::table('pacientes')->select('*')->whereIn('id_empresa', $empresas)->get();
+        }else{
+            $pacientes = DB::table('pacientes')->select('*')->get();
+        }
 
       return view("historiaClinica.index",compact('page_title', 'operation','pacientes')); 
 
