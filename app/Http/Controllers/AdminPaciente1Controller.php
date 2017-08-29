@@ -12,22 +12,23 @@ class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\C
 {
   public function cbInit()
   {
+
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-   $this->title_field = "id";
-   $this->limit = "20";
-   $this->orderby = "id,desc";
-   $this->global_privilege = false;
-   $this->button_table_action = true;
-   $this->button_action_style = "button_icon";
-   $this->button_add = true;
-   $this->button_edit = true;
-   $this->button_delete = true;
-   $this->button_detail = true;
-   $this->button_show = true;
-   $this->button_filter = true;
-   $this->button_import = false;
-   $this->button_export = false;
-   $this->table = "paciente";
+			$this->title_field = "id";
+			$this->limit = "20";
+			$this->orderby = "id,desc";
+			$this->global_privilege = false;
+			$this->button_table_action = true;
+			$this->button_action_style = "button_icon";
+			$this->button_add = true;
+			$this->button_edit = true;
+			$this->button_delete = true;
+			$this->button_detail = true;
+			$this->button_show = true;
+			$this->button_filter = true;
+			$this->button_import = false;
+			$this->button_export = true;
+			$this->table = "paciente";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
