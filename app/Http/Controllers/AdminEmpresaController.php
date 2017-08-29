@@ -469,15 +469,14 @@
 			}else{
 				$empresa->id_padre = 0;
 				if($correoEmpresa != $empresa->correo || $rucEmpresa != $empresa->ruc){
+					dd($id);
 					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 
+					dd($relacion->id_cms_users);
 					$usuario = CmsUser::findOrFail($relacion->id_cms_users);
 					$usuario->name = $empresa->nombre;
 			        $usuario->email = $empresa->correo;
 			        $usuario->password = bcrypt($empresa->ruc);
 			        $usuario->save();
-
-
-
 			         /*
 			          * Envio de e-mail cuando se actualiza el usuario para la empresa
 			          * 

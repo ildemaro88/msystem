@@ -86,12 +86,24 @@
             <!--Inicio pestaña medicoPaciente-->
             <div id="medicoPaciente" class="tab-pane fade in active ">
                 <div class="form-group ">
-                  <div class="col-md-3">
+                  <div class="col-md-6">
                     <label for="id_paciente" class="control-label">Paciente</label>
                     <select class="form-control" id="id_paciente" placeholder="Select a state"  ng-model="id_paciente" name="id_paciente">
                         <option value="" >Seleccione un paciente:</option>
                       @foreach($pacientes as $p)
-                       <option value="{{$p->id}}" >{{$p->nombre." ".$p->apellido}}</option>
+                       <option value="{{$p->id}}" >
+                         @if(empty($p->cedula))
+                          {{$p->pasaporte}}
+                         @else
+                          {{$p->cedula}}
+                         @endif
+                         @if(empty($p->cedula) && empty($p->pasaporte))
+                            {{$p->otro}}
+                         @endif
+                          -
+                       
+                       
+                       {{$p->nombre." ".$p->apellido}}</option>
                       @endforeach
                    </select>
                   </div>
