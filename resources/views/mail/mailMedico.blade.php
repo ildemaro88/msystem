@@ -247,7 +247,7 @@ Sizes: [
                                                                     <tbody>
                                                                     <tr>
                                                                         <td class="textContent" align="left">
-                                                                            <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">Optamed</div>
+                                                                            <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">Al Medical Center</div>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -358,7 +358,7 @@ Sizes: [
                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Observaciones: </strong>{{$cita->detalle_cita}}</div>
                                                                             <br><br><br>
                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;">Atentamente,
-                                                                                <br><br> Call Center <br> <strong>Optamed</strong></div>
+                                                                                <br><br> Call Center <br> <strong>Al Medical Center</strong></div>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -405,7 +405,7 @@ Sizes: [
                                                         <tr>
                                                             <td valign="top" bgcolor="#E1E1E1">
                                                                 <div style="font-family: Helvetica,Arial,sans-serif; font-size: 13px; color: #828282; text-align: center; line-height: 120%;">
-                                                                    <div>Copyright &copy;2017 <a style="text-decoration: none; color: #828282;" href="http://www.oyzecuador.com/centrosmedicos/" target="_blank"><span style="color: #828282;">Optamed </span></a>. Todos los derechos reservados.</div>
+                                                                    <div>Copyright &copy;2017 <a style="text-decoration: none; color: #828282;" href="http://www.oyzecuador.com/centrosmedicos/" target="_blank"><span style="color: #828282;">Al Medical Center </span></a>. Todos los derechos reservados.</div>
                                                                 </div>
                                                             </td>
                                                         </tr>

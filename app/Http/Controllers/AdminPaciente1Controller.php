@@ -38,6 +38,7 @@ class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\C
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
+
 			$this->table = "paciente";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
