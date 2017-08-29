@@ -1,9 +1,19 @@
 <?php namespace App\Http\Controllers;
 
-	use Session;
-	use Request;
-	use DB;
-	use CRUDBooster;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use crocodicstudio\crudbooster\helpers\CRUDBooster;
+use App\ModOrdenExamenes;
+use App\ModOrden;
+use App\ModMedico;
+use App\ModExamen;
+use App\ModTipoExamen;
+use App\ModResultadoExamen;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection as Collection;
+use App\ModPaciente;
+use Session;
+use Carbon\Carbon;
 
 	class AdminOrdenExamenes26Controller extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -19,7 +29,7 @@
 			$this->button_add = true;
 			$this->button_edit = true;
 			$this->button_delete = true;
-			$this->button_detail = true;
+			$this->button_detail = false;
 			$this->button_show = true;
 			$this->button_filter = true;
 			$this->button_import = false;
@@ -29,9 +39,11 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Tipo","name"=>"tipo"];
+			$this->col[] = ["label"=>"Tipo de Orden","name"=>"tipo_orden"];
+			$this->col[] = ["label"=>"Tipo de Examen","name"=>"tipo"];
 			$this->col[] = ["label"=>"Ci","name"=>"ci"];
 			$this->col[] = ["label"=>"Paciente","name"=>"paciente"];
+			$this->col[] = ["label"=>"Empresa","name"=>"empresa"];
 			$this->col[] = ["label"=>"Fecha","name"=>"fecha"];
 			$this->col[] = ["label"=>"Exámenes","name"=>"lista"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
@@ -274,7 +286,9 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        //Your code here
+	       
+			$query->where('tipo_orden','!=','PARTICULAR');
+
 	            
 	    }
 
@@ -363,7 +377,163 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+	    public function getAdd(){
+			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$medico = ModMedico::find($medico_id->id);
+			$operation = 'add';
+			$examenes = DB::table('examen')->select('examen.id','examen.slug','examen.nombre','examen.id_categoria_examen','categoria_examen.nombre as categoria','tipo_examen.nombre as tipo','tipo_examen.id as id_tipo_examen')->join('categoria_examen','categoria_examen.id','=','examen.id_categoria_examen')->join('tipo_examen','tipo_examen.id','=','categoria_examen.id_tipo_examen')->get();
+			if(Session::has('paciente_ingresao')){
+	          $paciente_ingresado = Session::get('paciente_ingresao');
+	        }else{
+	          $paciente_ingresado = 0;
+	        }
+			$tipos =DB::table('tipo_examen')->select('nombre','id')->get();
+			$categorias =DB::table('categoria_examen')->select('nombre','id','id_tipo_examen')->get();
+
+			foreach ($tipos as $tipo) {
+				foreach ($examenes as $examen) {
+					if($tipo->id == $examen->id_tipo_examen){
+						$pruebas[$tipo->id][] =$examen;
+					}														
+				}
+			}
+
+			$pruebas = Collection::make($pruebas);
+			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
+			$medicos =  ModMedico::all();
+			$pacientes = DB::table('pacientes')->select('*')->where('empresa','!=','')->get();
+			$page_title = 'Orden Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
+			return view("ordenExamenOcupacional.create",compact('page_title', 'tipos_ordenes','categorias','operation','medico','pacientes','pruebas','tipos','paciente_ingresado'));
+		}
+
+		/**
+		* Store a newly created resource in storage.
+		*
+		* @param  \Illuminate\Http\Request  $request
+		* @return \Illuminate\Http\Response
+		*/
+		public function store(Request $request){
+
+			$pacientes = $request->input('pacientes');		
+			$hoy= Carbon::now();
+			$hoy = $hoy->format('Y-m-d');
+			$medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$tipos = ModTipoExamen::all();
+			$examenes = $request->input('examenes');
+			$examenes = array_filter($examenes);
+			
+			foreach ($pacientes as $paciente) {
+
+				foreach ($tipos as $tipo) {
+					$orden = new ModOrden;
+					$orden->id_medico   = $medico->id;
+					$orden->id_tipo_orden = $request->id_tipo_orden;
+					$orden->id_paciente = $paciente;
+					$orden->fecha = $hoy;
+
+					foreach ($examenes as $key => $value) {					
+						$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
+						
+						if($tipo_examen == $tipo->id){
+							$orden->save();
+							$orden_examen =  new ModOrdenExamenes;
+							$orden_examen->id_orden  = $orden->id;						
+							$orden_examen->id_examen = $key;
+							($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+							$response = $orden_examen->save();
+						}
+
+					}		
+					
+				}				
+				
+			}
+			
+
+			return response()->json([
+				"response" => $response,
+				"orden_examen" =>$orden_examen]
+			);
+		}
+
+		public function getEdit($id){
+			$operation = 'update';
+			$medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+			$medico = ModMedico::find($medico_id->id);
+			$page_title = 'Orden de Examen ('.$medico->titulo.$medico->nombre.' '.$medico->apellido.")";
+			$medicos =  ModMedico::all();
+			$pacientes = ModPaciente::all();
+			$orden = ModOrden::find($id);
+			$examenes= $orden->examenes;		
+			$examenes = json_decode($examenes,true);		
+			$txt = 'txt';
+			
+			foreach ($examenes as $examen) {
+				$exa = ModExamen::find($examen['id_examen']);
+				$examen['slug'] = $exa->slug;
+				
+				$pos = strpos($examen['slug'], $txt);
+				if($pos === false){
+					$a[$examen['slug']]="on";
+				}else{
+					$a[$examen['slug']]=$examen['observacion'];
+				}
+			}
+
+			$a = json_encode($a);
+			$tipos_ordenes = DB::table('tipo_orden')->select('*')->where('descripcion','!=','PARTICULAR')->get();
+			return view("ordenExamenOcupacional.create", ["orden"=>$orden,'tipos_ordenes'=>$tipos_ordenes,"examenes"=>$a],compact('page_title', 'operation','medicos','pacientes'));
+		}
+
+
+		/**
+		* Update the specified resource in storage.
+		*
+		* @param  \Illuminate\Http\Request  $request
+		* @param  int  $id
+		* @return \Illuminate\Http\Response
+		*/
+		public function update(Request $request, $id)
+		{
+			$hoy = Carbon::now();
+			$hoy = $hoy->format('Y-m-d');
+			$orden = ModOrden::findOrFail($id);		
+			$id_medico = $orden->id_medico;
+			$orden->delete();
+			$examenes = $request->input('examenes');
+			$examenes = array_filter($examenes);
+			$delete = ModOrdenExamenes::where('id_orden', $id)->delete();
+			$tipos = ModTipoExamen::all();
+
+			foreach ($tipos as $tipo) {
+				$orden = new ModOrden;
+				$orden->id_medico   = $id_medico;
+				$orden->id_tipo_orden = $request->id_tipo_orden;
+				$orden->id_paciente = $request->get('id_paciente');
+				$orden->fecha = $hoy;
+				foreach ($examenes as $key => $value) {
+				
+					$tipo_examen = ModExamen::find($key)->categoria->tipo->id;
+					if($tipo_examen == $tipo->id){
+						$orden->save();
+						$orden_examen =  new ModOrdenExamenes;
+						$orden_examen->id_orden  = $orden->id;						
+						$orden_examen->id_examen = $key;
+						($value != "on")?$orden_examen->observacion =$value:$orden_examen->observacion =" ";
+						$response = $orden_examen->save();
+					}
+
+				}		
+				
+			}
+			
+
+			return response()->json([
+				"response" => $response,
+				"laboratorio" =>$orden]
+			);
+
+		}
 
 
 	}

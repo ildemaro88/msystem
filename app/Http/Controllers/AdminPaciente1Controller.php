@@ -1,11 +1,21 @@
 <?php namespace App\Http\Controllers;
 
 use Session;
-use DB;
-use CRUDBooster;
+use App\ModOrdenExamenes;
+use App\ModOrden;
+use App\ModMedico;
+use App\ModExamen;
+use App\ModTipoExamen;
+use App\ModResultadoExamen;
+use App\ModUsuarioEmpresa;
 use App\ModEmpresa;
 use App\ModConvenios;
 use App\ModPaciente;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection as Collection;
+use Response;
+use CRUDBooster;
+
 use Illuminate\Http\Request;
 
 class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\CBController
@@ -27,7 +37,8 @@ class AdminPaciente1Controller extends \crocodicstudio\crudbooster\controllers\C
 			$this->button_show = true;
 			$this->button_filter = true;
 			$this->button_import = false;
-			$this->button_export = true;
+			$this->button_export = false;
+
 			$this->table = "paciente";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -625,8 +636,12 @@ $this->sub_module = array();
       $operation = 'add';
       $page_title = 'Agregar Paciente';
 
-      //Buscamos todas las empresas
-      $empresas = ModEmpresa::all();
+      //Buscamos todas las sucursales, o empresas sin sucursales
+      $empresas = ModEmpresa::whereNotIn('id', function($q){
+          $q->select('id_padre')
+            ->from('empresa');
+      })->get();
+
       return view("paciente.create",compact('page_title', 'operation','empresas')); 
     }
 
@@ -646,28 +661,7 @@ $this->sub_module = array();
     }
 
     public function store(Request $request){
-      $paciente =  new ModPaciente;
-      $paciente->nombre = $request->get('nombre');
-      $paciente->apellido = $request->get('apellido');
-      $paciente->cedula = $request->get('cedula');
-      $paciente->pasaporte = $request->get('pasaporte');
-      $paciente->otro = $request->get('otro');
-      $paciente->fecha_nac = $request->get('fecha_nac');
-      $paciente->lugar_nac = $request->get('lugar_nac');
-      $paciente->email = $request->get('email');
-      $paciente->direccion = $request->get('direccion');
-      $paciente->telf_domicilio = $request->get('telf_domicilio');
-      $paciente->telf_trabajo = $request->get('telf_trabajo');
-      $paciente->celular = $request->get('celular');
-      $paciente->referencia = $request->get('referencia');
-      $paciente->telf_referencia = $request->get('telf_referencia');
-      $paciente->sexo = $request->get('sexo');
-      $paciente->raza = $request->get('raza');
-      $paciente->estado_civil = $request->get('estado_civil');
-      $paciente->instruccion = $request->get('instruccion');
-      $paciente->id_empresa = $request->get('id_empresa');
-
-      $response = $paciente->save();
+      $response = ModPaciente::create($request->all());
       return response()->json([
         "response" => $response,
         "paciente" =>$paciente]);
@@ -677,30 +671,78 @@ $this->sub_module = array();
     public function update(Request $request, $id){
       
       $paciente = ModPaciente::findOrFail($id); 
-      $paciente->nombre = $request->get('nombre');
-      $paciente->apellido = $request->get('apellido');
-      $paciente->cedula = $request->get('cedula');
-      $paciente->pasaporte = $request->get('pasaporte');
-      $paciente->otro = $request->get('otro');
-      $paciente->fecha_nac = $request->get('fecha_nac');
-      $paciente->lugar_nac = $request->get('lugar_nac');
-      $paciente->email = $request->get('email');
-      $paciente->direccion = $request->get('direccion');
-      $paciente->telf_domicilio = $request->get('telf_domicilio');
-      $paciente->telf_trabajo = $request->get('telf_trabajo');
-      $paciente->celular = $request->get('celular');
-      $paciente->referencia = $request->get('referencia');
-      $paciente->telf_referencia = $request->get('telf_referencia');
-      $paciente->sexo = $request->get('sexo');
-      $paciente->raza = $request->get('raza');
-      $paciente->estado_civil = $request->get('estado_civil');
-      $paciente->instruccion = $request->get('instruccion');
-      $paciente->id_empresa = $request->get('id_empresa');
+      $paciente->fill($request->all());
 
       $response = $paciente->save();
       return response()->json([
         "response" => $response,
         "paciente" =>$paciente]);
+    }
+
+    public function listHistoria(){
+        //Título y tipo de operación a realizar.
+        $operation = 'add';
+        $page_title = 'Historias Clínicas';
+
+        //Buscamos todos los pacientes.
+        if(Session::get('admin_privileges') == 9){
+            $relacion = ModUsuarioEmpresa::select('id_empresa')->where('id_cms_users',CRUDBooster::myId())->first();
+            $empresas = ModEmpresa::select('id')->where('id',$relacion->id_empresa)->orWhere('id_padre',$relacion->id_empresa)->get();
+            $pacientes = DB::table('pacientes')->select('*')->whereIn('id_empresa', $empresas)->get();
+        }else{
+            $pacientes = DB::table('pacientes')->select('*')->get();
+        }
+
+      return view("historiaClinica.index",compact('page_title', 'operation','pacientes')); 
+
+    }
+
+     public function getHistoria($id){       
+
+      //Buscamos el paciente seleccionado.
+      $paciente = DB::table('pacientes')->select('*')->where('id',$id)->first();
+      $tipoOrden = DB::table('tipo_orden')->select('*')->get();
+      $resultados = ModResultadoExamen::all();
+      $t = array();
+      $ordenes = DB::table('orden_historias')->select('*')->where('pacienteid',$id)->get();
+
+      //Se crea un array con los tipos de examenes que tienen resultados cargados
+      foreach ($tipoOrden as $tipo ) {
+        foreach ($ordenes as $orden) {
+          if($orden->id_tipo_orden == $tipo->id){
+            $t[$tipo->id]= $tipo;
+            
+          }        
+        }
+      }
+            
+      
+      $tipoOrden = Collection::make($t);
+
+      $consultas = ModPaciente::findOrFail($id)->consultas;
+      //Título .
+      $page_title = 'Historias Clínica - '.$paciente->nombre;
+     
+
+      return view("historiaClinica.view",compact('page_title', 'pacientes','ordenes','consultas','resultados','tipoOrden')); 
+
+    }
+
+    public function openPDf($id){
+$filename = 'test.pdf';
+  $public_path = storage_path().'/app';
+     $url = $public_path.'/storage/'.$archivo;
+      $pdf = DB::table('resultado_examen')->select('*')->where('id',$id)->first();
+      return Response::make(file_get_contents($public_path.'\\'.$pdf->archivo), 200, [
+          'Content-Type' => 'application/pdf',
+          'Content-Disposition' => 'inline; filename="'.$filename.'"'
+      ]);
+
+    }
+
+    public function countPDF($id){
+      $pdf = DB::table('resultado_examen')->select('id')->where('id_orden',$id)->get();
+      return $pdf;
     }
 
   }

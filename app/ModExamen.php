@@ -14,4 +14,8 @@ class ModExamen extends Model
 	  'descripcion',
 	  'id_categoria_examen'
 	];
+
+	public function categoria() {
+	  return $this->hasOne('\App\ModCategoriaExamen','id','id_categoria_examen');
+	}
 }

@@ -62,7 +62,7 @@
        </style>
 
 
-    <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Ordenes</a><div id="message">
+    <p><a title="Volver" id = "volver" href=""><i class="fa fa-chevron-circle-left"></i>&nbsp; Volver a la Lista de Órdenes</a><div id="message">
     </div></p>
      
     <div class = "box" ng-app="MyApp" ng-controller="controllerLaboratorio">
@@ -76,10 +76,10 @@
     			{{ csrf_field() }}
   			  <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#medicoPaciente">Paciente</a></li>
-              <li class="laboratorio"><a data-toggle="tab" href="#laboratorio">Laboratorio</a></li>
-              <li class="rayox"><a data-toggle="tab" href="#rayox">Rayos X</a></li>
-              <li class="rayox_dental"><a data-toggle="tab" href="#rayox_dental">Rayos X dental</a></li>
+              <li class="active"><a data-toggle="tab" href="#medicoPaciente">PACIENTE</a></li>
+              <li class="laboratorio"><a data-toggle="tab" href="#laboratorio">LABORATORIO</a></li>
+              <li class="rayox"><a data-toggle="tab" href="#rayox">RAYOS X</a></li>
+              <li class="rayox_dental"><a data-toggle="tab" href="#rayox_dental">RAYOS X DENTAL</a></li>
             </ul>
           </div>
           <div class="tab-content">

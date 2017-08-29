@@ -2,11 +2,15 @@
 
 	use Session;
 	
-  use Illuminate\Http\Request;
+  	use Illuminate\Http\Request;
 	use DB;
 	use CRUDBooster;
 	use App\ModEmpresa;
-	use App\ModConvenios;
+	use App\ModUsuarioEmpresa;
+	use App\ModConvenios;	
+	use App\CmsUser;
+	use App\Mail\EmailEmpresa;	
+	use Mail;
 
 
 	class AdminEmpresaController extends \crocodicstudio\crudbooster\controllers\CBController {
@@ -433,9 +437,17 @@
 			$empresa->correo = $request->get('correo');
 			$empresa->direccion = $request->get('direccion');
 			$empresa->id_convenio = $request->get('id_convenio');
-			$empresa->id_padre = ($request->get('id_padre'))?$request->get('id_padre'):0;
+
+			if($request->get('id_padre')){// validamos sí es una sucursal 
+				$empresa->id_padre = $request->get('id_padre');	
+				$response = $empresa->save();			
+			}else{ // Sí no es una sucursal creamos el usuario para la empresa
+				$empresa->id_padre = 0;
+				$response = $empresa->save();
+				$this->createUser($empresa);
+				
+			}			
 			
-			$response = $empresa->save();
 			return response()->json([
 				"response" => $response,
 				"empresa" =>$empresa]
@@ -444,13 +456,37 @@
 
 		public function update(Request $request, $id){
 		 	$empresa = ModEmpresa::findOrFail($id); 
+		 	$correoEmpresa = $empresa->correo;
+		 	$rucEmpresa = $empresa->ruc;
 			$empresa->nombre = $request->get('nombre');
 			$empresa->ruc = $request->get('ruc');
 			$empresa->telefono = $request->get('telefono');
 			$empresa->correo = $request->get('correo');
 			$empresa->direccion = $request->get('direccion');
 			$empresa->id_convenio = $request->get('id_convenio');
-			$empresa->id_padre = ($request->get('id_padre'))?$request->get('id_padre'):0;
+			if($request->get('id_padre')){
+				$empresa->id_padre = $request->get('id_padre');
+			}else{
+				$empresa->id_padre = 0;
+				if($correoEmpresa != $empresa->correo || $rucEmpresa != $empresa->ruc){
+					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 
+					$usuario = CmsUser::findOrFail($relacion->id_cms_users);
+					$usuario->name = $empresa->nombre;
+			        $usuario->email = $empresa->correo;
+			        $usuario->password = bcrypt($empresa->ruc);
+			        $usuario->save();
+
+
+
+			         /*
+			          * Envio de e-mail cuando se actualiza el usuario para la empresa
+			          * 
+			         */
+			         Mail::to(trim($empresa->correo))->send(new EmailEmpresa($empresa,true));
+
+					
+				}
+			}
 			$sucursales = ModEmpresa::where('id_padre',$id)->get();
 			foreach ($sucursales as $sucursal) {
 				$sucursal_updated = ModEmpresa::findOrFail($sucursal->id);
@@ -479,6 +515,28 @@
 			$empresa = ModEmpresa::findOrFail($id); 
 			$page_title = 'Sucursales de la empresa: '.$empresa->nombre;
 			return redirect('admin/sucursal?m=92')->with('page_title', ['hola']);
+		}
+
+		public function createUser(ModEmpresa $empresa){
+	        $usuario = new CmsUser;
+	        $usuario->name = $empresa->nombre;
+	        $usuario->photo = null;
+	        $usuario->email = $empresa->correo;
+	        $usuario->password = bcrypt($empresa->ruc);
+	        $usuario->id_cms_privileges = 9;
+	        $usuario->save();
+
+	        $usuarioEmpresa = new ModUsuarioEmpresa;
+	        $usuarioEmpresa->id_cms_users = $usuario->id;
+	        $usuarioEmpresa->id_empresa = $empresa->id;
+	        $usuarioEmpresa->save();
+
+	         /*
+	          * Envio de e-mail cuando se genera el usuario para la empresa
+	          * 
+	         */
+	         Mail::to(trim($usuario->email))->send(new EmailEmpresa($empresa,false));
+
 		}
 
 

@@ -52,12 +52,20 @@
 	<!--MONEY FORMAT-->
 
 	<script src="{{asset('vendor/crudbooster/jquery.price_format.2.0.min.js')}}"></script>
+	<!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/iCheck/all.css')}}">
+  <link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/dist/css/skins/_all-skins.min.css')}}">
+ 
 
 	<!--DATATABLE-->
   	<link rel="stylesheet" href="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/dataTables.bootstrap.css')}}">
 	<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+	
 	<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
-
+	
+	<!-- iCheck 1.0.1 -->
+	
+	<script src="{{ asset ('vendor/crudbooster/assets/adminlte/plugins/iCheck/icheck.min.js')}}"></script>
 	<script>
 		var ASSET_URL           = "{{asset('/')}}";
 		var APP_NAME            = "{{CRUDBooster::getSetting('appname')}}";
@@ -74,5 +82,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
+  
+
    <!-- Algolia Search API Client - latest version -->
   <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>

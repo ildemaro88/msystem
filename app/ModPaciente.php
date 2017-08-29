@@ -31,7 +31,15 @@ class ModPaciente extends Model
     ];
     //public $timestamps = false;
     public function cms_user(){
-        return $this->belongsTo('\App\CmsUser');
+        return $this->belongsTo('\App\CmsUser','id_paciente');
+    }
+
+    public function ordenes(){
+        return $this->hasMany('\App\ModOrden','id_paciente');
+    }
+
+    public function consultas(){
+        return $this->hasMany('\App\ModConsulta','id_paciente');
     }
 
 }

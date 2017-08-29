@@ -25,6 +25,13 @@ Route::post('admin/orden_examenes', 'AdminOrdenExamenesController@store');
 Route::put('admin/orden_examenes/{id}', 'AdminOrdenExamenesController@update');
 // ------  End Route orden_examen ----/////
 
+//----- Start Route Orden_examen_ocupacional -----//
+Route::post('admin/orden_examenes26', 'AdminOrdenExamenes26Controller@store');
+Route::put('admin/orden_examenes26/{id}', 'AdminOrdenExamenes26Controller@update');
+Route::get('admin/orden_examenes_carga/{id}/upload', 'AdminOrdenExamenesCargaController@uploadResult');
+Route::post('admin/orden_examenes_carga/uploadSave/{id}',['as' => 'uploadSave', 'uses' => 'AdminOrdenExamenesCargaController@saveResult']); 
+// ------  End Route Orden_examen_ocupacional ----/////
+
 //----- Start Route Optometria -----//
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');
@@ -52,7 +59,11 @@ Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursale
 //----- Start Route Paciente -----//
 Route::get('admin/recetas/print_r/{id}', 'AdminRecetasController@print_rPDF');
 Route::post('admin/paciente', 'AdminPaciente1Controller@store');
+Route::get('admin/paciente/historias', ['as' => 'indexHistoria', 'uses' =>'AdminPaciente1Controller@listHistoria']);
 Route::put('admin/paciente/{id}', 'AdminPaciente1Controller@update');
+Route::get('admin/paciente/{id}/historia', ['as' => 'getHistoria', 'uses' => 'AdminPaciente1Controller@getHistoria']);
+Route::get('admin/paciente/resultado/{id}', ['as' => 'openPDF', 'uses' => 'AdminPaciente1Controller@openPDF']);
+Route::get('admin/paciente/resultado/count/{id}', ['as' => 'countPDF', 'uses' => 'AdminPaciente1Controller@countPDF']);
 // ------  End Route Paciente ----/////
 
 Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'SearchController@autocomplete'));

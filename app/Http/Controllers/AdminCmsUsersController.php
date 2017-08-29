@@ -13,9 +13,9 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
 
 
 
-	public function cbInit() {
+  public function cbInit() {
 
-			# START CONFIGURATION DO NOT REMOVE THIS LINE
+    # START CONFIGURATION DO NOT REMOVE THIS LINE
     $this->table               = 'cms_users';
     $this->primary_key         = 'id';
     $this->title_field         = "name";
@@ -24,18 +24,18 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
     $this->button_export     = false;
     # END CONFIGURATION DO NOT REMOVE THIS LINE
 
-			# START COLUMNS DO NOT REMOVE THIS LINE
-			$this->col = [];
-			$this->col[] = ["label"=>"Name","name"=>"name"];
-			$this->col[] = ["label"=>"Email","name"=>"email"];
-			$this->col[] = ["label"=>"Privilege","name"=>"id_cms_privileges","join"=>"cms_privileges,name"];
-			$this->col[] = ["label"=>"Photo","name"=>"photo","image"=>true];
-			$this->col[] = ["label"=>"Sucursal","name"=>"id_institucion","join"=>"institucion,nombre"];
-			# END COLUMNS DO NOT REMOVE THIS LINE
+    # START COLUMNS DO NOT REMOVE THIS LINE
+    $this->col = [];
+    $this->col[] = ["label"=>"Name","name"=>"name"];
+    $this->col[] = ["label"=>"Email","name"=>"email"];
+    $this->col[] = ["label"=>"Privilege","name"=>"id_cms_privileges","join"=>"cms_privileges,name"];
+    $this->col[] = ["label"=>"Photo","name"=>"photo","image"=>true];
+    $this->col[] = ["label"=>"Sucursal","name"=>"id_institucion","join"=>"institucion,nombre"];
+    # END COLUMNS DO NOT REMOVE THIS LINE
 
-			# START FORM DO NOT REMOVE THIS LINE
-			$this->form = [];
-			$this->form[] = array (
+  # START FORM DO NOT REMOVE THIS LINE
+  $this->form = [];
+  $this->form[] = array (
   'style' => NULL,
   'help' => NULL,
   'placeholder' => NULL,
@@ -47,7 +47,7 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => 'required|alpha_spaces|min:3',
   'width' => 'col-sm-10',
 );
-			$this->form[] = array (
+      $this->form[] = array (
   'style' => NULL,
   'help' => NULL,
   'placeholder' => NULL,
@@ -59,7 +59,7 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => 'required|email',
   'width' => 'col-sm-10',
 );
-			$this->form[] = array (
+      $this->form[] = array (
   'style' => NULL,
   'help' => 'Recommended resolution is 200x200px',
   'readonly' => NULL,
@@ -70,7 +70,7 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => 'image|max:1000',
   'width' => 'col-sm-10',
 );
-			$this->form[] = array (
+      $this->form[] = array (
   'dataenum' => NULL,
   'datatable' => 'cms_privileges,name',
   'dataquery' => NULL,
@@ -85,7 +85,7 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => NULL,
   'width' => 'col-sm-10',
 );
-			$this->form[] = array (
+      $this->form[] = array (
   'style' => NULL,
   'help' => 'Please leave empty if not change',
   'placeholder' => NULL,
@@ -97,7 +97,7 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => NULL,
   'width' => 'col-sm-10',
 );
-			$this->form[] = array (
+      $this->form[] = array (
   'dataenum' => NULL,
   'datatable' => 'institucion,nombre',
   'dataquery' => NULL,
@@ -112,25 +112,25 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   'validation' => 'required',
   'width' => 'col-sm-9',
 );
-			# END FORM DO NOT REMOVE THIS LINE
+      # END FORM DO NOT REMOVE THIS LINE
 
-			if(CRUDBooster::getCurrentMethod() == 'getProfile') {
-			$this->button_addmore = false;
-			$this->button_cancel  = false;
-			$this->button_show    = false;
-			$this->button_add     = false;
-			$this->button_delete  = false;
-			$this->hide_form      = ['id_cms_privileges'];
-		}
-	}
+      if(CRUDBooster::getCurrentMethod() == 'getProfile') {
+      $this->button_addmore = false;
+      $this->button_cancel  = false;
+      $this->button_show    = false;
+      $this->button_add     = false;
+      $this->button_delete  = false;
+      $this->hide_form      = ['id_cms_privileges'];
+    }
+  }
 
-	public function getProfile() {
-		$this->cbLoader();
-		$data['page_title'] = trans("crudbooster.label_button_profile");
-		$data['row']        = DB::table($this->table)->where($this->primary_key,CRUDBooster::myId())->first();
-		$data['return_url'] = Request::fullUrl();
-		return view('crudbooster::default.form',$data);
-	}
+  public function getProfile() {
+    $this->cbLoader();
+    $data['page_title'] = trans("crudbooster.label_button_profile");
+    $data['row']        = DB::table($this->table)->where($this->primary_key,CRUDBooster::myId())->first();
+    $data['return_url'] = Request::fullUrl();
+    return view('crudbooster::default.form',$data);
+  }
   
   public function hook_after_add($id)
   {
@@ -152,18 +152,18 @@ class AdminCmsUsersController extends \crocodicstudio\crudbooster\controllers\CB
   public function hook_before_delete($id)
   {
     try {
-			$user = CmsUser::with('privilege')->find($id);
+      $user = CmsUser::with('privilege')->find($id);
       $paciente = ModPaciente::where("cms_user_id",$id)->first();
       $medico = ModMedico::where("cms_user_id",$id)->first();
-			if($user->privilege->id == 3 && count($paciente) > 0){ // es paciente
-				$p = ModPaciente::where("cms_user_id","=",$id)->first();
-				$p->cms_user_id = null;
-				$p->save();
-			}else if($user->privilege->id == 4 && count($medico) > 0){ // es medico
-				$m = ModMedico::where("cms_user_id","=",$id)->first();
-				$m->cms_user_id = null;
-				$m->save();
-			}
+      if($user->privilege->id == 3 && count($paciente) > 0){ // es paciente
+        $p = ModPaciente::where("cms_user_id","=",$id)->first();
+        $p->cms_user_id = null;
+        $p->save();
+      }else if($user->privilege->id == 4 && count($medico) > 0){ // es medico
+        $m = ModMedico::where("cms_user_id","=",$id)->first();
+        $m->cms_user_id = null;
+        $m->save();
+      }
 
     }catch (\Error $x){
     }

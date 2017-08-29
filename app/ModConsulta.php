@@ -168,5 +168,9 @@ class ModConsulta extends Model
 
  	];
 	 protected $guarded=[];
+
+	 public function recetas(){
+        return $this->hasMany('\App\ModReceta','id_consulta');
+    }
 }
 

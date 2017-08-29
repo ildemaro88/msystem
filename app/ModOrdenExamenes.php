@@ -16,7 +16,9 @@ class ModOrdenExamenes extends Model
   ];
 
   
-
+public function examen() {
+	  return $this->hasOne('\App\ModExamen','id','id_examen');
+}
 
 
 }
