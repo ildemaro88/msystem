@@ -476,6 +476,8 @@
 			        $usuario->password = bcrypt($empresa->ruc);
 			        $usuario->save();
 
+
+
 			         /*
 			          * Envio de e-mail cuando se actualiza el usuario para la empresa
 			          * 
