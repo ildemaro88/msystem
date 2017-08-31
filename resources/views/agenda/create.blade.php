@@ -82,7 +82,17 @@
         URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
         URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda')}}';
         OPTIONS_PACIENTE = '@foreach($paciente as $p)' +
-            '<option value="{{$p->id}}">{{$p->nombre." ".$p->apellido}}</option>' +
+                       '<option value="{{$p->id}}" >'+
+                         '@if(empty($p->cedula))'+
+                          '{{$p->pasaporte}}'+
+                         '@else'+
+                          '{{$p->cedula}}'+
+                         '@endif'+
+                         '@if(empty($p->cedula) && empty($p->pasaporte))'+
+                            '{{$p->otro}}'+
+                         '@endif'+
+                          '-'+                                       
+                       '{{$p->nombre." ".$p->apellido}}</option>'+                      
             '@endforeach';
         OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
             '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +

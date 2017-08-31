@@ -59,6 +59,7 @@ Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursale
 //----- Start Route Paciente -----//
 Route::get('admin/recetas/print_r/{id}', 'AdminRecetasController@print_rPDF');
 Route::post('admin/paciente', 'AdminPaciente1Controller@store');
+//Route::get('admin/paciente_importar', 'AdminPaciente1Controller@getIndex');
 Route::get('admin/paciente/historias', ['as' => 'indexHistoria', 'uses' =>'AdminPaciente1Controller@listHistoria']);
 Route::put('admin/paciente/{id}', 'AdminPaciente1Controller@update');
 Route::get('admin/paciente/{id}/historia', ['as' => 'getHistoria', 'uses' => 'AdminPaciente1Controller@getHistoria']);

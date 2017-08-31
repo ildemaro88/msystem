@@ -12,45 +12,66 @@
 
 
             @if(Request::get('file') && Request::get('import'))
+            <?php 
+              
+            //Loading Assets
+            $asset_already = [];
+                //conseguir la url completa
+            $getUrl = Request::fullUrl();
 
+            if(strpos($getUrl,'paciente_importar/done-import')){
+              $pacientesImportados = true;
+            }
+           
+
+            ?>
             <ul class='nav nav-tabs'>
-                    <li style="background:#eeeeee"><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Upload a File &raquo;</a></li>
-                    <li style="background:#eeeeee" ><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Adjustment &raquo;</a></li>
-                    <li style="background:#ffffff"  class='active'><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importing &raquo;</a></li>
+                    <li style="background:#eeeeee"><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Subir un Archivo &raquo;</a></li>
+                    <li style="background:#eeeeee" ><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Configuración &raquo;</a></li>
+                    <li style="background:#ffffff"  class='active'><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importando &raquo;</a></li>
             </ul>
 
             <!-- Box -->
             <div id='box_main' class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Importing</h3>
+                    <h3 class="box-title">Importando</h3>
                     <div class="box-tools">                      
                     </div>
                 </div>
                     
                 <div class="box-body">
                     
-                    <p style='font-weight: bold' id='status-import'><i class='fa fa-spin fa-spinner'></i> Please wait importing...</p>
+                    <p style='font-weight: bold' id='status-import'><i class='fa fa-spin fa-spinner'></i> Importando...</p>
                     <div class="progress">
                       <div id='progress-import' class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="40" 
                       aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                        <span class="sr-only">40% Complete (success)</span>
+                        <span class="sr-only">40% Completado (exitosamente)</span>
                       </div>
                     </div>                    
 
                     <script type="text/javascript">
                       $(function() {
+                        //console.log("{{$pacientesImportados}}");
+                        var pacientesImportados = "{{$pacientesImportados}}";
+                        if(pacientesImportados){
+                          $(".btn-success").attr('href',URL_BASE+"paciente");
+
+                        }
                         var total = {{ intval(Session::get('total_data_import')) }};
                         
                         var int_prog = setInterval(function() {
 
-                          $.post("{{ CRUDBooster::mainpath('do-import-chunk?file='.Request::get('file')) }}",{resume:1},function(resp) {                                       
-                              console.log(resp.progress);
+                          $.post("{{ CRUDBooster::mainpath('do-import-chunk?file='.Request::get('file')) }}",{resume:1},function(resp) {                       
+                          console.log(resp);                
+                              console.log(resp.progress);if($('#progress-import').attr('aria-valuenow')==100){
+                                return false;
+                              }
                               $('#progress-import').css('width',resp.progress+'%');
-                              $('#status-import').html("<i class='fa fa-spin fa-spinner'></i> Please wait importing... ("+resp.progress+"%)");
+                              $('#status-import').html("<i class='fa fa-spin fa-spinner'></i> Espere mientras se importa... ("+resp.progress+"%)");
                               $('#progress-import').attr('aria-valuenow',resp.progress);
                               if(resp.progress >= 100) {
-                                $('#status-import').addClass('text-success').html("<i class='fa fa-check-square-o'></i> Import Data Completed !");
-                                clearInterval(int_prog);
+                                $('#status-import').addClass('text-success').html("<i class='fa fa-check-square-o'></i> Importación completada !");
+                                //clearInterval(int_prog);
                               }
                           })
                           
@@ -61,10 +82,12 @@
                             if(resp.status==true) {
                               $('#progress-import').css('width','100%');
                               $('#progress-import').attr('aria-valuenow',100);
-                              $('#status-import').addClass('text-success').html("<i class='fa fa-check-square-o'></i> Import Data Completed !");
-                              clearInterval(int_prog);
+                              $('#status-import').addClass('text-success').html("<i class='fa fa-check-square-o'></i> Importación completada !");
+                              console.log(resp);     
+                             // clearInterval(int_prog);
                               $('#upload-footer').show();
                               console.log('Import Success');
+                              return false;
                             }
                         })
 
@@ -76,8 +99,8 @@
         
                 <div class="box-footer" id='upload-footer' style="display:none">  
                   <div class='pull-right'>                            
-                      <a href='{{ CRUDBooster::mainpath("import-data") }}' class='btn btn-default'><i class='fa fa-upload'></i> Upload Other File</a> 
-                      <a href='{{CRUDBooster::mainpath()}}' class='btn btn-success'>Finish</a>                                
+                      <a href='{{ CRUDBooster::mainpath("import-data") }}' class='btn btn-default'><i class='fa fa-upload'></i> Cargar otro archivo</a> 
+                      <a href='{{CRUDBooster::mainpath()}}' class='btn btn-success'>Terminar</a>                                
                   </div>
                 </div><!-- /.box-footer-->
                 
@@ -87,15 +110,15 @@
             @if(Request::get('file') && !Request::get('import'))
 
             <ul class='nav nav-tabs'>
-                    <li style="background:#eeeeee"><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Upload a File &raquo;</a></li>
-                    <li style="background:#ffffff"  class='active'><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Adjustment &raquo;</a></li>
-                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importing &raquo;</a></li>
+                    <li style="background:#eeeeee"><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Cargar Archivo &raquo;</a></li>
+                    <li style="background:#ffffff"  class='active'><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Configuración &raquo;</a></li>
+                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importando &raquo;</a></li>
             </ul>
 
             <!-- Box -->
             <div id='box_main' class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Adjustment</h3>
+                    <h3 class="box-title">Configuración</h3>
                     <div class="box-tools">
                                           
                     </div>
@@ -115,8 +138,8 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">             
                         <div class="box-body table-responsive no-padding">
                               <div class='callout callout-info'>
-                                  * Just ignoring the column where you are not sure the data is suit with the column or not.<br/>
-                                  * Warning !, Unfortunately at this time, the system can't import column that contains image or photo url.
+                                  * Solo ignore las columnas que no coincidan con las de su archivo.<br/>
+                                  * Advertencia !, Desafortunadamente, en este momento, el sistema no puede importar columna que contenga URL de imagen o foto.
                               </div>
                               <style type="text/css">
                                 th, td {
@@ -188,8 +211,8 @@
                 
                         <div class="box-footer">  
                           <div class='pull-right'>                            
-                              <a onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;' class='btn btn-default'>Cancel</a>  
-                              <input type='submit' class='btn btn-primary' name='submit' onclick='return check_selected_column()' value='Import Data'/>   
+                              <a onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;' class='btn btn-default'>Cancelar</a>  
+                              <input type='submit' class='btn btn-primary' name='submit' onclick='return check_selected_column()' value='Importar Datos'/>   
                           </div>
                         </div><!-- /.box-footer-->
                 </form>
@@ -200,15 +223,15 @@
 
             @if(!Request::get('file'))
             <ul class='nav nav-tabs'>
-                    <li style="background:#ffffff" class='active'><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Upload a File &raquo;</a></li>
-                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Adjustment &raquo;</a></li>
-                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importing &raquo;</a></li>
+                    <li style="background:#ffffff" class='active'><a style="color:#111" onclick="if(confirm('Are you sure want to leave ?')) location.href='{{ CRUDBooster::mainpath("import-data") }}'" href='javascript:;'><i class='fa fa-download'></i> Cargar un Archivo &raquo;</a></li>
+                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cogs'></i> Configuración &raquo;</a></li>
+                    <li style="background:#eeeeee"><a style="color:#111" href='#'><i class='fa fa-cloud-download'></i> Importando &raquo;</a></li>
             </ul>
 
             <!-- Box -->
             <div id='box_main' class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Upload a File</h3>
+                    <h3 class="box-title">Cargar un Archivo</h3>
                     <div class="box-tools">
                                           
                     </div>
@@ -229,25 +252,26 @@
                         <div class="box-body">
 
                             <div class='callout callout-success'>
-                                  <h4>Welcome to Data Importer Tool</h4>
-                                  Before doing upload a file, its better to read this bellow instructions : <br/>
-                                  * File format should be : xls or xlsx or csv<br/>
-                                  * If you have a big file data, we can't guarantee. So, please split those files into some parts of file (at least max 5 MB).<br/>
-                                  * This tool is generate data automatically so, be carefull about your table xls structure. Please make sure correctly the table structure.<br/>
-                                  * Table structure : Line 1 is heading column , and next is the data.  (For example, you can export any module you wish to XLS format)                                                                
+
+                                  <h4>Bienvenido a la Herramienta para importar datos</h4>
+                                  Antes de cargar un archivo, es mejor leer las siguientes instrucciones: <br/>
+                                  * El formato de archivo debe ser: xls o xlsx o csv<br/>
+                                  * Si usted tiene un archivo grande de datos, por favor divida el archivo en algunas partes (por lo menos 4 MB como máximo).<br/>
+                                  * Esta herramienta genera datos automáticamente así que, tenga cuidado sobre su estructura xls de la tabla. Por favor, asegúrese de que la estructura de la tabla es correcta.<br/>
+                                  * Estructura de la tabla: La línea 1 es la columna de encabezado y, a continuación, los datos.                                             
                               </div>
 
                             <div class='form-group'>
                                 <label>File XLS / CSV</label>
                                 <input type='file' name='userfile' class='form-control' required />
-                                <div class='help-block'>File type supported only : XLS, XLSX, CSV</div>
+                                <div class='help-block'>Tipos de archivos soportados: XLS, XLSX, CSV</div>
                             </div>
                         </div><!-- /.box-body -->
                 
                         <div class="box-footer">  
                           <div class='pull-right'>                            
                               <a href='{{ CRUDBooster::mainpath() }}' class='btn btn-default'>Cancel</a>  
-                              <input type='submit' class='btn btn-primary' name='submit' value='Upload'/>   
+                              <input type='submit' class='btn btn-primary' name='submit' value='Cargar'/>   
                           </div>
                         </div><!-- /.box-footer-->
                 </form>

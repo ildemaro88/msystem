@@ -81,7 +81,7 @@ class AdminAgendaController extends Controller
                 $cita->agenda_id = $agenda_id;
             }
             $medico = ModMedico::find($request->get("medico_id"));
-            $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", " . $paciente->nombre . " " . $paciente->apellido);
+            $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", Paciente:  " . $paciente->nombre . " " . $paciente->apellido);
             //var_dump($cita);
             $response = $cita->save();
 

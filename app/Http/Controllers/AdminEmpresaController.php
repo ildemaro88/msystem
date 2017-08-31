@@ -37,6 +37,7 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
+			$this->col[] = ["label"=>"ID Empresa","name"=>"id"];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
 			$this->col[] = ["label"=>"Ruc","name"=>"ruc"];
 			$this->col[] = ["label"=>"Telefono","name"=>"telefono"];
@@ -162,8 +163,9 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
+	        if(Session::get('admin_privileges') === 5 ){
 	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-plus','target'=>'_blank','color'=>'primary add_sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/add/sucursal'],['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales']);
-
+	    	}
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -235,7 +237,7 @@
 	        */
 	        $this->script_js = '$(function() {
       // corregir error de doble calendario
-      //alert("hola");
+	        	
       $(".sucursales").attr("title","Ver sucursales");
       $(".add_sucursales").attr("title","Agregar sucursal");
       $(".eliminar").attr("title","Eliminar");
@@ -309,10 +311,20 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        $query->where('empresa.id_padre',0);
+	    	//dd(Session::get('admin_privileges'));
+	    	if(Session::get('admin_privileges') !== 5 ){
+	    		$query->whereNotIn('empresa.id', function($q){
+		          $q->select('id_padre')
+		            ->from('empresa');
+		        });
+	    	}else{
+	    		$query->where('empresa.id_padre',0);
+	    	}
+	      //
+	        
 	            
+	    
 	    }
-
 	    /*
 	    | ---------------------------------------------------------------------- 
 	    | Hook for manipulate row of index table html 

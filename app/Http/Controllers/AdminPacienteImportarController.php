@@ -29,7 +29,7 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Empresa","name"=>"id_empresa","join"=>"empresa,id"];
+			$this->col[] = ["label"=>"Empresa","name"=>"id_empresa"];
 			$this->col[] = ["label"=>"Cedula","name"=>"cedula"];
 			$this->col[] = ["label"=>"Nombre","name"=>"nombre"];
 			$this->col[] = ["label"=>"Apellido","name"=>"apellido"];

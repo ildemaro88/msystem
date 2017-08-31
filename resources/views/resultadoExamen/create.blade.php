@@ -271,7 +271,7 @@ $("#checkAll").change(function () {
                         },
                         function(){
                           if(response.type == 'success'){
-                            window.location = "{{ url('/admin/orden_examenes_carga?m=108') }}";
+                            window.location = "{{ url()->previous() }}";
 
                           }
                         });

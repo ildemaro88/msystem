@@ -27,7 +27,7 @@ class ModPaciente extends Model
         'celular',
         'referencia',
         'telf_referencia',
-        'id_empresa'
+        'empresa'
     ];
     //public $timestamps = false;
     public function cms_user(){

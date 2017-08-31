@@ -136,7 +136,7 @@ class AdminCitaController extends Controller
             $agenda_id = $request->get("agenda_id");
             $medico = ModMedico::find($request->get("medico_id"));
 
-            $cita->title = ($medico->titulo." ".$medico->nombre." ".$medico->apellido.", ".$paciente->nombre." ".$paciente->apellido);
+            $cita->title = ($medico->titulo." ".$medico->nombre." ".$medico->apellido.", Paciente: ".$paciente->nombre." ".$paciente->apellido);
 
             $response = $cita->save();
             if($response){// si se guarda la cita

@@ -144,8 +144,8 @@
 					<p class="help-block"></p>
 				</div>
 				<div class="col-md-6 ">
-	                <label for="id_empresa" class="control-label">Empresa</label>
-	                <select class="form-control" id="id_empresa" name="id_empresa" ng-model="id_empresa">
+	                <label for="empresa" class="control-label">Empresa</label>
+	                <select class="form-control" id="empresa" name="empresa" ng-model="empresa">
 	                    <option value="">Particular</option>                                        
 	                   @foreach($empresas as $empresa)
 						<option value="{{$empresa->id}}">{{$empresa->nombre}}</option> 
@@ -327,7 +327,7 @@
 		$scope.celular = "{{($operation == 'update')?$paciente->celular :''}}";
 		$scope.referencia = "{{($operation == 'update')?$paciente->referencia :''}}";
 		$scope.telf_referencia = "{{($operation == 'update')?$paciente->telf_referencia :''}}";
-		$scope.id_empresa = "{{($operation == 'update')?$paciente->id_empresa :''}}";
+		$scope.empresa = "{{($operation == 'update')?$paciente->empresa :''}}";
 	};
 
 	 //Ejecuto la funcion anterior init()

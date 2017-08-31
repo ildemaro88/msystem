@@ -1910,7 +1910,7 @@
           $("input:text, textarea").keyup(checked);
           $("input:text, textarea").each(checked);
 
-          $(document).on('mouseenter.collapse', '[data-toggle=collapse]', function(e) {
+          $(document).on('click.collapse', '[data-toggle=collapse]', function(e) {
               var $this = $(this),
                   href,
                   target = $this.attr('data-target')
