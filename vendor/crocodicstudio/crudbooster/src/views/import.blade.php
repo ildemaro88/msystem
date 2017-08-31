@@ -265,6 +265,7 @@
                                 <label>File XLS / CSV</label>
                                 <input type='file' name='userfile' class='form-control' required />
                                 <div class='help-block'>Tipos de archivos soportados: XLS, XLSX, CSV</div>
+                                <a href="{{route('getModelo')}}" type="button" class="btn btn-default">Descargar Formato</a>
                             </div>
                         </div><!-- /.box-body -->
                 

@@ -4,6 +4,7 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
+	use Illuminate\Http\Response;
 
 	class AdminPacienteImportarController extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -509,7 +510,14 @@
 
 
 
-	    //By the way, you can still create your own method in here... :) 
+	    public function getModelo()
+		{
 
+		//PDF file is stored under project/public/download/info.pdf
+
+		    $file= public_path(). "/modelo.xlsx";   
+
+		    return response()->download($file);
+		}
 
 	}
