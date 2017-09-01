@@ -100,6 +100,7 @@
             <li class="rayox"><a data-toggle="tab" href="#rayox">RAYOS X</a></li>
             <li class="rayox_dental"><a data-toggle="tab" href="#rayox_dental">RAYOS X DENTAL</a></li>
             <li class="gabinete"><a data-toggle="tab" href="#gabinete">EXÁMENES DE GABINETE</a></li>
+            <li class="historia"><a data-toggle="tab" href="#historia">HISTORIA CLÍNICA</a></li>
           </ul>
         </div>
         <div class="tab-content">
@@ -1976,7 +1977,54 @@
               </div>            
             </div>
           </div>
-          <!--Fin pestaña Gabinete-->      		
+          <!--Fin pestaña Gabinete-->      
+
+          <!--Inicio pestaña Historia y Certificados-->
+          <div id="historia" class="tab-pane fade">
+            <div class="panel-group col-md-6 historia_clinica" id="accordion_historia_clinica">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#historia_clinica">
+                      Historia Clínica</a>
+                  </h4>
+                </div>
+                <div id="historia_clinica" class="panel-collapse collapse in">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-inline"><input type="checkbox" class="chkExamenes" id="audiometria" ng-checked="historia_clinica" name="examenes[319]">Historia Clínica</label>
+                        </td>                       
+                      </tr>                      
+                    </tbody>
+                  </table>
+                </div>                
+              </div> 
+            </div>
+             <div class="panel-group col-md-6 certificado" id="accordion_certificado">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#certificado">
+                      Certificado</a>
+                  </h4>
+                </div>
+                <div id="certificado" class="panel-collapse collapse in">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label class="checkbox-inline"><input type="checkbox" class="chkExamenes" id="audiometria" ng-checked="certificado" name="examenes[320]">Certificado</label>
+                        </td>                       
+                      </tr>                      
+                    </tbody>
+                  </table>
+                </div>                
+              </div>                 
+            </div>
+          </div>
+          <!--Fin pestaña Historia y Certificados--> 		
     	  </div>     
       </form> 
     </div>
