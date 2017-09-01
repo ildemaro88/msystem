@@ -661,7 +661,15 @@ $this->sub_module = array();
     }
 
     public function store(Request $request){
-      $response = ModPaciente::create($request->all());
+        $paciente = (new ModPaciente)->fill($request->all());
+        if(!$request->cedula){
+            $paciente->cedula = $request->pasaporte;
+            if(!$request->pasaporte){
+            $paciente->cedula = $request->otro;
+        }
+        }
+        
+      $response = $paciente->save();
       return response()->json([
         "response" => $response,
         "paciente" =>$paciente]);
@@ -672,7 +680,11 @@ $this->sub_module = array();
       
       $paciente = ModPaciente::findOrFail($id); 
       $paciente->fill($request->all());
-
+      if(!$request->cedula){
+            $paciente->cedula = $request->pasaporte;
+            if(!$request->pasaporte){
+            $paciente->cedula = $request->otro;
+        }}
       $response = $paciente->save();
       return response()->json([
         "response" => $response,
