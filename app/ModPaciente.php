@@ -14,6 +14,7 @@ class ModPaciente extends Model
         'apellido',
         'pasaporte',
         'otro',
+        'cargo',
         'fecha_nac',
         'lugar_nac',
         'raza',

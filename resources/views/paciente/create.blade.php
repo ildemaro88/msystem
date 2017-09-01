@@ -54,17 +54,18 @@
 	        	<div class="col-md-4 div">
 	                <label class="control-label" for="telefono_user">Cédula</label>
 	                <span class="text-danger" title="Este campo es obligatorio">*</span>                                
-	                <input onkeypress="return isNumberKey(this);" type="text" class="form-control" id="cedula" name="cedula" placeholder="Introduzca número de cédula " ng-model="cedula">
+	                <input maxlength="10"  type="text" class="form-control" id="cedula" name="cedula" placeholder="Introduzca número de cédula " ng-model="cedula">
 	            </div>
+	              
 	           <div class="col-md-4 div">
 	                <label class="control-label" for="telefono_user">Pasaporte</label>
 	                <span class="text-danger" title="Este campo es obligatorio"></span>                                
-	                <input onkeypress="return isNumberKey(this);" type="text" class="form-control" id="pasaporte" name="pasaporte" placeholder="Introduzca número de cédula " ng-model="pasaporte">
+	                <input  type="text" class="form-control" id="pasaporte" name="pasaporte" placeholder="Introduzca número de pasaporte " ng-model="pasaporte">
 	            </div>
 	            <div class="col-md-4 div">
 	                <label class="control-label" for="telefono_user">Otro</label>
 	                <span class="text-danger" title="Este campo es obligatorio"></span>                                
-	                <input onkeypress="return isNumberKey(this);" type="text" class="form-control" id="otro" name="otro" placeholder="Introduzca número de cédula " ng-model="otro">
+	                <input  type="text" class="form-control" id="otro" name="otro" placeholder="Introduzca alguna identificación " ng-model="otro">
 	            </div>
 	            	    	           
 	        </div>
@@ -208,12 +209,13 @@
 	</div>
 </div>
 
-	        
+       
 <script type="text/javascript">
-
+  
 	function isNumberKey(evt)
     {
         var charCode = (evt.which) ? evt.which : event.keyCode
+       
         if (charCode > 31 && (charCode < 48 || charCode > 57)){
             
             return false;
@@ -221,7 +223,7 @@
             return true;
         }
     }
-				
+
 	$('.datepicker').datepicker({language:'es',autoclose:true,format:'yyyy-mm-dd'});
 
 	$(document).ready(function(){
@@ -240,14 +242,23 @@
 		rules: {
 			nombre: "required",
 			apellido:"required",
-			cedula: "required",
+			cedula: {
+	            required: {
+	                depends: function(element) {
+	                    return $('#pasaporte').val().length < 1 && $('#otro').val().length < 1;
+	                },
+	            },
+	            cedula:true,
+        	},
 			
-			email:"required",
 		},
 		messages: {
 			nombre: "Este campo es obligatorio",
 			apellido:"Este campo es obligatorio",
-			cedula: "Este campo es obligatorio",
+			cedula:{
+				required: "Debe colocar al menos un tipo de identificación",
+			} ,
+
 			pasaporte:"Este campo es obligatorio",
 			otro: "Este campo es obligatorio",
 			email:"Este campo es obligatorio",
@@ -286,6 +297,7 @@
 			$(this).next('span').removeClass('error').addClass('valid');
 		}
 	});
+
 			
 	//Declaracion de la aplicacion
 
@@ -311,7 +323,7 @@
 	{
 		$scope.nombre = "{{($operation == 'update')?$paciente->nombre :''}}";
 		$scope.apellido = "{{($operation == 'update')?$paciente->apellido :''}}";
-		$scope.cedula = "{{($operation == 'update')?$paciente->cedula :''}}";
+		$scope.cedula = "{{($operation == 'update')?$paciente->cedula :''}}";		
 		$scope.pasaporte = "{{($operation == 'update')?$paciente->pasaporte :''}}";
 		$scope.otro = "{{($operation == 'update')?$paciente->otro :''}}";
 		$scope.fecha_nac = "{{($operation == 'update')?$paciente->fecha_nac :''}}";
@@ -444,6 +456,6 @@
 
 
 </script>
-
+<script src="{{asset('js/paciente/validadorCedula.js')}}"></script>	 
 
 @endsection	        
