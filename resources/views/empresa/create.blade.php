@@ -29,7 +29,7 @@
 </div></p>
 <div class = "box" ng-app="MyApp" ng-controller="controllerEmpresa">
 	<div class = "box-body">
-		<form id="form_empresa" method="POST" action="" name="form_empresa" >
+		<form id="form_empresa" method="POST" action="" name="form_empresa" enctype="multipart/form-data">
 			{{ csrf_field() }}
 			<div class="form-group  row">
 	            <div class="col-md-6 ">
@@ -66,8 +66,9 @@
 					<p class="help-block"></p>
 				</div>  	    	           
 	        </div>
-	        <div class="form-group row ">
+	       
 	        @if($empresa->id_padre ==0)
+	         <div class="form-group row ">
 	            <div class="col-md-6 ">
 	                <label for="id_convenio" class="control-label">Convenio</label>
 	                <span class="text-danger" title="Este campo es obligatorio">*</span>      
@@ -78,14 +79,20 @@
 	                   @endforeach
 	                </select>
 	            </div>
+
+	            <div class="col-md-6">
+	            	<label class="col-md-3 control-label">Subir logo</label>   
+	              	<input type="file" class="form-control" name="logo" ng-model='file' >               
+	            </div>  
+	        </div> 
 	        @else
 	        <input type="hidden"  id="id_padre" name="id_padre"  ng-model="id_padre">
 	        <input type="hidden"  id="id_convenio"  name="id_convenio"  ng-model="id_convenio">
 
 	        @endif
+			<div class="form-group row ">
 
-
-	            <div class="col-md-6 div">
+	            <div class="col-md-12 div">
 	                <label class="control-label" for="direccion">Dirección</label>  
 	                <span class="text-danger" title="Este campo es obligatorio">*</span>       			                       
 	                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Introduzca la dirección" ng-model="direccion">
@@ -162,6 +169,9 @@
 			telefono:"required",
 			id_convenio: "required",
 			direccion:"required",
+			logo:{
+			 extension: "jpg"
+              },
 		},
 		messages: {
 			nombre: "Este campo es obligatorio",
@@ -170,6 +180,7 @@
 			telefono:"Este campo es obligatorio",
 			id_convenio: "Este campo es obligatorio",
 			direccion:"Este campo es obligatorio",
+			logo:"La imagen debe ser jpg"
 
 		},
 		errorElement: "em",
@@ -276,39 +287,54 @@
 	{
 		if($("#form_empresa").valid()){
 			switch (operation) {
-				case 'add':
 
+				case 'add':
+				
 					$(".modal").modal('show');
+					$.ajax({
+                      url: API_URL + 'empresa',
+                      data:
+                        new FormData($("#form_empresa")[0]),
+                        
+                      dataType:'json',
+                      async:false,
+                      type:'post',
+                      processData: false,
+                      contentType: false,
+                      success:function(response){
+                         $(".modal").modal('hide');
+                        swal({
+                          title: response.title,
+                          text: response.mensaje,
+                          type: response.type,
+                          showCancelButton: false,
+                          confirmButtonClass: "btn-succes",
+                          confirmButtonText: "OK",
+                          closeOnConfirm: response.close,
+                          showLoaderOnConfirm: response.show
+                        },
+                        function(){
+                          if(response.type == 'success'){
+                            window.location = "{{ url()->previous() }}";
+
+                          }
+                        });
+                      } ,
+                      error: function (xhr, ajaxOptions, thrownError) {
+                        $(".modal").modal('hide');
+                          swal("Error", "¡No se guardó!", "error");
+                          
+                        },
+                        beforeSend: function(){
+					       $(".modal").modal('show');
+					   },
+                      
+                      }
+                    );
+
+					
 					console.log($scope.serializeObject($("#form_empresa")));
-					$http({
-						url    : API_URL + 'empresa',
-						method : 'POST',
-						params : $scope.serializeObject($("#form_empresa")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Se ha guardado exitosamente!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: true
-							},
-							function(){
-								$(".modal").modal('show');
-								location.reload();
-								//window.location = "{{ url('/admin/empresa?m=89') }}";
-							});
-						} else {
-							swal("Error", "¡No se guardó!", "error");
-						}
-					});
+					
 
 					break;
 

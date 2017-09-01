@@ -102,7 +102,6 @@ foreach($forms as $form) {
 	//inicializar objetos angular
 	$("#name").attr("ng-model","name");
 	$("#email").attr("ng-model","email");
-	if()
 	//actualizar enlace usuario - guardia /cliente
 	/*$(window).bind('beforeunload',function(){
 		var scp = angular.element('[ng-controller="Ctrl"]').scope();

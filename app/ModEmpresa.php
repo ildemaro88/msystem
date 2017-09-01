@@ -11,6 +11,7 @@ class ModEmpresa extends Model
 	protected $fillable=[
 		'nombre',
 		'ruc',
+		'logo',
 		'telefono',
 		'correo',
 		'direccion',

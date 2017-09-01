@@ -11,7 +11,7 @@
 	use App\CmsUser;
 	use App\Mail\EmailEmpresa;	
 	use Mail;
-
+	use Storage;
 
 	class AdminEmpresaController extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -455,13 +455,37 @@
 				$response = $empresa->save();			
 			}else{ // Sí no es una sucursal creamos el usuario para la empresa
 				$empresa->id_padre = 0;
-				$response = $empresa->save();
-				$this->createUser($empresa);
+				//$mime = $request->file('logo')->getMimeType();				
+				//if($mime == 'image/jpg'){
+				$empresa->logo =($request->logo)?$request->logo->store('logos'):null;
+				$photo=($request->logo)?$request->logo->store(date("Y") .'-'. date("m")):null;
+		        $response = $empresa->save();
+		       
+				$title ="Buen trabajo!";
+				$type = 'success';
+				$mensaje = 'Se ha guardado exitosamente!';
+				$close = false;
+				$show = true;
+			/*}else{
+				$title ="Error";
+				$type = 'error';
+				$mensaje = 'La imagen debe ser jpg';
+				$close = true;
+				$show = false;
+				
+			}*/
+			
+				$this->createUser($empresa,$photo);
 				
 			}			
 			
 			return response()->json([
 				"response" => $response,
+				"title" => $title,
+				"mensaje" => $mensaje,
+				"type" => $type,
+				"close"=> $close,
+				"show" => $show,
 				"empresa" =>$empresa]
 			);
 		}
@@ -476,19 +500,19 @@
 			$empresa->correo = $request->get('correo');
 			$empresa->direccion = $request->get('direccion');
 			$empresa->id_convenio = $request->get('id_convenio');
+			$empresa->logo =($request->logo)?$request->logo->store('logos'):$empresa->logo;
 			if($request->get('id_padre')){
 				$empresa->id_padre = $request->get('id_padre');
 			}else{
 				$empresa->id_padre = 0;
 				if($correoEmpresa != $empresa->correo || $rucEmpresa != $empresa->ruc){
-					dd($id);
-					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 
-					dd($relacion->id_cms_users);
-					$usuario = CmsUser::findOrFail($relacion->id_cms_users);
-					$usuario->name = $empresa->nombre;
-			        $usuario->email = $empresa->correo;
-			        $usuario->password = bcrypt($empresa->ruc);
-			        $usuario->save();
+
+					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 					
+						$usuario = CmsUser::findOrFail($relacion->id_cms_users);
+						$usuario->name = $empresa->nombre;
+				        $usuario->email = $empresa->correo;
+				        $usuario->password = bcrypt($empresa->ruc);
+				        $usuario->save();
 			         /*
 			          * Envio de e-mail cuando se actualiza el usuario para la empresa
 			          * 
@@ -507,7 +531,7 @@
 			}
 			$response = $empresa->save();
 			return response()->json([
-				"response" => $response,
+				"response" => $response,				
 				"empresa" =>$empresa]);
 		}
 
@@ -528,10 +552,10 @@
 			return redirect('admin/sucursal?m=92')->with('page_title', ['hola']);
 		}
 
-		public function createUser(ModEmpresa $empresa){
+		public function createUser(ModEmpresa $empresa,$photo){
 	        $usuario = new CmsUser;
 	        $usuario->name = $empresa->nombre;
-	        $usuario->photo = null;
+	        $usuario->photo = "uploads/".$photo;
 	        $usuario->email = $empresa->correo;
 	        $usuario->password = bcrypt($empresa->ruc);
 	        $usuario->id_cms_privileges = 9;
