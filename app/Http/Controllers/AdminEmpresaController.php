@@ -555,7 +555,7 @@
 		public function createUser(ModEmpresa $empresa,$photo){
 	        $usuario = new CmsUser;
 	        $usuario->name = $empresa->nombre;
-	        $usuario->photo = "uploads/".$photo;
+	        $usuario->photo = ($photo !== null)?"uploads/".$photo:$photo;
 	        $usuario->email = $empresa->correo;
 	        $usuario->password = bcrypt($empresa->ruc);
 	        $usuario->id_cms_privileges = 9;

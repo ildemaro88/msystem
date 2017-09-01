@@ -261,8 +261,7 @@
 
 			pasaporte:"Este campo es obligatorio",
 			otro: "Este campo es obligatorio",
-			email:"Este campo es obligatorio",
-
+			
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
