@@ -1,3 +1,5 @@
 #Ignorar los archivos de configuración
 .env
 public/js/configServer.js
+nbproject/
+storage/
