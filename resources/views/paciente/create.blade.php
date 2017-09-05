@@ -23,7 +23,7 @@
   	background-color: #3c8dbc !important;
   }
   .datepicker{
-  	z-index: -1;
+  	z-index: 1 !important;
   }
 
 </style>
