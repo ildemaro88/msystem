@@ -22,6 +22,9 @@
 .sucursal{
   	background-color: #3c8dbc !important;
   }
+  .datepicker{
+  	z-index: -1;
+  }
 
 </style>
 
