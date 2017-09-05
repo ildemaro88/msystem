@@ -240,12 +240,12 @@
 
 	$(document).ready(function(){
 		
-		$.validator.setDefaults( {
-			submitHandler: function () {
-				alert( "submitted!" );
-			},
+		if($("#empresa").val() >= 1) {
 			
-		} );
+			$('#group-cargo').attr("style","display:block" );
+		}else{
+			$('#group-cargo').attr("style","display:none" );
+		}
 		
 	});
           
