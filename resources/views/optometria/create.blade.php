@@ -4424,8 +4424,9 @@ $(document).ready(function(){
 					break;
 
 			case 'finalizar':
+			$(".modal").modal('show');
 			  $("#id_estado").val(2);
-		      $(".modal").modal('show');
+		      
 		         console.log($scope.serializeObject($("#form_consulta")));
 		        $http({
 		          url    : API_URL + 'optometria/{{$optometria->id}}',

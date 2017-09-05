@@ -350,10 +350,9 @@ Sizes: [
                                                                         <td class="textContent" align="left">
                                                                             <h3 style="color: #5f5f5f; line-height: 125%; font-family: 'Roboto',sans-serif; font-size: 20px; font-weight: normal; margin-top: 0; margin-bottom: 3px; text-align: left;">Detalle de la Cita:</h3>
                                                                             <br>
-                                                                            <?php setlocale(LC_TIME, 'es_ES');
-                                                                            ?>
+                                                                            <?php setlocale(LC_TIME, config('app.locale')); ?>
                                                                             <h3 style="color: #5f5f5f; line-height: 125%; font-family: Helvetica,Arial,sans-serif; font-size: 20px; font-weight: normal; margin-top: 0; margin-bottom: 3px; text-align: left;"></h3>
-                                                                            <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Fecha: </strong>{{\Carbon\Carbon::parse($cita->start)->formatLocalized('%a %d %B %Y')}}</div>
+                                                                            <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Fecha: </strong>{{ Carbon\Carbon::parse($cita->start)->formatLocalized('%A %d %B %Y')}}</div>
                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Hora: </strong>{{\Carbon\Carbon::parse($cita->start)->format('h:i:s A')}}</div>
                                                                             <div style="text-align: left; font-family: Helvetica,Arial,sans-serif; font-size: 15px; margin-bottom: 0; color: #5f5f5f; line-height: 135%;"><strong>Observaciones: </strong>{{$cita->detalle_cita}}</div>
                                                                             <br><br><br>

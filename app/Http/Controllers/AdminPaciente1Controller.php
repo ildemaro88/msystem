@@ -665,8 +665,8 @@ $this->sub_module = array();
         if(!$request->cedula){
             $paciente->cedula = $request->pasaporte;
             if(!$request->pasaporte){
-            $paciente->cedula = $request->otro;
-        }
+                $paciente->cedula = $request->otro;
+            }
         }
         
       $response = $paciente->save();
@@ -678,15 +678,16 @@ $this->sub_module = array();
 
     public function update(Request $request, $id){
       
-      $paciente = ModPaciente::findOrFail($id); 
-      $paciente->fill($request->all());
-      if(!$request->cedula){
+        $paciente = ModPaciente::findOrFail($id); 
+        $paciente->fill($request->all());
+        if(!$request->cedula){
             $paciente->cedula = $request->pasaporte;
             if(!$request->pasaporte){
-            $paciente->cedula = $request->otro;
-        }}
-      $response = $paciente->save();
-      return response()->json([
+                $paciente->cedula = $request->otro;
+            }
+        }
+        $response = $paciente->save();
+        return response()->json([
         "response" => $response,
         "paciente" =>$paciente]);
     }
@@ -711,50 +712,50 @@ $this->sub_module = array();
 
      public function getHistoria($id){       
 
-      //Buscamos el paciente seleccionado.
-      $paciente = DB::table('pacientes')->select('*')->where('id',$id)->first();
-      $tipoOrden = DB::table('tipo_orden')->select('*')->get();
-      $resultados = ModResultadoExamen::all();
-      $t = array();
-      $ordenes = DB::table('orden_historias')->select('*')->where('pacienteid',$id)->get();
+        //Buscamos el paciente seleccionado.
+        $paciente = DB::table('pacientes')->select('*')->where('id',$id)->first();
+        $tipoOrden = DB::table('tipo_orden')->select('*')->get();
+        $resultados = ModResultadoExamen::all();
+        $t = array();
+        $ordenes = DB::table('orden_historias')->select('*')->where('pacienteid',$id)->get();
 
-      //Se crea un array con los tipos de examenes que tienen resultados cargados
-      foreach ($tipoOrden as $tipo ) {
-        foreach ($ordenes as $orden) {
-          if($orden->id_tipo_orden == $tipo->id){
-            $t[$tipo->id]= $tipo;
-            
-          }        
+        //Se crea un array con los tipos de examenes que tienen resultados cargados
+        foreach ($tipoOrden as $tipo ) {
+            foreach ($ordenes as $orden) {
+                if($orden->id_tipo_orden == $tipo->id){
+                    $t[$tipo->id]= $tipo;
+                
+                }        
+            }
         }
-      }
             
       
-      $tipoOrden = Collection::make($t);
+        $tipoOrden = Collection::make($t);
 
-      $consultas = ModPaciente::findOrFail($id)->consultas;
-      //Título .
-      $page_title = 'Historias Clínica - '.$paciente->nombre;
-     
+        $consultas = ModPaciente::findOrFail($id)->consultas;
+        //Título .
+        $page_title = 'Historias Clínica - '.$paciente->nombre;
 
-      return view("historiaClinica.view",compact('page_title', 'pacientes','ordenes','consultas','resultados','tipoOrden')); 
+
+        return view("historiaClinica.view",compact('page_title', 'pacientes','ordenes','consultas','resultados','tipoOrden')); 
 
     }
 
     public function openPDf($id){
-$filename = 'test.pdf';
-  $public_path = storage_path().'/app';
-     $url = $public_path.'/storage/'.$archivo;
-      $pdf = DB::table('resultado_examen')->select('*')->where('id',$id)->first();
-      return Response::make(file_get_contents($public_path.'\\'.$pdf->archivo), 200, [
+        $filename = 'test.pdf';
+        $public_path = storage_path().'/app';
+        $url = $public_path.'/storage/'.$archivo;
+        $pdf = DB::table('resultado_examen')->select('*')->where('id',$id)->first();
+        return Response::make(file_get_contents($public_path.'\\'.$pdf->archivo), 200, [
           'Content-Type' => 'application/pdf',
           'Content-Disposition' => 'inline; filename="'.$filename.'"'
-      ]);
+        ]);
 
     }
 
     public function countPDF($id){
-      $pdf = DB::table('resultado_examen')->select('id')->where('id_orden',$id)->get();
-      return $pdf;
+        $pdf = DB::table('resultado_examen')->select('id')->where('id_orden',$id)->get();
+        return $pdf;
     }
 
   }

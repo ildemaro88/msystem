@@ -508,11 +508,16 @@
 				if($correoEmpresa != $empresa->correo || $rucEmpresa != $empresa->ruc){
 
 					$relacion = ModUsuarioEmpresa::where('id_empresa',$id)->first(); 					
-						$usuario = CmsUser::findOrFail($relacion->id_cms_users);
-						$usuario->name = $empresa->nombre;
-				        $usuario->email = $empresa->correo;
-				        $usuario->password = bcrypt($empresa->ruc);
-				        $usuario->save();
+					$usuario = CmsUser::firstOrNew(['id' => $relacion->id_cms_users]);
+					$usuario->name = $empresa->nombre;
+			        $usuario->email = $empresa->correo;
+			        $usuario->password = bcrypt($empresa->ruc);
+			        $usuario->id_cms_privileges = 9;
+			        $usuario->save();
+				    $usuarioEmpresa = ModUsuarioEmpresa::firstOrNew(['id_empresa' =>$empresa->id]);
+			        $usuarioEmpresa->id_cms_users = $usuario->id;
+			        $usuarioEmpresa->id_empresa = $empresa->id;
+			        $usuarioEmpresa->save();
 			         /*
 			          * Envio de e-mail cuando se actualiza el usuario para la empresa
 			          * 

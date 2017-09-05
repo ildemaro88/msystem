@@ -134,12 +134,11 @@
 	        <div class="form-group row ">
 	        	<div class="col-md-6 ">
 			        <label for="email" class="control-label">
-		            	Correo 
-						<span class="text-danger" title="Este campo es obligatorio">*</span>
+		            	Correo 						
 		            </label>  
 					<div class="input-group">
 	                	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-	                	<input type="text" placeholder="Introduzca correo electrónico" title="Correo" required="" class="form-control" name="email" id="email" ng-model="email">
+	                	<input type="text" placeholder="Introduzca correo electrónico" title="Correo" class="form-control" name="email" id="email" ng-model="email">
 	              	</div>							
 					<div class="text-danger"></div>
 					<p class="help-block"></p>
@@ -153,6 +152,19 @@
 	                   @endforeach
 	                </select>
 	            </div>
+
+			</div>
+			<div class="form-group row " style = "display: none;" id="group-cargo" >
+	        	<div class="col-md-6 ">
+			        <label for="cargo" class="control-label">
+		            	Cargo 
+						<span class="text-danger" title="Este campo es obligatorio">*</span>
+		            </label>  
+	                	<input type="text" placeholder="Introduzca el cargo que ocupa en la empresa" title="Cargo" required="" class="form-control" name="cargo" id="cargo" ng-model="cargo">
+	              						
+					<div class="text-danger"></div>
+					<p class="help-block"></p>
+				</div>
 
 			</div>
 			<div class="form-group row ">
@@ -231,7 +243,8 @@
 		$.validator.setDefaults( {
 			submitHandler: function () {
 				alert( "submitted!" );
-			}
+			},
+			
 		} );
 		
 	});
@@ -239,7 +252,15 @@
 
 
 	$( "#form_paciente" ).validate( {
+		onfocusout: false,
+    invalidHandler: function(form, validator) {
+        var errors = validator.numberOfInvalids();
+        if (errors) {                    
+            validator.errorList[0].element.focus();
+        }
+    } ,
 		rules: {
+
 			nombre: "required",
 			apellido:"required",
 			cedula: {
@@ -249,6 +270,13 @@
 	                },
 	            },
 	            cedula:true,
+        	},
+        	cargo: {
+        		required:{
+        			depends: function(element) {
+	                    return $('#empresa').val().length !== 1 ;
+	                },
+        		}
         	},
 			
 		},
@@ -261,6 +289,7 @@
 
 			pasaporte:"Este campo es obligatorio",
 			otro: "Este campo es obligatorio",
+			cargo: "Este campo es obligatorio",
 			
 		},
 		errorElement: "em",
@@ -294,6 +323,15 @@
 	$('.select2-hidden-accessible').on('change', function() {
 		if($(this).valid()) {
 			$(this).next('span').removeClass('error').addClass('valid');
+		}
+	});
+
+	$('#empresa').on('change', function() {
+		if($("#empresa").val() >= 1) {
+			
+			$('#group-cargo').attr("style","display:block" );
+		}else{
+			$('#group-cargo').attr("style","display:none" );
 		}
 	});
 
@@ -339,6 +377,7 @@
 		$scope.referencia = "{{($operation == 'update')?$paciente->referencia :''}}";
 		$scope.telf_referencia = "{{($operation == 'update')?$paciente->telf_referencia :''}}";
 		$scope.empresa = "{{($operation == 'update')?$paciente->empresa :''}}";
+		$scope.cargo = "{{($operation == 'update')?$paciente->cargo :''}}";
 	};
 
 	 //Ejecuto la funcion anterior init()
@@ -381,38 +420,47 @@
 			switch (operation) {
 				case 'add':
 
-					$(".modal").modal('show');
-					console.log($scope.serializeObject($("#form_paciente")));
-					$http({
-						url    : API_URL + 'paciente',
-						method : 'POST',
-						params : $scope.serializeObject($("#form_paciente")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Se ha guardado exitosamente!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: true
-							},
-							function(){
-								$(".modal").modal('show');
-								window.location = "{{ url('/admin/paciente?m=11') }}";
-							});
-						} else {
-							swal("Error", "¡No se guardó!", "error");
-						}
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
+						$http({
+							url    : API_URL + 'paciente',
+							method : 'POST',
+							params : $scope.serializeObject($("#form_paciente")),
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							}
+						}).then(function (response)
+						{
+							$(".modal").modal('hide');
+							if (response.data.response) {
+								swal({
+									title: "Buen trabajo!",
+									text: "Se ha guardado exitosamente!",
+									type: "success",
+									showCancelButton: false,
+									confirmButtonClass: "btn-succes",
+									confirmButtonText: "OK",
+									closeOnConfirm: false,
+									showLoaderOnConfirm:true,
+								},
+								function(){
+									$(".modal").modal('show');
+									window.location = "{{ url('/admin/paciente?m=11') }}";
+								});
+							} else {
+								swal("Error", "¡No se guardó!", "error");
+							}
+						});
 					});
 
-					break;
+				break;
 
 				case 'update':
 
@@ -436,7 +484,8 @@
 								showCancelButton: false,
 								confirmButtonClass: "btn-succes",
 								confirmButtonText: "OK",
-								closeOnConfirm: true
+								closeOnConfirm: false,
+								showLoaderOnConfirm:true,
 							},
 							function(){
 								$(".modal").modal('show');
