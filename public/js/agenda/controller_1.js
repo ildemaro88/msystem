@@ -1,5 +1,6 @@
-﻿agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
+agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*variables de inicializacion*/
+
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
@@ -30,9 +31,13 @@
     };
     // Borra los campos del ingreso de datos de actualizacion
     $scope.resetAutorizacion = function () {
+
+
         $scope.autorizacion = "";
-        $scope.fecha_autorizacion = "";
-        $scope.fecha_vence = "";
+        $scope.fecha_autorizacion = HOY;
+        $scope.fecha_vence = HOY;
+
+
     };
     /*
      * Panel de modificacion de la cita
@@ -52,8 +57,10 @@
         $("#select-paciente").val(event.paciente_id).trigger("change");
         $scope.cita = {
             descripcion: event.detalle_cita,
-            fecha: moment(event.start).format('DD/MM/YYYY')
+            fecha: moment(event.start).format('DD/MM/YYYY'),
+            hour: moment(event.start).format('H:mm')
         };
+
         $scope.horaInicio = moment(event.start).format('H:mm a');
         $scope.horaFin = moment(event.end).format('H:mm a');
         $scope.start = moment(event.start, 'YYYY/MM/DD,H:mm').format();
@@ -91,7 +98,25 @@
      */
 
     $scope.init = function () {
+        $http.get(URL_GET_DATA_JSON)
+                .then(function success(response) {
+                    $scope.response = response.data.response;
+                    $scope.fullCalendar($scope.response);
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+
+        $("#form-save-cita").hide();
+        $scope.dateSelect = "";
+        $scope.hourSelect = "";
+
+        $scope.horaInicio = "";
+        $scope.horaFin = "";
+        $scope.start = "";
+        $scope.end = "";
         $scope.tipo_convenio = true;
+        $scope.patients = OPTIONS_PACIENTE;
         $scope.config = {
             defaultDate: $scope.fecha,
             defaultView: 'agendaWeek'
@@ -105,120 +130,78 @@
         $('#fecha, .datepicker').datepicker({
             language: 'es',
             autoclose: true,
-            format: 'dd/mm/yyyy'
-        });
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next, today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: $scope.config.defaultDate,
-            height: 460, //alto del calendario
-            defaultView: $scope.config.defaultView,
-            locale: 'es', // tomado de locale
-            buttonIcons: true,
-            selectHelper: true,
-            navLinks: true,
-            businessHours: HORARIO_TRABAJO,
-            //eventConstraint:'businessHours',
-            editable: true,
-            eventLimit: true,
-            
-            dayClick: function(date, jsEvent, view) {
-                 $scope.cita.fecha = date.format('DD/MM/YYYY');
-                 //$("#fecha").bind();$("#fecha").val()
-                 $("#fecha").val(date.format('DD/MM/YYYY'));
-                 $("#horaInicio").val(date.format('H:mm t')+'m');
-                 console.log(date.format('H:mm t'));
-              // alert($("#fecha").val());
-               $scope.showModalDate();
+            "setDate": new Date(),
+            format: 'dd/mm/yyyy',
+            defaultDate: new Date()
+        }).datepicker('setStartDate', new Date());
+        $('#fecha, .datepicker').datepicker("setDate", "0");
+        $('#fecha, .datepicker').trigger('chosen:updated');
 
-       /* alert('Clicked on: ' + date.format('DD/MM/YYYY'));
+        $scope.fullCalendar = function (data) {
+            $('#calendar').fullCalendar({
+                allDaySlot: false,
+                header: {
+                    left: 'prev,next, today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: $scope.config.defaultDate,
+                height: 460, //alto del calendario
+                defaultView: $scope.config.defaultView,
+                locale: 'es', // tomado de locale
+                buttonIcons: true,
+                selectHelper: true,
+                navLinks: false,
+                weekends: true,
+                dayClick: function (date, jsEvent, view) {
+                    var element = jsEvent.target.outerHTML;
+                    element = element.substring(0, 3)
+                  //  if (element == "<td") {
+                        $scope.hourSelect = date.format('H:mm');
+                        $("#p_fecha").html($scope.dateSelect)
+                        $("#p_desde").html($scope.hourSelect);
+                        $scope.showFormAppointment();
+                    //}
+                },
 
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-        alert('Current view: ' + view.name);*/
-
-        // change the day's background color just for fun
-        //$(this).css('background-color', 'red');
-
-    },
-            
-            //businessHours:true,
-            minTime: "7:00:00",
-            maxTime: "20:00:00",
-            aspectRatio: 2,
-            nowIndicator: true,
-            slotDuration: '00:15:00',
-            titleFormat: 'MMMM D YYYY',
-            columnFormat: 'dddd',
-            eventOverlap: false, // sobreponer eventos
-            //fixedWeekCount:true,
-            //weekNumbers: true,
-            timeFormat: 'H:mm',
-          /*    events: [
-    {
-        start: '00:00:00+02:00',
-        end: '08:00:00+02:00',
-        
-        className: 'fc-nonbusiness',
-        rendering: 'inverse-background',
-        dow: [1,2,3,4,5]
-    },
-
-    {
-        start: '16:00:00+02:00',
-        end: '24:00:00+02:00',
-        className: 'fc-nonbusiness',
-        rendering: 'inverse-background',
-        dow: [1,2,3,4,5]
-    },
-
-    {
-        start: '00:00:00+02:00',
-        end: '8:00:00+02:00',
-        className: 'fc-nonbusiness',
-        rendering: 'inverse-background',
-        dow: [6]
-    },
-
-    {
-        start: '12:00:00+02:00',
-        end: '24:00:00+02:00',
-        className: 'fc-nonbusiness',
-        rendering: 'inverse-background',
-        dow: [6]
-    }
-],*/
-            //dayBreakTime: "07:00",
-           
-            events: {
-                url: URL_CITAS
-            },
-            eventResizeStop: function () {
-                $scope.verify_time();
-            },
-            eventRender: function (event, element) {
-                element.click(function () {
+                businessHours: data.horario_medico,
+                //eventConstraint:'businessHours',
+                editable: true,
+                eventLimit: true,
+                //businessHours:true,
+                minTime: "7:00:00",
+                maxTime: "20:00:00",
+                aspectRatio: 2,
+                nowIndicator: true,
+                slotDuration: '00:15:00',
+                titleFormat: 'MMMM D YYYY',
+                columnFormat: 'dddd',
+                eventOverlap: false, // sobreponer eventos
+                //fixedWeekCount:true,
+                //weekNumbers: true,
+                timeFormat: 'H:mm',
+                //dayBreakTime: "07:00",
+                events: {
+                    url: URL_CITAS
+                },
+                eventResizeStop: function () {
+                    $scope.verify_time();
+                },
+                eventRender: function (event, element) {
+                    element.click(function () {
+                        $scope.panelModCita(event);
+                    });
+                },
+                eventResize: function (event, delta, revertFunc) {
                     $scope.panelModCita(event);
-                });
-            },
-            eventResize: function (event, delta, revertFunc) {
-                $scope.panelModCita(event);
-            },
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                //console.log(view.options.businessHours);
-                $scope.panelModCita(event);
-                $scope.verify_time();
-            },
-            eventClick: function (calEvent, jsEvent, view) {
-
-                // change the border color just for fun
-                $(this).css('border-color', 'red');
-            }
-            
-        });
+                },
+                eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+                    //console.log(view.options.businessHours);
+                    $scope.panelModCita(event);
+                    $scope.verify_time();
+                }
+            });
+        };
         /*
          *  Inicializar paneles
          * */
@@ -228,9 +211,7 @@
             $scope.panelModCita(CITA);
         }
     };
-    $scope.set = function(){
 
-    }
     $scope.verify_date = function () {
         if (typeof $scope.cita.hoy == 'undefined') {
             $scope.cita.hoy = HOY;
@@ -242,8 +223,8 @@
     };
     $scope.verify_time = function () {
         var verified = false,
-            inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
-            fin = moment($scope.horaFin.toString(), 'H:mm a');
+                inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
+                fin = moment($scope.horaFin.toString(), 'H:mm a');
         verified = !inicio.isAfter(fin);
         return verified;
     };
@@ -251,13 +232,13 @@
     $scope.validate_hourMedic = function () {
         var businessHours = HORARIO_TRABAJO;
         var inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
-            fin = moment($scope.horaFin.toString(), 'H:mm a'),
-            fecha = moment($scope.cita.fecha, 'DD/MM/YYYY').format('dddd');
+                fin = moment($scope.horaFin.toString(), 'H:mm a'),
+                fecha = moment($scope.cita.fecha, 'DD/MM/YYYY').format('dddd');
         var verified = false;
         // recorrer dias y horas
         angular.forEach(businessHours, function (key, value) {
             var day_selected = fecha, // martes
-                day_business = $scope.map_day(parseInt(key.dow[0])); // martes
+                    day_business = $scope.map_day(parseInt(key.dow[0])); // martes
             if (day_selected == day_business) {
                 // comparar horas
                 var hour_business_start = moment(key.start, 'H:mm a');
@@ -276,11 +257,11 @@
 
                 if ((val1 == false && val2 == false && val3 == true && val4 == true) || (val1 == true && val2 == true && val3 == false && val4 == false) || (val1 == false && val2 == true && val3 == true && val4 == false)) {
                     verified = true;
-                    console.log(true)
+                    console.log('s')
                     return
                 } else {//if ((val1 == false && val2 == false && val3 == false && val4 == true) || (val1 == false && val2 == false && val3 == true && val4 == false)) {
-                    verified = false;
-                    console.log(false)
+                    verified = true;
+                    console.log('a')
                     return
                 }
             }
@@ -295,14 +276,13 @@
         var compareDate = moment(fecha.format("DD/MM/YYYY")).isSame(moment().format("DD/MM/YYYY")); //la fecha de la cita es igual a la fecha actual?
         var result = true;
         if (compareDate) {
-            if (parseInt(inicio.format('H')) > parseInt(moment().format("H")) + 1 ) { //la hora de inicio elegida para la cita es mayor que la fecha actual + 1 ?
+            if (parseInt(inicio.format('H')) > parseInt(moment().format("H")) + 1) { //la hora de inicio elegida para la cita es mayor que la fecha actual + 1 ?
+                result = true;
+            } else {
                 result = true;
             }
-            else {
-                result = false;
-            }
         }
-         console.log(result)
+        console.log(result)
         return result;
     }
 
@@ -340,7 +320,7 @@
      * */
     $scope.eval_convenio = function () {
         console.log($scope.sel_convenio)
-        if ($scope.sel_convenio == 'I.E.S.S.') {
+        if ($scope.sel_convenio != 'PARTICULAR') {
             $scope.tipo_convenio = true;
         } else {
             $scope.tipo_convenio = false;
@@ -378,6 +358,7 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
                 } else {
                     swal("Error!", "No se pudo borrar la cita!", "error");
@@ -452,6 +433,7 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
                 } else {
                     swal("Error!", "Error en la transacción!", "error");
@@ -463,8 +445,9 @@
     /*
      * -->
      */
-    $scope.showModalDate = function () {
-        $("#mod_agregar_cita").modal("show");
+    $scope.showFormAppointment = function () {
+        $("#agenda-list-citas").hide();
+        $("#form-save-cita").show();
     };
     $scope.setDateTime = function () {
         /*
@@ -478,7 +461,7 @@
         $("#start").remove();
         $("#end").remove();
         $("#form-cita").append('<input id="start" ng-model="start" type="hidden" name="start" value="' + $scope.start + '">' +
-            '<input id="end" ng-model="end" type="hidden" name="end" value="' + $scope.end + '"> ');
+                '<input id="end" ng-model="end" type="hidden" name="end" value="' + $scope.end + '"> ');
     };
     /*
      *  Sincronizar agenda
@@ -494,11 +477,11 @@
      * */
     $scope.submit = function (e) {
         e.preventDefault();
-        if( $scope.validHours() &&  $scope.validate_hourMedic() && $scope.verify_time() && $scope.verify_date() && $scope.horaInicio != "" && $scope.horaFin != "" && $scope.horaInicio != $scope.horaFin){
+        if ($scope.validHours() && $scope.validate_hourMedic() && $scope.verify_time() && $scope.verify_date() && $scope.horaInicio != "" && $scope.horaFin != "" && $scope.horaInicio != $scope.horaFin) {
             $scope.setDateTime();
             var fd = $("#form-cita"),
-            url = fd.attr("action"),
-            data = fd.serialize();
+                    url = fd.attr("action"),
+                    data = fd.serialize();
             swal({
                 title: "Procesando",
                 text: 'Espere...',
@@ -523,30 +506,33 @@
                     }, function () {
                         $scope.reloadCalendar();
                         $scope.resetPanelCita();
+                        $scope.init(); //inicializar
                     });
-                } else if (data.status == 500){
+                } else if (data.status == 500) {
                     swal("Error!", "Contacte al administrador!", "error");
-                }else {
+                } else {
                     swal("Error!", "Error en la transacción!", "error");
                 }
             });
-        }else {
+        } else {
             swal({
-                type:"error",
-                title:"Error!",
-                html:true,
-                text:"<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
+                type: "error",
+                title: "Error!",
+                html: true,
+                text: "<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
             });
         }
     };
     // cambiar formato de fecha 01/11/2017 a 2017-01-11 // not used
     $scope.formatDate = function (date) {
         var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
         return [year, month, day].join('-');
     };
 });

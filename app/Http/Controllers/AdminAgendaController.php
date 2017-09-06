@@ -17,24 +17,42 @@ use App\HorarioMedico;
 use Mail;
 use Carbon\Carbon;
 
-class AdminAgendaController extends Controller
-{
+class AdminAgendaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $medico_id = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
+    public function index() {
+        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
         $paciente = ModPaciente::all();
         $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
         $page_title = "Agendar Cita";
-        $horario_medico = HorarioMedico::where("medico_id",$medico->id)->get();
-        $agenda = ModAgenda::where("medico_id",$medico->id)->first();
+        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
+        $agenda = ModAgenda::where("medico_id", $medico->id)->first();
 
-        return view('agenda.create',compact('page_title'),["convenios"=>$convenios,"paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
+        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function testAgenda() {
+        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
+        $paciente = ModPaciente::all();
+        $medico = ModMedico::find($medico_id->id);
+        $convenios = ModConvenios::all();
+        $page_title = "Agendar Cita";
+        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
+        $agenda = ModAgenda::where("medico_id", $medico->id)->first();
+
+        return view('agenda.create_test', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente,
+            "agenda" => $agenda, "medico" => $medico,
+            "horario_medico" => $horario_medico]);
     }
 
     /**
@@ -42,9 +60,55 @@ class AdminAgendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataJson() {
+        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
+        $pacientes = ModPaciente::all();
+        //   $medico = ModMedico::find($medico_id->id);
+        $convenios = ModConvenios::all();
+        $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
+        $horarios = array();
+
+        foreach ($horario_medicos as $horario_medico) {
+            $getHorario = array();
+            $getHorario['dow'] = array($horario_medico['dow']);
+            $getHorario['start'] = $horario_medico['start']; // 8am
+            $getHorario['end'] = $horario_medico['end']; // 6pm);
+            $horarios[] = $getHorario;
+        }
+        //  HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
+        $agenda = ModAgenda::where("medico_id", $medico_id->id)->first();
+        $getPacientes = array();
+        foreach ($pacientes as $paciente) {
+            $getPaciente = array();
+            $getPaciente["id"] = $paciente["cedula"];
+            $getPaciente["cedula"] = $paciente["cedula"];
+            $getPaciente["nombre"] = $paciente["nombre"];
+            $getPacientes[] = $getPaciente;
+        }
+        $getAgenda = array();
+        $getAgenda["id"] = $agenda["id"];
+        $getAgenda["nombre"] = $agenda["nombre"];
+        $medico = array();
+        $medico["id"] = $medico_id->id;
+        $response["medico"] = $medico;
+        $response["paciente"] = $getPacientes;
+        $response["convenios"] = $convenios;
+        $response["horario_medico"] = $horarios;
+        $response["agenda"] = $getAgenda;
+
+        //$response["horario_medico"] = json_encode($response["horario_medico"]);
+        return response()->json([
+                    "response" => $response
+        ]);
     }
 
     /**
@@ -53,13 +117,12 @@ class AdminAgendaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        if($request->get("color") == "#7f8c8d"){ // si se cumple el color, es la accion cancelar cita
+    public function store(Request $request) {
+        if ($request->get("color") == "#7f8c8d") { // si se cumple el color, es la accion cancelar cita
             $cita = ModCita::findOrFail($request->get("cita_id"));
             $cita->color = $request->get("color");
             $response = $cita->save();
-        }else {
+        } else {
             $cita = new ModCita;
             $paciente = ModPaciente::find($request->get("idpaciente"));
             $cita->paciente_id = $request->get("idpaciente");
@@ -70,7 +133,7 @@ class AdminAgendaController extends Controller
             $cita->end = $request->get("end");
             $cita->constraint = $request->get("constraint");
             $sel_convenio = $request->get("sel_convenio");
-           // $sel_convenio = $sel_convenio[1];
+            // $sel_convenio = $sel_convenio[1];
             $cita->sel_convenio = $sel_convenio;
             if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
                 $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
@@ -85,34 +148,36 @@ class AdminAgendaController extends Controller
             //var_dump($cita);
             $response = $cita->save();
 
-            if($response){// si se guarda la cita
-               if($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))){ // si el convenio es I.E.S.S.
-                   /*
-                * Insertar el convenio si se ingresa datos
-                * */
-                   $convenio = new ModConvenio;
-                   $convenio->cita_calendario_id = $cita->id;
-                   $convenio->autorizacion = $request->get("autorizacion");
-                   $date1 = Carbon::createFromFormat("d/m/Y",$request->get("fecha_autorizacion"))->format("Y-m-d");
-                   $date2 = Carbon::createFromFormat("d/m/Y",$request->get("fecha_vence"))->format("Y-m-d");
-                   $convenio->fecha_autorizacion = $date1;
-                   $convenio->fecha_vence = $date2;
-                   $convenio->save();
-               }
-                 /*
-                  * Envio de e-mail cuando se guarda la cita
-                  * */
-                 $email_medico = !is_null($medico->email) ? $medico->email : "pablodc002@gmail.com";
-                 $email_paciente = !is_null($paciente->email) ? $paciente->email : "pablodc002@gmail.com";
-                 try{
-                    Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente,$medico,$cita));
-                    Mail::to(trim($email_medico))->send(new EmailMedico($medico,$paciente,$cita));
-                 }catch(\Error $x){}
+            if ($response) {// si se guarda la cita
+                if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
+                    /*
+                     * Insertar el convenio si se ingresa datos
+                     * */
+                    $convenio = new ModConvenio;
+                    $convenio->cita_calendario_id = $cita->id;
+                    $convenio->autorizacion = $request->get("autorizacion");
+                    $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
+                    $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
+                    $convenio->fecha_autorizacion = $date1;
+                    $convenio->fecha_vence = $date2;
+                    $convenio->save();
+                }
+                /*
+                 * Envio de e-mail cuando se guarda la cita
+                 * */
+                $email_medico = !is_null($medico->email) ? $medico->email : "pablodc002@gmail.com";
+                $email_paciente = !is_null($paciente->email) ? $paciente->email : "pablodc002@gmail.com";
+                try {
+                    Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
+                    Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
+                } catch (\Error $x) {
+                    
+                }
             }
         }
         return response()->json([
-            "response"=>$response,
-            "cita"=>$cita
+                    "response" => $response,
+                    "cita" => $cita
         ]);
     }
 
@@ -122,11 +187,10 @@ class AdminAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
-    {
+    public function show(Request $request, $id) {
         $medico = ModMedico::find($id);
         //dd($medico);
-        return view('agenda.index',["medico"=>$medico]);
+        return view('agenda.index', ["medico" => $medico]);
     }
 
     /**
@@ -135,15 +199,14 @@ class AdminAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $agenda = ModAgenda::where("medico_id",$id)->first();
+    public function edit($id) {
+        $agenda = ModAgenda::where("medico_id", $id)->first();
         $paciente = ModPaciente::all();
         $convenios = ModConvenios::all();
         $medico = ModMedico::find($id);
-        $horario_medico = HorarioMedico::where("medico_id",$medico->id)->get();
+        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
         $page_title = "Agendar Cita";
-        return view('agenda.create',compact('page_title'),["convenios"=>$convenios,"paciente"=>$paciente,"agenda"=>$agenda,"medico"=>$medico,"horario_medico"=>$horario_medico]);
+        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
     }
 
     /**
@@ -153,8 +216,8 @@ class AdminAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
+        
     }
 
     /**
@@ -163,8 +226,8 @@ class AdminAgendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

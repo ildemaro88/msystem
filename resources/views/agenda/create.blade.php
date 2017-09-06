@@ -57,14 +57,14 @@
                             class="fa fa-refresh"></i> Actualizar
                 </button>
             </div>
-            <div class="col-xs-12 col-sm-8">
+            <div id="agenda-list-citas" class="col-xs-12 col-sm-12">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div style="background: white;" id="calendar"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
+            <div id="form-save-cita" class="col-xs-12 col-sm-12">
                 {{--Panel de gestion de citas--}}
                 <panel-cita></panel-cita>
                 {{--FIN Panel de gestion de citas--}}
