@@ -43,6 +43,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * Panel de modificacion de la cita
      * */
     $scope.panelModCita = function (event) {
+        $("#agenda-list-citas").hide();
+        $("#form-save-cita").show();
         /*
          * Preparar el panel para modificar una cita
          * */
@@ -156,12 +158,12 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 dayClick: function (date, jsEvent, view) {
                     var element = jsEvent.target.outerHTML;
                     element = element.substring(0, 3)
-                  //  if (element == "<td") {
+                    if (element == "<td") {
                         $scope.hourSelect = date.format('H:mm');
                         $("#p_fecha").html($scope.dateSelect)
                         $("#p_desde").html($scope.hourSelect);
                         $scope.showFormAppointment();
-                    //}
+                    }
                 },
 
                 businessHours: data.horario_medico,
@@ -193,11 +195,12 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     });
                 },
                 eventResize: function (event, delta, revertFunc) {
-                    $scope.panelModCita(event);
+                    console.log("fff")
+                   // $scope.panelModCita(event);
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
                     //console.log(view.options.businessHours);
-                    $scope.panelModCita(event);
+                    //$scope.panelModCita(event);
                     $scope.verify_time();
                 }
             });
@@ -348,7 +351,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 }
             }).then(function (data) {
                 if (data.data.response == true) {
-                    swal("Correcto!", "Cita movida correctamente!", "success");
+                    //swal("Correcto!", "Cita movida correctamente!", "success");
                     swal({
                         title: "Correcto!",
                         type: "success",
@@ -446,8 +449,23 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * -->
      */
     $scope.showFormAppointment = function () {
+        var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
+        //cambio de botones
+        $scope.modificar = false;
+        $scope.agendar = true;
+        $scope.panel = panelCreate;
+        try {
+            $scope.$apply();
+        } catch (e) {
+
+        }
+    };
+
+    $scope.previewCita = function () {
+        $("#agenda-list-citas").show();
+        $("#form-save-cita").hide();
     };
     $scope.setDateTime = function () {
         /*

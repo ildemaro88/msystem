@@ -106,26 +106,44 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <label for="">Observaciones</label> 
                                                     <textarea id="descripcion" ng-model="cita.descripcion" class="form-control" name="descripcion"cols="30"rows="5"></textarea> 
                                                 </div> 
-                                            </div> </div>
+                                            </div>
+                                        </div>
                                         <div class="row pull-left" ng-show="panel.buttons.trash"> 
                                             <div class="col-xs-12"> <div class="form-group"> 
                                                     <button ng-click="eliminarCita([[cita_id]])" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
                                                 </div> 
-                                            </div> </div> 
+                                            </div>
+                                        </div> 
                                         <div class="row pull-left" ng-show="panel.buttons.cancelar">
-                                            <div class="col-xs-12"> <div class="form-group">
-                                                    <button ng-click="cancelarCita()" style="margin-right: 5px;" type="reset" class="btn btn-default"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button> 
+                                            <div class="col-xs-12"> 
+                                                <div class="form-group">
+                                                    <button ng-click="cancelarCita()" style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button> 
                                                 </div> 
-                                            </div> </div> 
+                                            </div> 
+                                        </div> 
                                         <div class="row pull-left" ng-show="panel.buttons.modificar"> 
                                             <div class="col-xs-12"> 
-                                                <div class="form-group"> <button type="submit" class="btn btn-warning"><i class="fa fa-check"></i> Modificar </button> </div> 
-                                            </div> </div> 
-                                        <div class="row" ng-show="panel.buttons.agendar"> 
-                                            <div class="col-xs-12 col-xs-offset-7"> 
-                                                <div class="form-group"> <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Agendar </button> </div> 
-                                            </div> </div> 
-                                    </div> </div> 
+                                                <div class="form-group"> 
+                                                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-check"></i> Modificar </button> 
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                        <div class="row pull-left" ng-show="panel.buttons.agendar"> 
+                                            <div class="col-xs-12"> 
+                                                <div class="form-group"> 
+                                                    <button type="submit" class="btn btn-success" style="margin-right: 5px;"><i class="fa fa-check"></i> Agendar </button>
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                        <div class="row pull-left"> 
+                                            <div class="col-xs-12"> 
+                                                <div class="form-group"> 
+                                                    <button type="button" class="btn btn-default"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                                </div> 
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div> 
                                 <div id="menu1" class="tab-pane fade"> <br> 
                                     <div class="row"> 
                                         <div class="col-xs-12"> 
