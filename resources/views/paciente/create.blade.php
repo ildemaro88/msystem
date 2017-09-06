@@ -454,7 +454,6 @@
 									showLoaderOnConfirm:true,
 								},
 								function(){
-									$(".modal").modal('show');
 									window.location = "{{ url('/admin/paciente?m=11') }}";
 								});
 							} else {
@@ -467,38 +466,45 @@
 
 				case 'update':
 
-					$(".modal").modal('show');
-
-					$http({
-						url    : API_URL + 'paciente/{{$paciente->id}}',
-						method : 'PUT',
-						params : $scope.serializeObject($("#form_paciente")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Actualización exitosa!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: false,
-								showLoaderOnConfirm:true,
-							},
-							function(){
-								$(".modal").modal('show');
-								window.location = "{{ url('/admin/paciente?m=11') }}";
-							});
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
+						$http({
+							url    : API_URL + 'paciente/{{$paciente->id}}',
+							method : 'PUT',
+							params : $scope.serializeObject($("#form_paciente")),
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							}
+						}).then(function (response)
+						{
+							$(".modal").modal('hide');
+							if (response.data.response) {
+								swal({
+									title: "Buen trabajo!",
+									text: "Actualización exitosa!",
+									type: "success",
+									showCancelButton: false,
+									confirmButtonClass: "btn-succes",
+									confirmButtonText: "OK",
+									closeOnConfirm: false,
+									showLoaderOnConfirm:true,
+								},
+								function(){
+									window.location = "{{ url('/admin/paciente?m=11') }}";
+								});
 							} else {
 								swal("Error", "No se actualizó", "error");
 							}
 						});
-						break;
+					});
+				break;
 			}
 		}
 	}
