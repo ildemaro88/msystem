@@ -1,8 +1,43 @@
 var procesar = function(el,dia){
 		var vm = angular.element('[ng-controller="CtrlApp as vm"]').scope();
-		el.getAttribute("checked") == null ? el.setAttribute("checked",true) :  el.removeAttribute("checked");
-		el.getAttribute("checked") == null ? vm.desactivar(dia) :  vm.activar(dia);
+		
+			//console.log(el);
+			
+			//$(el).is(':checked')? vm.desactivarH(day,dia) :  vm.activarH(day,dia);
+		
+		//else{console.log(el);
+			
+			
+
+			el.getAttribute("checked") == null ? el.setAttribute("checked",true) :  el.removeAttribute("checked");
+			el.getAttribute("checked") == null ? vm.desactivar(dia) :  vm.activar(dia);
+
+			
+		//}
+		//console.log(el);
+		
+
 	}
+
+var procesarH = function(el,dia){
+	var vm = angular.element('[ng-controller="CtrlApp as vm"]').scope();
+		el.getAttribute("checked") == null ? el.setAttribute("checked",true) :  el.removeAttribute("checked");
+		var day = el.getAttribute("data-slider");
+		
+		if(el.getAttribute("checked") == null){
+			//console.log('nulo ' +day);
+			console.log(el);
+			vm.desactivarH(day,dia);
+		}else{
+			//console.log('no nulo ' +day);
+			vm.activarH(day,dia);
+		}
+		
+			//el.getAttribute("checked") == null ?  :  ;
+			
+		
+}
+
 $('#lunes').checkboxpicker({
 	html:true,
 	offLabel:'Lunes',
@@ -52,3 +87,23 @@ $('#domingo').checkboxpicker({
 }).on('change', function() {
 	var change = new procesar(this,"domingo");
 });
+
+$('.manana').checkboxpicker({
+	html:true,
+	offLabel:'Mañana',
+	onLabel:'Mañana'
+}).on('change', function() {
+	var change = new procesarH(this,"manana");
+});
+$('.tarde').checkboxpicker({
+	html:true,
+	offLabel:'Tarde',
+	onLabel:'Tarde'
+}).on('change', function() {
+	var change = new procesarH(this,"tarde");
+});
+	//console.log('{{$operation}}');
+	$('.manana').prop('disabled', true);
+	$('.tarde').prop('disabled', true);
+
+

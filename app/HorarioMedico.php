@@ -13,8 +13,7 @@ class HorarioMedico extends Model
     	"dow",
     	"start",
     	"end",
-    	"start_t",
-    	"end_t"
+    	
     ];
     public $timestamps=false;
 }

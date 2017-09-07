@@ -264,70 +264,157 @@ class AdminMedico1Controller extends \crocodicstudio\crudbooster\controllers\CBC
         $medico->email= Input::get("email");
         $medico->save();
         if(Input::get("lunes") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=1;
-          $horario_medico->start=Input::get("lunes_start");
-          $horario_medico->end=Input::get("lunes_end");
-          $horario_medico->start_t=Input::get("lunes_start_t");
-          $horario_medico->end_t=Input::get("lunes_end_t");
-          $horario_medico->save();
+
+          if(Input::get("lunes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=1;
+            $horario_medico->start=Input::get("lunes_start");
+            $horario_medico->end=Input::get("lunes_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("lunes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=1;
+            $horario_medico->start=Input::get("lunes_start_t");
+            $horario_medico->end=Input::get("lunes_end_t");
+            $horario_medico->save();
+          }
+          
 
         }if(Input::get("martes") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=2;
-          $horario_medico->start=Input::get("martes_start");
-          $horario_medico->end=Input::get("martes_end");
-          $horario_medico->start_t=Input::get("martes_start_t");
-          $horario_medico->end_t=Input::get("martes_end_t");
-          $horario_medico->save();
+
+          if(Input::get("martes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=2;
+            $horario_medico->start=Input::get("martes_start");
+            $horario_medico->end=Input::get("martes_end");
+            $horario_medico->save();
+          }
+
+          if(Input::get("martes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=2;
+            $horario_medico->start=Input::get("martes_start_t");
+            $horario_medico->end=Input::get("martes_end_t");
+            $horario_medico->save();
+          }
+          
+          
+
         }if(Input::get("miercoles") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=3;
-          $horario_medico->start=Input::get("miercoles_start");
-          $horario_medico->end=Input::get("miercoles_end");
-          $horario_medico->start_t=Input::get("miercoles_start_t");
-          $horario_medico->end_t=Input::get("miercoles_end_t");
-          $horario_medico->save();
+
+          if(Input::get("miercoles_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=3;
+            $horario_medico->start=Input::get("miercoles_start");
+            $horario_medico->end=Input::get("miercoles_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("miercoles_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=3;
+            $horario_medico->start=Input::get("miercoles_start_t");
+            $horario_medico->end=Input::get("miercoles_end_t");
+            $horario_medico->save();
+          }
+
+          
+
         }if(Input::get("jueves") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=4;
-          $horario_medico->start=Input::get("jueves_start");
-          $horario_medico->end=Input::get("jueves_end");
-          $horario_medico->start_t=Input::get("jueves_start_t");
-          $horario_medico->end_t=Input::get("jueves_end_t");
-          $horario_medico->save();
+
+          if(Input::get("jueves_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=4;
+            $horario_medico->start=Input::get("jueves_start");
+            $horario_medico->end=Input::get("jueves_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("jueves_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=4;
+            $horario_medico->start=Input::get("jueves_start_t");
+            $horario_medico->end=Input::get("jueves_end_t");
+            $horario_medico->save();
+          }
+          
+
         }if(Input::get("viernes") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=5;
-          $horario_medico->start=Input::get("viernes_start");
-          $horario_medico->end=Input::get("viernes_end");
-          $horario_medico->start_t=Input::get("viernes_start_t");
-          $horario_medico->end_t=Input::get("viernes_end_t");
-          $horario_medico->save();
+
+          if(Input::get("viernes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=5;
+            $horario_medico->start=Input::get("viernes_start");
+            $horario_medico->end=Input::get("viernes_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("viernes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=5;
+            $horario_medico->start=Input::get("viernes_start_t");
+            $horario_medico->end=Input::get("viernes_end_t");
+            $horario_medico->save();
+
+          }
+
+          
 
         }if(Input::get("sabado") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=6;
-          $horario_medico->start=Input::get("sabado_start");
-          $horario_medico->end=Input::get("sabado_end");
-          $horario_medico->start_t=Input::get("sabado_startt");
-          $horario_medico->end_t=Input::get("sabado_end_t");
-          $horario_medico->save();
+
+          if(Input::get("sabado_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=6;
+            $horario_medico->start=Input::get("sabado_start");
+            $horario_medico->end=Input::get("sabado_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("sabado_startt")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=6;
+            $horario_medico->start=Input::get("sabado_startt");
+            $horario_medico->end=Input::get("sabado_end_t");
+            $horario_medico->save();
+          }
+          
+
         }if(Input::get("domingo") == "on"){
-          $horario_medico = new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=7;
-          $horario_medico->start=Input::get("domingo_start");
-          $horario_medico->end=Input::get("domingo_end");
-          $horario_medico->start_t=Input::get("domingo_start_t");
-          $horario_medico->end_t=Input::get("domingo_end_t");
-          $horario_medico->save();
+
+          if(Input::get("domingo_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=0;
+            $horario_medico->start=Input::get("domingo_start");
+            $horario_medico->end=Input::get("domingo_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("domingo_start_t")){
+
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=0;
+            $horario_medico->start=Input::get("domingo_start_t");
+            $horario_medico->end=Input::get("domingo_end_t");
+            $horario_medico->save();
+
+          }
+
         }
         $agenda = new ModAgenda;
         $agenda->nombre = "Agenda de " . $medico->titulo . " " . $medico->nombre . " " . $medico->apellido;
@@ -358,121 +445,221 @@ class AdminMedico1Controller extends \crocodicstudio\crudbooster\controllers\CBC
         $medico->email= Input::get("email");
         $medico->id_institucion = Input::get("id_institucion");
         $medico->save();
-        
         if(Input::get("lunes") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=1;
-          $horario_medico->start=Input::get("lunes_start");
-          $horario_medico->end=Input::get("lunes_end");
-          $horario_medico->start_t=Input::get("lunes_start_t");
-          $horario_medico->end_t=Input::get("lunes_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("lunes"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->first();
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->delete();
+          }
+           if(Input::get("lunes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=1;
+            $horario_medico->start=Input::get("lunes_start");
+            $horario_medico->end=Input::get("lunes_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("lunes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=1;
+            $horario_medico->start=Input::get("lunes_start_t");
+            $horario_medico->end=Input::get("lunes_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("lunes"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>1])->delete();
           }
         }
 
 
         if(Input::get("martes") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=2;
-          $horario_medico->start=Input::get("martes_start");
-          $horario_medico->end=Input::get("martes_end");
-          $horario_medico->start_t=Input::get("martes_start_t");
-          $horario_medico->end_t=Input::get("martes_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("martes"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->first();
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->delete();
+          }
+           if(Input::get("martes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=2;
+            $horario_medico->start=Input::get("martes_start");
+            $horario_medico->end=Input::get("martes_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("martes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=2;
+            $horario_medico->start=Input::get("martes_start_t");
+            $horario_medico->end=Input::get("martes_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("martes"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>2])->delete();
           }
         }
+          
+        
 
         if(Input::get("miercoles") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=3;
-          $horario_medico->start=Input::get("miercoles_start");
-          $horario_medico->end=Input::get("miercoles_end");
-          $horario_medico->start_t=Input::get("miercoles_start_t");
-          $horario_medico->end_t=Input::get("miercoles_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("miercoles"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->first();
+
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->delete();
+          }
+           if(Input::get("miercoles_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=3;
+            $horario_medico->start=Input::get("miercoles_start");
+            $horario_medico->end=Input::get("miercoles_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("miercoles_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=3;
+            $horario_medico->start=Input::get("miercoles_start_t");
+            $horario_medico->end=Input::get("miercoles_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("miercoles"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>3])->delete();
           }
         }
+         
 
         if(Input::get("jueves") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=4;
-          $horario_medico->start=Input::get("jueves_start");
-          $horario_medico->end=Input::get("jueves_end");
-          $horario_medico->start_t=Input::get("jueves_start_t");
-          $horario_medico->end_t=Input::get("jueves_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("jueves"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->first();
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->delete();
+          }
+           if(Input::get("jueves_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=4;
+            $horario_medico->start=Input::get("jueves_start");
+            $horario_medico->end=Input::get("jueves_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("jueves_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=4;
+            $horario_medico->start=Input::get("jueves_start_t");
+            $horario_medico->end=Input::get("jueves_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("jueves"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>4])->delete();
           }
         }
 
 
         if(Input::get("viernes") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=5;
-          $horario_medico->start=Input::get("viernes_start");
-          $horario_medico->end=Input::get("viernes_end");
-          $horario_medico->start_t=Input::get("viernes_start_t");
-          $horario_medico->end_t=Input::get("viernes_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("viernes"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->first();
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->delete();
+          }
+           if(Input::get("viernes_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=5;
+            $horario_medico->start=Input::get("viernes_start");
+            $horario_medico->end=Input::get("viernes_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("viernes_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=5;
+            $horario_medico->start=Input::get("viernes_start_t");
+            $horario_medico->end=Input::get("viernes_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("viernes"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>5])->delete();
           }
         }
 
 
         if(Input::get("sabado") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=6;
-          $horario_medico->start=Input::get("sabado_start");
-          $horario_medico->end=Input::get("sabado_end");
-          $horario_medico->start_t=Input::get("sabado_start_t");
-          $horario_medico->end_t=Input::get("sabado_end_t");
-          $horario_medico->save();
-          //dd($horario_medico);
-        }elseif(is_null(Input::get("sabado"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->first();
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->delete();
+          }
+           if(Input::get("sabado_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=6;
+            $horario_medico->start=Input::get("sabado_start");
+            $horario_medico->end=Input::get("sabado_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("sabado_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=6;
+            $horario_medico->start=Input::get("sabado_start_t");
+            $horario_medico->end=Input::get("sabado_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("sabado"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>6])->delete();
           }
         }
 
 
         if(Input::get("domingo") == "on"){
-          $horario_medico = count(HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>7])->first()) > 0 ? HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>7])->first(): new HorarioMedico;
-          $horario_medico->medico_id=$medico->id;
-          $horario_medico->dow=7;
-          $horario_medico->start=Input::get("domingo_start");
-          $horario_medico->end=Input::get("domingo_end");
-          $horario_medico->start_t=Input::get("domingo_start_t");
-          $horario_medico->end_t=Input::get("domingo_end_t");
-          $horario_medico->save();
-        }elseif(is_null(Input::get("domingo"))){
-          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>7])->first();
+         $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>0])->get();
           if(count($horario_medico) > 0){
-            $horario_medico->delete();
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>0])->delete();
+          }
+           if(Input::get("domingo_start")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=0;
+            $horario_medico->start=Input::get("domingo_start");
+            $horario_medico->end=Input::get("domingo_end");
+            $horario_medico->save();
+          }
+          
+          if(Input::get("domingo_start_t")){
+            $horario_medico = new HorarioMedico;
+            $horario_medico->medico_id=$medico->id;
+            $horario_medico->dow=0;
+            $horario_medico->start=Input::get("domingo_start_t");
+            $horario_medico->end=Input::get("domingo_end_t");
+            $horario_medico->save();
+          }
+          
+        }elseif(is_null(Input::get("domingo"))){
+          $horario_medico = HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>0])->get();
+          if(count($horario_medico) > 0){
+            $eliminados= HorarioMedico::where(["medico_id"=>$medico->id,"dow"=>0])->delete();
           }
         }
         $agenda = ModAgenda::where("medico_id",$id)->first();

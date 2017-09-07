@@ -106,107 +106,10 @@
 				</div>
 				<span class="clearfix"></span>
 				<br>
+				
 				<div class="form-group header-group-0">
 					<div class="row">
-						<div class="col-md-offset-5 col-md-4 col-xs-12">
-							<h4 class='control-label'>Seleccione los días y horas de trabajo </h4>
-						</div>
-					</div>
-					<br>
-					<div class="row" style="padding-left: 15px;padding-right: 15px">
-						<div class='form-group header-group-0' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="lunes" type="checkbox" name="lunes" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="lunes_start" value="[[vm.lunSlider.inicio]]">
-									<input type="hidden" name="lunes_end" value="[[vm.lunSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.lunSlider.maxValue" rz-slider-model="vm.lunSlider.minValue" rz-slider-options="vm.lunSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="martes" type="checkbox" name="martes" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="martes_start" value="[[vm.marSlider.inicio]]">
-									<input type="hidden" name="martes_end" value="[[vm.marSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.marSlider.maxValue" rz-slider-model="vm.marSlider.minValue" rz-slider-options="vm.marSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="miercoles" type="checkbox" name="miercoles" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="miercoles_start" value="[[vm.mieSlider.inicio]]">
-									<input type="hidden" name="miercoles_end" value="[[vm.mieSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.mieSlider.maxValue" rz-slider-model="vm.mieSlider.minValue" rz-slider-options="vm.mieSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="jueves" type="checkbox" name="jueves" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="jueves_start" value="[[vm.jueSlider.inicio]]">
-									<input type="hidden" name="jueves_end" value="[[vm.jueSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.jueSlider.maxValue" rz-slider-model="vm.jueSlider.minValue" rz-slider-options="vm.jueSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="viernes" type="checkbox" name="viernes" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="viernes_start" value="[[vm.vieSlider.inicio]]">
-									<input type="hidden" name="viernes_end" value="[[vm.vieSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.vieSlider.maxValue" rz-slider-model="vm.vieSlider.minValue" rz-slider-options="vm.vieSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="sabado" type="checkbox" name="sabado" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="sabado_start" value="[[vm.sabSlider.inicio]]">
-									<input type="hidden" name="sabado_end" value="[[vm.sabSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.sabSlider.maxValue" rz-slider-model="vm.sabSlider.minValue" rz-slider-options="vm.sabSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-
-						<div class='form-group header-group-0 ' id='form-group-dias_trabajo' style="">
-							<div class="col-md-12 well" style="padding-right: 0px;padding-left:0px">
-								<div class="col-md-1">
-									<input id="domingo" type="checkbox" name="domingo" data-group-cls="btn-group-vertical">
-									<input type="hidden" name="domingo_start" value="[[vm.domSlider.inicio]]">
-									<input type="hidden" name="domingo_end" value="[[vm.domSlider.fin]]">
-								</div>
-								<div class="col-md-11">
-									<rzslider rz-slider-high="vm.domSlider.maxValue" rz-slider-model="vm.domSlider.minValue" rz-slider-options="vm.domSlider.options"></rzslider>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--div class="form-group header-group-0">
-					<div class="row">
-						<div class="col-md-offset-5 col-md-4 col-xs-12">
+						<div class="col-md-offset-4 col-md-4 col-xs-12">
 							<h4 class='control-label'>Seleccione los días y horas de trabajo </h4>
 						</div>
 					</div>
@@ -222,11 +125,11 @@
 									<input type="hidden" name="lunes_end_t" value="[[vm.lunSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananalunes" type="checkbox" name="mananalunes" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananalunes" type="checkbox" data-slider="lunes"name="mananalunes" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.lunSlider.maxValue" rz-slider-model="vm.lunSlider.minValue" rz-slider-options="vm.lunSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardelunes" type="checkbox" name="tardelunes" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardelunes" type="checkbox" data-slider="lunes" name="tardelunes" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.lunSliderT.maxValue" rz-slider-model="vm.lunSliderT.minValue" rz-slider-options="vm.lunSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -243,11 +146,11 @@
 								</div>
 
 								<div class="col-md-5">
-									<input id="mananamartes" type="checkbox" name="mananamartes" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananamartes" type="checkbox" data-slider="martes" name="mananamartes" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.marSlider.maxValue" rz-slider-model="vm.marSlider.minValue" rz-slider-options="vm.marSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardemartes" type="checkbox" name="tardemartes" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardemartes" type="checkbox" data-slider="martes" name="tardemartes" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.marSliderT.maxValue" rz-slider-model="vm.marSliderT.minValue" rz-slider-options="vm.marSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -263,11 +166,11 @@
 									<input type="hidden" name="miercoles_end_t" value="[[vm.mieSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananamiercoles" type="checkbox" name="mananamiercoles" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananamiercoles" data-slider="miercoles" type="checkbox" name="mananamiercoles" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.mieSlider.maxValue" rz-slider-model="vm.mieSlider.minValue" rz-slider-options="vm.mieSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardemiercoles" type="checkbox" name="tardemiercoles" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardemiercoles" type="checkbox" data-slider="miercoles" name="tardemiercoles" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.mieSliderT.maxValue" rz-slider-model="vm.mieSliderT.minValue" rz-slider-options="vm.mieSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -282,11 +185,11 @@
 									<input type="hidden" name="jueves_end_t" value="[[vm.jueSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananajueves" type="checkbox" name="mananajueves" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananajueves" type="checkbox" data-slider="jueves" name="mananajueves" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.jueSlider.maxValue" rz-slider-model="vm.jueSlider.minValue" rz-slider-options="vm.jueSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardejueves" type="checkbox" name="tardejueves" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardejueves" type="checkbox"  data-slider="jueves" name="tardejueves" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.jueSliderT.maxValue" rz-slider-model="vm.jueSliderT.minValue" rz-slider-options="vm.jueSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -302,11 +205,11 @@
 									<input type="hidden" name="viernes_end_t" value="[[vm.vieSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananaviernes" type="checkbox" name="mananaviernes" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananaviernes" type="checkbox"  data-slider="viernes" name="mananaviernes" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.vieSlider.maxValue" rz-slider-model="vm.vieSlider.minValue" rz-slider-options="vm.vieSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardeviernes" type="checkbox" name="tardeviernes" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardeviernes" type="checkbox" data-slider="viernes" name="tardeviernes" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.vieSliderT.maxValue" rz-slider-model="vm.vieSliderT.minValue" rz-slider-options="vm.vieSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -322,11 +225,11 @@
 									<input type="hidden" name="sabado_end_t" value="[[vm.sabSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananasabado" type="checkbox" name="mananasabado" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananasabado" type="checkbox" data-slider="sabado" name="mananasabado" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.sabSlider.maxValue" rz-slider-model="vm.sabSlider.minValue" rz-slider-options="vm.sabSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardesabado" type="checkbox" name="tardesabado" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardesabado" type="checkbox" data-slider="sabado" name="tardesabado" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.sabSliderT.maxValue" rz-slider-model="vm.sabSliderT.minValue" rz-slider-options="vm.sabSliderT.options"></rzslider>
 								</div>
 							</div>
@@ -342,15 +245,15 @@
 									<input type="hidden" name="domingo_end_t" value="[[vm.domSliderT.fin]]">
 								</div>
 								<div class="col-md-5">
-									<input id="mananadomingo" type="checkbox" name="mananadomingo" class="manana" data-group-cls="btn-group-xs">
+									<input id="mananadomingo" type="checkbox" data-slider="domingo" name="mananadomingo" class="manana" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.domSlider.maxValue" rz-slider-model="vm.domSlider.minValue" rz-slider-options="vm.domSlider.options"></rzslider>
 								</div>
 								<div class="col-md-5">
-									<input id="tardedomingo" type="checkbox" name="tardedomingo" class="tarde" data-group-cls="btn-group-xs">
+									<input id="tardedomingo" type="checkbox" data-slider="domingo" name="tardedomingo" class="tarde" data-group-cls="btn-group-xs">
 									<rzslider rz-slider-high="vm.domSliderT.maxValue" rz-slider-model="vm.domSliderT.minValue" rz-slider-options="vm.domSliderT.options"></rzslider>
 								</div>
 							</div>
-						</div-->
+						</div>
 					</div>
 				</div>
 
