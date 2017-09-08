@@ -26,7 +26,7 @@ class AdminAgendaController extends Controller {
      */
     public function index() {
         $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-        $paciente = ModPaciente::all();
+        //$paciente = ModPaciente::all();
         $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
         $page_title = "Agendar Cita";
@@ -60,8 +60,42 @@ class AdminAgendaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        //
+    public function getPatients(Request $request, $value) {
+
+        $pacientes = ModPaciente::where("nombre", "LIKE", "%{$value}%")->orWhere("cedula", "LIKE", "%{$value}%")->get();
+        $getPacientes = array();
+        foreach ($pacientes as $paciente) {
+            $getPaciente = array();
+            $getPaciente["id"] = $paciente["id"];
+            $getPaciente["ci"] = $paciente["cedula"];
+            $getPaciente["name"] = $paciente["nombre"];
+            $getPacientes[] = $getPaciente;
+            $response["patients"] = $getPacientes;
+        }
+        return response()->json([
+                    "response" => $response
+        ]);
+    }
+    
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAgreements(Request $request, $value) {
+
+        $agreements = ModConvenios::where("nombre", "LIKE", "%{$value}%")->get();
+        $getAgreements = array();
+        foreach ($agreements as $agreement) {
+            $getAgreement = array();
+            $getAgreement["id"] = $agreement["id"];
+            $getAgreement["name"] = $agreement["nombre"];
+            $getAgreements[] = $getAgreement;
+            $response["agreements"] = $getAgreements;
+        }
+        return response()->json([
+                    "response" => $response
+        ]);
     }
 
     /**
@@ -71,7 +105,7 @@ class AdminAgendaController extends Controller {
      */
     public function getDataJson() {
         $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-        $pacientes = ModPaciente::all();
+      
         //   $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
         $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
@@ -86,26 +120,16 @@ class AdminAgendaController extends Controller {
         }
         //  HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
         $agenda = ModAgenda::where("medico_id", $medico_id->id)->first();
-        $getPacientes = array();
-        foreach ($pacientes as $paciente) {
-            $getPaciente = array();
-            $getPaciente["id"] = $paciente["cedula"];
-            $getPaciente["cedula"] = $paciente["cedula"];
-            $getPaciente["nombre"] = $paciente["nombre"];
-            $getPacientes[] = $getPaciente;
-        }
         $getAgenda = array();
         $getAgenda["id"] = $agenda["id"];
         $getAgenda["nombre"] = $agenda["nombre"];
         $medico = array();
         $medico["id"] = $medico_id->id;
         $response["medico"] = $medico;
-        $response["paciente"] = $getPacientes;
         $response["convenios"] = $convenios;
         $response["horario_medico"] = $horarios;
         $response["agenda"] = $getAgenda;
-
-        //$response["horario_medico"] = json_encode($response["horario_medico"]);
+        
         return response()->json([
                     "response" => $response
         ]);

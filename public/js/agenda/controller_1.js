@@ -43,6 +43,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * Panel de modificacion de la cita
      * */
     $scope.panelModCita = function (event) {
+        $scope.formCita = true;
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
         /*
@@ -108,8 +109,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
-
-        $("#form-save-cita").hide();
+        $scope.formCita = false;
         $scope.dateSelect = "";
         $scope.hourSelect = "";
 
@@ -118,7 +118,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.start = "";
         $scope.end = "";
         $scope.tipo_convenio = true;
-        $scope.patients = OPTIONS_PACIENTE;
+        // $scope.patients = OPTIONS_PACIENTE;
         $scope.config = {
             defaultDate: $scope.fecha,
             defaultView: 'agendaWeek'
@@ -196,7 +196,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 },
                 eventResize: function (event, delta, revertFunc) {
                     console.log("fff")
-                   // $scope.panelModCita(event);
+                    // $scope.panelModCita(event);
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
                     //console.log(view.options.businessHours);
@@ -321,15 +321,15 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*
      * muestra los datos para ingresar fechas de autorizacion de convenio particular o iess
      * */
-    $scope.eval_convenio = function () {
-        console.log($scope.sel_convenio)
-        if ($scope.sel_convenio != 'PARTICULAR') {
-            $scope.tipo_convenio = true;
-        } else {
-            $scope.tipo_convenio = false;
-
-        }
-    };
+//    $scope.eval_convenio = function () {
+//        console.log($scope.sel_convenio)
+//        if ($scope.sel_convenio != 'PARTICULAR') {
+//            $scope.tipo_convenio = true;
+//        } else {
+//            $scope.tipo_convenio = false;
+//
+//        }
+//    };
     $scope.eliminarCita = function () {
         swal({
             title: '¿Mover a la papelera?',
@@ -453,6 +453,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
         //cambio de botones
+        $scope.formCita = true;
         $scope.modificar = false;
         $scope.agendar = true;
         $scope.panel = panelCreate;
@@ -553,4 +554,50 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             day = '0' + day;
         return [year, month, day].join('-');
     };
+
+    $scope.searchPatients = function () {
+        var url = URL_BASE + "medico/agenda/get/patient/" + $scope.searchText;
+        $http({
+            url: url,
+            method: 'GET',
+            //data: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function success(response) {
+            $scope.searchResult = response.data.response.patients;
+        });
+    }
+
+    // Set value to search box
+    $scope.setValue = function (index) {
+        $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name;
+        $scope.searchResult = {};
+    }
+
+    $scope.searchAgreements = function () {
+        var url = URL_BASE + "medico/agenda/get/agreement/" + $scope.searchTextAgreement;
+        $http({
+            url: url,
+            method: 'GET',
+            //data: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function success(response) {
+            $scope.searchResultAgreement = response.data.response.agreements;
+        });
+    }
+
+    // Set value to search box
+    $scope.setValueAgreement = function (index) {
+        $scope.searchTextAgreement = $scope.searchResultAgreement[index].name;
+        $scope.searchResultAgreement = {};
+        if ($scope.searchTextAgreement != 'PARTICULAR') {
+            $scope.tipo_convenio = true;
+        } else {
+            $scope.tipo_convenio = false;
+
+        }
+    }
 });
