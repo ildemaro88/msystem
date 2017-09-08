@@ -1,4 +1,4 @@
-var agenda = angular.module("AppAgenda", [], function ($interpolateProvider) {
+var agenda = angular.module("AppAgenda", ['rzModule'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });

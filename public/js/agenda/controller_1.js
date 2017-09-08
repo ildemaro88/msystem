@@ -101,6 +101,15 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      */
 
     $scope.init = function () {
+
+        $scope.slider = {
+            value: 15,
+            options: {
+                floor: 15,
+                ceil: 45,
+                step: 15
+            }
+        };
         $http.get(URL_GET_DATA_JSON)
                 .then(function success(response) {
                     $scope.response = response.data.response;
@@ -109,6 +118,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
+
         $scope.formCita = false;
         $scope.dateSelect = "";
         $scope.hourSelect = "";

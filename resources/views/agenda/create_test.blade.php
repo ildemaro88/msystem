@@ -4,6 +4,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 ?>
 @extends("crudbooster::admin_template")
 @section("content")
+
+<link rel="stylesheet" href="{{asset('bower_resources/angularjs-slider/dist/rzslider.css')}}">
+<script src="{{asset('bower_resources/angularjs-slider/dist/rzslider.min.js')}}"></script>
 <style>
     #searchResultPatient{
         list-style: none;
@@ -12,7 +15,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         position: absolute;
         margin: 0;
         z-index: 10000;
-        
+
     }
 
     #searchResultPatient li{
@@ -31,8 +34,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     #searchResultPatient li:hover{
         cursor: pointer;
     }
-    
-     #searchResultAgreement{
+
+    #searchResultAgreement{
         list-style: none;
         padding: 0px;
         width: 250px;
@@ -162,6 +165,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <div class="col-sm-6">
                                         <h5 style="margin:0px"><b style="font-size:13px">Fechaf:</b> <a id="p_fecha"></a></h5> 
                                         <h5 for=""><b>Desde:</b> <a id="p_desde"></a></h5>
+                                        <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options">
+                                            
+                                        </rzslider>
                                         <h5 for=""><b>Hasta:</b> <a id="p_hasta"></a></h5> 
                                     </div> 
                                     <div class="row"> 
