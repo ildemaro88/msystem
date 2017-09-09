@@ -4,7 +4,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
-        this.url = URL_MEDICO_AGENDA;
+        this.url = URL_MEDICO_CITA;
         this.buttons = {
             agendar: true,
             trash: false,
@@ -122,7 +122,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.formCita = false;
         $scope.dateSelect = "";
         $scope.hourSelect = "";
-
+        $scope.hourEnd = "";
         $scope.horaInicio = "";
         $scope.horaFin = "";
         $scope.start = "";
@@ -169,11 +169,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     var element = jsEvent.target.outerHTML;
                     element = element.substring(0, 3)
                     if (element == "<td") {
-                        $scope.hourSelect = date.format('H:mm');
-                        $("#p_fecha").html($scope.dateSelect)
-                        $("#p_desde").html($scope.hourSelect);
-                        $scope.showFormAppointment();
+                        $scope.cita.fecha = date.format('DD/MM/YYYY');
+                        $scope.showFormAppointment($scope.cita.fecha, date.format('H:mm'));
                     }
+
                 },
 
                 businessHours: data.horario_medico,
@@ -235,52 +234,54 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         return verified == true || equal;
     };
     $scope.verify_time = function () {
-        var verified = false,
-                inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
-                fin = moment($scope.horaFin.toString(), 'H:mm a');
+        var verified = false;
+        var       inicio = moment($scope.hourSelect.toString(), 'H:mm a');
+        $scope.hourEnd = moment( inicio).add($scope.slider.value, 'm');
+        $scope.hourEnd = moment($scope.end.toString(), 'H:mm a');
+        var     fin = moment($scope.hourEnd.toString(), 'H:mm a');
         verified = !inicio.isAfter(fin);
         return verified;
     };
     $scope.init(); //inicializar
-    $scope.validate_hourMedic = function () {
-        var businessHours = HORARIO_TRABAJO;
-        var inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
-                fin = moment($scope.horaFin.toString(), 'H:mm a'),
-                fecha = moment($scope.cita.fecha, 'DD/MM/YYYY').format('dddd');
-        var verified = false;
-        // recorrer dias y horas
-        angular.forEach(businessHours, function (key, value) {
-            var day_selected = fecha, // martes
-                    day_business = $scope.map_day(parseInt(key.dow[0])); // martes
-            if (day_selected == day_business) {
-                // comparar horas
-                var hour_business_start = moment(key.start, 'H:mm a');
-                var hour_business_end = moment(key.end, 'H:mm a');
-                // console.log(hour_business_start)
-                var val1 = inicio.isBetween(hour_business_start, hour_business_end);
-                // console.log("val1"+val1)
-                var val2 = fin.isBetween(hour_business_start, hour_business_end);
-                // console.log("val2"+val2)
-
-                var val3 = inicio.isSame(hour_business_start);
-                // console.log("val3"+val3)
-
-                var val4 = fin.isSame(hour_business_end);
-                // console.log("val4"+val4)
-
-                if ((val1 == false && val2 == false && val3 == true && val4 == true) || (val1 == true && val2 == true && val3 == false && val4 == false) || (val1 == false && val2 == true && val3 == true && val4 == false)) {
-                    verified = true;
-                    console.log('s')
-                    return
-                } else {//if ((val1 == false && val2 == false && val3 == false && val4 == true) || (val1 == false && val2 == false && val3 == true && val4 == false)) {
-                    verified = true;
-                    console.log('a')
-                    return
-                }
-            }
-        });
-        return verified;
-    };
+//    $scope.validate_hourMedic = function () {
+//        var businessHours = HORARIO_TRABAJO;
+//        var inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
+//                fin = moment($scope.horaFin.toString(), 'H:mm a'),
+//                fecha = moment($scope.cita.fecha, 'DD/MM/YYYY').format('dddd');
+//        var verified = false;
+//        // recorrer dias y horas
+//        angular.forEach(businessHours, function (key, value) {
+//            var day_selected = fecha, // martes
+//                    day_business = $scope.map_day(parseInt(key.dow[0])); // martes
+//            if (day_selected == day_business) {
+//                // comparar horas
+//                var hour_business_start = moment(key.start, 'H:mm a');
+//                var hour_business_end = moment(key.end, 'H:mm a');
+//                // console.log(hour_business_start)
+//                var val1 = inicio.isBetween(hour_business_start, hour_business_end);
+//                // console.log("val1"+val1)
+//                var val2 = fin.isBetween(hour_business_start, hour_business_end);
+//                // console.log("val2"+val2)
+//
+//                var val3 = inicio.isSame(hour_business_start);
+//                // console.log("val3"+val3)
+//
+//                var val4 = fin.isSame(hour_business_end);
+//                // console.log("val4"+val4)
+//
+//                if ((val1 == false && val2 == false && val3 == true && val4 == true) || (val1 == true && val2 == true && val3 == false && val4 == false) || (val1 == false && val2 == true && val3 == true && val4 == false)) {
+//                    verified = true;
+//                    console.log('s')
+//                    return
+//                } else {//if ((val1 == false && val2 == false && val3 == false && val4 == true) || (val1 == false && val2 == false && val3 == true && val4 == false)) {
+//                    verified = true;
+//                    console.log('a')
+//                    return
+//                }
+//            }
+//        });
+//        return verified;
+//    };
 
     $scope.validHours = function () {
         //debugger;
@@ -458,7 +459,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*
      * -->
      */
-    $scope.showFormAppointment = function () {
+    $scope.showFormAppointment = function (dateSelect, hourInit) {
+        
+        
         var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
@@ -467,6 +470,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.modificar = false;
         $scope.agendar = true;
         $scope.panel = panelCreate;
+        $scope.dateSelect = dateSelect;
+        $scope.hourSelect = hourInit;
         try {
             $scope.$apply();
         } catch (e) {
@@ -482,11 +487,11 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         /*
          *  Agregar datos de tiempo a los input para ser enviados con submit
          * */
-        var hora_inicio = $scope.horaInicio.split(" "); //obtener solo la hora
-        var hora_fin = $scope.horaFin.split(" ");
+        var hora_inicio = $scope.hourSelect.split(" "); //obtener solo la hora
         //convertir a tipo aceptado por el calendario uniendo fecha y hora
         $scope.start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
-        $scope.end = moment($scope.cita.fecha + "," + hora_fin[0], 'DD/MM/YYYY,H:mm').format();
+        $scope.end = moment($scope.start).add($scope.slider.value, 'm');
+        $scope.end = moment($scope.end, 'DD/MM/YYYY,H:mm').format();
         $("#start").remove();
         $("#end").remove();
         $("#form-cita").append('<input id="start" ng-model="start" type="hidden" name="start" value="' + $scope.start + '">' +
@@ -506,7 +511,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * */
     $scope.submit = function (e) {
         e.preventDefault();
-        if ($scope.validHours() && $scope.validate_hourMedic() && $scope.verify_time() && $scope.verify_date() && $scope.horaInicio != "" && $scope.horaFin != "" && $scope.horaInicio != $scope.horaFin) {
+       
+        //if ($scope.verify_date()) {
             $scope.setDateTime();
             var fd = $("#form-cita"),
                     url = fd.attr("action"),
@@ -543,14 +549,14 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     swal("Error!", "Error en la transacción!", "error");
                 }
             });
-        } else {
-            swal({
-                type: "error",
-                title: "Error!",
-                html: true,
-                text: "<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
-            });
-        }
+//        } else {
+//            swal({
+//                type: "error",
+//                title: "Error!",
+//                html: true,
+//                text: "<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
+//            });
+//        }
     };
     // cambiar formato de fecha 01/11/2017 a 2017-01-11 // not used
     $scope.formatDate = function (date) {

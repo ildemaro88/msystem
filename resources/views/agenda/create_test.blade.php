@@ -136,9 +136,10 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     <h4 id="heading" class="[[panel.class_text_title]]">
                         <i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
                 </div> <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
-                    <ul class="nav nav-tabs"> 
+<!--                    <ul class="nav nav-tabs"> 
                         <li class="active"><a data-toggle="tab" href="#home">Datos cita</a></li> 
-                        <li><a data-toggle="tab" href="#menu1">Convenio</a></li> </ul> 
+                        <li><a data-toggle="tab" href="#menu1">Convenio</a></li> 
+                    </ul> -->
                     <form action="[[ panel.url ]]" method="post" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
                         <input type="text" value="businessHours" name="constraint" ng-show="false"> 
                         <div class="tab-content"> 
@@ -150,33 +151,74 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="fecha_autorizacion" type="hidden" value="[[fecha_autorizacion]]"> 
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
-                                    <div class="form-group col-md-6"> 
-                                        <label for=""> Seleccione el paciente:</label>
-                                        <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
-                                        <ul id='searchResultPatient' >
-                                            <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
-                                        </ul>
-                                    </div> 
-                                    <div class="col-sm-6"> 
-                                        <div class="row"> <div class="form-group"> 
-                                                <button type="button"  class="btn btn-default"><i class="fa fa-clock-o"></i> Fecha y Hora </button> 
-                                            </div> </div> 
-                                    </div> 
-                                    <div class="col-sm-6">
-                                        <h5 style="margin:0px"><b style="font-size:13px">Fechaf:</b> <a id="p_fecha"></a></h5> 
-                                        <h5 for=""><b>Desde:</b> <a id="p_desde"></a></h5>
-                                        <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options">
-                                            
-                                        </rzslider>
-                                        <h5 for=""><b>Hasta:</b> <a id="p_hasta"></a></h5> 
+
+                                    <div class="row"> 
+                                        <div class="form-group col-md-3"> 
+                                            <label for=""> Seleccione el paciente:</label>
+                                            <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
+                                            <ul id='searchResultPatient' >
+                                                <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
+                                            </ul>
+                                        </div>  
+                                        <div class="col-sm-2">
+                                            <h5 style="margin:0px">
+                                                <b style="font-size:13px">Fecha:</b> 
+                                                <a>[[dateSelect]]</a>
+                                            </h5> 
+                                            <h5 for="">
+                                                <b>Inicio:</b> 
+                                                <a>[[hourSelect]]</a>
+                                            </h5>
+                                        </div> 
+                                        <div class="col-sm-1"> 
+                                            <h5 for=""><b>Duración:</b></h5>    
+                                        </div> 
+                                        <div class="col-sm-2"> 
+                                            <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+                                        </div> 
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3"> 
+                                            <div class="form-group"> 
+                                                <label for="">Seleccione el tipo de convenio</label> 
+                                                <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
+                                                <ul id='searchResultAgreement' >
+                                                    <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
+                                                </ul>
+                                                    <!--<select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select>--> 
+                                            </div> 
+                                        </div>
                                     </div> 
                                     <div class="row"> 
-                                        <div class="col-xs-10 col-xs-offset-1"> 
+                                        <div class="col-sm-6"> 
                                             <div class="form-group"> 
                                                 <label for="">Observaciones</label> 
                                                 <textarea id="descripcion" ng-model="cita.descripcion" class="form-control" name="descripcion"cols="30"rows="5"></textarea> 
                                             </div> 
                                         </div>
+                                        <div class="col-sm-6" ng-show="tipo_convenio"> 
+                                            <div class="form-group"> 
+                                                <label for="">Autorización</label> 
+                                                <input ng-model="autorizacion" type="text" class="form-control"> 
+                                            </div> 
+                                            <div class="form-group">
+                                                <label for="">Fecha Autorización</label>
+                                                <div class="input-group"> 
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span> 
+                                                    </span>
+                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" name="fecha_autorizacion" type="text"class="form-control datepicker"> 
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Fecha Vencimiento</label> 
+                                                <div class="input-group"> 
+                                                    <span class="input-group-addon"> 
+                                                        <span class="glyphicon glyphicon-calendar"></span> 
+                                                    </span> 
+                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_vence" name="fecha_vence" type="text" class="form-control datepicker"> 
+                                                </div> 
+                                            </div> 
+                                        </div> 
                                     </div>
                                     <div class="row pull-left" ng-show="panel.buttons.trash"> 
                                         <div class="col-xs-12"> <div class="form-group"> 
@@ -214,7 +256,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     </div>
                                 </div>
                             </div> 
-                            <div id="menu1" class="tab-pane fade"> <br> 
+<!--                            <div id="menu1" class="tab-pane fade"> <br> 
                                 <div class="row"> 
                                     <div class="col-xs-12"> 
                                         <div class="form-group"> 
@@ -223,7 +265,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             <ul id='searchResultAgreement' >
                                                 <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
                                             </ul>
-                                                <!--<select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select>--> 
+                                                <select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select> 
                                         </div> 
                                     </div>
                                 </div> 
@@ -253,7 +295,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div> 
                                     </div> 
                                 </div>
-                            </div> 
+                            </div> -->
                         </div>
                     </form>
                 </div> 
@@ -272,7 +314,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     MEDICO_ID = '{{$medico->id}}';
     URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
-    URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda')}}';
+    URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
     OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
             '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
             '@endforeach';
@@ -324,5 +366,6 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <script src="{{asset('js/agenda/app.js')}}"></script>
 <script src="{{asset('js/agenda/controller_1.js')}}"></script>
 <script src="{{asset('js/agenda/directive.js')}}"></script>
+<!--<script src="{{asset('js/agenda/moment_library.js')}}"></script>-->
 <!--  ANGULAR APP -->
 @endsection

@@ -22,8 +22,6 @@ class AdminCitaController extends Controller
     public function index()
     {
         //Se filtran las citas por sucursales
-       
-
         if(Session::get('admin_privileges') == 6){
             $sucursal = Session::get('sucursal');
             $citas = ModCita::with("convenio")
@@ -57,7 +55,7 @@ class AdminCitaController extends Controller
      */
     public function create()
     {
-        //
+        die("ss");
     }
 
     /**

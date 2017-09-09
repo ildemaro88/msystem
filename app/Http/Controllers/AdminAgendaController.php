@@ -19,29 +19,29 @@ use Carbon\Carbon;
 
 class AdminAgendaController extends Controller {
 
+//    /**
+//     * Display a listing of the resource.
+//     *
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function index() {
+//        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
+//        //$paciente = ModPaciente::all();
+//        $medico = ModMedico::find($medico_id->id);
+//        $convenios = ModConvenios::all();
+//        $page_title = "Agendar Cita";
+//        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
+//        $agenda = ModAgenda::where("medico_id", $medico->id)->first();
+//
+//        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
+//    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-        //$paciente = ModPaciente::all();
-        $medico = ModMedico::find($medico_id->id);
-        $convenios = ModConvenios::all();
-        $page_title = "Agendar Cita";
-        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
-        $agenda = ModAgenda::where("medico_id", $medico->id)->first();
-
-        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function testAgenda() {
         $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
         $paciente = ModPaciente::all();
         $medico = ModMedico::find($medico_id->id);
