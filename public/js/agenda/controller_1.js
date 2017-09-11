@@ -4,7 +4,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
-        this.url = URL_MEDICO_CITA;
+        this.url = URL_MEDICO_CITA_SAVE;
         this.buttons = {
             agendar: true,
             trash: false,

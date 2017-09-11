@@ -314,6 +314,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     MEDICO_ID = '{{$medico->id}}';
     URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
+    URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/store')}}';
     URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
     OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
             '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
