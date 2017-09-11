@@ -130,28 +130,24 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
             {{--Panel de gestion de citas--}}
 
             <div id="pan-nueva-cita" class="panel [[panel.class_heading]]">
-<!--                    <input  value="[[dateSelect]]">
-                <input  value="[[hourSelect]]">-->
                 <div class="panel-heading">
                     <h4 id="heading" class="[[panel.class_text_title]]">
                         <i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
                 </div> <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
-<!--                    <ul class="nav nav-tabs"> 
-                        <li class="active"><a data-toggle="tab" href="#home">Datos cita</a></li> 
-                        <li><a data-toggle="tab" href="#menu1">Convenio</a></li> 
-                    </ul> -->
-                    <form action="[[ panel.url ]]" method="post" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
+
+                    <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
                         <input type="text" value="businessHours" name="constraint" ng-show="false"> 
                         <div class="tab-content"> 
                             <div id="home" class="tab-pane fade in active">
                                 <div class="container-fluid container-full">
-                                    <input ng-model="agenda_id" type="hidden" name="agenda_id" value="  ' + AGENDA_ID + '  "> 
+                                    <input ng-model="agenda_id" type="hidden" name="agenda_id" value= [[agenda.id]]  "> 
                                     <input ng-model="medico_id" type="hidden" name="medico_id" value="  ' + MEDICO_ID + '  ">
                                     <input name="autorizacion" type="hidden" value="[[autorizacion]]"> 
+                                    <input name="idpaciente" type="hidden" value="[[idpaciente]]"> 
                                     <input name="fecha_autorizacion" type="hidden" value="[[fecha_autorizacion]]"> 
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
-
+                                    <input name="sel_convenio" type="hidden" value="[[sel_convenio]]"> 
                                     <div class="row"> 
                                         <div class="form-group col-md-3"> 
                                             <label for=""> Seleccione el paciente:</label>
@@ -314,7 +310,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     MEDICO_ID = '{{$medico->id}}';
     URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
-    URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/store')}}';
+    URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/save')}}';
     URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
     OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
             '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +

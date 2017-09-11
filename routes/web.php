@@ -3,7 +3,7 @@
 
 //Route::resource('/admin/medico/agenda', 'AdminAgendaController');
 Route::resource('/admin/medico/agenda', 'AdminAgendaController');
-Route::post('/admin/medico/agenda/store','AdminCitaController@store');
+Route::post('/admin/medico/agenda/save','AdminAgendaController@save');
 Route::get('/admin/medico/agenda/get/information', 'AdminAgendaController@getDataJson');
 Route::get('/admin/medico/agenda/get/patient/{value}', 'AdminAgendaController@getPatients');
 Route::get('/admin/medico/agenda/get/agreement/{value}', 'AdminAgendaController@getAgreements');

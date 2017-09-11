@@ -5,6 +5,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
         this.url = URL_MEDICO_CITA_SAVE;
+        this.method_form = "post";
         this.buttons = {
             agendar: true,
             trash: false,
@@ -17,6 +18,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         this.class_heading = "carrot";
         this.style_body = "background-color:white";
         this.url = URL_MEDICO_CITA;
+        this.method_form = "put";
         this.method = {
             name: "_method",
             value: "PATCH"
@@ -69,8 +71,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.start = moment(event.start, 'YYYY/MM/DD,H:mm').format();
         $scope.end = moment(event.end, 'YYYY/MM/DD,H:mm').format();
         //convenio assign
-        $scope.sel_convenio = event.sel_convenio;
-        $("#sel_convenio").trigger("change");
+       // $scope.sel_convenio = event.sel_convenio;
+       // $("#sel_convenio").trigger("change");
         if ($scope.sel_convenio == "I.E.S.S.") {
             $scope.tipo_convenio = true;
             try {
@@ -118,7 +120,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
-
+        $scope.agendaId = [];  
+        $scope.medico = [];
+        $scope.urlCitas = "";
         $scope.formCita = false;
         $scope.dateSelect = "";
         $scope.hourSelect = "";
@@ -127,17 +131,18 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.horaFin = "";
         $scope.start = "";
         $scope.end = "";
+        $scope.idpaciente = "";
         $scope.tipo_convenio = true;
         // $scope.patients = OPTIONS_PACIENTE;
         $scope.config = {
             defaultDate: $scope.fecha,
             defaultView: 'agendaWeek'
         };
-        $scope.sel_convenio = "I.E.S.S.";
-        $scope.options_convenio = [
-            "I.E.S.S.",
-            "PARTICULAR"
-        ];
+        $scope.sel_convenio = "";
+//        $scope.options_convenio = [
+//            "I.E.S.S.",
+//            "PARTICULAR"
+//        ];
         $(".select2").select2();
         $('#fecha, .datepicker').datepicker({
             language: 'es',
@@ -150,6 +155,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $('#fecha, .datepicker').trigger('chosen:updated');
 
         $scope.fullCalendar = function (data) {
+            $scope.agenda = data.agenda;
+            $scope.medico = data.medico;
+            $scope.urlCitas = URL_BASE + 'medico/cita/' + $scope.medico.id;
             $('#calendar').fullCalendar({
                 allDaySlot: false,
                 header: {
@@ -193,7 +201,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 timeFormat: 'H:mm',
                 //dayBreakTime: "07:00",
                 events: {
-                    url: URL_CITAS
+                    url: $scope.urlCitas
                 },
                 eventResizeStop: function () {
                     $scope.verify_time();
@@ -243,6 +251,20 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         return verified;
     };
     $scope.init(); //inicializar
+    
+//       $scope.getCitas = function () {
+//        var url = URL_BASE + 'medico/cita/' + $scope.medico.id;
+//        $http({
+//            url: url,
+//            method: 'GET',
+//            //data: data,
+//            headers: {
+//                'Content-Type': 'application/x-www-form-urlencoded'
+//            }
+//        }).then(function success(response) {
+//            $scope.searchResult = response.data;
+//        });
+//    }
 //    $scope.validate_hourMedic = function () {
 //        var businessHours = HORARIO_TRABAJO;
 //        var inicio = moment($scope.horaInicio.toString(), 'H:mm a'),
@@ -524,7 +546,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             });
             $http({
                 url: url,
-                method: 'POST',
+                method: fd.attr("method"),
                 data: data,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -540,7 +562,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                         closeOnConfirm: true
                     }, function () {
                         $scope.reloadCalendar();
-                        $scope.resetPanelCita();
+                        //$scope.resetPanelCita();
                         $scope.init(); //inicializar
                     });
                 } else if (data.status == 500) {
@@ -588,6 +610,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     // Set value to search box
     $scope.setValue = function (index) {
         $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name;
+        $scope.idpaciente = $scope.searchResult[index].id;
         $scope.searchResult = {};
     }
 
@@ -609,6 +632,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.setValueAgreement = function (index) {
         $scope.searchTextAgreement = $scope.searchResultAgreement[index].name;
         $scope.searchResultAgreement = {};
+        $scope.sel_convenio = $scope.searchTextAgreement;
         if ($scope.searchTextAgreement != 'PARTICULAR') {
             $scope.tipo_convenio = true;
         } else {

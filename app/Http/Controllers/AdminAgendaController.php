@@ -18,7 +18,6 @@ use Mail;
 use Carbon\Carbon;
 
 class AdminAgendaController extends Controller {
-
 //    /**
 //     * Display a listing of the resource.
 //     *
@@ -76,8 +75,8 @@ class AdminAgendaController extends Controller {
                     "response" => $response
         ]);
     }
-    
-        /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -105,7 +104,7 @@ class AdminAgendaController extends Controller {
      */
     public function getDataJson() {
         $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-      
+
         //   $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
         $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
@@ -129,9 +128,74 @@ class AdminAgendaController extends Controller {
         $response["convenios"] = $convenios;
         $response["horario_medico"] = $horarios;
         $response["agenda"] = $getAgenda;
-        
+
         return response()->json([
                     "response" => $response
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function save(Request $request) {
+
+        $cita = new ModCita;
+        $paciente = ModPaciente::find($request->get("idpaciente"));
+        $cita->paciente_id = $request->get("idpaciente");
+        $cita->detalle_cita = $request->get("descripcion");
+        $cita->agenda_id = $request->get("agenda_id");
+        $cita->estado_cita = 1;
+        $cita->start = $request->get("start");
+        $cita->end = $request->get("end");
+        $cita->constraint = $request->get("constraint");
+        $sel_convenio = $request->get("sel_convenio");
+        // $sel_convenio = $sel_convenio[1];
+        $cita->sel_convenio = $sel_convenio;
+        if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
+            $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
+            $agenda_id = $a->id;
+            $cita->agenda_id = $agenda_id;
+        } else { //si tiene valor viene por solicitud de call center
+            $agenda_id = $request->get('agenda_id');
+            $cita->agenda_id = $agenda_id;
+        }
+        $medico = ModMedico::find($request->get("medico_id"));
+        $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", Paciente:  " . $paciente->nombre . " " . $paciente->apellido);
+        //var_dump($cita);
+        $response = $cita->save();
+
+        if ($response) {// si se guarda la cita
+            if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
+                /*
+                 * Insertar el convenio si se ingresa datos
+                 * */
+                $convenio = new ModConvenio;
+                $convenio->cita_calendario_id = $cita->id;
+                $convenio->autorizacion = $request->get("autorizacion");
+                $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
+                $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
+                $convenio->fecha_autorizacion = $date1;
+                $convenio->fecha_vence = $date2;
+                $convenio->save();
+            }
+            /*
+             * Envio de e-mail cuando se guarda la cita
+             * */
+            $email_medico = !is_null($medico->email) ? $medico->email : "pablodc002@gmail.com";
+            $email_paciente = !is_null($paciente->email) ? $paciente->email : "pablodc002@gmail.com";
+            try {
+                Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
+                Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
+            } catch (\Error $x) {
+                
+            }
+        }
+        return response()->json([
+                    "response" => $response,
+                    "cita" => $cita
         ]);
     }
 
