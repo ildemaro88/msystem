@@ -306,15 +306,15 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     /*
      * GLOBALS
      */
-    AGENDA_ID = '{{$agenda->id}}';
-    MEDICO_ID = '{{$medico->id}}';
-    URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
+    //AGENDA_ID = '{{$agenda->id}}';
+    //MEDICO_ID = '{{$medico->id}}';
+    //URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
     URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/save')}}';
     URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
-    OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
-            '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
-            '@endforeach';
+//    OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
+//            '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
+//            '@endforeach';
     /*
      * Si viene por historial rellenar la variable cita
      * */
@@ -341,16 +341,16 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
             }
     };
     PANEL = {};
-    HORARIO_TRABAJO = [
-            @foreach($horario_medico as $h)
-    {
-    dow: [ '{{$h->dow}}' ], // Monday, Tuesday, Wednesday
-            start: '{{$h->start}}', // 8am
-            end: '{{$h->end}}' // 6pm
-    },
-            @endforeach
-    ];
-    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
+//    HORARIO_TRABAJO = [
+//            @foreach($horario_medico as $h)
+//    {
+//    dow: [ '{{$h->dow}}' ], // Monday, Tuesday, Wednesday
+//            start: '{{$h->start}}', // 8am
+//            end: '{{$h->end}}' // 6pm
+//    },
+//            @endforeach
+//    ];
+//    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
     $(document).ready(function(){
     $('#fecha').val(HOY);
