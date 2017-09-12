@@ -102,10 +102,20 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         text-align: left;
     }
 </style>
+<link rel = "stylesheet" href = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">      
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+      
+     
 {{--modal edicion de evento--}}
+
+
 <div ng-app="AppAgenda"
      ng-init="cita.fecha = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); descripcion = (''); agendar = (true); fecha_autorizacion = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); fecha_vence = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); cita.hoy = ('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
      ng-controller="CtrlApp" ng-cloack>
+     
     @include("agenda.modals")
     <div class="box">
         <div class="box-header">
@@ -148,13 +158,45 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
                                     <input name="sel_convenio" type="hidden" value="[[sel_convenio]]"> 
+
                                     <div class="row"> 
-                                        <div class="form-group col-md-3"> 
-                                            <label for=""> Seleccione el paciente:</label>
+                                        <div class="form-group col-md-5"> 
+                                        <div ng-controller = "autoCompleteController as ctrl" layout = "column" ng-cloak>
+                                    <md-content class = "">
+            <form ng-submit = "$event.preventDefault()">
+               <label for=""> Seleccione el paciente:</label>
+               
+               <md-autocomplete
+                  ng-disabled = "ctrl.isDisabled"
+                  md-no-cache = "ctrl.noCache"
+                  md-selected-item = "ctrl.selectedItem"
+                  md-search-text-change = "ctrl.searchTextChange(ctrl.searchText)"
+                  md-search-text = "ctrl.searchText"
+                  md-selected-item-change = "ctrl.selectedItemChange(item)"
+                  md-items = "item in ctrl.querySearch(ctrl.searchText)"
+                  md-item-text = "item.display"
+                  md-min-length = "0"
+                  placeholder = "Seleccione Paciente">
+                  
+                  <md-item-template>
+                     <span md-highlight-text = "ctrl.searchText"
+                        md-highlight-flags = "^i">[[item.display]]</span>
+                  </md-item-template>
+                  
+                  <md-not-found>
+                     No states matching "[[ctrl.searchText]]" were found.
+                     <a ng-click = "ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                  </md-not-found>
+               </md-autocomplete>
+               <br/>
+            </form>
+         </md-content>
+         </div>
+                                            <!--label for=""> Seleccione el paciente:</label>
                                             <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
                                             <ul id='searchResultPatient' >
                                                 <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
-                                            </ul>
+                                            </ul-->
                                         </div>  
                                         <div class="col-sm-2">
                                             <h5 style="margin:0px">
@@ -165,23 +207,22 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <b>Inicio:</b> 
                                                 <a>[[hourSelect]]</a>
                                             </h5>
-                                        </div> 
-                                        <div class="col-sm-1"> 
+                                            <div class="col-sm-"> 
                                             <h5 for=""><b>Duración:</b></h5>    
                                         </div> 
-                                        <div class="col-sm-2"> 
+                                        <div class="col-sm-"> 
                                             <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                                         </div> 
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-3"> 
-                                            <div class="form-group"> 
+                                        </div> 
+                                        
+                                        <div class="col-sm-5"> 
                                                 <label for="">Seleccione el tipo de convenio</label> 
                                                 <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
                                                 <ul id='searchResultAgreement' >
                                                     <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
                                                 </ul>
                                                     <!--<select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select>--> 
-                                            </div> 
+                                            
                                         </div>
                                     </div> 
                                     <div class="row"> 
