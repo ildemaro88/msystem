@@ -194,7 +194,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         };
         $http.get(URL_GET_DATA_JSON)
                 .then(function success(response) {
-                    $scope.response = response.data.response;
+                    $scope.response = response.data.response;                    
                     $scope.fullCalendar($scope.response);
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs

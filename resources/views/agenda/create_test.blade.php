@@ -184,8 +184,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                   </md-item-template>
                   
                   <md-not-found>
-                     No states matching "[[ctrl.searchText]]" were found.
-                     <a ng-click = "ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                     No se encontró ninguna coincidencia de pacientes "[[ctrl.search Text]]".
+                     <a ng-click = "ctrl.newState(ctrl.searchText)">Crear uno nuevo!</a>
                   </md-not-found>
                </md-autocomplete>
                <br/>
@@ -343,7 +343,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     </div>
 </div>
 <script type="text/javascript">
-    URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information') }}';
+    URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information/') }}/{{$medico->id}}';
+    console.log(URL_GET_DATA_JSON);
     /*
      * GLOBALS
      */

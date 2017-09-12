@@ -102,14 +102,14 @@ class AdminAgendaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getDataJson() {
-        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
+    public function getDataJson($id) {
+        $medico_id = ModMedico::where("id", $id)->first();
 
         //   $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
         $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
         $horarios = array();
-
+       
         foreach ($horario_medicos as $horario_medico) {
             $getHorario = array();
             $getHorario['dow'] = array($horario_medico['dow']);
@@ -288,13 +288,17 @@ class AdminAgendaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+      
         $agenda = ModAgenda::where("medico_id", $id)->first();
         $paciente = ModPaciente::all();
         $convenios = ModConvenios::all();
         $medico = ModMedico::find($id);
-        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
-        $page_title = "Agendar Cita";
-        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
+        $horario_medico = HorarioMedico::where("medico_id", $id)->get();
+        $page_title = "Agendar Citadd";
+
+        //dd($horario_medico);
+
+        return view('agenda.create_test', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
     }
 
     /**
