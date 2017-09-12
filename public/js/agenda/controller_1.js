@@ -405,6 +405,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.resetPanelCita = function () {
         $scope.cita = {descripcion: ""};
         $scope.horaInicio = "";
+        $scope.searchTextAgreement = "";
+        $scope.searchText = "";
+
         $scope.horaFin = "";
         // $scope.cita={fecha : $scope.cita.fecha};
         $scope.resetAutorizacion();
@@ -431,6 +434,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * Recarga la página actual
      */
     $scope.reloadCalendar = function () {
+        $("#agenda-list-citas").show();
         $("#calendar").fullCalendar("refetchEvents");
     };
     /*
@@ -532,6 +536,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      *
      * */
     $scope.submit = function (e) {
+
+
+
+
         e.preventDefault();
        
         //if ($scope.verify_date()) {
@@ -562,8 +570,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                         closeOnConfirm: true
                     }, function () {
                         $scope.reloadCalendar();
-                        //$scope.resetPanelCita();
-                        $scope.init(); //inicializar
+                               
+                                $scope.reloadCalendar();
+                                $scope.resetPanelCita();
+                                $scope.init(); //inicializar
                     });
                 } else if (data.status == 500) {
                     swal("Error!", "Contacte al administrador!", "error");
