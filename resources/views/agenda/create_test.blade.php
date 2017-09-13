@@ -162,36 +162,36 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <div class="row"> 
                                         <div class="form-group col-md-5"> 
                                         <div ng-controller = "autoCompleteController as ctrl" layout = "column" ng-cloak>
-                                    <md-content class = "">
-            <form ng-submit = "$event.preventDefault()">
-               <label for=""> Seleccione el paciente:</label>
-               
-               <md-autocomplete
-                  ng-disabled = "ctrl.isDisabled"
-                  md-no-cache = "ctrl.noCache"
-                  md-selected-item = "ctrl.selectedItem"
-                  md-search-text-change = "ctrl.searchTextChange(ctrl.searchText)"
-                  md-search-text = "ctrl.searchText"
-                  md-selected-item-change = "ctrl.selectedItemChange(item)"
-                  md-items = "item in ctrl.querySearch(ctrl.searchText)"
-                  md-item-text = "item.display"
-                  md-min-length = "0"
-                  placeholder = "Seleccione Paciente">
-                  
-                  <md-item-template>
-                     <span md-highlight-text = "ctrl.searchText"
-                        md-highlight-flags = "^i">[[item.display]]</span>
-                  </md-item-template>
-                  
-                  <md-not-found>
-                     No se encontró ninguna coincidencia de pacientes "[[ctrl.search Text]]".
-                     <a ng-click = "ctrl.newState(ctrl.searchText)">Crear uno nuevo!</a>
-                  </md-not-found>
-               </md-autocomplete>
-               <br/>
-            </form>
-         </md-content>
-         </div>
+                                            <md-content class = "">
+                                                <!--<form ng-submit = "$event.preventDefault()">-->
+                                                   <label for=""> Seleccione el paciente:</label>
+
+                                                   <md-autocomplete
+                                                      ng-disabled = "ctrl.isDisabled"
+                                                      md-no-cache = "ctrl.noCache"
+                                                      md-selected-item = "ctrl.selectedItem"
+                                                      md-search-text-change = "ctrl.searchTextChange(ctrl.searchText)"
+                                                      md-search-text = "ctrl.searchText"
+                                                      md-selected-item-change = "ctrl.selectedItemChange(item)"
+                                                      md-items = "item in ctrl.querySearch(ctrl.searchText)"
+                                                      md-item-text = "item.display"
+                                                      md-min-length = "0"
+                                                      placeholder = "Seleccione Paciente">
+
+                                                      <md-item-template>
+                                                         <span md-highlight-text = "ctrl.searchText"
+                                                            md-highlight-flags = "^i">[[item.display]]</span>
+                                                      </md-item-template>
+
+                                                      <md-not-found>
+                                                         No se encontró ninguna coincidencia de pacientes "[[ctrl.search Text]]".
+                                                         <a ng-click = "ctrl.newState(ctrl.searchText)">Crear uno nuevo!</a>
+                                                      </md-not-found>
+                                                    </md-autocomplete>
+                                               <br/>
+                                            <!--</form>-->
+                                            </md-content>
+                                        </div>
                                             <!--label for=""> Seleccione el paciente:</label>
                                             <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
                                             <ul id='searchResultPatient' >
