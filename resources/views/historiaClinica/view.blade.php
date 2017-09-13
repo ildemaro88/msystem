@@ -306,14 +306,25 @@ $(document).ready(function() {
     });
   
  } );         
+ function abrirEnPestana(url) {
+		var a = document.createElement("a");
+		a.target = "_blank";
+		a.href = url;
+		a.click();
+	}
 
  function openPDF(id){
     var resultados = {!! json_encode($resultados->toArray()) !!}; 
 
 
    resultados.forEach(function(element) {
+	   
       if(element.id_orden == id){
-         document.getElementById(element.id).click();
+		  url = "{{ CRUDBooster::adminPath('paciente/resultado')}}/"+element.id;
+		  console.log(element.id_orden +"asdfsad " +id);
+		  abrirEnPestana(url);
+		  
+         
       }    
     });
      
