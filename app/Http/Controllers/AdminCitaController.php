@@ -41,10 +41,6 @@ class AdminCitaController extends Controller
             ->get();
 
         }
-        
-        
-            //$citas=html_entity_decode($citas);
-            //dd($citas);
         return response()->json( $citas );
     }
     /**
