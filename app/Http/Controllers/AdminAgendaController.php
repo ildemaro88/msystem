@@ -109,7 +109,7 @@ class AdminAgendaController extends Controller {
         $convenios = ModConvenios::all();
         $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
         $horarios = array();
-       
+
         foreach ($horario_medicos as $horario_medico) {
             $getHorario = array();
             $getHorario['dow'] = array($horario_medico['dow']);
@@ -131,6 +131,27 @@ class AdminAgendaController extends Controller {
 
         return response()->json([
                     "response" => $response
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEventDrop(Request $request, $id) {
+        $cita = ModCita::find($id);
+        $cita->start = $request->get("start");
+        $cita->end = $request->get("end");
+        $result = $cita->save();
+        try {
+            $response = true;
+        } catch (\Error $x) {
+            $response = false;
+        }
+        return response()->json([$response
         ]);
     }
 
@@ -288,7 +309,7 @@ class AdminAgendaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-      
+
         $agenda = ModAgenda::where("medico_id", $id)->first();
         $paciente = ModPaciente::all();
         $convenios = ModConvenios::all();

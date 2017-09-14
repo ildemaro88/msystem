@@ -1,73 +1,3 @@
-agenda.controller('autoCompleteController', function autoCompleteController ($timeout, $q, $log) {
-            var self = this;
-            self.simulateQuery = false;
-            self.isDisabled    = false;
-            
-            // list of states to be displayed
-            self.states        = loadStates();
-            self.querySearch   = querySearch;
-            self.selectedItemChange = selectedItemChange;
-            self.searchTextChange   = searchTextChange;
-            self.newState = newState;
-            
-            function newState(state) {
-               alert("This functionality is yet to be implemented!");
-            }
-            
-            function querySearch (query) {
-               var results = query ? self.states.filter( createFilterFor(query) ) :
-                  self.states, deferred;
-                  
-               if (self.simulateQuery) {
-                  deferred = $q.defer();
-                     
-                  $timeout(function () { 
-                     deferred.resolve( results ); 
-                  }, 
-                  Math.random() * 1000, false);
-                  return deferred.promise;
-               } else {
-
-                  return results;
-               }
-            }
-            
-            function searchTextChange(text) {
-               $log.info('Text changed to ' + text);
-            }
-            
-            function selectedItemChange(item) {
-               $log.info('Item changed to ' + JSON.stringify(item));
-            }
-            
-            //build list of states as map of key-value pairs
-            function loadStates() {
-               var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-                  Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-                  Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-                  Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-                  North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-                  South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-                  Wisconsin, Wyoming';
-                  
-               return allStates.split(/, +/g).map( function (state) {
-                  return {
-                     value: state.toLowerCase(),
-                     display: state
-                  };
-               });
-            }
-            
-            //filter function for search query
-            function createFilterFor(query) {
-               var lowercaseQuery = angular.lowercase(query);
-               return function filterFn(state) {
-                  return (state.value.indexOf(lowercaseQuery) === 0);
-               };
-            }
-         } 
-         );
-
 agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*variables de inicializacion*/
 
@@ -136,19 +66,19 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             fecha: moment(event.start).format('DD/MM/YYYY'),
             hour: moment(event.start).format('H:mm')
         };
-       /* $scope.dateSelect = moment(event.start).format('DD/MM/YYYY');
-        $scope.hourSelect = moment(event.start).format('H:mm a');
-        $scope.searchTextAgreement = event.sel_convenio;
-        $scope.fecha_autorizacion = moment(event.convenio.fecha_autorizacion, "YYYY-MM-DD").format("DD/MM/YYYY");
-        $scope.autorizacion = event.convenio.autorizacion;
-        $scope.fecha_vence= moment(event.convenio.fecha_vence, "YYYY-MM-DD").format("DD/MM/YYYY");*/
+        /* $scope.dateSelect = moment(event.start).format('DD/MM/YYYY');
+         $scope.hourSelect = moment(event.start).format('H:mm a');
+         $scope.searchTextAgreement = event.sel_convenio;
+         $scope.fecha_autorizacion = moment(event.convenio.fecha_autorizacion, "YYYY-MM-DD").format("DD/MM/YYYY");
+         $scope.autorizacion = event.convenio.autorizacion;
+         $scope.fecha_vence= moment(event.convenio.fecha_vence, "YYYY-MM-DD").format("DD/MM/YYYY");*/
         //$scope.horaInicio = moment(event.start).format('H:mm a');
-       // $scope.horaFin = moment(event.end).format('H:mm a');
+        // $scope.horaFin = moment(event.end).format('H:mm a');
         //$scope.start = moment(event.start, 'YYYY/MM/DD,H:mm').format();
         //$scope.end = moment(event.end, 'YYYY/MM/DD,H:mm').format();
         //convenio assign
-       // $scope.sel_convenio = event.sel_convenio;
-       // $("#sel_convenio").trigger("change");
+        // $scope.sel_convenio = event.sel_convenio;
+        // $("#sel_convenio").trigger("change");
         if ($scope.sel_convenio == "I.E.S.S.") {
             $scope.tipo_convenio = true;
             try {
@@ -186,21 +116,22 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 floor: 15,
                 ceil: 45,
                 step: 15,
-                translate: function(value) {
-      return  value + ' minutos' ;
-    }
+                translate: function (value) {
+                    return  value + ' minutos';
+                }
             }
-            
+
         };
         $http.get(URL_GET_DATA_JSON)
                 .then(function success(response) {
-                    $scope.response = response.data.response;                    
+                    $scope.response = response.data.response;
                     $scope.fullCalendar($scope.response);
                 }, function errorCallback(response) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
-        $scope.agendaId = [];  
+
+        $scope.agendaId = [];
         $scope.medico = [];
         $scope.urlCitas = "";
         $scope.formCita = false;
@@ -219,10 +150,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             defaultView: 'agendaWeek'
         };
         $scope.sel_convenio = "";
-//        $scope.options_convenio = [
-//            "I.E.S.S.",
-//            "PARTICULAR"
-//        ];
         $(".select2").select2();
         $('#fecha, .datepicker').datepicker({
             language: 'es',
@@ -233,7 +160,11 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         }).datepicker('setStartDate', new Date());
         $('#fecha, .datepicker').datepicker("setDate", "0");
         $('#fecha, .datepicker').trigger('chosen:updated');
-
+        $scope.showDrop = false;
+        $scope.startDateEdit = "";
+        $scope.endDateEdit = "";
+        $scope.detailsCitas = "";
+        $scope.idCita = "";
         $scope.fullCalendar = function (data) {
             $scope.agenda = data.agenda;
             $scope.medico = data.medico;
@@ -292,13 +223,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     });
                 },
                 eventResize: function (event, delta, revertFunc) {
-                    console.log("fff")
-                    // $scope.panelModCita(event);
+                    $scope.dropModCita(event);
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                    //console.log(view.options.businessHours);
-                    //$scope.panelModCita(event);
-                    $scope.verify_time();
+                    $scope.dropModCita(event);
                 }
             });
         };
@@ -323,15 +251,15 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     };
     $scope.verify_time = function () {
         var verified = false;
-        var       inicio = moment($scope.hourSelect.toString(), 'H:mm a');
-        $scope.hourEnd = moment( inicio).add($scope.slider.value, 'm');
+        var inicio = moment($scope.hourSelect.toString(), 'H:mm a');
+        $scope.hourEnd = moment(inicio).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.end.toString(), 'H:mm a');
-        var     fin = moment($scope.hourEnd.toString(), 'H:mm a');
+        var fin = moment($scope.hourEnd.toString(), 'H:mm a');
         verified = !inicio.isAfter(fin);
         return verified;
     };
     $scope.init(); //inicializar
-    
+
 //       $scope.getCitas = function () {
 //        var url = URL_BASE + 'medico/cita/' + $scope.medico.id;
 //        $http({
@@ -507,6 +435,61 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.reloadRoute = function () {
         $window.location.reload();
     };
+    $scope.dropModCita = function (cita) {
+        $("#agenda-list-citas").hide();
+        $("#panel-edit-drop").show();
+        $scope.showDrop = true;
+        $scope.startDateEdit = cita.start.format('DD/MM/YYYY, H:mm');
+        $scope.endDateEdit = cita.end.format('DD/MM/YYYY, H:mm');
+        $scope.detailsCitas = cita.title;
+        $scope.idCita = cita.id;
+        try {
+            $scope.$apply();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    $scope.updateDropCita = function (idCita) {
+
+//        $scope.startDateEdit = cita.start.format('DD/MM/YYYY, H:mm');
+//        $scope.endDateEdit = cita.end.format('DD/MM/YYYY, H:mm');
+//        $scope.detailsCitas = cita.title;
+        var url = URL_BASE + "medico/agenda/uptade/" + idCita;
+        var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
+        var end = moment($scope.endDateEdit, 'DD/MM/YYYY,H:mm').format();
+        var data = {start: start, end:end };
+        $http({
+            url: url,
+            method: "PUT",
+            data: data,
+             headers: {
+                    'Content-Type': 'application/json'
+                }
+        }).then(function (data) {
+            if (data.data) {
+                swal({
+                    title: "Correcto!",
+                    text: 'Realizado con éxito!',
+                    timer: 400,
+                    type: "success",
+                    showConfirmButton: true,
+                    closeOnConfirm: true
+                }, function () {
+                    $scope.reloadCalendar();
+
+                    $scope.reloadCalendar();
+                    $scope.resetPanelCita();
+                    $scope.init(); //inicializar
+                });
+            } else if (data.status == 500) {
+                swal("Error!", "Contacte al administrador!", "error");
+            } else {
+                swal("Error!", "Error en la transacción!", "error");
+            }
+        });
+    }
+    ;
     /*
      * -->
      */
@@ -566,8 +549,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * -->
      */
     $scope.showFormAppointment = function (dateSelect, hourInit) {
-        
-        
+
+
         var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
@@ -588,6 +571,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.previewCita = function () {
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
+        $("#panel-edit-drop").hide();
     };
     $scope.setDateTime = function () {
         /*
@@ -621,46 +605,46 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
 
 
         e.preventDefault();
-       
+
         //if ($scope.verify_date()) {
-            $scope.setDateTime();
-            var fd = $("#form-cita"),
-                    url = fd.attr("action"),
-                    data = fd.serialize();
-            swal({
-                title: "Procesando",
-                text: 'Espere...',
-                showConfirmButton: false
-            });
-            $http({
-                url: url,
-                method: fd.attr("method"),
-                data: data,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function (data) {
-                if (data.data.response) {
-                    swal({
-                        title: "Correcto!",
-                        text: 'Realizado con éxito!',
-                        timer: 400,
-                        type: "success",
-                        showConfirmButton: true,
-                        closeOnConfirm: true
-                    }, function () {
-                        $scope.reloadCalendar();
-                               
-                                $scope.reloadCalendar();
-                                $scope.resetPanelCita();
-                                $scope.init(); //inicializar
-                    });
-                } else if (data.status == 500) {
-                    swal("Error!", "Contacte al administrador!", "error");
-                } else {
-                    swal("Error!", "Error en la transacción!", "error");
-                }
-            });
+        $scope.setDateTime();
+        var fd = $("#form-cita"),
+                url = fd.attr("action"),
+                data = fd.serialize();
+        swal({
+            title: "Procesando",
+            text: 'Espere...',
+            showConfirmButton: false
+        });
+        $http({
+            url: url,
+            method: fd.attr("method"),
+            data: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function (data) {
+            if (data.data.response) {
+                swal({
+                    title: "Correcto!",
+                    text: 'Realizado con éxito!',
+                    timer: 400,
+                    type: "success",
+                    showConfirmButton: true,
+                    closeOnConfirm: true
+                }, function () {
+                    $scope.reloadCalendar();
+
+                    $scope.reloadCalendar();
+                    $scope.resetPanelCita();
+                    $scope.init(); //inicializar
+                });
+            } else if (data.status == 500) {
+                swal("Error!", "Contacte al administrador!", "error");
+            } else {
+                swal("Error!", "Error en la transacción!", "error");
+            }
+        });
 //        } else {
 //            swal({
 //                type: "error",
@@ -733,7 +717,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
 });
 
 
- 
+
 
 
 

@@ -80,7 +80,48 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     class="fa fa-refresh"></i> Actualizar
             </button>
         </div>
+                           
+        <div id="panel-edit-drop" class="row" ng-show="showDrop" style="display: none;">
+            <div class="col-xs-12 col-sm-2"></div>
+            <div class="col-xs-12 col-sm-8 panel panel-primary">
+                <div class="panel-heading">
+                    <h3 style="margin:0px">
+                        <b style="font-size:13px">Detalles de la cita: [[detailsCitas]]</b> 
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                       
+                        Fecha Inicial: <a>[[startDateEdit]]</a>  ---  
+                        Fecha Final: <a>[[endDateEdit]]</a> 
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <br>
+                        <div class="row pull-left"> 
+                            <div class="col-xs-12"> 
+                                <div class="form-group"> 
+                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-warning btn-sm">
+                                         <i class="fa fa-refresh"></i> OK
+                                    </button>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="row pull-left"> 
+                            <div class="col-xs-12"> 
+                                <div class="form-group"> 
+                                    <button type="button" class="btn btn-default btn-sm"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-2">
+                
+             </div>
+        </div>
         <div id="agenda-list-citas" class="col-xs-12 col-sm-12">
+            
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <div style="background: white;" id="calendar"></div>
@@ -94,7 +135,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                 <div class="panel-heading">
                     <h4 id="heading" class="[[panel.class_text_title]]">
                         <i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
-                </div> <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
+                </div>
+                <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
 
                     <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
                         <input type="text" value="businessHours" name="constraint" ng-show="false"> 
