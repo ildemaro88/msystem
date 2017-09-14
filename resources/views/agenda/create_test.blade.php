@@ -11,7 +11,10 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
    .md-autocomplete-suggestions li:hover{
     background: #f9f9f9;
    }
-       
+    .col-center{
+    float: none;
+    margin: 0 auto;
+}
     .fontfamilyAutocomplet{
         padding: 5px;
         width: 250px;
@@ -81,35 +84,29 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
             </button>
         </div>
                            
-        <div id="panel-edit-drop" class="row" ng-show="showDrop" style="display: none;">
-            <div class="col-xs-12 col-sm-2"></div>
-            <div class="col-xs-12 col-sm-8 panel panel-primary">
+        <div id="panel-edit-drop" class="col-md-12" ng-show="showDrop" style="display: none;">
+            
+            <div class=" panel panel-primary">
                 <div class="panel-heading">
                     <h3 style="margin:0px">
                         <b style="font-size:13px">Detalles de la cita: [[detailsCitas]]</b> 
                     </h3>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
+                <div class="panel-body">
+                    <div class="col-md-8 col-md-offset-3">
                        
-                        Fecha Inicial: <a>[[startDateEdit]]</a>  ---  
-                        Fecha Final: <a>[[endDateEdit]]</a> 
+                        <h1>Fecha Inicial: <a>[[startDateEdit]]</a></h1>    
+                        <h1>Fecha Final: <a>[[endDateEdit]]</a> </h1>                          
                     </div>
-                    <div class="col-xs-12 col-sm-2">
+                    <div class=" ">
                         <br>
-                        <div class="row pull-left"> 
-                            <div class="col-xs-12"> 
+                        <div class=""> 
+                            <div class="col-md-8 col-md-offset-4"> 
                                 <div class="form-group"> 
-                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-warning btn-sm">
+                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-warning btn-lg">
                                          <i class="fa fa-refresh"></i> OK
                                     </button>
-                                </div> 
-                            </div> 
-                        </div>
-                        <div class="row pull-left"> 
-                            <div class="col-xs-12"> 
-                                <div class="form-group"> 
-                                    <button type="button" class="btn btn-default btn-sm"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                     <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
                                 </div> 
                             </div> 
                         </div>
