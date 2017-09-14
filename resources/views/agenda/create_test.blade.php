@@ -185,14 +185,26 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             
                                         </div>
                                     </div> 
+                                    <div class="row">
+                                        <hr>
+                                    </div>
                                     <div class="row"> 
-                                        <div class="col-sm-6"> 
+                                        <div class="col-sm-5"> 
                                             <div class="form-group"> 
                                                 <label for="">Observaciones</label> 
                                                 <textarea id="descripcion" ng-model="cita.descripcion" class="form-control" name="descripcion"cols="30"rows="5"></textarea> 
                                             </div> 
                                         </div>
-                                        <div class="col-sm-6" ng-show="tipo_convenio"> 
+                                        <div class="col-sm-3"> 
+                                            <div class="form-group"> 
+                                                <label for="">Precio: 454 $</label> 
+                                                <hr>
+                                                <h5>Pagar:</h5>
+                                                <input id="price" type="checkbox" data-group-cls="btn-group-justified" >
+                                            </div> 
+                                        </div> 
+                                    
+                                    <div class="col-sm-4" ng-show="tipo_convenio"> 
                                             <div class="form-group"> 
                                                 <label for="">Autorización</label> 
                                                 <input ng-model="autorizacion" type="text" class="form-control"> 
@@ -216,6 +228,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 </div> 
                                             </div> 
                                         </div> 
+                                    </div>
                                     </div>
                                     <div class="row pull-left" ng-show="panel.buttons.trash"> 
                                         <div class="col-xs-12"> <div class="form-group"> 
@@ -301,7 +314,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         </div>
         <div class="box-footer"></div>
     </div>
-</div>
+<script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
     URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information/') }}/{{$medico->id}}';
     console.log(URL_GET_DATA_JSON);
@@ -355,6 +368,13 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 //    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
     $(document).ready(function(){
+        $('#price').checkboxpicker({
+            html:true,
+            onLabel:'SI',
+            offLabel:'NO'
+        }).on('change', function() {
+           alert($('#price').val())
+            });
     $('#fecha').val(HOY);
     });
     /*
