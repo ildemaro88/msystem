@@ -8,59 +8,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <link rel="stylesheet" href="{{asset('bower_resources/angularjs-slider/dist/rzslider.css')}}">
 <script src="{{asset('bower_resources/angularjs-slider/dist/rzslider.min.js')}}"></script>
 <style>
-    #searchResultPatient{
-        list-style: none;
-        padding: 0px;
-        width: 250px;
-        position: absolute;
-        margin: 0;
-        z-index: 10000;
+    
 
+    .md-autocomplete-suggestions li:hover{
+        background: #eeeeee;
     }
-
-    #searchResultPatient li{
-        background: #f2f3f4;
-        padding: 4px;
-        font-family: helvetica Neue Regular;
-        margin-bottom: 1px;
-    }
-
-    #searchResultPatient li:nth-child(even){
-        background:  #f2f3f4;
-        font-family: helvetica Neue Regular;
-        color: black;
-    }
-
-    #searchResultPatient li:hover{
-        cursor: pointer;
-    }
-
-    #searchResultAgreement{
-        list-style: none;
-        padding: 0px;
-        width: 250px;
-        position: absolute;
-        margin: 0;
-        z-index: 10000;
-    }
-
-    #searchResultAgreement li{
-        background: #f2f3f4;
-        padding: 4px;
-        font-family: helvetica Neue Regular;
-        margin-bottom: 1px;
-    }
-
-    #searchResultAgreement li:nth-child(even){
-        background:  #f2f3f4;
-        font-family: helvetica Neue Regular;
-        color: black;
-    }
-
-    #searchResultAgreement li:hover{
-        cursor: pointer;
-    }
-
     .fontfamilyAutocomplet{
         padding: 5px;
         width: 250px;
@@ -161,42 +113,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 
                                     <div class="row"> 
                                         <div class="form-group col-md-5"> 
-                                        <div ng-controller = "autoCompleteController as ctrl" layout = "column" ng-cloak>
-                                    <md-content class = "">
-            <form ng-submit = "$event.preventDefault()">
-               <label for=""> Seleccione el paciente:</label>
-               
-               <md-autocomplete
-                  ng-disabled = "ctrl.isDisabled"
-                  md-no-cache = "ctrl.noCache"
-                  md-selected-item = "ctrl.selectedItem"
-                  md-search-text-change = "ctrl.searchTextChange(ctrl.searchText)"
-                  md-search-text = "ctrl.searchText"
-                  md-selected-item-change = "ctrl.selectedItemChange(item)"
-                  md-items = "item in ctrl.querySearch(ctrl.searchText)"
-                  md-item-text = "item.display"
-                  md-min-length = "0"
-                  placeholder = "Seleccione Paciente">
-                  
-                  <md-item-template>
-                     <span md-highlight-text = "ctrl.searchText"
-                        md-highlight-flags = "^i">[[item.display]]</span>
-                  </md-item-template>
-                  
-                  <md-not-found>
-                     No se encontró ninguna coincidencia de pacientes "[[ctrl.search Text]]".
-                     <a ng-click = "ctrl.newState(ctrl.searchText)">Crear uno nuevo!</a>
-                  </md-not-found>
-               </md-autocomplete>
-               <br/>
-            </form>
-         </md-content>
-         </div>
-                                            <!--label for=""> Seleccione el paciente:</label>
-                                            <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
-                                            <ul id='searchResultPatient' >
+                                            <label for=""> Seleccione el paciente:</label>
+                                            <input class="form-control" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
+                                            <ul id='searchResultPatient' class="md-autocomplete-suggestions" >
                                                 <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
-                                            </ul-->
+                                            </ul>
                                         </div>  
                                         <div class="col-sm-2">
                                             <h5 style="margin:0px">
@@ -217,8 +138,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         
                                         <div class="col-sm-5"> 
                                                 <label for="">Seleccione el tipo de convenio</label> 
-                                                <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
-                                                <ul id='searchResultAgreement' >
+                                                <input class="form-control" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
+                                                <ul id='searchResultAgreement' class="md-autocomplete-suggestions" >
                                                     <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
                                                 </ul>
                                                     <!--<select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select>--> 

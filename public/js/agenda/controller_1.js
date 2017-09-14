@@ -1,4 +1,4 @@
-agenda.controller('autoCompleteController', function autoCompleteController ($timeout, $q, $log) {
+agenda.controller('autoCompleteController', function autoCompleteController ($http,$timeout, $q, $log) {
             var self = this;
             self.simulateQuery = false;
             self.isDisabled    = false;
@@ -14,22 +14,28 @@ agenda.controller('autoCompleteController', function autoCompleteController ($ti
                alert("This functionality is yet to be implemented!");
             }
             
-            function querySearch (query) {
-               var results = query ? self.states.filter( createFilterFor(query) ) :
-                  self.states, deferred;
+            // function querySearch (query) {
+            //    var results = query ? self.states.filter( createFilterFor(query) ) :
+            //       self.states, deferred;
                   
-               if (self.simulateQuery) {
-                  deferred = $q.defer();
+            //    if (self.simulateQuery) {
+            //       deferred = $q.defer();
                      
-                  $timeout(function () { 
-                     deferred.resolve( results ); 
-                  }, 
-                  Math.random() * 1000, false);
-                  return deferred.promise;
-               } else {
+            //       $timeout(function () { 
+            //          deferred.resolve( results ); 
+            //       }, 
+            //       Math.random() * 1000, false);
+            //       return deferred.promise;
+            //    } else {
 
-                  return results;
-               }
+            //       return results;
+            //    }
+            // }
+            function querySearch(query) {
+                var results =  filterPatient("sa");
+                results.filter( createFilterFor("sa") ) ;
+                return results ;
+                //var filterPatient("sa")
             }
             
             function searchTextChange(text) {
@@ -56,6 +62,25 @@ agenda.controller('autoCompleteController', function autoCompleteController ($ti
                      display: state
                   };
                });
+            }
+            function filterPatient(query) {
+                  var url = URL_BASE + "medico/agenda/get/patient/" + query;
+                      // simulate api call with $timeout
+                            return $http({
+                                  url: url,
+                                  method: "GET",
+                                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                              }).then(function success(response) {
+                                return response.data.split(/, +/g).map( function (state) {
+                  return {
+                     value: state.toLowerCase(),
+                     display: state
+                  };
+               });
+                                //return response.data;
+                                });
+                     //return deferred.promise;
+                
             }
             
             //filter function for search query
