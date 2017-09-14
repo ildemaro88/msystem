@@ -57,7 +57,7 @@ agenda.controller('autoCompleteController', function autoCompleteController($tim
                 display: state
             };
         });
-        
+
         try {
             $scope.$apply();
         } catch (e) {
@@ -207,6 +207,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
+        $scope.optionsPatients = [];
         $scope.agendaId = [];
         $scope.medico = [];
         $scope.urlCitas = "";
@@ -700,10 +701,29 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function success(response) {
-            $scope.searchResult = response.data.response.patients;
+            if (response.data) {
+                $scope.searchResult = response.data.response.patients;
+                $scope.getValues($scope.searchResult);
+            }
         });
+
     }
 
+    $scope.getValues = function (values) {
+        //alert("QQ")
+        $scope.searchResult = values;
+    }
+    // Set value to search box
+    $scope.setValuePatient = function (id) {
+
+        $scope.idpaciente = id;
+        console.log($scope.idpaciente)
+        try {
+            $scope.$apply();
+        } catch (e) {
+
+        }
+    }
     // Set value to search box
     $scope.setValue = function (index) {
         $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name;
