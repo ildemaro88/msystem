@@ -497,6 +497,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * Recarga la página actual
      */
     $scope.reloadCalendar = function () {
+        $("#form-save-cita").hide();
+        $("#panel-edit-drop").hide();
         $("#agenda-list-citas").show();
         $("#calendar").fullCalendar("refetchEvents");
     };

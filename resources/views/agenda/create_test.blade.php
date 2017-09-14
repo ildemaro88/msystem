@@ -103,10 +103,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                         <div class=""> 
                             <div class="col-md-8 col-md-offset-4"> 
                                 <div class="form-group"> 
-                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-warning btn-lg">
+                                    <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-success btn-lg">
                                          <i class="fa fa-refresh"></i> OK
                                     </button>
-                                     <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                     
                                 </div> 
                             </div> 
                         </div>
@@ -372,9 +373,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
             html:true,
             onLabel:'SI',
             offLabel:'NO'
-        }).on('change', function() {
-           alert($('#price').val())
-            });
+        });
     $('#fecha').val(HOY);
     });
     /*
