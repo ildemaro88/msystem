@@ -16,6 +16,7 @@ use App\Mail\EmailMedico;
 use App\HorarioMedico;
 use Mail;
 use Carbon\Carbon;
+use DateTime;
 
 class AdminAgendaController extends Controller {
 //    /**
@@ -177,6 +178,8 @@ class AdminAgendaController extends Controller {
         $cita->estado_cita = 1;
         $cita->start = $request->get("start");
         $cita->end = $request->get("end");
+        $cita->start_datetime = new DateTime($cita->start);
+        $cita->end_datetime = new DateTime($cita->end);
         $cita->constraint = $request->get("constraint");
         $sel_convenio = $request->get("sel_convenio");
         // $sel_convenio = $sel_convenio[1];

@@ -15,6 +15,8 @@ class ModCita extends Model
         "estado_cita",
         "start",
         "end",
+        "start_datetime",
+        "end_datetime",
         "title",
         "color",
         "trash",
