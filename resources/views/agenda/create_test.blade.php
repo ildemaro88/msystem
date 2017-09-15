@@ -73,51 +73,14 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     @include("agenda.modals")
     <div class="box">
         <div class="box-header">
-            <button ng-click="resetPanelCita()" type="button" class="btn btn-default btn-sm"><i
-                    class="fa fa-plus"></i> Nueva Cita
-            </button>
             <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}">
                 <button class="btn btn-default btn-sm"><i class="fa fa-male"></i> Nuevo paciente</button>
             </a>
             <button type="button" ng-click="agendaWorker.load()" class="btn btn-default btn-sm"><i
-                    class="fa fa-refresh"></i> Actualizar
+                    class="fa fa-refresh"></i> Actualizar/Recargar
             </button>
         </div>
                            
-        <div id="panel-edit-drop" class="col-md-12" ng-show="showDrop" style="display: none;">
-            
-            <div class=" panel panel-primary">
-                <div class="panel-heading">
-                    <h3 style="margin:0px">
-                        <b style="font-size:13px">Detalles de la cita: [[detailsCitas]]</b> 
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-8 col-md-offset-3">
-                       
-                        <h1>Fecha Inicial: <a>[[startDateEdit]]</a></h1>    
-                        <h1>Fecha Final: <a>[[endDateEdit]]</a> </h1>                          
-                    </div>
-                    <div class=" ">
-                        <br>
-                        <div class=""> 
-                            <div class="col-md-8 col-md-offset-4"> 
-                                <div class="form-group"> 
-                                    <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
-                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-success btn-lg">
-                                         <i class="fa fa-refresh"></i> OK
-                                    </button>
-                                     
-                                </div> 
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-             <div class="col-xs-12 col-sm-2">
-                
-             </div>
-        </div>
         <div id="agenda-list-citas" class="col-xs-12 col-sm-12">
             
             <div class="panel panel-primary">
@@ -157,6 +120,10 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             <input class="form-control" type='text' ng-keyup='searchPatients()' ng-model='searchText'><br>
                                             <ul class="md-autocomplete-suggestions" id='searchResultPatient' >
                                                 <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
+                                                <li ng-show="newPatient">No existe el paciente, 
+                                                    <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar 
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>  
                                         <div class="col-sm-2">
@@ -267,51 +234,48 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     </div>
                                 </div>
                             </div> 
-<!--                            <div id="menu1" class="tab-pane fade"> <br> 
-                                <div class="row"> 
-                                    <div class="col-xs-12"> 
-                                        <div class="form-group"> 
-                                            <label for="">Seleccione el tipo de convenio</label> 
-                                            <input class="fontfamilyAutocomplet" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
-                                            <ul id='searchResultAgreement' >
-                                                <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
-                                            </ul>
-                                                <select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select> 
-                                        </div> 
-                                    </div>
-                                </div> 
-                                <div ng-show="tipo_convenio" class="row">
-                                    <div class="col-xs-12"> 
-                                        <div class="form-group"> 
-                                            <label for="">Autorización</label> 
-                                            <input ng-model="autorizacion" type="text" class="form-control"> 
-                                        </div> 
-                                        <div class="form-group">
-                                            <label for="">Fecha Autorización</label>
-                                            <div class="input-group"> 
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span> 
-                                                </span>
-                                                <input placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" name="fecha_autorizacion" type="text"class="form-control datepicker"> 
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Fecha Vencimiento</label> 
-                                            <div class="input-group"> 
-                                                <span class="input-group-addon"> 
-                                                    <span class="glyphicon glyphicon-calendar"></span> 
-                                                </span> 
-                                                <input placeholder="dd/mm/yyyy" ng-model="fecha_vence" name="fecha_vence" type="text" class="form-control datepicker"> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                </div>
-                            </div> -->
                         </div>
                     </form>
                 </div> 
             </div>
             {{--FIN Panel de gestion de citas--}}
+            
+            <!-- fin panel editar citas drop-->
+        <div id="panel-edit-drop" class="col-md-12" ng-show="showDrop" style="display: none;">
+            
+            <div class=" panel panel-primary">
+                <div class="panel-heading">
+                    <h3 style="margin:0px">
+                        <b style="font-size:13px">Detalles de la cita: [[detailsCitas]]</b> 
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-8 col-md-offset-3">
+                       
+                        <h1>Fecha Inicial: <a>[[startDateEdit]]</a></h1>    
+                        <h1>Fecha Final: <a>[[endDateEdit]]</a> </h1>                          
+                    </div>
+                    <div class=" ">
+                        <br>
+                        <div class=""> 
+                            <div class="col-md-8 col-md-offset-4"> 
+                                <div class="form-group"> 
+                                    <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
+                                    <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-success btn-lg">
+                                         <i class="fa fa-refresh"></i> OK
+                                    </button>
+                                     
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-2">
+                
+             </div>
+        </div>
+        <!-- fin panel editar citas drop-->
         </div>
         <div class="box-footer"></div>
     </div>
