@@ -458,14 +458,14 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var url = URL_BASE + "medico/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
         var end = moment($scope.endDateEdit, 'DD/MM/YYYY,H:mm').format();
-        var data = {start: start, end:end };
+        var data = {start: start, end: end};
         $http({
             url: url,
             method: "PUT",
             data: data,
-             headers: {
-                    'Content-Type': 'application/json'
-                }
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(function (data) {
             if (data.data) {
                 swal({
@@ -679,7 +679,11 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function success(response) {
-            $scope.searchResult = response.data.response.patients;
+            if (response.data.response) {
+                $scope.searchResult = response.data.response.patients;
+            } else {
+                $scope.searchResult = {}
+            }
         });
     }
 
