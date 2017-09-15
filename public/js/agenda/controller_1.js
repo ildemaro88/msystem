@@ -485,8 +485,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                         closeOnConfirm: true
                     }, function () {
                         $scope.reloadCalendar();
-
-                        $scope.reloadCalendar();
                         $scope.resetPanelCita();
                         $scope.init(); //inicializar
                     });
@@ -688,7 +686,11 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function success(response) {
-            $scope.searchResult = response.data.response.patients;
+            if (response.data.response) {
+                $scope.searchResult = response.data.response.patients;
+            } else {
+                $scope.searchResult = {}
+            }
         });
     }
 
