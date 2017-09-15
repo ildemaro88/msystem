@@ -111,7 +111,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="fecha_autorizacion" type="hidden" value="[[fecha_autorizacion]]"> 
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
-                                    <input name="sel_convenio" type="hidden" value="[[sel_convenio]]"> 
+                                    <input name="sel_convenio" type="hidden" value="[[searchTextAgreement]]"> 
 
                                     <div class="row"> 
                                         <div class="form-group col-md-5"> 
@@ -144,12 +144,17 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div> 
                                         
                                         <div class="col-sm-5"> 
-                                                <label for="">Seleccione el tipo de convenio</label> 
-                                                <input class="form-control" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
+                                             <label for="">Seleccione el tipo de convenio</label> 
+                                        <!--           <input class="form-control" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
                                                 <ul class="md-autocomplete-suggestions " id='searchResultAgreement' >
                                                     <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
                                                 </ul>
-                                                    <!--<select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> ' + OPTIONS_CONVENIO + '</select>--> 
+                                                -->
+<!--                                                <select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> 
+                                                    
+                                                </select>-->
+                                                <select ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement" ng-options="convenio.name as convenio.name  for convenio in convenios">
+                                                </select>
                                             
                                         </div>
                                     </div> 
@@ -292,9 +297,6 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
     URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/save')}}';
     URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
-//    OPTIONS_CONVENIO = '@foreach($convenios as $convenio)' +
-//            '<option value="{{$convenio->nombre}}">{{$convenio->nombre}}</option>' +
-//            '@endforeach';
     /*
      * Si viene por historial rellenar la variable cita
      * */

@@ -42,15 +42,14 @@ class AdminAgendaController extends Controller {
      */
     public function index() {
         $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-        $paciente = ModPaciente::all();
+       
         $medico = ModMedico::find($medico_id->id);
-        $convenios = ModConvenios::all();
         $page_title = "Agendar Cita";
         $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
         $agenda = ModAgenda::where("medico_id", $medico->id)->first();
 
-        return view('agenda.create_test', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente,
-            "agenda" => $agenda, "medico" => $medico,
+        return view('agenda.create_test', compact('page_title'), 
+                ["agenda" => $agenda, "medico" => $medico,
             "horario_medico" => $horario_medico]);
     }
 
@@ -107,6 +106,12 @@ class AdminAgendaController extends Controller {
 
         //   $medico = ModMedico::find($medico_id->id);
         $convenios = ModConvenios::all();
+          foreach ($convenios as $convenio) {
+            $getConvenio = array();
+            $getConvenio['name'] = $convenio['nombre'];
+            $getConvenios[] = $getConvenio;
+        }
+        
         $horario_medicos = HorarioMedico::where("medico_id", $medico_id->id)->get();
         $horarios = array();
 
@@ -125,7 +130,7 @@ class AdminAgendaController extends Controller {
         $medico = array();
         $medico["id"] = $medico_id->id;
         $response["medico"] = $medico;
-        $response["convenios"] = $convenios;
+        $response["convenios"] = $getConvenios;
         $response["horario_medico"] = $horarios;
         $response["agenda"] = $getAgenda;
 

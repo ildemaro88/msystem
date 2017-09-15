@@ -133,6 +133,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
 
         $scope.agendaId = [];
         $scope.medico = [];
+        $scope.convenios = [];
         $scope.urlCitas = "";
         $scope.formCita = false;
         $scope.dateSelect = "";
@@ -169,6 +170,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.fullCalendar = function (data) {
             $scope.agenda = data.agenda;
             $scope.medico = data.medico;
+            $scope.convenios = data.convenios;
             $scope.urlCitas = URL_BASE + 'medico/cita/' + $scope.medico.id;
             $('#calendar').fullCalendar({
                 allDaySlot: false,
@@ -599,6 +601,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
         $("#panel-edit-drop").hide();
+        $scope.reloadCalendar();
+        $scope.resetPanelCita();
+        $scope.init(); //inicializar
+        
     };
     $scope.setDateTime = function () {
         /*
@@ -627,10 +633,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      *
      * */
     $scope.submit = function (e) {
-
-
-
-
         e.preventDefault();
 
         //if ($scope.verify_date()) {
@@ -660,8 +662,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     showConfirmButton: true,
                     closeOnConfirm: true
                 }, function () {
-                    $scope.reloadCalendar();
-
                     $scope.reloadCalendar();
                     $scope.resetPanelCita();
                     $scope.init(); //inicializar
@@ -719,26 +719,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.idpaciente = $scope.searchResult[index].id;
         $scope.searchResult = {};
     }
-
-    $scope.searchAgreements = function () {
-        var url = URL_BASE + "medico/agenda/get/agreement/" + $scope.searchTextAgreement;
-        $http({
-            url: url,
-            method: 'GET',
-            //data: data,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(function success(response) {
-            $scope.searchResultAgreement = response.data.response.agreements;
-        });
-    }
-
+    
     // Set value to search box
-    $scope.setValueAgreement = function (index) {
-        $scope.searchTextAgreement = $scope.searchResultAgreement[index].name;
-        $scope.searchResultAgreement = {};
-        $scope.sel_convenio = $scope.searchTextAgreement;
+    $scope.setValueAgreement = function () {
         if ($scope.searchTextAgreement != 'PARTICULAR') {
             $scope.tipo_convenio = true;
         } else {
