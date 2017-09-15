@@ -47,14 +47,11 @@
         @include("agenda.modals")
         <div class="box">
             <div class="box-header">
-                <button ng-click="resetPanelCita()" type="button" class="btn btn-default btn-sm"><i
-                            class="fa fa-plus"></i> Nueva Cita
-                </button>
                 <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}">
                     <button class="btn btn-default btn-sm"><i class="fa fa-male"></i> Nuevo paciente</button>
                 </a>
                 <button type="button" ng-click="agendaWorker.load()" class="btn btn-default btn-sm"><i
-                            class="fa fa-refresh"></i> Actualizar
+                            class="fa fa-refresh"></i> Actualizar/Recargar
                 </button>
             </div>
             <div id="agenda-list-citas" class="col-xs-12 col-sm-12">

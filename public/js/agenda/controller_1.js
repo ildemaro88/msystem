@@ -165,6 +165,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.endDateEdit = "";
         $scope.detailsCitas = "";
         $scope.idCita = "";
+        $scope.newPatient = false;
         $scope.fullCalendar = function (data) {
             $scope.agenda = data.agenda;
             $scope.medico = data.medico;
@@ -230,10 +231,20 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     });
                 },
                 eventResize: function (event, delta, revertFunc) {
-                    $scope.dropModCita(event);
+                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                        revertFunc();
+                    } else {
+                        $scope.dropModCita(event);
+                    }
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                    $scope.dropModCita(event);
+                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                        revertFunc();
+                    } else {
+                        $scope.dropModCita(event);
+                    }
                 }
             });
         };
@@ -697,6 +708,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 $scope.searchResult = response.data.response.patients;
             } else {
                 $scope.searchResult = {}
+                $scope.newPatient = true;
             }
         });
     }
