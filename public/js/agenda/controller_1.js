@@ -186,10 +186,17 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 weekends: true,
                 dayClick: function (date, jsEvent, view) {
                     var element = jsEvent.target.outerHTML;
-                    element = element.substring(0, 3)
-                    if (element == "<td") {
-                        $scope.cita.fecha = date.format('DD/MM/YYYY');
-                        $scope.showFormAppointment($scope.cita.fecha, date.format('H:mm'));
+                    element = element.substring(0, 3);
+                    var now =moment().format("DD/MM/YYYY HH:mm");
+
+                    if ( date.format('DD/MM/YYYY HH:mm') > now ){
+                        if (element == "<td") {
+                             $scope.cita.fecha = date.format('DD/MM/YYYY');
+                            $scope.showFormAppointment($scope.cita.fecha, date.format('H:mm'));
+                        }
+                    }else{
+                        console.log(date.format('DD/MM/YYYY HH:mm')+' '+now);
+                     //   alert("no se puede");
                     }
 
                 },
@@ -458,7 +465,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var url = URL_BASE + "medico/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
         var end = moment($scope.endDateEdit, 'DD/MM/YYYY,H:mm').format();
-        var data = {start: start, end:end };
+        var data = {start: start, end:end ,color: "#000000"};
         swal({
             html:true,
             title: "Espere...",
