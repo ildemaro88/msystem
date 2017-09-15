@@ -10,7 +10,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
         inicio:'',
         fin:'',
         minValue:'07:00',
-        maxValue:'12:00',
+        maxValue:'13:00',
         options: {
           stepsArray:[
           {value:'07:00'},
@@ -19,9 +19,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           {value:'10:00'},
           {value:'11:00'},
           {value:'12:00'},
+          {value:'13:00'},
           ],
           floor: '07:00',
-          ceil: '12:00',
+          ceil: '13:00',
           vertical:false,
           showTicksValues: true,
           disabled:true,
@@ -133,7 +134,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
             $("input[name="+dia+"_end_t]").val('20:00');            
           }else{
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00');      
+            $("input[name="+dia+"_end]").val('13:00');      
             vm.lunSlider.options.disabled=false;
           }
         
@@ -147,7 +148,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{   
             vm.marSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
         break;
@@ -159,7 +160,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{
             vm.mieSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
         
@@ -172,7 +173,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{
             vm.jueSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
        
@@ -185,7 +186,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{
             vm.vieSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
         
@@ -198,7 +199,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{
             vm.sabSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
         
@@ -211,7 +212,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
           }else{
             vm.domSlider.options.disabled=false;
             $("input[name="+dia+"_start]").val('07:00');
-            $("input[name="+dia+"_end]").val('12:00'); 
+            $("input[name="+dia+"_end]").val('13:00'); 
           }
         
         
@@ -763,13 +764,13 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout,$q) {
 }else{
   $scope.editar();
 }*/
-lunes(1,'07:00','12:00');
-martes(2,'07:00','12:00');
-miercoles(3,'07:00','12:00');
-jueves(4,'07:00','12:00');
-viernes(5,'07:00','12:00');
-sabado(6,'07:00','12:00');
-domingo(0,'07:00','12:00');
+lunes(1,'07:00','13:00');
+martes(2,'07:00','13:00');
+miercoles(3,'07:00','13:00');
+jueves(4,'07:00','13:00');
+viernes(5,'07:00','13:00');
+sabado(6,'07:00','13:00');
+domingo(0,'07:00','13:00');
 
 lunesT(1,'13:00','20:00');
 martesT(2,'13:00','20:00');
