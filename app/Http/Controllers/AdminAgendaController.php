@@ -151,6 +151,8 @@ class AdminAgendaController extends Controller {
         $cita = ModCita::find($id);
         $cita->start = $request->get("start");
         $cita->end = $request->get("end");
+         $cita->start_datetime = new DateTime($cita->start);
+        $cita->end_datetime = new DateTime($cita->end);
         $cita->color = $request->get("color");
         $result = $cita->save();
         try {
