@@ -223,10 +223,20 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     });
                 },
                 eventResize: function (event, delta, revertFunc) {
-                    $scope.dropModCita(event);
+                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                        revertFunc();
+                    } else {
+                        $scope.dropModCita(event);
+                    }
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                    $scope.dropModCita(event);
+                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                        revertFunc();
+                    } else {
+                        $scope.dropModCita(event);
+                    }
                 }
             });
         };
