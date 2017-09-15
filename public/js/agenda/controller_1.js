@@ -468,35 +468,42 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var url = URL_BASE + "medico/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
         var end = moment($scope.endDateEdit, 'DD/MM/YYYY,H:mm').format();
-        var data = {start: start, end: end};
-        $http({
-            url: url,
-            method: "PUT",
-            data: data,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (data) {
-            if (data.data) {
-                swal({
-                    title: "Correcto!",
-                    text: 'Realizado con éxito!',
-                    timer: 400,
-                    type: "success",
-                    showConfirmButton: true,
-                    closeOnConfirm: true
-                }, function () {
-                    $scope.reloadCalendar();
-
-                    $scope.reloadCalendar();
-                    $scope.resetPanelCita();
-                    $scope.init(); //inicializar
-                });
-            } else if (data.status == 500) {
-                swal("Error!", "Contacte al administrador!", "error");
-            } else {
-                swal("Error!", "Error en la transacción!", "error");
-            }
+        var data = {start: start, end:end };
+        swal({
+            html:true,
+            title: "Espere...",
+            text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+            showConfirmButton: false,
+            timer:1000,
+        },        
+        function(){
+            $http({
+                url: url,
+                method: "PUT",
+                data: data,
+                 headers: {
+                        'Content-Type': 'application/json'
+                    }
+            }).then(function (data) {
+                if (data.data) {
+                    swal({
+                        title: "Correcto!",
+                        text: 'Realizado con éxito!',
+                        timer: 400,
+                        type: "success",
+                        showConfirmButton: true,
+                        closeOnConfirm: true
+                    }, function () {
+                        $scope.reloadCalendar();
+                        $scope.resetPanelCita();
+                        $scope.init(); //inicializar
+                    });
+                } else if (data.status == 500) {
+                    swal("Error!", "Contacte al administrador!", "error");
+                } else {
+                    swal("Error!", "Error en la transacción!", "error");
+                }
+            });
         });
     }
     ;
