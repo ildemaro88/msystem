@@ -125,7 +125,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 </li>
                                             </ul>
                                         </div>  
-                                        <div class="col-sm-2" ng-hide='formCita'>
+                                        <div class="col-sm-2"  ng-show="time">
                                             <h5 style="margin:0px">
                                                 <b style="font-size:13px">Fecha:</b> 
                                                 <a>[[dateSelect]]</a>
@@ -135,7 +135,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <a>[[hourSelect]]</a>
                                             </h5>
                                             <div class="col-sm-"> 
-                                                <h5 for=""><b>Duración:</b><a> [[hourEnd]]</a></h5>    
+                                                <h5 for=""><b>Fin:</b><a> [[hourEnd]]</a></h5>    
                                             </div> 
                                             <!--div class="col-sm-"> 
                                                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>

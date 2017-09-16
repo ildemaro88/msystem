@@ -171,6 +171,7 @@ class AdminAgendaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function save(Request $request) {
+        //dd($request->all());
 
         $cita = new ModCita;
         $paciente = ModPaciente::find($request->get("idpaciente"));

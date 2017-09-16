@@ -42,12 +42,17 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * Panel de modificacion de la cita
      * */
     $scope.panelModCita = function (event) {
+        console.log(event.paciente);
         $scope.formCita = true;
+        
+        $("#agenda-list-citas").hide();
+        $scope.time = false;
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
         /*
          * Preparar el panel para modificar una cita
          * */
+
         $scope.config = {
             defaultDate: moment(event.start).format('YYYY-MM-DD'),
             defaultView: 'agendaDay'
@@ -58,7 +63,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.cita_id = event.id;
         //$("#select-paciente").val(event.paciente_id).trigger("change");
         
-        $scope.searchText = "nombre ejemplo";
+        $scope.searchText = event.paciente.cedula+" - "+event.paciente.nombre+" "+event.paciente.apellido;
         $scope.descripcion = event.detalle_cita;
         $scope.idpaciente = event.paciente_id;
         $scope.searchTextAgreement = event.sel_convenio;
@@ -119,6 +124,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.convenios = [];
         $scope.urlCitas = "";
         $scope.formCita = false;
+        $scope.time = false;
         $scope.dateSelect = "";
         $scope.hourSelect = "";
         $scope.hourEnd = "";
@@ -492,6 +498,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $("#form-save-cita").show();
         //cambio de botones
         $scope.formCita = true;
+        $scope.time = true;
         $scope.modificar = false;
         $scope.agendar = true;
         $scope.panel = panelCreate;
@@ -551,7 +558,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         e.preventDefault();
 
         //if ($scope.verify_date()) {
-        if ($scope.formCita == false) {
+        if($scope.time)
+        {
             $scope.setDateTime();
         }
         var fd = $("#form-cita"),

@@ -27,7 +27,7 @@ class ModCita extends Model
         return $this->belongsTo('\App\ModAgenda');
     }
     public function paciente(){
-        return $this->belongsTo('\App\ModPaciente');
+        return $this->belongsTo('\App\ModPaciente',"paciente_id","id");
     }
     public function convenio(){
         return $this->hasOne('\App\ModConvenio',"cita_calendario_id");
