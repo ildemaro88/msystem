@@ -91,6 +91,7 @@ class AdminCitaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        die();
         $cita = ModCita::findOrFail($id);
         if(!is_null($request->get("color"))){
             $cita->color = $request->get("color");

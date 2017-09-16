@@ -4,6 +4,7 @@
 //Route::resource('/admin/medico/agenda', 'AdminAgendaController');
 Route::resource('/admin/medico/agenda', 'AdminAgendaController');
 Route::post('/admin/medico/agenda/save','AdminAgendaController@save');
+Route::put('/admin/medico/agenda/update/{id}','AdminAgendaController@update');
 Route::put('/admin/medico/agenda/uptade/{id}','AdminAgendaController@updateEventDrop');
 Route::get('/admin/medico/agenda/get/information/{id}', 'AdminAgendaController@getDataJson');
 Route::get('/admin/medico/agenda/get/patient/{value}', 'AdminAgendaController@getPatients');

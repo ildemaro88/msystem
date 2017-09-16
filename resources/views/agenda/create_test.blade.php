@@ -125,7 +125,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 </li>
                                             </ul>
                                         </div>  
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-2" ng-hide='formCita'>
                                             <h5 style="margin:0px">
                                                 <b style="font-size:13px">Fecha:</b> 
                                                 <a>[[dateSelect]]</a>
@@ -144,7 +144,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         
                                         <div class="col-sm-5"> 
                                              <label for="">Seleccione el tipo de convenio</label> 
-                                                <select ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement" ng-options="convenio.name as convenio.name  for convenio in convenios">
+                                                <select id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement" ng-options="convenio.name as convenio.name  for convenio in convenios">
                                                 </select>                                            
                                         </div>
                                     </div> 
@@ -155,7 +155,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         <div class="col-sm-5"> 
                                             <div class="form-group"> 
                                                 <label for="">Observaciones</label> 
-                                                <textarea id="descripcion" ng-model="cita.descripcion" class="form-control" name="descripcion"cols="30"rows="5"></textarea> 
+                                                <textarea id="descripcion" ng-model="descripcion" class="form-control" name="descripcion"cols="30"rows="5"></textarea> 
                                             </div> 
                                         </div>
                                         <div class="col-sm-3"> 
