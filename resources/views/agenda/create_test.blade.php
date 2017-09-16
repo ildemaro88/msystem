@@ -104,6 +104,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                             <div id="home" class="tab-pane fade in active">
                                 <div class="container-fluid container-full">
                                     <input ng-model="agenda_id" type="hidden" name="agenda_id" value= [[agenda.id]]  "> 
+                                    <input ng-model="color" type="hidden" name="color" value= "#E9C341"> 
                                     <input ng-model="medico_id" type="hidden" name="medico_id" value="{{$medico->id}}">
                                     <input name="autorizacion" type="hidden" value="[[autorizacion]]"> 
                                     <input name="idpaciente" type="hidden" value="[[idpaciente]]"> 

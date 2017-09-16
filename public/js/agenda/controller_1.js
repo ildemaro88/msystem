@@ -44,7 +44,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.panelModCita = function (event) {
         console.log(event.paciente);
         $scope.formCita = true;
-        
+
         $("#agenda-list-citas").hide();
         $scope.time = false;
         $("#agenda-list-citas").hide();
@@ -184,7 +184,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     if (date.format('DD/MM/YYYY HH:mm') > now) {
                         if (element == "<td") {
                             $scope.cita.fecha = date.format('DD/MM/YYYY');
-                            $scope.showFormAppointment($scope.cita.fecha, date.format('H:mm'));
+                            $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
                         }
                     }
                 },
@@ -391,7 +391,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var url = URL_BASE + "medico/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
         var end = moment($scope.endDateEdit, 'DD/MM/YYYY,H:mm').format();
-        var data = {start: start, end: end, color: "#000000"};
+        var data = {start: start, end: end, color: "#E9C341"};
         swal({
             html: true,
             title: "Espere...",
@@ -508,7 +508,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         //convertir a tipo aceptado por el calendario uniendo fecha y hora
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
-        $scope.hourEnd = moment($scope.hourEnd).format('H:mm');
+        $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
         console.log($scope.hourEnd);
         //$scope.hourEnd = moment($scope.end, 'DD/MM/YYYY,H:mm').format();
         // $scope.hourEnd = moment(hourInit).add(15,'m');
