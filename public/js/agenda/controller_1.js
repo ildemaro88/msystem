@@ -351,7 +351,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.horaInicio = "";
         $scope.searchTextAgreement = "";
         $scope.searchText = "";
-
+        $scope.descripcion= "";
         $scope.horaFin = "";
         // $scope.cita={fecha : $scope.cita.fecha};
         $scope.resetAutorizacion();
