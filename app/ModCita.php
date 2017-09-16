@@ -20,6 +20,7 @@ class ModCita extends Model
         "title",
         "color",
         "trash",
+        "estado",
         "sel_convenio",
         "constraint"
     ];

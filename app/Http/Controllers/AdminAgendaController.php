@@ -174,6 +174,8 @@ class AdminAgendaController extends Controller {
 
         $cita = new ModCita;
         $paciente = ModPaciente::find($request->get("idpaciente"));
+        $cita->estado = 5;
+        $cita->color=$request->get("color");
         $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
         $cita->agenda_id = $request->get("agenda_id");
@@ -342,12 +344,12 @@ class AdminAgendaController extends Controller {
      */
     public function update(Request $request, $id) {
 
+
         $cita = ModCita::find($id);
         $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
         $cita->agenda_id = $request->get("agenda_id");
         $cita->sel_convenio = $request->get("sel_convenio");
-        $cita->color = $request->get("color");
         if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
             $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
             $agenda_id = $a->id;
