@@ -509,9 +509,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('H:mm');
-        console.log($scope.hourEnd);
-        //$scope.hourEnd = moment($scope.end, 'DD/MM/YYYY,H:mm').format();
-        // $scope.hourEnd = moment(hourInit).add(15,'m');
         try {
             $scope.$apply();
         } catch (e) {

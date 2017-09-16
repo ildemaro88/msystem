@@ -178,7 +178,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span>
-                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" name="fecha_autorizacion" type="text"class="form-control datepicker"> 
+                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" type="text"class="form-control datepicker"> 
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -187,7 +187,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <span class="input-group-addon"> 
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span> 
-                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_vence" name="fecha_vence" type="text" class="form-control datepicker"> 
+                                                    <input placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker"> 
                                                 </div> 
                                             </div> 
                                         </div> 
