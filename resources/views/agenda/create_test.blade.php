@@ -81,7 +81,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
             </button>
         </div>
                            
-        <div id="agenda-list-citas" class="col-xs-12 col-sm-12">
+        <div id="agenda-list-citas" class="box-body">
             
             <div class="panel panel-primary">
                 <div class="panel-body">
@@ -97,9 +97,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     <h4 id="heading" class="[[panel.class_text_title]]">
                         <i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
                 </div>
-                <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
-
-                    <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
+                <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCita" ng-submit="submit($event)" novalidate> 
+                    <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
                         <input type="text" value="businessHours" name="constraint" ng-show="false"> 
                         <div class="tab-content"> 
                             <div id="home" class="tab-pane fade in active">
@@ -136,26 +135,17 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <a>[[hourSelect]]</a>
                                             </h5>
                                             <div class="col-sm-"> 
-                                            <h5 for=""><b>Duración:</b></h5>    
-                                        </div> 
-                                        <div class="col-sm-"> 
-                                            <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
-                                        </div> 
+                                                <h5 for=""><b>Duración:</b><a> [[hourEnd]]</a></h5>    
+                                            </div> 
+                                            <!--div class="col-sm-"> 
+                                                <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+                                            </div--> 
                                         </div> 
                                         
                                         <div class="col-sm-5"> 
                                              <label for="">Seleccione el tipo de convenio</label> 
-                                        <!--           <input class="form-control" type='text' ng-keyup='searchAgreements()' ng-model='searchTextAgreement'><br>
-                                                <ul class="md-autocomplete-suggestions " id='searchResultAgreement' >
-                                                    <li ng-click='setValueAgreement($index)' ng-repeat="result in searchResultAgreement" >[[ result.name]]</li>
-                                                </ul>
-                                                -->
-<!--                                                <select ng-change="eval_convenio()" id="sel_convenio" name="sel_convenio"  ng-model="sel_convenio" class="form-control" show-menu-arrow data-style="btn-primary"> 
-                                                    
-                                                </select>-->
                                                 <select ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement" ng-options="convenio.name as convenio.name  for convenio in convenios">
-                                                </select>
-                                            
+                                                </select>                                            
                                         </div>
                                     </div> 
                                     <div class="row">
@@ -177,7 +167,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             </div> 
                                         </div> 
                                     
-                                    <div class="col-sm-4" ng-show="tipo_convenio"> 
+                                        <div class="col-sm-4" ng-show="tipo_convenio"> 
                                             <div class="form-group"> 
                                                 <label for="">Autorización</label> 
                                                 <input ng-model="autorizacion" type="text" class="form-control"> 
@@ -202,45 +192,22 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             </div> 
                                         </div> 
                                     </div>
-                                    </div>
-                                    <div class="row pull-left" ng-show="panel.buttons.trash"> 
-                                        <div class="col-xs-12"> <div class="form-group"> 
-                                                <button ng-click="eliminarCita([[cita_id]])" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
-                                            </div> 
-                                        </div>
-                                    </div> 
-                                    <div class="row pull-left" ng-show="panel.buttons.cancelar">
-                                        <div class="col-xs-12"> 
-                                            <div class="form-group">
-                                                <button ng-click="cancelarCita()" style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                    <div class="row pull-left" ng-show="panel.buttons.modificar"> 
-                                        <div class="col-xs-12"> 
-                                            <div class="form-group"> 
-                                                <button type="submit" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-check"></i> Modificar </button> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                    <div class="row pull-left" ng-show="panel.buttons.agendar"> 
-                                        <div class="col-xs-12"> 
-                                            <div class="form-group"> 
-                                                <button type="submit" class="btn btn-success" style="margin-right: 5px;"><i class="fa fa-check"></i> Agendar </button>
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                    <div class="row pull-left"> 
-                                        <div class="col-xs-12"> 
-                                            <div class="form-group"> 
-                                                <button type="button" class="btn btn-default"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
-                                            </div> 
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                    </form>
+                                </div>                                    
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="panel-footer  text-right">
+
+                        <button type="button" class="btn btn-default"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button>                              
+                        
+                        <button ng-show="ddpanel.buttons.trash"  ng-click="cancelarCita()" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
+
+                        <button ng-show="panel.buttons.cancelar" ng-click="eliminarCita([[cita_id]])"  style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button>                                  
+                        <button ng-show="panel.buttons.modificar" type="submit" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-check"></i> Modificar </button> 
+                              
+                        <button ng-show="panel.buttons.agendar" type="submit" class="btn btn-success" style="margin-right: 5px;"><i class="fa fa-check"></i> Agendar </button>                                                                 
+                    </div>
+                </form>
                 </div> 
             </div>
             {{--FIN Panel de gestion de citas--}}
@@ -282,7 +249,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         </div>
         <!-- fin panel editar citas drop-->
         </div>
-        <div class="box-footer"></div>
+        
     </div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
