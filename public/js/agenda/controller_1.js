@@ -59,15 +59,15 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         };
         var panelModificar = new $scope.panel_modify();
         $("#calendar").fullCalendar('gotoDate', moment(event.start).format('YYYY-MM-DD'));
-        panelModificar.url = URL_BASE+ "medico/agenda/update/" + event.id;
+        panelModificar.url = URL_BASE + "medico/agenda/update/" + event.id;
         $scope.cita_id = event.id;
         //$("#select-paciente").val(event.paciente_id).trigger("change");
-        
-        $scope.searchText = event.paciente.cedula+" - "+event.paciente.nombre+" "+event.paciente.apellido;
+
+        $scope.searchText = event.paciente.cedula + " - " + event.paciente.nombre + " " + event.paciente.apellido;
         $scope.descripcion = event.detalle_cita;
         $scope.idpaciente = event.paciente_id;
         $scope.searchTextAgreement = event.sel_convenio;
-        
+
         if ($scope.searchTextAgreement != 'PARTICULAR') {
             $scope.tipo_convenio = true;
             $scope.fecha_autorizacion = moment(event.convenio.fecha_autorizacion, "YYYY-MM-DD").format("DD/MM/YYYY");
@@ -156,6 +156,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.detailsCitas = "";
         $scope.idCita = "";
         $scope.newPatient = false;
+        $scope.autorizacion_required = false;
         $scope.fullCalendar = function (data) {
             $scope.agenda = data.agenda;
             $scope.medico = data.medico;
@@ -351,7 +352,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.horaInicio = "";
         $scope.searchTextAgreement = "";
         $scope.searchText = "";
-        $scope.descripcion= "";
+        $scope.descripcion = "";
         $scope.horaFin = "";
         // $scope.cita={fecha : $scope.cita.fecha};
         $scope.resetAutorizacion();
@@ -371,6 +372,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.reloadRoute = function () {
         $window.location.reload();
     };
+
     $scope.dropModCita = function (cita) {
         $("#agenda-list-citas").hide();
         $("#panel-edit-drop").show();
@@ -555,18 +557,20 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         e.preventDefault();
 
         //if ($scope.verify_date()) {
-        if($scope.time)
+        if ($scope.time)
         {
             $scope.setDateTime();
         }
         var fd = $("#form-cita"),
                 url = fd.attr("action"),
                 data = fd.serialize();
+//        console.log(data);
         swal({
             title: "Procesando",
             text: 'Espere...',
             showConfirmButton: false
         });
+
         $http({
             url: url,
             method: fd.attr("method"),
@@ -617,6 +621,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     };
 
     $scope.searchPatients = function () {
+        $scope.idpaciente = "";
         var url = URL_BASE + "medico/agenda/get/patient/" + $scope.searchText;
         $http({
             url: url,
@@ -634,6 +639,15 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             }
         });
     }
+    /*
+     * Validar id paciente seleccionado
+     */
+    $scope.valideIdPatient = function () {
+        $("#agenda-list-citas").hide();
+        if ($scope.idpaciente == "") {
+            $scope.searchText = "";
+        }
+    };
 
     // Set value to search box
     $scope.setValue = function (index) {
@@ -646,9 +660,13 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     $scope.setValueAgreement = function () {
         if ($scope.searchTextAgreement != 'PARTICULAR') {
             $scope.tipo_convenio = true;
+            $scope.autorizacion_required = true;
         } else {
             $scope.tipo_convenio = false;
-
+            $scope.autorizacion_required = false;
+            $scope.autorizacion = "";
+            $scope.fecha_autorizacion = "";
+            $scope.fecha_vence = "";
         }
     }
 });
