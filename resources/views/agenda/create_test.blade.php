@@ -219,11 +219,19 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                         <button ng-show="ddpanel.buttons.trash"  ng-click="cancelarCita()" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
 
                         <button ng-show="panel.buttons.cancelar" ng-click="eliminarCita([[cita_id]])"  style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button>                                  
-                        <button ng-show="panel.buttons.modificar" type="submit" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-check"></i> Modificar </button> 
+                        <button 
+                            ng-show="panel.buttons.modificar" 
+                             ng-disabled="!formCitaSend.$valid"
+                             type="submit" class="btn btn-primary" 
+                                style="margin-right: 5px;">
+                            <i class="fa fa-check"> </i> Modificar 
+                        </button> 
                               
                         <button 
                             ng-show="panel.buttons.agendar" 
-                            ng-disabled="!formCitaSend.$valid" type="submit" class="btn btn-success" style="margin-right: 5px;">
+                            ng-disabled="!formCitaSend.$valid" 
+                            type="submit" class="btn btn-success" 
+                            style="margin-right: 5px;">
                             <i class="fa fa-check"></i> Agendar 
                         </button>                                                                 
                     </div>
