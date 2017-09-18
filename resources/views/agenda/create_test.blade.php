@@ -188,11 +188,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span>
-                                                    <input name="fecha_autorizacion_valide" placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" type="text"class="form-control datepicker" ng-required=autorizacion_required> 
-                                                    <span style="color:red" ng-show="formCitaSend.fecha_autorizacion_valide.$dirty && formCitaSend.fecha_autorizacion_valide.$invalid">
-                                                         <span ng-show="formCitaSend.fecha_autorizacion_valide.$error.required">Debe Seleccionar una fecha de autorización.</span>
-                                                    </span>
+                                                    <input id="fecha_autorizacion_valide" name="fecha_autorizacion_valide" placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
                                                 </div>
+                                                <span style="color:red" ng-show="formCitaSend.fecha_autorizacion_valide.$dirty && formCitaSend.fecha_autorizacion_valide.$invalid">
+                                                    <span ng-show="formCitaSend.fecha_autorizacion_valide.$error.required">Debe Seleccionar una fecha de autorización.</span>
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Fecha Vencimiento</label> 
@@ -200,11 +200,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <span class="input-group-addon"> 
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span> 
-                                                    <input name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
-                                                    <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
-                                                         <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
-                                                    </span>
-                                                </div> 
+                                                    <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
+                                                     </div> 
+                                                <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
+                                                    <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
+                                                </span>
                                             </div> 
                                         </div> 
                                     </div>
@@ -273,6 +273,10 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     </div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
+    $('#fecha_autorizacion_valide').on('change', function(){
+    var date = $(this).val();
+    $('#fecha_vence_valide').datepicker({minDate: date});  
+});
     URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information/') }}/{{$medico->id}}';
     console.log(URL_GET_DATA_JSON);
     /*
