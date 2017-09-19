@@ -1,6 +1,30 @@
 agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     /*variables de inicializacion*/
-
+$scope.availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
@@ -618,8 +642,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             day = '0' + day;
         return [year, month, day].join('-');
     };
-
-    $scope.searchPatients = function () {
+    $scope.complete=function(){
         $scope.idpaciente = "";
         var url = URL_BASE + "medico/agenda/get/patient/" + $scope.searchText;
         $http({
@@ -631,12 +654,43 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             }
         }).then(function success(response) {
             if (response.data.response) {
-                $scope.searchResult = response.data.response.patients;
+                console.log(response.data.response);
+                $scope.searchResult = response.data.response;
+                
+
             } else {
                 $scope.searchResult = {}
                 $scope.newPatient = true;
             }
         });
+        
+    } 
+    $scope.searchPatients = function (keyEvent) {
+        
+         if(keyEvent.which != 38 && keyEvent.which !=40){
+            $scope.idpaciente = "";
+        var url = URL_BASE + "medico/agenda/get/patient/" + $scope.searchText;
+        $http({
+            url: url,
+            method: 'GET',
+            //data: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function success(response) {
+            if (response.data.response) {
+                console.log(response.data.response.patients);
+                $scope.searchResult = response.data.response.patients;
+
+
+            } else {
+                $scope.searchResult = {}
+                $scope.newPatient = true;
+            }
+        });
+
+        }
+        
     }
     /*
      * Validar id paciente seleccionado
@@ -650,7 +704,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
 
     // Set value to search box
     $scope.setValue = function (index) {
-        $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name;
+        $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name +" "+$scope.searchResult[index].apellido;
         $scope.idpaciente = $scope.searchResult[index].id;
         $scope.searchResult = {};
     }
