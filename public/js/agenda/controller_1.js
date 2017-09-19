@@ -178,14 +178,20 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 navLinks: false,
                 weekends: true,
                 dayClick: function (date, jsEvent, view) {
-                    var element = jsEvent.target.outerHTML;
-                    element = element.substring(0, 3);
-                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    console.log(view);
+                    if (view.type == "month") {
+                        $('#calendar').fullCalendar("changeView", "agendaWeek");
+                        $('#calendar').fullCalendar('gotoDate', date);
+                    } else {
+                        var element = jsEvent.target.outerHTML;
+                        element = element.substring(0, 3);
+                        var now = moment().format("DD/MM/YYYY HH:mm");
 
-                    if (date.format('DD/MM/YYYY HH:mm') > now) {
-                        if (element == "<td") {
-                            $scope.cita.fecha = date.format('DD/MM/YYYY');
-                            $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
+                        if (date.format('DD/MM/YYYY HH:mm') > now) {
+                            if (element == "<td") {
+                                $scope.cita.fecha = date.format('DD/MM/YYYY');
+                                $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
+                            }
                         }
                     }
                 },
@@ -518,7 +524,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             console.log(this.formCitaSend.$dirty);
             this.formCitaSend.$dirty = false;
             console.log(this.formCitaSend.$dirty);
-        } 
+        }
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
         $("#panel-edit-drop").hide();
@@ -528,14 +534,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
 
 
     };
-//    $scope.resetErrors = function (data) {
-//        this.formCitaSend.$dirty = data;
-//        try {
-//            $scope.$apply();
-//        } catch (e) {
-//
-//        }
-//    };
     $scope.setDateTime = function () {
         /*
          *  Agregar datos de tiempo a los input para ser enviados con submit
@@ -607,14 +605,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 swal("Error!", "Error en la transacción!", "error");
             }
         });
-//        } else {
-//            swal({
-//                type: "error",
-//                title: "Error!",
-//                html: true,
-//                text: "<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
-//            });
-//        }
     };
     // cambiar formato de fecha 01/11/2017 a 2017-01-11 // not used
     $scope.formatDate = function (date) {
