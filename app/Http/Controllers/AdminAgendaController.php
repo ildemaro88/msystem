@@ -110,6 +110,7 @@ class AdminAgendaController extends Controller {
         $convenios = ModConvenios::all();
         foreach ($convenios as $convenio) {
             $getConvenio = array();
+            $getConvenio['id'] = intval($convenio['id']);
             $getConvenio['name'] = $convenio['nombre'];
             $getConvenios[] = $getConvenio;
         }
@@ -187,9 +188,7 @@ class AdminAgendaController extends Controller {
         $cita->start_datetime = new DateTime($cita->start);
         $cita->end_datetime = new DateTime($cita->end);
         $cita->constraint = $request->get("constraint");
-        $sel_convenio = $request->get("sel_convenio");
-        // $sel_convenio = $sel_convenio[1];
-        $cita->sel_convenio = $sel_convenio;
+
         if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
             $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
             $agenda_id = $a->id;
@@ -204,18 +203,27 @@ class AdminAgendaController extends Controller {
         $response = $cita->save();
 
         if ($response) {// si se guarda la cita
-            if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
+            if ($request->get("sel_convenio") > 1 && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
                 /*
                  * Insertar el convenio si se ingresa datos
                  * */
                 $convenio = new ModConvenio;
                 $convenio->cita_calendario_id = $cita->id;
                 $convenio->autorizacion = $request->get("autorizacion");
+                $convenio->id_convenio = $request->get("sel_convenio");
                 $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
                 $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
                 $convenio->fecha_autorizacion = $date1;
                 $convenio->fecha_vence = $date2;
                 $convenio->save();
+            }else{
+                 $convenio = new ModConvenio;
+                $convenio->cita_calendario_id = $cita->id;
+                $convenio->autorizacion = $request->get("autorizacion");
+                $convenio->id_convenio = $request->get("sel_convenio");
+                $convenio->fecha_autorizacion = "";
+                $convenio->fecha_vence = "";
+                $convenio->save();  
             }
             /*
              * Envio de e-mail cuando se guarda la cita
@@ -227,76 +235,6 @@ class AdminAgendaController extends Controller {
                 Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
             } catch (\Error $x) {
                 
-            }
-        }
-        return response()->json([
-                    "response" => $response,
-                    "cita" => $cita
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        if ($request->get("color") == "#7f8c8d") { // si se cumple el color, es la accion cancelar cita
-            $cita = ModCita::findOrFail($request->get("cita_id"));
-            $cita->color = $request->get("color");
-            $response = $cita->save();
-        } else {
-            $cita = new ModCita;
-            $paciente = ModPaciente::find($request->get("idpaciente"));
-            $cita->paciente_id = $request->get("idpaciente");
-            $cita->detalle_cita = $request->get("descripcion");
-            $cita->agenda_id = $request->get("agenda_id");
-            $cita->estado_cita = 1;
-            $cita->start = $request->get("start");
-            $cita->end = $request->get("end");
-            $cita->constraint = $request->get("constraint");
-            $sel_convenio = $request->get("sel_convenio");
-            // $sel_convenio = $sel_convenio[1];
-            $cita->sel_convenio = $sel_convenio;
-            if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
-                $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
-                $agenda_id = $a->id;
-                $cita->agenda_id = $agenda_id;
-            } else { //si tiene valor viene por solicitud de call center
-                $agenda_id = $request->get('agenda_id');
-                $cita->agenda_id = $agenda_id;
-            }
-            $medico = ModMedico::find($request->get("medico_id"));
-            $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", Paciente:  " . $paciente->nombre . " " . $paciente->apellido);
-            //var_dump($cita);
-            $response = $cita->save();
-
-            if ($response) {// si se guarda la cita
-                if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
-                    /*
-                     * Insertar el convenio si se ingresa datos
-                     * */
-                    $convenio = new ModConvenio;
-                    $convenio->cita_calendario_id = $cita->id;
-                    $convenio->autorizacion = $request->get("autorizacion");
-                    $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
-                    $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
-                    $convenio->fecha_autorizacion = $date1;
-                    $convenio->fecha_vence = $date2;
-                    $convenio->save();
-                }
-                /*
-                 * Envio de e-mail cuando se guarda la cita
-                 * */
-                $email_medico = !is_null($medico->email) ? $medico->email : "pablodcd002@gmail.com";
-                $email_paciente = !is_null($paciente->email) ? $paciente->email : "pabloddc002@gmail.com";
-                try {
-                    Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
-                    Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
-                } catch (\Error $x) {
-                    
-                }
             }
         }
         return response()->json([
@@ -351,7 +289,7 @@ class AdminAgendaController extends Controller {
         $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
         $cita->agenda_id = $request->get("agenda_id");
-        $cita->sel_convenio = $request->get("sel_convenio");
+        $sel_convenio = $request->get("sel_convenio");
         if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
             $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
             $agenda_id = $a->id;
@@ -363,32 +301,21 @@ class AdminAgendaController extends Controller {
         $response = $cita->save();
         $convenio = ModConvenio::where("cita_calendario_id", $cita->id)->first();
         if ($response) {// si se guarda la cita
-            if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
-                /*
-                 * Insertar el convenio si se ingresa datos
-                 */
-                
-                if ($convenio) {
+            if ($sel_convenio > 1 && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
+
                     $convenio->autorizacion = $request->get("autorizacion");
                     $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
                     $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
                     $convenio->fecha_autorizacion = $date1;
                     $convenio->fecha_vence = $date2;
+                    $convenio->id_convenio = $sel_convenio;
                     $convenio->save();
-                } else {
-                    $convenio = new ModConvenio;
-                    $convenio->cita_calendario_id = $cita->id;
-                    $convenio->autorizacion = $request->get("autorizacion");
-                    $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
-                    $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
-                    $convenio->fecha_autorizacion = $date1;
-                    $convenio->fecha_vence = $date2;
-                    $convenio->save();
-                }
             }else{
-                 if ($convenio) {
-                    $convenio->delete();
-                }
+                    $convenio->autorizacion = $request->get("autorizacion");
+                    $convenio->fecha_autorizacion = "";
+                    $convenio->fecha_vence = "";
+                    $convenio->id_convenio = $sel_convenio;
+                    $convenio->save();
             }
             /*
              * Envio de e-mail cuando se guarda la cita

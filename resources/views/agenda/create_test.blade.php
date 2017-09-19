@@ -213,7 +213,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         <div class="col-sm-5"> 
                                              <label for="">Seleccione el tipo de convenio</label> 
                                                 <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
-                                                 <option ng-repeat="convenio in convenios" value="[[convenio.name]]">[[convenio.name]]</option>
+                                                 <option ng-repeat="convenio in convenios" value="[[convenio.id]]">[[convenio.name]]</option>
                                                 </select> 
                                             <span style="color:red" ng-show="formCitaSend.convenio_valide.$dirty && formCitaSend.convenio_valide.$invalid">
                                             <span ng-show="formCitaSend.convenio_valide.$error.required">Debe Seleccionar un Convenio.</span>
@@ -346,6 +346,51 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     </div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+     
+    $('#paciente_valide').keyup(function(e) {
+        $("#search_results").show();
+
+        $('li').each(function(){ // se elimina tabindex de todos los li
+         
+            $(this).removeAttr("tabindex");                
+        }); 
+        e.preventDefault();
+
+        if (e.keyCode === 13){
+            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
+                if($(this).hasClass('active')){
+                    $(this).click(); 
+                    $("#search_results").hide();
+                }          
+            }); 
+        }
+        if(e.which == 40){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").next();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+        if(e.which == 38){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").prev();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+    });
+});
    
     $('#fecha_autorizacion_valide').on('change', function(){
         var date = $(this).val();

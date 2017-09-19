@@ -64,20 +64,22 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.searchText = event.paciente.cedula + " - " + event.paciente.nombre + " " + event.paciente.apellido;
         $scope.descripcion = event.detalle_cita;
         $scope.idpaciente = event.paciente_id;
-        $scope.searchTextAgreement = event.sel_convenio;
+        $scope.searchTextAgreement = event.convenio.id_convenio;
 
-        if ($scope.searchTextAgreement != 'PARTICULAR') {
+        if ($scope.searchTextAgreement > 1) {
             $scope.tipo_convenio = true;
             $scope.fecha_autorizacion = moment(event.convenio.fecha_autorizacion, "YYYY-MM-DD").format("DD/MM/YYYY");
             $scope.autorizacion = event.convenio.autorizacion;
             $scope.fecha_vence = moment(event.convenio.fecha_vence, "YYYY-MM-DD").format("DD/MM/YYYY");
-            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
+//            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
+            $("#convenio").val($scope.searchTextAgreement).trigger("change");
         } else {
             $scope.tipo_convenio = false;
             $scope.fecha_autorizacion = "";
             $scope.autorizacion = "";
             $scope.fecha_vence = "";
-            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
+            $("#convenio").val($scope.searchTextAgreement).trigger("change");
+//            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
 
         }
         //cambio de botones
@@ -508,8 +510,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
-        $scope.searchTextAgreement = 'PARTICULAR'
-        $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
+        $scope.searchTextAgreement = 1;
+        
+//        $("#convenio").trigger();
+        $("#convenio").val($scope.searchTextAgreement).trigger("change");
         try {
             $scope.$apply();
         } catch (e) {
@@ -686,8 +690,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     }
 
     // Set value to search box
-    $scope.setValueAgreement = function () {
-        if ($scope.searchTextAgreement != 'PARTICULAR') {
+    $scope.setValueAgreement = function (){
+        if ($scope.searchTextAgreement > 1) {
             $scope.tipo_convenio = true;
             $scope.autorizacion_required = true;
         } else {

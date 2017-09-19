@@ -12,7 +12,8 @@ class ModConvenio extends Model
         "cita_calendario_id",
         "autorizacion",
         "fecha_autorizacion",
-        "fecha_vence"
+        "fecha_vence",
+        "id_convenio",
     ];
     public $timestamps = false;
 }

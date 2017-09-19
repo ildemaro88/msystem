@@ -21,7 +21,6 @@ class ModCita extends Model
         "color",
         "trash",
         "estado",
-        "sel_convenio",
         "constraint"
     ];
     public function agenda(){
