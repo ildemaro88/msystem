@@ -202,9 +202,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span> 
                                                     <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
-                                                     </div> 
+                                                     </div>
                                                 <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
-                                                    <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
+                                                    <span ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
                                                 </span>
                                             </div> 
                                         </div> 

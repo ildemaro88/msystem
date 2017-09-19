@@ -487,7 +487,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      * -->
      */
     $scope.showFormAppointment = function (dateSelect, hourInit) {
-
+        console.log(this.formCitaSend.$dirty);
         var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
@@ -504,7 +504,8 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
-        $("#convenio").val('PARTICULAR').attr('selected', true);
+        $scope.searchTextAgreement = 'PARTICULAR'
+        $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
         try {
             $scope.$apply();
         } catch (e) {
@@ -513,15 +514,28 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     };
 
     $scope.previewCita = function () {
+        if (this.formCitaSend.$dirty) {
+            console.log(this.formCitaSend.$dirty);
+            this.formCitaSend.$dirty = false;
+            console.log(this.formCitaSend.$dirty);
+        } 
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
         $("#panel-edit-drop").hide();
         $scope.init(); //inicializar
         $scope.reloadCalendar();
         $scope.resetPanelCita();
-       
+
 
     };
+//    $scope.resetErrors = function (data) {
+//        this.formCitaSend.$dirty = data;
+//        try {
+//            $scope.$apply();
+//        } catch (e) {
+//
+//        }
+//    };
     $scope.setDateTime = function () {
         /*
          *  Agregar datos de tiempo a los input para ser enviados con submit
