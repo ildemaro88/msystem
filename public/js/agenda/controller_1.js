@@ -133,7 +133,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.start = "";
         $scope.end = "";
         $scope.idpaciente = "";
-        $scope.tipo_convenio = true;
+        $scope.tipo_convenio = false;
         // $scope.patients = OPTIONS_PACIENTE;
         $scope.config = {
             defaultDate: $scope.fecha,
@@ -348,7 +348,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         });
     };
     $scope.resetPanelCita = function () {
-        descripcion: "";
         $scope.horaInicio = "";
         $scope.searchTextAgreement = "";
         $scope.searchText = "";
@@ -360,11 +359,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         /*$scope.$watch('panel',function(){
          $scope.panel = $scope.panel_default;
          });*/
-        try {
-            $scope.$apply();
-        } catch (err) {
-            console.log(err);
-        }
     };
     /*
      * Recarga la página actual
@@ -494,7 +488,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
      */
     $scope.showFormAppointment = function (dateSelect, hourInit) {
 
-
         var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
@@ -511,6 +504,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
+        $("#convenio").val('PARTICULAR').attr('selected', true);
         try {
             $scope.$apply();
         } catch (e) {
@@ -522,9 +516,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
         $("#panel-edit-drop").hide();
+        $scope.init(); //inicializar
         $scope.reloadCalendar();
         $scope.resetPanelCita();
-        $scope.init(); //inicializar
+       
 
     };
     $scope.setDateTime = function () {
