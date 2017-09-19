@@ -166,7 +166,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input ng-model="color" type="hidden" name="color" value= "#E9C341"> 
                                     <input ng-model="medico_id" type="hidden" name="medico_id" value="{{$medico->id}}">
                                     <input name="autorizacion" type="hidden" value="[[autorizacion]]"> 
-                                    <input name="idpaciente" type="hidden" value="[[idpaciente]]" > 
+                                    <input name="idpaciente"  type="hidden" value="[[idpaciente]]" > 
                                     <input name="fecha_autorizacion" type="hidden" value="[[fecha_autorizacion]]"> 
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
@@ -176,19 +176,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     
                                         <div class="form-group col-md-5"> 
                                         
-                                            <label for=""> Seleccione el paciente:</label>
-<!--                                            <input  autocomplete="off" name="paciente_valide" class="form-control" type='text' ng-keyup='searchPatients()' ng-model='searchText' ng-blur='valideIdPatient()' required>
-                                            <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
-                                            <span ng-show="formCitaSend.paciente_valide.$dirty &&  formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
-                                            </span><br>
-                                            <ul class="md-autocomplete-suggestions" id='searchResultPatient' >
-                                                <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
-                                                <li ng-show="newPatient">No existe el paciente, 
-                                                    <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar 
-                                                    </a>
-                                                </li>-->
-                                            
-                                            <input type="text"  id="paciente_valide" ng-keyup='searchPatients($event)' ng-model='searchText' name="paciente_valide"  class="form-control" value="DIRECTORY" autocomplete="off" ng-blur='valideIdPatient()' required/>
+                                            <label for=""> Seleccione el paciente:</label>                                            
+                                            <input type="text"  id="paciente_valide" ng-keyup='searchPatients($event)' ng-model='searchText' name="paciente_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdPatient()' required/>
                                            <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
                                             <span ng-show="formCitaSend.paciente_valide.$dirty &&  formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
                                             </span><br>
@@ -305,7 +294,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                               
                         <button 
                             ng-show="panel.buttons.agendar" 
-                            ng-disabled="!formCitaSend.$valid" 
+                            ng-disabled="!formCitaSend.$valid 
                             type="submit" class="btn btn-success" 
                             style="margin-right: 5px;">
                             <i class="fa fa-check"></i> Agendar 
@@ -410,8 +399,12 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 //    ];
 //    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
-    $(document).ready(function(){
-             
+$(document).ready(function(){
+    $('.noEnterSubmit').keypress(function(e){
+        
+        //or...
+        if ( e.which == 13 ) e.preventDefault();
+    });
     $('#paciente_valide').keyup(function(e) {
         $("#search_results").show();
 
@@ -428,7 +421,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     $("#search_results").hide();
                 }          
             }); 
-             e.preventDefault();
+             
         }
         if(e.which == 40){
             if($("#search_results li.active").length!=0) {

@@ -1,30 +1,4 @@
-agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
-    /*variables de inicializacion*/
-$scope.availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    
+agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {   
     $scope.panel_default = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
@@ -665,8 +639,7 @@ $scope.availableTags = [
         });
         
     } 
-    $scope.searchPatients = function (keyEvent) {
-        
+    $scope.searchPatients = function (keyEvent) {        
          if(keyEvent.which != 38 && keyEvent.which !=40){
             $scope.idpaciente = "";
         var url = URL_BASE + "medico/agenda/get/patient/" + $scope.searchText;
@@ -681,9 +654,11 @@ $scope.availableTags = [
             if (response.data.response) {
                 console.log(response.data.response.patients);
                 $scope.searchResult = response.data.response.patients;
+                $scope.newPatient= false;
 
 
             } else {
+                $scope.newPatient= true;
                 $scope.searchResult = {}
                 $scope.newPatient = true;
             }
@@ -704,6 +679,7 @@ $scope.availableTags = [
 
     // Set value to search box
     $scope.setValue = function (index) {
+
         $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name +" "+$scope.searchResult[index].apellido;
         $scope.idpaciente = $scope.searchResult[index].id;
         $scope.searchResult = {};
