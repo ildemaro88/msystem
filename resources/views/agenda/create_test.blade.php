@@ -8,9 +8,68 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <link rel="stylesheet" href="{{asset('bower_resources/angularjs-slider/dist/rzslider.css')}}">
 <script src="{{asset('bower_resources/angularjs-slider/dist/rzslider.min.js')}}"></script>
 <style>
-   .md-autocomplete-suggestions li:hover{
-    background: #f9f9f9;
-   }
+
+#search{
+  position: relative;
+  right:0;
+  margin:0 1em;
+  width:350px;
+}
+#search{
+  top:0;
+  z-index:10;
+}
+
+#search > a{
+  position: absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  padding:0 10px;
+  background-color: #ec9507;
+}
+#search > a i{
+  color:#fff;
+}
+#search_results{
+  position: absolute;
+  z-index: 45;
+  top:100%;
+  left: 0;
+  right:0;
+  max-height: 200px;
+  overflow: auto;
+}
+#search_results ul{
+  width: 100%;
+  margin:0;
+  padding-right: 15px;
+    padding-left: 15px;
+}
+#search_results li{
+    outline: none;
+  width: 100%;
+  list-style-type: none;
+  box-sizing: border-box;
+  margin:0;
+  padding:10px 15px;
+  background-color: #fff;
+  transition:all 0.5s;
+  -moz-transition:all 0.5s;
+  -webkit-transition:all 0.5s;
+  cursor:pointer;
+  word-wrap:break-word;
+}
+#search_results li:hover, #search_results li:focus{
+  color:#fff;
+  background-color: #7BB4D5;
+}
+#search_results li i{
+  padding-right:5px;
+}
+#search_results li.active { background:#7BB4D5; color:#fff; }
+
+
     .col-center{
     float: none;
     margin: 0 auto;
@@ -114,20 +173,19 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="sel_convenio" type="hidden" value="[[searchTextAgreement]]">
 
                                     <div class="row"> 
+                                    
                                         <div class="form-group col-md-5"> 
-
+                                        
                                             <label for=""> Seleccione el paciente:</label>
-                                            <input  autocomplete="off" name="paciente_valide" class="form-control" type='text' ng-keyup='searchPatients()' ng-model='searchText' ng-blur='valideIdPatient()' required>
-                                            <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
-                                            <span ng-show="formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
-                                            </span><br>
-                                            <ul class="md-autocomplete-suggestions" id='searchResultPatient' >
-                                                <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
-                                                <li ng-show="newPatient">No existe el paciente, 
-                                                    <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar 
-                                                    </a>
-                                                </li>
+                                            
+                                            <input type="text"  id="paciente_valide" ng-keyup='searchPatients($event)' ng-model='searchText' name="paciente_valide"  class="form-control" value="DIRECTORY" autocomplete="off" />
+                                          <div id="search_results">
+                                            <!-- Example content that is printed out after searchNameDept() is run -->
+                                            <ul id='searchResultPatient' >
+                                            <li ng-click='setValue($index)' ng-keyup="setValue($index)" class="search_org"  ng-repeat="result in searchResult  | limitTo:5" >[[ result.ci]] - [[ result.name]] [[ result.apellido]]</li>
                                             </ul>
+                                          </div>
+                                               
                                         </div>  
                                         <div class="col-sm-2"  ng-show="time">
                                             <h5 style="margin:0px">
@@ -281,10 +339,56 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     </div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
-    $('#fecha_autorizacion_valide').on('change', function(){
-    var date = $(this).val();
-    $('#fecha_vence_valide').datepicker({minDate: date});  
+$(document).ready(function(){
+     
+    $('#paciente_valide').keyup(function(e) {
+        $("#search_results").show();
+
+        $('li').each(function(){ // se elimina tabindex de todos los li
+         
+            $(this).removeAttr("tabindex");                
+        }); 
+        e.preventDefault();
+
+        if (event.keyCode === 13){
+            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
+                if($(this).hasClass('active')){
+                    $(this).click(); 
+                    $("#search_results").hide();
+                }          
+            }); 
+        }
+        if(e.which == 40){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").next();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+        if(e.which == 38){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").prev();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+    });
 });
+   
+    $('#fecha_autorizacion_valide').on('change', function(){
+        var date = $(this).val();
+        $('#fecha_vence_valide').datepicker({minDate: date});  
+    });
     URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information/') }}/{{$medico->id}}';
     console.log(URL_GET_DATA_JSON);
     /*

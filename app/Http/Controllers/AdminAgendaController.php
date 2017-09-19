@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\ModPaciente;
 use App\ModMedico;
 use App\ModAgenda;
+use DB;
 use App\ModCita;
 use App\ModConvenios;
 use App\Mail\EmailPaciente;
@@ -60,13 +61,14 @@ class AdminAgendaController extends Controller {
      */
     public function getPatients(Request $request, $value) {
 
-        $pacientes = ModPaciente::where("nombre", "LIKE", "%{$value}%")->orWhere("cedula", "LIKE", "%{$value}%")->get();
+        $pacientes = ModPaciente::where(DB::raw('concat(cedula,nombre,apellido)') , 'LIKE' , "%{$value}%")->get();
         $getPacientes = array();
         foreach ($pacientes as $paciente) {
             $getPaciente = array();
             $getPaciente["id"] = $paciente["id"];
             $getPaciente["ci"] = $paciente["cedula"];
             $getPaciente["name"] = $paciente["nombre"];
+            $getPaciente["apellido"] = $paciente["apellido"];
             $getPacientes[] = $getPaciente;
             $response["patients"] = $getPacientes;
         }
