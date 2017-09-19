@@ -357,6 +357,51 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     </div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+     
+    $('#paciente_valide').keyup(function(e) {
+        $("#search_results").show();
+
+        $('li').each(function(){ // se elimina tabindex de todos los li
+         
+            $(this).removeAttr("tabindex");                
+        }); 
+        e.preventDefault();
+
+        if (e.keyCode === 13){
+            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
+                if($(this).hasClass('active')){
+                    $(this).click(); 
+                    $("#search_results").hide();
+                }          
+            }); 
+        }
+        if(e.which == 40){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").next();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+        if(e.which == 38){
+            if($("#search_results li.active").length!=0) {
+                var storeTarget = $('#search_results').find("li.active").prev();
+                $("#search_results li.active").removeClass("active");
+                storeTarget.focus().addClass("active");
+                
+            }
+            else {
+                $('#search_results').find("li:first").focus().addClass("active");
+            }
+            return ;
+        }
+    });
+});
    
     $('#fecha_autorizacion_valide').on('change', function(){
         var date = $(this).val();
@@ -411,50 +456,6 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 //    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
     $(document).ready(function(){
-             
-    $('#paciente_valide').keyup(function(e) {
-        $("#search_results").show();
-
-        $('li').each(function(){ // se elimina tabindex de todos los li
-         
-            $(this).removeAttr("tabindex");                
-        }); 
-        e.preventDefault();
-
-        if (e.keyCode === 13){
-            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
-                if($(this).hasClass('active')){
-                    $(this).click(); 
-                    $("#search_results").hide();
-                }          
-            }); 
-             e.preventDefault();
-        }
-        if(e.which == 40){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").next();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
-        if(e.which == 38){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").prev();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
-    });
         $('#price').checkboxpicker({
             html:true,
             onLabel:'SI',
