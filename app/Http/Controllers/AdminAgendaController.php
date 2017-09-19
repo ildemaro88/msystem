@@ -361,13 +361,13 @@ class AdminAgendaController extends Controller {
             $cita->agenda_id = $agenda_id;
         }//var_dump($cita);
         $response = $cita->save();
-
+        $convenio = ModConvenio::where("cita_calendario_id", $cita->id)->first();
         if ($response) {// si se guarda la cita
             if ($sel_convenio != "PARTICULAR" && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
                 /*
                  * Insertar el convenio si se ingresa datos
-                 * */
-                $convenio = ModConvenio::where("cita_calendario_id", $cita->id)->first();
+                 */
+                
                 if ($convenio) {
                     $convenio->autorizacion = $request->get("autorizacion");
                     $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
@@ -384,6 +384,10 @@ class AdminAgendaController extends Controller {
                     $convenio->fecha_autorizacion = $date1;
                     $convenio->fecha_vence = $date2;
                     $convenio->save();
+                }
+            }else{
+                 if ($convenio) {
+                    $convenio->delete();
                 }
             }
             /*

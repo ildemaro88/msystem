@@ -157,7 +157,7 @@ $scope.availableTags = [
         $scope.start = "";
         $scope.end = "";
         $scope.idpaciente = "";
-        $scope.tipo_convenio = true;
+        $scope.tipo_convenio = false;
         // $scope.patients = OPTIONS_PACIENTE;
         $scope.config = {
             defaultDate: $scope.fecha,
@@ -202,14 +202,20 @@ $scope.availableTags = [
                 navLinks: false,
                 weekends: true,
                 dayClick: function (date, jsEvent, view) {
-                    var element = jsEvent.target.outerHTML;
-                    element = element.substring(0, 3);
-                    var now = moment().format("DD/MM/YYYY HH:mm");
+                    console.log(view);
+                    if (view.type == "month") {
+                        $('#calendar').fullCalendar("changeView", "agendaWeek");
+                        $('#calendar').fullCalendar('gotoDate', date);
+                    } else {
+                        var element = jsEvent.target.outerHTML;
+                        element = element.substring(0, 3);
+                        var now = moment().format("DD/MM/YYYY HH:mm");
 
-                    if (date.format('DD/MM/YYYY HH:mm') > now) {
-                        if (element == "<td") {
-                            $scope.cita.fecha = date.format('DD/MM/YYYY');
-                            $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
+                        if (date.format('DD/MM/YYYY HH:mm') > now) {
+                            if (element == "<td") {
+                                $scope.cita.fecha = date.format('DD/MM/YYYY');
+                                $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
+                            }
                         }
                     }
                 },
@@ -372,7 +378,6 @@ $scope.availableTags = [
         });
     };
     $scope.resetPanelCita = function () {
-        descripcion: "";
         $scope.horaInicio = "";
         $scope.searchTextAgreement = "";
         $scope.searchText = "";
@@ -384,11 +389,6 @@ $scope.availableTags = [
         /*$scope.$watch('panel',function(){
          $scope.panel = $scope.panel_default;
          });*/
-        try {
-            $scope.$apply();
-        } catch (err) {
-            console.log(err);
-        }
     };
     /*
      * Recarga la página actual
@@ -517,8 +517,7 @@ $scope.availableTags = [
      * -->
      */
     $scope.showFormAppointment = function (dateSelect, hourInit) {
-
-
+        console.log(this.formCitaSend.$dirty);
         var panelCreate = new $scope.panel_default();
         $("#agenda-list-citas").hide();
         $("#form-save-cita").show();
@@ -535,6 +534,8 @@ $scope.availableTags = [
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
+        $scope.searchTextAgreement = 'PARTICULAR'
+        $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
         try {
             $scope.$apply();
         } catch (e) {
@@ -543,12 +544,18 @@ $scope.availableTags = [
     };
 
     $scope.previewCita = function () {
+        if (this.formCitaSend.$dirty) {
+            console.log(this.formCitaSend.$dirty);
+            this.formCitaSend.$dirty = false;
+            console.log(this.formCitaSend.$dirty);
+        }
         $("#agenda-list-citas").show();
         $("#form-save-cita").hide();
         $("#panel-edit-drop").hide();
+        $scope.init(); //inicializar
         $scope.reloadCalendar();
         $scope.resetPanelCita();
-        $scope.init(); //inicializar
+
 
     };
     $scope.setDateTime = function () {
@@ -622,14 +629,6 @@ $scope.availableTags = [
                 swal("Error!", "Error en la transacción!", "error");
             }
         });
-//        } else {
-//            swal({
-//                type: "error",
-//                title: "Error!",
-//                html: true,
-//                text: "<h3>Corrija los siguientes errores:</h3><br> <ol class='validate_hours'><li>Que la hora de inicio sea mayor o igual que la de fin.</li><li>Que los campos de horario no estén vacíos. </li><li>Que la cita esté dentro del horario de trabajo del médico seleccionado.</li></ul>"
-//            });
-//        }
     };
     // cambiar formato de fecha 01/11/2017 a 2017-01-11 // not used
     $scope.formatDate = function (date) {

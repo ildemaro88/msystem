@@ -206,7 +206,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         
                                         <div class="col-sm-5"> 
                                              <label for="">Seleccione el tipo de convenio</label> 
-                                                <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement" ng-options="convenio.name as convenio.name  for convenio in convenios" required>
+                                                <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
+                                                 <option ng-repeat="convenio in convenios" value="[[convenio.name]]">[[convenio.name]]</option>
                                                 </select> 
                                             <span style="color:red" ng-show="formCitaSend.convenio_valide.$dirty && formCitaSend.convenio_valide.$invalid">
                                             <span ng-show="formCitaSend.convenio_valide.$error.required">Debe Seleccionar un Convenio.</span>
@@ -259,9 +260,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span> 
                                                     <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
-                                                     </div> 
+                                                     </div>
                                                 <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
-                                                    <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
+                                                    <span ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
                                                 </span>
                                             </div> 
                                         </div> 
