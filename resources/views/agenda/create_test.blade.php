@@ -119,7 +119,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             <label for=""> Seleccione el paciente:</label>
                                             <input  autocomplete="off" name="paciente_valide" class="form-control" type='text' ng-keyup='searchPatients()' ng-model='searchText' ng-blur='valideIdPatient()' required>
                                             <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
-                                            <span ng-show="formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
+                                            <span ng-show="formCitaSend.paciente_valide.$dirty &&  formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
                                             </span><br>
                                             <ul class="md-autocomplete-suggestions" id='searchResultPatient' >
                                                 <li ng-click='setValue($index)' ng-repeat="result in searchResult" >[[ result.ci]] - [[ result.name]]</li>
@@ -204,7 +204,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
                                                      </div>
                                                 <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
-                                                    <span ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
+                                                    <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
                                                 </span>
                                             </div> 
                                         </div> 
