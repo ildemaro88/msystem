@@ -15,6 +15,8 @@ use App\ModConvenios;
 use App\Mail\EmailPaciente;
 use App\Mail\EmailMedico;
 use App\HorarioMedico;
+use App\ModSpecialtyPrice;
+use App\ModEmpresa;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
@@ -61,7 +63,7 @@ class AdminAgendaController extends Controller {
      */
     public function getPatients(Request $request, $value) {
 
-        $pacientes = ModPaciente::where(DB::raw('concat(cedula,nombre,apellido)') , 'LIKE' , "%{$value}%")->get();
+        $pacientes = ModPaciente::where(DB::raw('concat(cedula,nombre,apellido)'), 'LIKE', "%{$value}%")->get();
         $getPacientes = array();
         foreach ($pacientes as $paciente) {
             $getPaciente = array();
@@ -69,6 +71,7 @@ class AdminAgendaController extends Controller {
             $getPaciente["ci"] = $paciente["cedula"];
             $getPaciente["name"] = $paciente["nombre"];
             $getPaciente["apellido"] = $paciente["apellido"];
+            $getPaciente["empresa"] = $paciente["empresa"];
             $getPacientes[] = $getPaciente;
             $response["patients"] = $getPacientes;
         }
@@ -82,17 +85,19 @@ class AdminAgendaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAgreements(Request $request, $value) {
+    public function getAgreements(Request $request, ModEmpresa $business) {
 
-        $agreements = ModConvenios::where("nombre", "LIKE", "%{$value}%")->get();
-        $getAgreements = array();
-        foreach ($agreements as $agreement) {
-            $getAgreement = array();
-            $getAgreement["id"] = $agreement["id"];
-            $getAgreement["name"] = $agreement["nombre"];
-            $getAgreements[] = $getAgreement;
-            $response["agreements"] = $getAgreements;
+        if ($business->convenio) {
+            $getBusinessAgreement = array();
+            $getBusinessAgreement["id"] = $business->convenio->id;
+            $getBusinessAgreement["name"] = $business->convenio->nombre;
         }
+        $agreement = ModConvenios::where("id", 1)->first();
+        $getAgreement = array();
+        $getAgreement["id"] = $agreement["id"];
+        $getAgreement["name"] = $agreement["nombre"];
+
+        $response["agreements"] = array($getAgreement, $getBusinessAgreement);
         return response()->json([
                     "response" => $response
         ]);
@@ -132,6 +137,7 @@ class AdminAgendaController extends Controller {
         $getAgenda["nombre"] = $agenda["nombre"];
         $medico = array();
         $medico["id"] = $medico_id->id;
+        $medico["especialidad"] = $medico_id->especialidad;
         $response["medico"] = $medico;
         $response["convenios"] = $getConvenios;
         $response["horario_medico"] = $horarios;
@@ -178,7 +184,7 @@ class AdminAgendaController extends Controller {
         $cita = new ModCita;
         $paciente = ModPaciente::find($request->get("idpaciente"));
         $cita->estado = 5;
-        $cita->color=$request->get("color");
+        $cita->color = $request->get("color");
         $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
         $cita->agenda_id = $request->get("agenda_id");
@@ -216,14 +222,14 @@ class AdminAgendaController extends Controller {
                 $convenio->fecha_autorizacion = $date1;
                 $convenio->fecha_vence = $date2;
                 $convenio->save();
-            }else{
-                 $convenio = new ModConvenio;
+            } else {
+                $convenio = new ModConvenio;
                 $convenio->cita_calendario_id = $cita->id;
                 $convenio->autorizacion = $request->get("autorizacion");
                 $convenio->id_convenio = $request->get("sel_convenio");
                 $convenio->fecha_autorizacion = "";
                 $convenio->fecha_vence = "";
-                $convenio->save();  
+                $convenio->save();
             }
             /*
              * Envio de e-mail cuando se guarda la cita
@@ -302,20 +308,19 @@ class AdminAgendaController extends Controller {
         $convenio = ModConvenio::where("cita_calendario_id", $cita->id)->first();
         if ($response) {// si se guarda la cita
             if ($sel_convenio > 1 && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
-
-                    $convenio->autorizacion = $request->get("autorizacion");
-                    $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
-                    $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
-                    $convenio->fecha_autorizacion = $date1;
-                    $convenio->fecha_vence = $date2;
-                    $convenio->id_convenio = $sel_convenio;
-                    $convenio->save();
-            }else{
-                    $convenio->autorizacion = $request->get("autorizacion");
-                    $convenio->fecha_autorizacion = "";
-                    $convenio->fecha_vence = "";
-                    $convenio->id_convenio = $sel_convenio;
-                    $convenio->save();
+                $convenio->autorizacion = $request->get("autorizacion");
+                $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
+                $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
+                $convenio->fecha_autorizacion = $date1;
+                $convenio->fecha_vence = $date2;
+                $convenio->id_convenio = $sel_convenio;
+                $convenio->save();
+            } else {
+                $convenio->autorizacion = $request->get("autorizacion");
+                $convenio->fecha_autorizacion = "";
+                $convenio->fecha_vence = "";
+                $convenio->id_convenio = $sel_convenio;
+                $convenio->save();
             }
             /*
              * Envio de e-mail cuando se guarda la cita
@@ -343,6 +348,18 @@ class AdminAgendaController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPrice(Request $request, $business, $specialty) {
+
+        $price = ModSpecialtyPrice::Where('id_empresa', $business)->where('id_especialidad', $specialty)->first();
+
+        return ($price["precio"]);
     }
 
 }

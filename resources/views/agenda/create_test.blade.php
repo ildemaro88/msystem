@@ -9,71 +9,71 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <script src="{{asset('bower_resources/angularjs-slider/dist/rzslider.min.js')}}"></script>
 <style>
 
-#search{
-  position: relative;
-  right:0;
-  margin:0 1em;
-  width:350px;
-}
-#search{
-  top:0;
-  z-index:10;
-}
+    #search{
+        position: relative;
+        right:0;
+        margin:0 1em;
+        width:350px;
+    }
+    #search{
+        top:0;
+        z-index:10;
+    }
 
-#search > a{
-  position: absolute;
-  right:0;
-  top:0;
-  bottom:0;
-  padding:0 10px;
-  background-color: #ec9507;
-}
-#search > a i{
-  color:#fff;
-}
-#search_results{
-  position: absolute;
-  z-index: 45;
-  top:100%;
-  left: 0;
-  right:0;
-  max-height: 200px;
-  overflow: auto;
-}
-#search_results ul{
-  width: 100%;
-  margin:0;
-  padding-right: 15px;
-    padding-left: 15px;
-}
-#search_results li{
-    outline: none;
-  width: 100%;
-  list-style-type: none;
-  box-sizing: border-box;
-  margin:0;
-  padding:10px 15px;
-  background-color: #fff;
-  transition:all 0.5s;
-  -moz-transition:all 0.5s;
-  -webkit-transition:all 0.5s;
-  cursor:pointer;
-  word-wrap:break-word;
-}
-#search_results li:hover, #search_results li:focus{
-  color:#fff;
-  background-color: #7BB4D5;
-}
-#search_results li i{
-  padding-right:5px;
-}
-#search_results li.active { background:#7BB4D5; color:#fff; }
+    #search > a{
+        position: absolute;
+        right:0;
+        top:0;
+        bottom:0;
+        padding:0 10px;
+        background-color: #ec9507;
+    }
+    #search > a i{
+        color:#fff;
+    }
+    #search_results{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_results ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_results li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_results li:hover, #search_results li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_results li i{
+        padding-right:5px;
+    }
+    #search_results li.active { background:#7BB4D5; color:#fff; }
 
 
     .col-center{
-    float: none;
-    margin: 0 auto;
-}
+        float: none;
+        margin: 0 auto;
+    }
     .fontfamilyAutocomplet{
         padding: 5px;
         width: 250px;
@@ -120,15 +120,15 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
 <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
 <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-      
-     
+
+
 {{--modal edicion de evento--}}
 
 
 <div ng-app="AppAgenda"
      ng-init="cita.fecha = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); descripcion = (''); agendar = (true); fecha_autorizacion = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); fecha_vence = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); cita.hoy = ('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
      ng-controller="CtrlApp" ng-cloack>
-     
+
     @include("agenda.modals")
     <div class="box">
         <div class="box-header">
@@ -139,9 +139,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     class="fa fa-refresh"></i> Actualizar/Recargar
             </button>
         </div>
-                           
+
         <div id="agenda-list-citas" class="box-body">
-            
+
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <div style="background: white;" id="calendar"></div>
@@ -173,25 +173,25 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="sel_convenio" type="hidden" value="[[searchTextAgreement]]">
 
                                     <div class="row"> 
-                                    
+
                                         <div class="form-group col-md-5"> 
-                                        
+
                                             <label for=""> Seleccione el paciente:</label>                                            
                                             <input type="text"  id="paciente_valide" ng-keyup='searchPatients($event)' ng-model='searchText' name="paciente_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdPatient()' required/>
-                                           <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
-                                            <span ng-show="formCitaSend.paciente_valide.$dirty &&  formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
+                                            <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
+                                                <span ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
                                             </span><br>
                                             <div id="search_results">
-                                            <!-- Example content that is printed out after searchNameDept() is run -->
-                                            <ul id='searchResultPatient' >
-                                            <li ng-click='setValue($index)' ng-keyup="setValue($index)" class="search_org"  ng-repeat="result in searchResult  | limitTo:5" >[[ result.ci]] - [[ result.name]] [[ result.apellido]]</li>
-                                             <li ng-show="newPatient">No existe el paciente, 
-                                                    <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar 
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                          </div>
-                                               
+                                                <!-- Example content that is printed out after searchNameDept() is run -->
+                                                <ul id='searchResultPatient' >
+                                                    <li ng-click='setValue($index)' ng-keyup="setValue($index)" class="search_org"  ng-repeat="result in searchResult| limitTo:5" >[[ result.ci]] - [[ result.name]] [[ result.apellido]]</li>
+                                                    <li ng-show="newPatient">No existe el paciente, 
+                                                        <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar 
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
                                         </div>  
                                         <div class="col-sm-2"  ng-show="time">
                                             <h5 style="margin:0px">
@@ -209,14 +209,15 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                                             </div--> 
                                         </div> 
-                                        
+
                                         <div class="col-sm-5"> 
-                                             <label for="">Seleccione el tipo de convenio</label> 
-                                                <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
-                                                 <option ng-repeat="convenio in convenios" value="[[convenio.id]]">[[convenio.name]]</option>
-                                                </select> 
+                                            <label for="">Seleccione el tipo de convenio</label> 
+                                            <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
+                                                <!--<option ng-value="" ng-show="searchTextAgreement" ng-selected="true">--Seleccione--</option>-->
+                                                <option ng-repeat="convenio in convenios" ng-value="convenio.id">[[convenio.name]]</option>
+                                            </select> 
                                             <span style="color:red" ng-show="formCitaSend.convenio_valide.$dirty && formCitaSend.convenio_valide.$invalid">
-                                            <span ng-show="formCitaSend.convenio_valide.$error.required">Debe Seleccionar un Convenio.</span>
+                                                <span ng-show="formCitaSend.convenio_valide.$error.required">Debe Seleccionar un Convenio.</span>
                                             </span>
                                         </div>
                                     </div> 
@@ -232,20 +233,20 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div>
                                         <div class="col-sm-3"> 
                                             <div class="form-group"> 
-                                                <label for="">Precio: 454 $</label> 
+                                                <label for="">Precio: [[price]] $</label> 
                                                 <hr>
                                                 <h5>Pagar:</h5>
                                                 <input id="price" type="checkbox" data-group-cls="btn-group-justified" >
                                             </div> 
                                         </div> 
                                         <div class="col-sm-4" ng-show="tipo_convenio"> 
-                                            
+
                                             <div class="form-group"> 
                                                 <label for="">Autorización</label> 
                                                 <input name="autorizacion_valide" ng-model="autorizacion" type="text" class="form-control" ng-required=autorizacion_required> 
-                                                 <span style="color:red" ng-show="formCitaSend.autorizacion_valide.$dirty && formCitaSend.autorizacion_valide.$invalid">
-                                                     <span ng-show="formCitaSend.autorizacion_valide.$error.required">Debe Seleccionar una Autorización.</span>
-                                                 </span>
+                                                <span style="color:red" ng-show="formCitaSend.autorizacion_valide.$dirty && formCitaSend.autorizacion_valide.$invalid">
+                                                    <span ng-show="formCitaSend.autorizacion_valide.$error.required">Debe Seleccionar una Autorización.</span>
+                                                </span>
                                             </div> 
                                             <div class="form-group">
                                                 <label for="">Fecha Autorización</label>
@@ -266,7 +267,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                         <span class="glyphicon glyphicon-calendar"></span> 
                                                     </span> 
                                                     <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required> 
-                                                     </div>
+                                                </div>
                                                 <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
                                                     <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
                                                 </span>
@@ -280,34 +281,34 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     <div class="panel-footer  text-right">
 
                         <button type="button" class="btn btn-default"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button>                              
-                        
+
                         <button ng-show="ddpanel.buttons.trash"  ng-click="cancelarCita()" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
 
                         <button ng-show="panel.buttons.cancelar" ng-click="eliminarCita([[cita_id]])"  style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button>                                  
                         <button 
                             ng-show="panel.buttons.modificar" 
-                             ng-disabled="!formCitaSend.$valid"
-                             type="submit" class="btn btn-primary" 
-                                style="margin-right: 5px;">
+                            ng-disabled="!formCitaSend.$valid"
+                            type="submit" class="btn btn-primary" 
+                            style="margin-right: 5px;">
                             <i class="fa fa-check"> </i> Modificar 
                         </button> 
-                              
+
                         <button 
                             ng-show="panel.buttons.agendar" 
-                            ng-disabled="!formCitaSend.$valid 
+                            ng-disabled="!formCitaSend.$valid"
                             type="submit" class="btn btn-success" 
                             style="margin-right: 5px;">
                             <i class="fa fa-check"></i> Agendar 
                         </button>                                                                 
                     </div>
                 </form>
-                </div> 
-            </div>
-            {{--FIN Panel de gestion de citas--}}
-            
-            <!-- fin panel editar citas drop-->
+            </div> 
+        </div>
+        {{--FIN Panel de gestion de citas--}}
+
+        <!-- fin panel editar citas drop-->
         <div id="panel-edit-drop" class="col-md-12" ng-show="showDrop" style="display: none;">
-            
+
             <div class=" panel panel-primary">
                 <div class="panel-heading">
                     <h3 style="margin:0px">
@@ -316,7 +317,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                 </div>
                 <div class="panel-body">
                     <div class="col-md-8 col-md-offset-3">
-                       
+
                         <h1>Fecha Inicial: <a>[[startDateEdit]]</a></h1>    
                         <h1>Fecha Final: <a>[[endDateEdit]]</a> </h1>                          
                     </div>
@@ -327,83 +328,27 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                 <div class="form-group"> 
                                     <button type="button" class="btn btn-default btn-lg"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button> 
                                     <button type="button" ng-click="updateDropCita([[idCita]])" class="btn btn-success btn-lg">
-                                         <i class="fa fa-refresh"></i> OK
+                                        <i class="fa fa-refresh"></i> OK
                                     </button>
-                                     
+
                                 </div> 
                             </div> 
                         </div>
                     </div>
                 </div>
             </div>
-             <div class="col-xs-12 col-sm-2">
-                
-             </div>
+            <div class="col-xs-12 col-sm-2">
+
+            </div>
         </div>
         <!-- fin panel editar citas drop-->
-        </div>
-        
     </div>
+
+</div>
 <script src="{{asset('js/bootstrap-checkbox/bootstrap-checkbox.js')}}"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-     
-    $('#paciente_valide').keyup(function(e) {
-        $("#search_results").show();
-
-        $('li').each(function(){ // se elimina tabindex de todos los li
-         
-            $(this).removeAttr("tabindex");                
-        }); 
-        e.preventDefault();
-
-        if (e.keyCode === 13){
-            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
-                if($(this).hasClass('active')){
-                    $(this).click(); 
-                    $("#search_results").hide();
-                }          
-            }); 
-        }
-        if(e.which == 40){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").next();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
-        if(e.which == 38){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").prev();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
-    });
-});
-   
-    $('#fecha_autorizacion_valide').on('change', function(){
-        var date = $(this).val();
-        $('#fecha_vence_valide').datepicker({minDate: date});  
-    });
     URL_GET_DATA_JSON = '{{ CRUDBooster::adminPath('medico/agenda/get/information/') }}/{{$medico->id}}';
     console.log(URL_GET_DATA_JSON);
-    /*
-     * GLOBALS
-     */
-    //AGENDA_ID = '{{$agenda->id}}';
-    //MEDICO_ID = '{{$medico->id}}';
-    //URL_CITAS = '{{ CRUDBooster::adminPath('medico/cita/'.$medico->id) }}';
     URL_MEDICO_CITA = '{{ CRUDBooster::adminPath('medico/cita')}}';
     URL_MEDICO_CITA_SAVE = '{{ CRUDBooster::adminPath('medico/agenda/save')}}';
     URL_MEDICO_AGENDA = '{{ CRUDBooster::adminPath('medico/agenda/test/index')}}';
@@ -433,73 +378,101 @@ $(document).ready(function(){
             }
     };
     PANEL = {};
-//    HORARIO_TRABAJO = [
-//            @foreach($horario_medico as $h)
-//    {
-//    dow: [ '{{$h->dow}}' ], // Monday, Tuesday, Wednesday
-//            start: '{{$h->start}}', // 8am
-//            end: '{{$h->end}}' // 6pm
-//    },
-//            @endforeach
-//    ];
-//    HORARIO_TRABAJO = HORARIO_TRABAJO.length > 0 ? HORARIO_TRABAJO :false;
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
 $(document).ready(function(){
-    $('.noEnterSubmit').keypress(function(e){
-        
-        //or...
-        if ( e.which == 13 ) e.preventDefault();
-    });
+
     $('#paciente_valide').keyup(function(e) {
         $("#search_results").show();
-
         $('li').each(function(){ // se elimina tabindex de todos los li
-         
-            $(this).removeAttr("tabindex");                
-        }); 
-        e.preventDefault();
 
-        if (e.keyCode === 13){
-            $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
-                if($(this).hasClass('active')){
-                    $(this).click(); 
-                    $("#search_results").hide();
-                }          
-            }); 
-             
-        }
-        if(e.which == 40){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").next();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
-        if(e.which == 38){
-            if($("#search_results li.active").length!=0) {
-                var storeTarget = $('#search_results').find("li.active").prev();
-                $("#search_results li.active").removeClass("active");
-                storeTarget.focus().addClass("active");
-                
-            }
-            else {
-                $('#search_results').find("li:first").focus().addClass("active");
-            }
-            return ;
-        }
+    $(this).removeAttr("tabindex");
     });
-        $('#price').checkboxpicker({
-            html:true,
+    e.preventDefault();
+    if (e.keyCode === 13){
+    $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
+    if ($(this).hasClass('active')){
+    $(this).click();
+    $("#search_results").hide();
+    }
+    });
+    }
+    if (e.which == 40){
+    if ($("#search_results li.active").length != 0) {
+    var storeTarget = $('#search_results').find("li.active").next();
+    $("#search_results li.active").removeClass("active");
+    storeTarget.focus().addClass("active");
+    }
+    else {
+    $('#search_results').find("li:first").focus().addClass("active");
+    }
+    return;
+    }
+    if (e.which == 38){
+    if ($("#search_results li.active").length != 0) {
+    var storeTarget = $('#search_results').find("li.active").prev();
+    $("#search_results li.active").removeClass("active");
+    storeTarget.focus().addClass("active");
+    }
+    else {
+    $('#search_results').find("li:first").focus().addClass("active");
+    }
+    return;
+    }
+    });
+    $('#fecha_autorizacion_valide').on('change', function(){
+    var date = $(this).val();
+    $('#fecha_vence_valide').datepicker({minDate: date});
+    });
+    $('.noEnterSubmit').keypress(function(e){
+
+    //or...
+    if (e.which == 13) e.preventDefault();
+    });
+    $('#paciente_valide').keyup(function(e) {
+    $("#search_results").show();
+    $('li').each(function(){ // se elimina tabindex de todos los li
+
+    $(this).removeAttr("tabindex");
+    });
+    e.preventDefault();
+    if (e.keyCode === 13){
+    $('li').each(function(){ // si se presiona enter hacemos click sobre el li activo
+    if ($(this).hasClass('active')){
+    $(this).click();
+    $("#search_results").hide();
+    }
+    });
+    }
+    if (e.which == 40){
+    if ($("#search_results li.active").length != 0) {
+    var storeTarget = $('#search_results').find("li.active").next();
+    $("#search_results li.active").removeClass("active");
+    storeTarget.focus().addClass("active");
+    }
+    else {
+    $('#search_results').find("li:first").focus().addClass("active");
+    }
+    return;
+    }
+    if (e.which == 38){
+    if ($("#search_results li.active").length != 0) {
+    var storeTarget = $('#search_results').find("li.active").prev();
+    $("#search_results li.active").removeClass("active");
+    storeTarget.focus().addClass("active");
+    }
+    else {
+    $('#search_results').find("li:first").focus().addClass("active");
+    }
+    return;
+    }
+    });
+    $('#price').checkboxpicker({
+    html:true,
             onLabel:'SI',
             offLabel:'NO'
-        });
-    $('#fecha').val(HOY);
     });
+    $('#fecha').val(HOY);
+});
     /*
      * -->
      */
