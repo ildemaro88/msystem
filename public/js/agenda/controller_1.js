@@ -63,21 +63,27 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.searchText = event.paciente.cedula + " - " + event.paciente.nombre + " " + event.paciente.apellido;
         $scope.descripcion = event.detalle_cita;
         $scope.idpaciente = event.paciente_id;
+        $scope.statusPrice = event.payment.status;
+//        $scope.idpaciente = event.paciente_id;
         $scope.searchTextAgreement = event.convenio.id_convenio;
-
+        $scope.idEmpresa = event.paciente.empresa;
+        $scope.changePriceStatusEdit($scope.statusPrice);
+//        console.log($scope.searchTextAgreement);
         if ($scope.searchTextAgreement > 1) {
+            $scope.getOptionsAgreements($scope.idEmpresa, $scope.idEmpresa, $scope.searchTextAgreement);
             $scope.tipo_convenio = true;
             $scope.fecha_autorizacion = moment(event.convenio.fecha_autorizacion, "YYYY-MM-DD").format("DD/MM/YYYY");
             $scope.autorizacion = event.convenio.autorizacion;
             $scope.fecha_vence = moment(event.convenio.fecha_vence, "YYYY-MM-DD").format("DD/MM/YYYY");
 //            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
-            $("#convenio").val($scope.searchTextAgreement).trigger("change");
+            // $("#convenio").val($scope.searchTextAgreement).trigger("change");
         } else {
+            $scope.getOptionsAgreements(event.paciente.empresa, 0, $scope.searchTextAgreement);
             $scope.tipo_convenio = false;
             $scope.fecha_autorizacion = "";
             $scope.autorizacion = "";
             $scope.fecha_vence = "";
-            $("#convenio").val($scope.searchTextAgreement).trigger("change");
+            //$("#convenio").val($scope.searchTextAgreement).trigger("change");
 //            $("#convenio").val($scope.searchTextAgreement).attr('selected', true);
 
         }
@@ -157,7 +163,6 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.newPatient = false;
         $scope.autorizacion_required = false;
         $scope.price = "";
-        $scope.statusPrice = false;
         $scope.idEmpresa = "";
         $scope.searchResult = "";
         $scope.fullCalendar = function (data) {
@@ -354,14 +359,14 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         });
     };
     $scope.resetPanelCita = function () {
-        $scope.horaInicio = "";
         $scope.searchTextAgreement = "";
         $scope.searchText = "";
         $scope.descripcion = "";
-        $scope.horaFin = "";
+        $scope.convenios = [];
         // $scope.cita={fecha : $scope.cita.fecha};
         $scope.resetAutorizacion();
         $scope.panel = new $scope.panel_default();
+        
         /*$scope.$watch('panel',function(){
          $scope.panel = $scope.panel_default;
          });*/
@@ -520,6 +525,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     };
 
     $scope.previewCita = function () {
+        
         if (this.formCitaSend.$dirty) {
             this.formCitaSend.$dirty = false;
         }
@@ -529,7 +535,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.init(); //inicializar
         $scope.reloadCalendar();
         $scope.resetPanelCita();
-
+        
 
     };
     $scope.setDateTime = function () {
@@ -682,7 +688,10 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.idpaciente = $scope.searchResult[index].id;
         $scope.idEmpresa = $scope.searchResult[index].empresa;
         $scope.searchTextAgreement = 1;
-        var url = URL_BASE + "medico/agenda/get/agreement/" + $scope.idEmpresa;
+        $scope.getOptionsAgreements($scope.idEmpresa, 0, $scope.searchTextAgreement );
+    }
+    $scope.getOptionsAgreements = function (Idempresa, option, textAgreement) {
+        var url = URL_BASE + "medico/agenda/get/agreement/" + Idempresa;
         $http({
             url: url,
             method: 'GET',
@@ -693,21 +702,26 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         }).then(function success(response) {
             if (response.data.response.agreements) {
                 $scope.convenios = response.data.response.agreements;
-                $scope.getPrice(0);
+                $scope.setOptionAgreement(textAgreement);
+                $scope.getPrice(option);
+
             } else {
-                $scope.convenios = {};
+                $scope.convenios = [];
             }
         });
         $scope.searchResult = {};
     }
-
+    $scope.setOptionAgreement = function (value) {
+        $("#convenio").val(value).attr('selected', true);
+        //$("#convenio").val(value).trigger("change");
+    }
     // Set value to search box
     $scope.setValueAgreement = function () {
         var id_empresa = "";
         if ($scope.searchTextAgreement > 1) {
             $scope.tipo_convenio = true;
             $scope.autorizacion_required = true;
-            id_empresa = $scope.idEmpresa;           
+            id_empresa = $scope.idEmpresa;
         } else {
             $scope.tipo_convenio = false;
             $scope.autorizacion_required = false;
@@ -716,7 +730,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             $scope.fecha_vence = "";
             id_empresa = 0;
         }
-         $scope.getPrice(id_empresa);
+        $scope.getPrice(id_empresa);
     }
     // Set value to search box
     $scope.getPrice = function (id_empresa) {
@@ -737,15 +751,44 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             }
         });
     }
-    // Set value to search box
-//    $scope.setStatusPrice = function () {
-//    $scope.statusPrice = true;
-//    console.log($scope.statusPrice);
-//    }
+
+    $scope.changePriceStatusEdit = function (status) {
+        var valor = $('#price').attr("checked");
+        console.log($('#price').attr("checked"));
+        //$('#price').click();
+        if (valor == "checked") {
+            console.log("false");
+            $('#price').click();
+        }
+        if(status == true){
+            console.log("verdadero")
+             $('#price').click();
+        }
+    }
+
+    $scope.processPayment = function (data) {
+        data.getAttribute("checked") == null ? data.setAttribute("checked", true) : data.removeAttribute("checked");
+        data.getAttribute("checked") == null ? $scope.setSatusPayment(false) : $scope.setSatusPayment(true);
+    }
+
+    $scope.setSatusPayment = function (value) {
+        $scope.statusPrice = value;
+        try {
+            $scope.$apply();
+        } catch (e) {
+
+        }
+    }
+
+    $('#price').checkboxpicker({
+        html: true,
+        onLabel: 'SI',
+        offLabel: 'NO'
+    }).on('change', function () {
+        $scope.processPayment(this);
+    });
+
 });
-
-
-
 
 
 

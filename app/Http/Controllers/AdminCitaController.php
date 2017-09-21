@@ -59,6 +59,7 @@ class AdminCitaController extends Controller
                           ->where("trash","=",null)
                           ->orWhere("trash","=",0) // los que no estan en papelera
                           ->with("convenio")
+                          ->with("payment")
                           ->with("paciente")
                           ->get();
                        //dd($cita);

@@ -17,27 +17,13 @@ use App\Mail\EmailMedico;
 use App\HorarioMedico;
 use App\ModSpecialtyPrice;
 use App\ModEmpresa;
+use App\ModPayment;
+use App\ModTypePayment;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
 
 class AdminAgendaController extends Controller {
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function index() {
-//        $medico_id = ModMedico::where("cms_user_id", CRUDBooster::myId())->first();
-//        //$paciente = ModPaciente::all();
-//        $medico = ModMedico::find($medico_id->id);
-//        $convenios = ModConvenios::all();
-//        $page_title = "Agendar Cita";
-//        $horario_medico = HorarioMedico::where("medico_id", $medico->id)->get();
-//        $agenda = ModAgenda::where("medico_id", $medico->id)->first();
-//
-//        return view('agenda.create', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
-//    }
 
     /**
      * Display a listing of the resource.
@@ -231,6 +217,13 @@ class AdminAgendaController extends Controller {
                 $convenio->fecha_vence = "";
                 $convenio->save();
             }
+            $typePayment = ModTypePayment::find(1);
+            $payment = new ModPayment();
+            $payment->parent_id = $cita->id;
+            $payment->type_payment = $typePayment["id"];
+            $payment->status = $request->get("status_price");
+            $payment->aumont = $request->get("price");
+            $payment->save();
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
@@ -322,6 +315,16 @@ class AdminAgendaController extends Controller {
                 $convenio->id_convenio = $sel_convenio;
                 $convenio->save();
             }
+           // $typePayment = ModTypePayment::find(1);
+            $payment =  ModPayment::where("parent_id", $cita->id)->first();
+            if($request->get("status_price") == "true"){
+                $status = true;
+            }else{
+                $status = false; 
+            }
+            $payment->status =  $status;
+            $payment->aumont = $request->get("price");
+            $payment->save();
             /*
              * Envio de e-mail cuando se guarda la cita
              * */

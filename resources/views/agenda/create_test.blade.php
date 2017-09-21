@@ -171,7 +171,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                     <input name="fecha_vence" type="hidden" value="[[fecha_vence]]">
                                     <input name="[[panel.method.name]]" type="hidden" value="[[panel.method.value]]"> <br> 
                                     <input name="sel_convenio" type="hidden" value="[[searchTextAgreement]]">
-
+                                    <input ng-model="statusPrice" name="status_price" type="hidden" value="[[statusPrice]]">
+                                    <input name="price" type="hidden" value="[[price]]">
                                     <div class="row"> 
 
                                         <div class="form-group col-md-5"> 
@@ -236,7 +237,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <label for="">Precio: [[price]] $</label> 
                                                 <hr>
                                                 <h5>Pagar:</h5>
-                                                <input id="price" type="checkbox" data-group-cls="btn-group-justified" >
+                                                <input id="price" type="checkbox" data-group-cls="btn-group-justified">
                                             </div> 
                                         </div> 
                                         <div class="col-sm-4" ng-show="tipo_convenio"> 
@@ -379,11 +380,11 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
     };
     PANEL = {};
     HOY = '{{Carbon\Carbon::now()->format('d/m/Y')}}';
-$(document).ready(function(){
+    $(document).ready(function(){
 
     $('#paciente_valide').keyup(function(e) {
-        $("#search_results").show();
-        $('li').each(function(){ // se elimina tabindex de todos los li
+    $("#search_results").show();
+    $('li').each(function(){ // se elimina tabindex de todos los li
 
     $(this).removeAttr("tabindex");
     });
@@ -466,13 +467,10 @@ $(document).ready(function(){
     return;
     }
     });
-    $('#price').checkboxpicker({
-    html:true,
-            onLabel:'SI',
-            offLabel:'NO'
-    });
+   
+   
     $('#fecha').val(HOY);
-});
+    });
     /*
      * -->
      */
