@@ -32,4 +32,7 @@ class ModCita extends Model
     public function convenio(){
         return $this->hasOne('\App\ModConvenio',"cita_calendario_id");
     }
+     public function payment(){
+        return $this->hasOne('\App\ModPayment','parent_id');
+    }
 }

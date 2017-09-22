@@ -11,4 +11,8 @@ class ModConvenios extends Model
     protected $fillable =[        
         "nombre"
     ];
+    
+       public function empresas(){
+        return $this->hasMany('\App\ModEmpresa','id_convenio');
+    }
 }
