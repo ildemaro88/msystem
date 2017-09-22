@@ -211,7 +211,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                             </div--> 
                                         </div> 
 
-                                        <div class="col-sm-5"> 
+                                        <div class="col-sm-5" ng-show="convenios.length>0 "> 
                                             <label for="">Seleccione el tipo de convenio</label> 
                                             <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
                                                 <!--<option ng-value="" ng-show="searchTextAgreement" ng-selected="true">--Seleccione--</option>-->
@@ -234,7 +234,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div>
                                         <div class="col-sm-3"> 
                                             <div class="form-group"> 
-                                                <label for="">Precio: [[price]] $</label> 
+                                                <label for="">Precio: [[price]] <span ng-show="price!=''">$</span></label> 
                                                 <hr>
                                                 <h5>Pagar:</h5>
                                                 <input id="price" type="checkbox" data-group-cls="btn-group-justified">
