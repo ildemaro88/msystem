@@ -106,59 +106,59 @@
 				  	</tr>
 				  	<tr style="font-size:10px; ">
 					    <td colspan="4" class="active">1. VACUNAS <br>
-					      <input type="checkbox" id="cb_vacunas" ng-checked="cb_vacunas" name="cb_vacunas"></td>
+					      <input type="checkbox" value="VACUNAS" id="cb_vacunas" ng-checked="cb_vacunas" name="cb_vacunas"></td>
 					    <td colspan="3" class="active">5. ENF ALÉRGICA <br>
-					      <input type="checkbox" id="cb_alergica" ng-checked="cb_alergica" name="cb_alergica"></td>
+					      <input type="checkbox" value="ENFERMEDAD ALÉRGICA" id="cb_alergica" ng-checked="cb_alergica" name="cb_alergica"></td>
 					    <td colspan="3" class="active">9. ENF NEUROLÓGICA <br>
-					      <input type="checkbox" id="cb_neurologica" ng-checked="cb_neurologica" name="cb_neurologica"></td>
+					      <input type="checkbox" value="ENFERMEDAD NEUROLÓGICA" id="cb_neurologica" ng-checked="cb_neurologica" name="cb_neurologica"></td>
 					    <td colspan="3" class="active">13. ENF TRAUMATOLÓGICA <br>
-					      <input type="checkbox" id="cb_traumatologica" ng-checked="cb_traumatologica" name="cb_traumatologica"></td>
+					      <input type="checkbox" value="ENFERMEDAD TRAUMATOLÓGICA" id="cb_traumatologica" ng-checked="cb_traumatologica" name="cb_traumatologica"></td>
 					    <td colspan="3" class="active">17. TENDENCIA SEXUAL <br>
-					      <input type="checkbox" id="cb_tendsexual" ng-checked="cb_tendsexual" name="cb_tendsexual"></td>
+					      <input type="checkbox" value="TENDENCIA SEXUAL" id="cb_tendsexual" ng-checked="cb_tendsexual" name="cb_tendsexual"></td>
 					    <td colspan="4" class="active">21. ACTIVIDAD SEXUAL <br>
-					      <input type="checkbox" id="cb_actsexual" ng-checked="cb_actsexual" name="cb_actsexual"></td>
+					      <input type="checkbox" value="ACTIVIDAD SEXUAL" id="cb_actsexual" ng-checked="cb_actsexual" name="cb_actsexual"></td>
 				 	</tr>
 				  	<tr style="font-size:10px; ">
 					    <td colspan="4" class="active">2. ENF PERINATAL <br>
-					      <input type="checkbox" id="cb_perinatal" ng-checked="cb_perinatal" name="cb_perinatal"></td>
+					      <input type="checkbox" value="ENFERMEDAD PERINATAL" id="cb_perinatal" ng-checked="cb_perinatal" name="cb_perinatal"></td>
 					    <td colspan="3" class="active">6. ENF CARDIACA <br>
-					      <input type="checkbox" id="cb_cardiaca" ng-checked="cb_cardiaca" name="cb_cardiaca"></td>
+					      <input type="checkbox" value="ENFERMEDAD CARDIACA" id="cb_cardiaca" ng-checked="cb_cardiaca" name="cb_cardiaca"></td>
 					    <td colspan="3" class="active">10. ENF METABÓLICA <br>
-					      <input type="checkbox" id="cb_metabolica" ng-checked="cb_metabolica" name="cb_metabolica"></td>
+					      <input type="checkbox" value="ENFERMEDAD METABÓLICA" id="cb_metabolica" ng-checked="cb_metabolica" name="cb_metabolica"></td>
 					    <td colspan="3" class="active">14. ENF QUIRURGICA <br>
-					      <input type="checkbox" id="cb_quirurgica" ng-checked="cb_quirurgica" name="cb_quirurgica"></td>
+					      <input type="checkbox" value="ENFERMEDAD QUIRURGICA" id="cb_quirurgica" ng-checked="cb_quirurgica" name="cb_quirurgica"></td>
 					    <td colspan="3" class="active">18. RIESGO SOCIAL <br>
-					      <input type="checkbox" id="cb_riesgosocial" ng-checked="cb_riesgosocial" name="cb_riesgosocial"></td>
+					      <input type="checkbox" value="RIESGO SOCIAL" id="cb_riesgosocial" ng-checked="cb_riesgosocial" name="cb_riesgosocial"></td>
 					    <td colspan="4" class="active">22. DIETA Y HABITOS <br>
-					      <input type="checkbox" id="cb_dietahabitos" ng-checked="cb_dietahabitos" name="cb_dietahabitos"></td>
+					      <input type="checkbox" value="DIETA Y HABITOS" id="cb_dietahabitos" ng-checked="cb_dietahabitos" name="cb_dietahabitos"></td>
 				  	</tr>
 				  	<tr style="font-size:10px; ">
 					    <td colspan="4" class="active">3. ENF INFANCIA <br>
-					      <input type="checkbox" id="cb_infancia" ng-checked="cb_infancia" name="cb_infancia"></td>
+					      <input type="checkbox" value="ENFERMEDAD INFANCIA" id="cb_infancia" ng-checked="cb_infancia" name="cb_infancia"></td>
 					    <td colspan="3" class="active">7. ENF RESPIRATORIA <br>
-					      <input type="checkbox" id="cb_respiratoria" ng-checked="cb_respiratoria" name="cb_respiratoria"></td>
+					      <input type="checkbox" value="ENFERMEDAD RESPIRATORIA" id="cb_respiratoria" ng-checked="cb_respiratoria" name="cb_respiratoria"></td>
 					    <td colspan="3" class="active">11. ENF HEMO LINF <br>
-					      <input type="checkbox" id="cb_hemolinf" ng-checked="cb_hemolinf" name="cb_hemolinf"></td>
+					      <input type="checkbox" value="ENFERMEDAD HEMO LINF" id="cb_hemolinf" ng-checked="cb_hemolinf" name="cb_hemolinf"></td>
 					    <td colspan="3" class="active">15. ENF MENTAL <br>
-					      <input type="checkbox" id="cb_mental" ng-checked="cb_mental" name="cb_mental"></td>
+					      <input type="checkbox" value="ENFERMEDAD MENTAL" id="cb_mental" ng-checked="cb_mental" name="cb_mental"></td>
 					    <td colspan="3" class="active">19. RIESGO LABORAL <br>
-					      <input type="checkbox" id="cb_riesgolaboral" ng-checked="cb_riesgolaboral" name="cb_riesgolaboral"></td>
+					      <input type="checkbox" value="RIESGO LABORAL" id="cb_riesgolaboral" ng-checked="cb_riesgolaboral" name="cb_riesgolaboral"></td>
 					    <td colspan="4" class="active">23. RELIGION Y CULTURA <br>
-					      <input type="checkbox" id="cb_religioncultura" ng-checked="cb_religioncultura" name="cb_religioncultura"></td>
+					      <input type="checkbox" value="RELIGION Y CULTURA" id="cb_religioncultura" ng-checked="cb_religioncultura" name="cb_religioncultura"></td>
 				  	</tr>
 				  	<tr style="font-size:10px; ">
-					    <td colspan="4" class="active">4. ENF ADOLECENTE <br>
-					      <input type="checkbox" id="cb_adolecente" ng-checked="cb_adolecente" name="cb_adolecente"></td>
+					    <td colspan="4" class="active">4. ENF ADOLESCENTE <br>
+					      <input type="checkbox" value="ENFERMEDAD ADOLESCENTE" id="cb_adolecente" ng-checked="cb_adolecente" name="cb_adolecente"></td>
 					    <td colspan="3" class="active">8. ENF DIGESTIVA <br>
-					      <input type="checkbox" id="cb_digestiva" ng-checked="cb_digestiva" name="cb_digestiva"></td>
+					      <input type="checkbox"  value="ENFERMEDAD DIGESTIVA" id="cb_digestiva" ng-checked="cb_digestiva" name="cb_digestiva"></td>
 					    <td colspan="3" class="active">12. ENF URINARIA X <br>
-					      <input type="checkbox" id="cb_urinaria" ng-checked="cb_urinaria" name="cb_urinaria"></td>
+					      <input type="checkbox" value="ENFERMEDAD URINARIA X" id="cb_urinaria" ng-checked="cb_urinaria" name="cb_urinaria"></td>
 					    <td colspan="3" class="active">16. ENF T SEXUAL <br>
-					      <input type="checkbox" id="cb_tsexual" ng-checked="cb_tsexual" name="cb_tsexual"></td>
+					      <input type="checkbox" value="ENFERMEDAD TRANSMISIÓN SEXUAL" id="cb_tsexual" ng-checked="cb_tsexual" name="cb_tsexual"></td>
 					    <td colspan="3" class="active">20. RIESGO FAMILIAR <br>
-					      <input type="checkbox" id="cb_riesgofamiliar" ng-checked="cb_riesgofamiliar" name="cb_riesgofamiliar"></td>
+					      <input type="checkbox" value="RIESGO FAMILIAR" id="cb_riesgofamiliar" ng-checked="cb_riesgofamiliar" name="cb_riesgofamiliar"></td>
 					    <td colspan="4" class="active">24. OTRO <br>
-					      <input type="checkbox" id="cb_otro" ng-checked="cb_otro" name="cb_otro"></td>
+					      <input type="checkbox" value="OTRO" id="cb_otro" ng-checked="cb_otro" name="cb_otro"></td>
 				  	</tr>
 				  	<tr height="10px">
 				    	<td colspan="20"><textarea id="txtAntePer" style=" border-width:0px; height:100%; width:98%" value="" ng-model="txtAntePer" name="txtAntePer"></textarea></td>
@@ -168,34 +168,34 @@
 				  	</tr>
 				  	<tr style="font-size:10px; ">
 					    <td colspan="2" class="active">1. CARDIOPATIA <br>
-					      	<input type="checkbox" id="cb_cardiopatia" ng-checked="cb_cardiopatia" name="cb_cardiopatia">
+					      	<input type="checkbox" value="CARDIOPATIA" id="cb_cardiopatia" ng-checked="cb_cardiopatia" name="cb_cardiopatia">
 					    </td>
 					    <td colspan="2" class="active">2. DIABETES <br>
-					      	<input type="checkbox" id="cb_diabetes" ng-checked="cb_diabetes" name="cb_diabetes">
+					      	<input type="checkbox" value="DIABETES" id="cb_diabetes" ng-checked="cb_diabetes" name="cb_diabetes">
 					    </td>
 					    <td colspan="2" class="active">3. ENF VASCULARES <br>
-					      	<input type="checkbox" id="cb_enfvasculares" ng-checked="cb_enfvasculares" name="cb_enfvasculares">
+					      	<input type="checkbox" value="ENFERMEDADES VASCULARES" id="cb_enfvasculares" ng-checked="cb_enfvasculares" name="cb_enfvasculares">
 					    </td>
 					    <td colspan="2" class="active">4. HTA <br>
-					     	<input type="checkbox" id="cb_hta" ng-checked="cb_hta" name="cb_hta">
+					     	<input type="checkbox" value="HTA" id="cb_hta" ng-checked="cb_hta" name="cb_hta">
 					    </td>
 					    <td colspan="2" class="active">5. CANCER <br>
-					      	<input type="checkbox" id="cb_cancer" ng-checked="cb_cancer" name="cb_cancer">
+					      	<input type="checkbox"  value="CANCER"  id="cb_cancer" ng-checked="cb_cancer" name="cb_cancer">
 					    </td>
 					    <td colspan="2" class="active">6. TUBERCULOSIS <br>
-					      	<input type="checkbox" id="cb_tuberculosis" ng-checked="cb_tuberculosis" name="cb_tuberculosis">
+					      	<input type="checkbox" value="TUBERCULOSIS"  id="cb_tuberculosis" ng-checked="cb_tuberculosis" name="cb_tuberculosis">
 					    </td>
 					    <td colspan="2" class="active">7. ENF MENTAL <br>
-					      	<input type="checkbox" id="cb_enfenfmental" ng-checked="cb_enfenfmental" name="cb_enfenfmental">
+					      	<input type="checkbox" value="ENFERMEDADES MENTAL" id="cb_enfenfmental" ng-checked="cb_enfenfmental" name="cb_enfenfmental">
 					    </td>
 					    <td colspan="2" class="active">8. ENF INFECCIOSA <br>
-					      	<input type="checkbox" id="cb_enfinfecciosa" ng-checked="cb_enfinfecciosa" name="cb_enfinfecciosa">
+					      	<input type="checkbox" value="ENFERMEDAD INFECCIOSA" id="cb_enfinfecciosa" ng-checked="cb_enfinfecciosa" name="cb_enfinfecciosa">
 					    </td>
 					    <td colspan="2" class="active">9. MAL FORMACIÓN <br>
-					      	<input type="checkbox" id="cb_malformacion" ng-checked="cb_malformacion" name="cb_malformacion">
+					      	<input type="checkbox" value="MAL FORMACIÓN"  id="cb_malformacion" ng-checked="cb_malformacion" name="cb_malformacion">
 					    </td>
 					    <td colspan="2" class="active">10. OTRO <br>
-					      	<input type="checkbox" id="cb_afotro" ng-checked="cb_afotro" name="cb_afotro">
+					      	<input type="checkbox" value="OTRO" id="cb_afotro" ng-checked="cb_afotro" name="cb_afotro">
 					    </td>
 				  	</tr>
 				  	<tr>
