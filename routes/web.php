@@ -3,6 +3,7 @@
 
 //Route::resource('/admin/medico/agenda', 'AdminAgendaController');
 Route::resource('/admin/medico/agenda', 'AdminAgendaController');
+Route::resource('/admin/agenda_cirugia', 'AdminAgendaQuirofanoCirugiaController');
 Route::post('/admin/medico/agenda/save','AdminAgendaController@save');
 Route::put('/admin/medico/agenda/update/{id}','AdminAgendaController@update');
 Route::put('/admin/medico/agenda/uptade/{id}','AdminAgendaController@updateEventDrop');
