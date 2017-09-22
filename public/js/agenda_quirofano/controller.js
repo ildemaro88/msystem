@@ -57,28 +57,14 @@ agendaQuirofano.controller("CtrlApp", function ($scope, $http, $window, $timeout
 //                    }
 //                }
             },
-            //businessHours: data.horario_medico,
-            //eventConstraint:'businessHours',
             editable: true,
             eventLimit: true,
-            //businessHours:true,
-//            minTime: "0:00:00",
-//            maxTime: "06:00:00",
-           // axisFormat: 'h(:mm)a',
-//            timeFormat: {
-//                agenda: 'hh:mm{ - hh:mm}'
-//            },
             aspectRatio: 2,
             nowIndicator: true,
             slotDuration: '00:15:00',
             titleFormat: 'MMMM D YYYY',
             columnFormat: 'dddd',
-            eventOverlap: false, // sobreponer eventos
-            //fixedWeekCount:true,
-            //weekNumbers: true,
-           // timeFormat: 'HH:mm',
-           // timeFormat: 'h(:mm)',
-           
+            eventOverlap: false, 
             events: {
                     url: ""
                 },
