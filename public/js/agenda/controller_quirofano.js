@@ -1,4 +1,4 @@
-agendaQuirofano.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
+agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeout, $q, searchAutocomplet) {
 
     /*
      * Inicializacion
@@ -23,6 +23,9 @@ agendaQuirofano.controller("CtrlApp", function ($scope, $http, $window, $timeout
             defaultDate: $scope.fecha,
             defaultView: 'agendaWeek'
         };
+        $scope.idDoctor = "";
+        $scope.idPatient = "";
+        $scope.newPatient = false;
         $('#calendar').fullCalendar({
             allDaySlot: false,
             header: {
@@ -146,7 +149,7 @@ agendaQuirofano.controller("CtrlApp", function ($scope, $http, $window, $timeout
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
-        
+
         try {
             $scope.$apply();
         } catch (e) {
@@ -172,59 +175,105 @@ agendaQuirofano.controller("CtrlApp", function ($scope, $http, $window, $timeout
         $("#agenda-list-citas").show();
         $("#calendar").fullCalendar("refetchEvents");
     };
-    
+
     $scope.resetPanelCita = function () {
         $scope.panel = new $scope.panelDefault();
 
     };
-    
-    /*busar pacientes y seleccionarlo*/
-        $scope.searchPatients = function (keyEvent) {
+
+    /*busar elementos y seleccionarlos*/
+    $scope.searchElement = function (keyEvent, url, element,text) {
+        var url = URL_BASE + url + text;
         if (keyEvent.which != 38 && keyEvent.which != 40) {
-            $scope.idpaciente = "";
-            var url = URL_BASE + "quirofano/agenda/get/patient/" + $scope.searchText;
-            $http({
-                url: url,
-                method: 'GET',
-                //data: data,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(function success(response) {
-                if (response.data.response) {
-                    $scope.patients = response.data.response.patients;
-                    $scope.newPatient = false;
-
-
+            searchAutocomplet.search(url).then(function (data) {
+                
+                if (data.length > 0) {
+                    switch (element) {
+                        case 1:
+                            $scope.doctors = data;
+                            $scope.newDoctor = false;
+                            break;
+                        case 2:
+                            $scope.patients = data;
+                            $scope.newPatient = false;
+                            break;
+                        case 3:
+                            $scope.doctors = data;
+                            $scope.newDoctor = false;
+                            break;
+                        case 4:
+                            $scope.patients = data;
+                            $scope.newPatient = false;
+                            break;
+                        case 5:
+                            $scope.patients = data;
+                            $scope.newPatient = false;
+                            break;
+                    }
+                    
                 } else {
-                    $scope.newPatient = true;
-                    $scope.patients = {}
-                    $scope.newPatient = true;
+                      switch (element) {
+                     case 1:
+                            $scope.doctors = [];
+                            $scope.newDoctor = true;
+                            break;
+                        case 2:
+                            $scope.patients = [];
+                            $scope.newPatient = true;
+                            break;
+                        case 3:
+                            $scope.doctors = [];
+                            $scope.newDoctor = true;
+                            break;
+                        case 4:
+                            $scope.patients = [];
+                            $scope.newPatient = true;
+                            break;
+                    }
                 }
             });
 
         }
-
     }
+    /*cierre busar elementos y seleccionarlos*/
+
     /*
      * Validar id paciente seleccionado
      */
     $scope.valideIdPatient = function () {
         $("#agenda-list-citas").hide();
-        if ($scope.idpaciente == "") {
+        if ($scope.idPatient == "") {
             $scope.searchText = "";
         }
     };
 
     // Set value to search box
-    $scope.setValue = function (index) {
+    $scope.setPatient = function (index) {
 
-        $scope.searchText = $scope.searchResult[index].ci + " - " + $scope.searchResult[index].name + " " + $scope.searchResult[index].apellido;
-        $scope.idpaciente = $scope.searchResult[index].id;
-        $scope.idEmpresa = $scope.searchResult[index].empresa;
-        $scope.searchResult = {}
+        $scope.searchText = $scope.patients[index].ci + " - " + $scope.patients[index].name + " " + $scope.patients[index].apellido;
+        $scope.idPatient = $scope.patients[index].id;
+        $scope.idEmpresa = $scope.patients[index].empresa;
+        $scope.patients = {}
     }
-    /*cierre busar pacientes y seleccionarlo*/
+
+
+    // Set value to search box
+    $scope.setDoctor = function (index) {
+
+        $scope.searchTextDoctor =  $scope.doctors[index].name + " " + $scope.doctors[index].apellido;
+        $scope.idDoctor = $scope.doctors[index].id;
+        $scope.doctors = {}
+    }
+        /*
+     * Validar id del doctor seleccionado
+     */
+    $scope.valideIdDoctor = function () {
+
+        if ($scope.idDoctor == "") {
+            $scope.searchTextDoctor = "";
+        }
+    };
+
 });
 
 

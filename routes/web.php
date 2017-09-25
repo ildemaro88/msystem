@@ -9,6 +9,8 @@ Route::put('/admin/medico/agenda/update/{id}','AdminAgendaController@update');
 Route::put('/admin/medico/agenda/uptade/{id}','AdminAgendaController@updateEventDrop');
 Route::get('/admin/medico/agenda/get/information/{id}', 'AdminAgendaController@getDataJson');
 Route::get('/admin/medico/agenda/get/patient/{value}', 'AdminAgendaController@getPatients');
+Route::get('/admin/quirofano/agenda/get/patient/{value}', 'AdminAgendaQuirofanoCirugiaController@getPatients');
+Route::get('/admin/quirofano/agenda/get/doctor/{value}', 'AdminAgendaQuirofanoCirugiaController@getDoctors');
 Route::get('/admin/medico/agenda/get/agreement/{business}', 'AdminAgendaController@getAgreements');
 Route::get('/admin/medico/agenda/get/price/{business}/{specialty}', 'AdminAgendaController@getPrice');
 Route::get('/admin/medico/dashboard', 'AdminMedico1Controller@dashboard');

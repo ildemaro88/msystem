@@ -1,0 +1,285 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/09/2017, 03:52:01 PM
+    Author     : leonardo
+*/
+
+
+    #search{
+        position: relative;
+        right:0;
+        margin:0 1em;
+        width:350px;
+    }
+    #search{
+        top:0;
+        z-index:10;
+    }
+
+    #search > a{
+        position: absolute;
+        right:0;
+        top:0;
+        bottom:0;
+        padding:0 10px;
+        background-color: #ec9507;
+    }
+    #search > a i{
+        color:#fff;
+    }
+    /*css busquedas de doctores*/
+    #search_doctor{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_doctor ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_doctor li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_doctor li:hover, #search_doctor li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_doctor li i{
+        padding-right:5px;
+    }
+    #search_doctor li.active { background:#7BB4D5; color:#fff; }
+/*cierre css busquedas de doctores*/
+
+    /*css busquedas de anesteciologos*/
+    #search_anesthesiologist{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_anesthesiologist ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_anesthesiologist li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_anesthesiologist li:hover, #search_anesthesiologist li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_anesthesiologist li i{
+        padding-right:5px;
+    }
+    #search_anesthesiologist li.active { background:#7BB4D5; color:#fff; }
+/*cierre css busquedas de anesteciologos*/
+
+    /*css busquedas de residentes*/
+    #search_resident{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_resident ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_resident li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_resident li:hover, #search_resident li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_resident li i{
+        padding-right:5px;
+    }
+    #search_resident li.active { background:#7BB4D5; color:#fff; }
+/*cierre css busquedas de residentes*/
+
+  /*css busquedas de pacientes*/
+    #search_patient{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_patient ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_patient li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_patient li:hover, #search_patient li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_patient li i{
+        padding-right:5px;
+    }
+    #search_patient li.active { background:#7BB4D5; color:#fff; }
+/*cierre css busquedas de pacientes*/
+
+  /*css busquedas de quirofanos*/
+   
+    #search_salle{
+        position: absolute;
+        z-index: 45;
+        top:100%;
+        left: 0;
+        right:0;
+        max-height: 200px;
+        overflow: auto;
+    }
+    #search_salle ul{
+        width: 100%;
+        margin:0;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    #search_salle li{
+        outline: none;
+        width: 100%;
+        list-style-type: none;
+        box-sizing: border-box;
+        margin:0;
+        padding:10px 15px;
+        background-color: #fff;
+        transition:all 0.5s;
+        -moz-transition:all 0.5s;
+        -webkit-transition:all 0.5s;
+        cursor:pointer;
+        word-wrap:break-word;
+    }
+    #search_salle li:hover, #search_salle li:focus{
+        color:#fff;
+        background-color: #7BB4D5;
+    }
+    #search_salle li i{
+        padding-right:5px;
+    }
+    #search_salle li.active { background:#7BB4D5; color:#fff; }
+/*cierre css busquedas de quirofanos*/
+
+
+    .col-center{
+        float: none;
+        margin: 0 auto;
+    }
+    .fontfamilyAutocomplet{
+        padding: 5px;
+        width: 250px;
+        letter-spacing: 1px;
+        font-family: helvetica Neue Regular;
+    }
+    .fc-time-grid .fc-slats td {
+        height: 40px !important;
+    }
+    .container-full {
+        margin: 0 auto;
+        width: 100%;
+    }
+    div.fc-time span{
+        font-family: "Century Schoolbook", sans-serif;
+        color: white;
+        font-weight: bolder;
+        font-size: 13px;
+
+
+    }
+    .fc-time-grid-event .fc-time{
+        padding: 3px;
+    }
+    div.fc-time{
+        text-align: center;
+
+    }
+    .fc-bgevent {
+        background: #2c3e50;
+    }
+    div.fc-title{
+        font-family: "Roboto",  sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.6pt;
+        text-align: center;
+    }
+    .validate_hours li{
+        text-align: left;
+    }
+    .hide-element {
+        display: none;
+    }
+    .show-element {
+        display: display;
+    }

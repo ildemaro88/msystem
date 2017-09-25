@@ -54,36 +54,35 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             $getPaciente["apellido"] = $paciente["apellido"];
             $getPaciente["empresa"] = $paciente["empresa"];
             $getPacientes[] = $getPaciente;
-            $response["patients"] = $getPacientes;
+            //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" => $response
+                    "response" =>  $getPacientes
         ]);
     }
 
-    /**
+        /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAgreements(Request $request, ModEmpresa $business) {
+    public function getDoctors(Request $request, $value) {
 
-        if ($business->convenio) {
-            $getBusinessAgreement = array();
-            $getBusinessAgreement["id"] = $business->convenio->id;
-            $getBusinessAgreement["name"] = $business->convenio->nombre;
+        $doctors = ModMedico::where(DB::raw('concat(nombre,apellido)'), 'LIKE', "%{$value}%")->get();
+        $getDoctors = array();
+        foreach ($doctors as $doctor) {
+            $getDoctors = array();
+            $getDoctor["id"] = $doctor["id"];
+            $getDoctor["name"] = $doctor["nombre"];
+            $getDoctor["apellido"] = $doctor["apellido"];
+            $getDoctors[] = $getDoctor;
+            //$response[] = $getPacientes;
         }
-        $agreement = ModConvenios::where("id", 1)->first();
-        $getAgreement = array();
-        $getAgreement["id"] = $agreement["id"];
-        $getAgreement["name"] = $agreement["nombre"];
-
-        $response["agreements"] = array($getAgreement, $getBusinessAgreement);
         return response()->json([
-                    "response" => $response
+                    "response" =>  $getDoctors
         ]);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
