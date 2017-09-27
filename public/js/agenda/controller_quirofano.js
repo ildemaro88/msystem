@@ -5,6 +5,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
      */
 
     $scope.init = function () {
+        $scope.citaId = "";
         $scope.formData = {};
         /*variables del formulario*/
         $scope.slider = {
@@ -179,6 +180,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             defaultDate: moment(event.start).format('YYYY-MM-DD'),
             defaultView: 'agendaDay'
         };
+        $scope.citaId = event.id;
         var panelModificar = new $scope.panelModify();
         $scope.panel = panelModificar;
         $("#calendar").fullCalendar('gotoDate', moment(event.start).format('YYYY-MM-DD'));
@@ -441,6 +443,54 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.formData.start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.formData.end = moment($scope.formData.start).add($scope.slider.value, 'm');
         $scope.formData.end = moment($scope.formData.end, 'DD/MM/YYYY,H:mm').format();
+    };
+    
+        /*
+     * -->
+     */
+    /*
+     * Cancelar la cita
+     */
+    $scope.cancelarCita = function () {
+      
+        swal({
+            title: '¿Mover a la papelera?',
+            type: 'error',
+            text: "El tiempo se liberará para aceptar nuevas citas!",
+            showCancelButton: true,
+            allowOutsideClick: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            closeOnConfirm: false
+        }, function () {
+            $http({
+                url: URL_BASE + 'quirofano/agenda/delete/' + $scope.cita_id,
+                method: 'POST',
+                data: {"_method": "DELETE"},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (data) {
+                if (data.data.response == true) {
+                    //swal("Correcto!", "Cita movida correctamente!", "success");
+                    swal({
+                        title: "Correcto!",
+                        type: "success",
+                        text: "Cita movida correctamente!",
+                        timer: 400,
+                        closeOnConfirm: true
+                    }, function () {
+                        $scope.reloadCalendar();
+                        $scope.resetPanelCita();
+                        $scope.init(); //inicializar
+                    });
+                } else {
+                    swal("Error!", "No se pudo borrar la cita!", "error");
+                }
+            });
+        });
+
     };
 });
 

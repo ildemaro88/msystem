@@ -176,9 +176,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 
                         <button type="button" class="btn btn-default"  ng-click="previewCita()"><i class="fa fa-minus-circle"></i> Atras </button>
 
-                        <button ng-show="ddpanel.buttons.trash"  ng-click="cancelarCita()" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>
+                        <!--<button ng-show="ddpanel.buttons.trash"  ng-click="cancelarCita()" type="button" class="btn btn-link"><i   style="font-size: 20px;color: #e74c3c;"class="fa fa-trash pull-left"></i> </button>-->
 
-                        <button ng-show="panel.buttons.cancelar" ng-click="eliminarCita([[cita_id]])"  style="margin-right: 5px;" type="reset" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button>
+                        <button ng-show="panel.buttons.cancelar" ng-click="cancelarCita()"  style="margin-right: 5px;" type="button" class="btn btn-warning"> <i class="fa fa-minus-circle"></i> Cancelar Cita </button>
                         <button
                             ng-show="panel.buttons.modificar"
                             ng-disabled="!formCitaSend.$valid"

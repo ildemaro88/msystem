@@ -249,37 +249,6 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $id) {
-        $medico = ModMedico::find($id);
-        //dd($medico);
-        return view('agenda.index', ["medico" => $medico]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-
-        $agenda = ModAgenda::where("medico_id", $id)->first();
-        $paciente = ModPaciente::all();
-        $convenios = ModConvenios::all();
-        $medico = ModMedico::find($id);
-        $horario_medico = HorarioMedico::where("medico_id", $id)->get();
-        $page_title = "Agendar Citadd";
-
-        //dd($horario_medico);
-
-        return view('agenda.create_test', compact('page_title'), ["convenios" => $convenios, "paciente" => $paciente, "agenda" => $agenda, "medico" => $medico, "horario_medico" => $horario_medico]);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -350,16 +319,22 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         ]);
     }
 
-    /**
+   /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
-    }
+    public function destroy($id)
+    {
+        $cita = ModCitaQuirofano::findOrFail($id);
+        $cita->trash = 1;
+        $response = $cita->save();
 
+        return response()->json([
+            "response"=>$response
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
