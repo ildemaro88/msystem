@@ -23,27 +23,27 @@ class ModCitaQuirofano extends Model {
         "constraint",
         "id_medico",
         "id_paciente",
-        "id_residente",
+        "id_quirofano",
         "id_residente",
         "id_anesteciologo",
     ];
 
     public function paciente() {
-        return $this->hasOne('\App\ModPaciente', "id_paciente", "id");
+        return $this->belongsTo('\App\ModPaciente',"id_paciente", "id");
     }
 
     public function medico() {
-        return $this->hasOne('\App\ModMedico', "id_medico", "id");
+        return $this->belongsTo('\App\ModMedico',"id_medico", "id");
     }
 
     public function residente() {
-        return $this->hasOne('\App\ModAsistenteCirugia', 'id_residente', "id");
+        return $this->belongsTo('\App\ModAsistenteCirugia',"id_residente", "id");
     }
 
     public function anesteciologo() {
-        return $this->hasOne('\App\ModAsistenteCirugia', 'id_residente', "id");
+        return $this->belongsTo('\App\ModAsistenteCirugia',"id_anesteciologo", "id");
     }
     public function quirofano() {
-        return $this->hasOne('\App\ModQuirofano', 'id_quirofano', "id");
+        return $this->belongsTo('\App\ModQuirofano', "id_quirofano", "id");
     }
 }

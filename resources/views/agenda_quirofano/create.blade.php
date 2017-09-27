@@ -34,15 +34,20 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                     <h4 id="heading" class="[[panel.class_text_title]]">
                         <i class="fa fa-calendar-check-o"></i> [[ panel.title_panel ]]</h4>
                 </div>
-                <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCitaSend" ng-submit="submit($event)" novalidate>
+                <form action="[[ panel.url ]]" method="[[panel.method_form]]" id="form-cita" name="formCitaSend" ng-submit="submitForm($event,formData)" novalidate>
                     <div class="panel-body" style="[[panel.style_body]]; padding-top: 0px">
                         <input type="text" value="businessHours" name="constraint" ng-show="false">
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
                                 <div class="container-fluid container-full">
-                                    <input ng-model="color" type="hidden" name="color" value= "#E9C341">
-                                    <input name="idpaciente"  type="hidden" value="[[idPatient]]" >
-                                    <input name="idDoctor"  type="hidden" value="[[idDoctor]]" >
+                                    <input name="color" type="hidden"  ng-model="formData.color">
+                                    <input name="idDoctor"  type="hidden" ng-model="formData.idDoctor">
+                                    <input name="idAnesthesiologist"  type="hidden" ng-model="formData.idAnesthesiologist">
+                                    <input name="idResident"  type="hidden" ng-model="formData.idResident">
+                                    <input name="idpaciente"  type="hidden" ng-model="formData.idPatient">
+                                    <input name="idSalle"  type="hidden" ng-model="formData.idSalle">
+                                    <input id="start" ng-model="formData.start" type="hidden" name="start">
+                                    <input id="end" ng-model="formData.end" type="hidden" name="end">
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label for=""> Doctor:</label>
@@ -63,7 +68,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Anesteciólogo:</label>
-                                            <input type="text"  id="anesthesiologist_valide" ng-keyup='searchVnesthesiologists($event)' ng-model='searchTextAnesthesiologist' name="anesthesiologist_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdAnesthesiologist()' required/>
+                                            <input type="text"  id="anesthesiologist_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/assistant/",2,searchTextAnesthesiologist)' ng-model='searchTextAnesthesiologist' name="anesthesiologist_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdAnesthesiologist()' required/>
                                             <span style="color:red" ng-show="formCitaSend.anesthesiologist_valide.$dirty && formCitaSend.anesthesiologist_valide.$invalid">
                                                 <span ng-show="formCitaSend.anesthesiologist.$dirty && formCitaSend.anesthesiologist_valide.$error.required">Debe Seleccionar un Anesteciólogo.</span>
                                             </span><br>
@@ -81,9 +86,9 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 
                                        <div class="form-group col-md-4">
                                             <label for="">Residente:</label>
-                                            <input type="text"  id="resident_valide" ng-keyup='searchResidents($event)' ng-model='searchTextResident' name="resident_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdResident()' required/>
+                                            <input type="text"  id="resident_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/assistant/",3,searchTextResident)' ng-model='searchTextResident' name="resident_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdResident()' required/>
                                             <span style="color:red" ng-show="formCitaSend.resident_valide.$dirty && formCitaSend.resident_valide.$invalid">
-                                                <span ng-show="formCitaSend.resident_valide.$dirty && formCitaSend.resident_valide.$error.required">Debe Seleccionar un Paciente.</span>
+                                                <span ng-show="formCitaSend.resident_valide.$dirty && formCitaSend.resident_valide.$error.required">Debe Seleccionar un Residentee.</span>
                                             </span><br>
                                             <div id="search_resident">
                                                 <!-- Example content that is printed out after searchNameDept() is run -->
@@ -103,7 +108,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                   <div class="row">
                                         <div class="form-group col-md-4">
                                             <label for=""> Seleccione el paciente:</label>
-                                            <input type="text"  id="paciente_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/patient/",4,searchText)' ng-model='searchText' name="paciente_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdPatient()' required/>
+                                            <input type="text"  id="paciente_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/patient/",4,searchTextPatient)' ng-model='searchTextPatient' name="paciente_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdPatient()' required/>
                                             <span style="color:red" ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$invalid">
                                                 <span ng-show="formCitaSend.paciente_valide.$dirty && formCitaSend.paciente_valide.$error.required">Debe Seleccionar un Paciente.</span>
                                             </span><br>
@@ -120,7 +125,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         </div>
                                       <div class="form-group col-md-4">
                                             <label for=""> Seleccione el Quirófano:</label>
-                                            <input type="text"  id="salle_valide" ng-keyup='searchSalles($event)' ng-model='searchTextSalle' name="salle_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdSalle()' required/>
+                                            <input type="text"  id="salle_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/salle/",5,searchTextSalle)' ng-model='searchTextSalle' name="salle_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdSalle()' required/>
                                             <span style="color:red" ng-show="formCitaSend.salle_valide.$dirty && formCitaSend.salle_valide.$invalid">
                                                 <span ng-show="formCitaSend.salle_valide.$dirty && formCitaSend.salle_valide.$error.required">Debe Seleccionar un quirófano.</span>
                                             </span><br>
@@ -128,7 +133,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <!-- Example content that is printed out after searchNameDept() is run -->
                                                 <ul id='searchResultSalle' >
                                                     <li ng-click='setSalle($index)' ng-keyup="setSalle($index)" class="search_org"  ng-repeat="result in salles| limitTo:5" >[[ result.name]] </li>
-                                                    <li ng-show="newPatient">No existe el quirofano,
+                                                    <li ng-show="newSalle">No existe el quirofano,
                                                         <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}"> Agregar
                                                         </a>
                                                     </li>
@@ -151,17 +156,6 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                                             </div>-->
                                         </div>
-
-<!--                                        <div class="col-sm-5" ng-show="convenios.length > 0">
-                                            <label for="">Seleccione el tipo de convenio</label>
-                                            <select name="convenio_valide" id="convenio" ng-change="setValueAgreement()" class="form-control" show-menu-arrow data-style="btn-primary" ng-model="searchTextAgreement"  required>
-                                                <option ng-value="" ng-show="searchTextAgreement" ng-selected="true">--Seleccione--</option>
-                                                <option ng-repeat="convenio in convenios" ng-value="convenio.id">[[convenio.name]]</option>
-                                            </select>
-                                            <span style="color:red" ng-show="formCitaSend.convenio_valide.$dirty && formCitaSend.convenio_valide.$invalid">
-                                                <span ng-show="formCitaSend.convenio_valide.$error.required">Debe Seleccionar un Convenio.</span>
-                                            </span>
-                                        </div>-->
                                     </div>
                                     <div class="row">
                                         <hr>
@@ -170,49 +164,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label for="">Observaciones</label>
-                                                <textarea id="descripcion" ng-model="descripcion" class="form-control" name="descripcion" cols="30"rows="5"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="">Precio: [[price]] <span ng-show="price != ''">$</span></label>
-                                                <hr>
-                                                <h5>Pagar:</h5>
-                                                <input id="price" type="checkbox" data-group-cls="btn-group-justified">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4" ng-show="tipo_convenio">
-
-                                            <div class="form-group">
-                                                <label for="">Autorización</label>
-                                                <input name="autorizacion_valide" ng-model="autorizacion" type="text" class="form-control" ng-required=autorizacion_required>
-                                                <span style="color:red" ng-show="formCitaSend.autorizacion_valide.$dirty && formCitaSend.autorizacion_valide.$invalid">
-                                                    <span ng-show="formCitaSend.autorizacion_valide.$error.required">Debe Seleccionar una Autorización.</span>
-                                                </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Fecha Autorización</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                    <input id="fecha_autorizacion_valide" name="fecha_autorizacion_valide" placeholder="dd/mm/yyyy" ng-model="fecha_autorizacion" type="text" class="form-control datepicker" ng-required=autorizacion_required>
-                                                </div>
-                                                <span style="color:red" ng-show="formCitaSend.fecha_autorizacion_valide.$dirty && formCitaSend.fecha_autorizacion_valide.$invalid">
-                                                    <span ng-show="formCitaSend.fecha_autorizacion_valide.$error.required">Debe Seleccionar una fecha de autorización.</span>
-                                                </span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Fecha Vencimiento</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                    <input id="fecha_vence_valide" name="fecha_vence_valide" placeholder="dd/mm/yyyy" ng-model="fecha_vence" type="text" class="form-control datepicker" ng-required=autorizacion_required>
-                                                </div>
-                                                <span style="color:red" ng-show="formCitaSend.fecha_vence_valide.$dirty && formCitaSend.fecha_vence_valide.$invalid">
-                                                    <span ng-show="formCitaSend.fecha_vence_valide.$error.required">Debe Seleccionar una fechas de vencimiento.</span>
-                                                </span>
+                                                <textarea id="descripcion" ng-model="formData.descripcion" class="form-control" name="descripcion" cols="30"rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>

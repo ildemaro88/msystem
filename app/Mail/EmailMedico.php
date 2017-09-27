@@ -21,7 +21,7 @@ class EmailMedico extends Mailable
      *
      * @return void
      */
-    public function __construct(ModMedico $medico,ModPaciente $paciente,ModCita $cita)
+    public function __construct(ModMedico $medico,ModPaciente $paciente, ModCita $cita)
     {
         $this->paciente = $paciente;
         $this->medico = $medico;

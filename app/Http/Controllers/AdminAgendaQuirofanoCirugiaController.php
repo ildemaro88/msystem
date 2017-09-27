@@ -9,15 +9,16 @@ use Illuminate\Http\Request;
 use App\ModPaciente;
 use App\ModMedico;
 use DB;
-use App\ModCita;
+use App\ModCitaQuirofano;
 use App\ModConvenios;
 use App\Mail\EmailPaciente;
 use App\Mail\EmailMedico;
 use App\HorarioMedico;
 use App\ModSpecialtyPrice;
-use App\ModEmpresa;
 use App\ModPayment;
 use App\ModTypePayment;
+use App\ModAsistenteCirugia;
+use App\ModQuirofano;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
@@ -80,6 +81,52 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         }
         return response()->json([
                     "response" =>  $getDoctors
+        ]);
+    }
+    
+    
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAssistants(Request $request, $value,$type) {
+
+        $assistants = ModAsistenteCirugia::where(DB::raw('concat(nombre,apellido)'), 'LIKE', "%{$value}%")
+                 ->where('id_asistente_tipo','=', $type)->get();
+        $getAssistants = array();
+        foreach ($assistants as $assistant) {
+            $getAssistant = array();
+            $getAssistant["id"] = $assistant["id"];
+            $getAssistant["name"] = $assistant["nombre"];
+            $getAssistant["apellido"] = $assistant["apellido"];
+            $getAssistants[] = $getAssistant;
+            //$response[] = $getPacientes;
+        }
+        return response()->json([
+                    "response" =>  $getAssistants
+        ]);
+    }
+    
+    
+            /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSalles(Request $request, $value) {
+
+        $salles = ModQuirofano::where('name', 'LIKE', "%{$value}%")->get();
+        $getSalles = array();
+        foreach ($salles as $salle) {
+            $getSalle = array();
+            $getSalle["id"] = $salle["id"];
+            $getSalle["name"] = $salle["name"];
+            $getSalles[] = $getSalle;
+            //$response[] = $getPacientes;
+        }
+        return response()->json([
+                    "response" =>  $getSalles
         ]);
     }
     
@@ -159,80 +206,46 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function save(Request $request) {
-        //dd($request->all());
+//        print_r( $request->all());
 
-        $cita = new ModCita;
-        $paciente = ModPaciente::find($request->get("idpaciente"));
+        $cita = new ModCitaQuirofano;
+        $paciente = ModPaciente::find($request->get("idPatient"));
         $cita->estado = 5;
         $cita->color = $request->get("color");
-        $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
-        $cita->agenda_id = $request->get("agenda_id");
         $cita->estado_cita = 1;
         $cita->start = $request->get("start");
         $cita->end = $request->get("end");
         $cita->start_datetime = new DateTime($cita->start);
         $cita->end_datetime = new DateTime($cita->end);
-        $cita->constraint = $request->get("constraint");
+        $cita->id_medico = $request->get("idDoctor");
+        $cita->id_paciente = $request->get("idPatient");
+        $cita->id_quirofano = $request->get("idSalle");
+        $cita->id_residente = $request->get("idResident");
+        $cita->id_anesteciologo = $request->get("idAnesthesiologist");
 
-        if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
-            $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
-            $agenda_id = $a->id;
-            $cita->agenda_id = $agenda_id;
-        } else { //si tiene valor viene por solicitud de call center
-            $agenda_id = $request->get('agenda_id');
-            $cita->agenda_id = $agenda_id;
-        }
-        $medico = ModMedico::find($request->get("medico_id"));
+        $medico = ModMedico::find($request->get("idDoctor"));
         $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", Paciente:  " . $paciente->nombre . " " . $paciente->apellido);
         //var_dump($cita);
         $response = $cita->save();
 
         if ($response) {// si se guarda la cita
-            if ($request->get("sel_convenio") > 1 && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
-                /*
-                 * Insertar el convenio si se ingresa datos
-                 * */
-                $convenio = new ModConvenio;
-                $convenio->cita_calendario_id = $cita->id;
-                $convenio->autorizacion = $request->get("autorizacion");
-                $convenio->id_convenio = $request->get("sel_convenio");
-                $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
-                $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
-                $convenio->fecha_autorizacion = $date1;
-                $convenio->fecha_vence = $date2;
-                $convenio->save();
-            } else {
-                $convenio = new ModConvenio;
-                $convenio->cita_calendario_id = $cita->id;
-                $convenio->autorizacion = $request->get("autorizacion");
-                $convenio->id_convenio = $request->get("sel_convenio");
-                $convenio->fecha_autorizacion = "";
-                $convenio->fecha_vence = "";
-                $convenio->save();
-            }
-            $typePayment = ModTypePayment::find(1);
-            $payment = new ModPayment();
-            $payment->parent_id = $cita->id;
-            $payment->type_payment = $typePayment["id"];
-            $payment->status = $request->get("status_price");
-            $payment->aumont = $request->get("price");
-            $payment->save();
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
-            $email_medico = !is_null($medico->email) ? $medico->email : "pablodc0s02@gmail.com";
-            $email_paciente = !is_null($paciente->email) ? $paciente->email : "pasblodc002@gmail.com";
+            $email_medico = !is_null($medico->email) ? $medico->email : "felipe.vinoles@gmail.com";
+            $email_paciente = !is_null($paciente->email) ? $paciente->email : "felipe.vinoles@gmail.com";
             try {
-                Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
-                Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
+            $status = true;
+//                Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
+//                Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
             } catch (\Error $x) {
-                
+                $status = false;
+                echo $x->getMessage();
             }
         }
         return response()->json([
-                    "response" => $response,
-                    "cita" => $cita
+                    "response" => $status
         ]);
     }
 
@@ -352,11 +365,19 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getPrice(Request $request, $business, $specialty) {
+    public function getEvents(Request $request) {
 
-        $price = ModSpecialtyPrice::Where('id_empresa', $business)->where('id_especialidad', $specialty)->first();
+        $citas = ModCitaQuirofano::where("estado_cita",1)
+            ->where("trash",null)
+            ->orWhere("trash","=",0) // los que no estan en papelera
+            ->with("paciente")
+            ->with("medico")
+            ->with("residente")
+            ->with("anesteciologo")
+            ->with("quirofano")
+            ->get();
 
-        return ($price["precio"]);
+        return ($citas);
     }
 
 }

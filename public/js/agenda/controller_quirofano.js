@@ -5,6 +5,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
      */
 
     $scope.init = function () {
+        $scope.formData = {};
         /*variables del formulario*/
         $scope.slider = {
             value: 15,
@@ -23,9 +24,11 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             defaultDate: $scope.fecha,
             defaultView: 'agendaWeek'
         };
-        $scope.idDoctor = "";
-        $scope.idPatient = "";
         $scope.newPatient = false;
+        $scope.newDoctor = false;
+        $scope.newAnesthesiologist = false;
+        $scope.newResident = false;
+        $scope.newSalle = false;
         $('#calendar').fullCalendar({
             allDaySlot: false,
             header: {
@@ -72,13 +75,14 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             columnFormat: 'dddd',
             eventOverlap: false,
             events: {
-                url: ""
+                url: URL_BASE + "quirofano/agenda/events"
             },
             eventRender: function (event, element) {
-                console.log("dssdsd");
-//                element.click(function () {
-//                    $scope.panelModCita(event);
-//                });
+
+                element.click(function () {
+                    console.log(event);
+                    $scope.formEdit(event);
+                });
             },
             eventResize: function (event, delta, revertFunc) {
                 console.log("dssdsd");
@@ -105,7 +109,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
     $scope.panelDefault = function () {
         this.title_panel = "Agendar nueva Cita";
         this.class_heading = "panel-primary";
-        this.url = "";
+        this.url = URL_BASE + "quirofano/agenda/save";
         this.method_form = "post";
         this.buttons = {
             agendar: true,
@@ -119,7 +123,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         this.title_panel = "Modificar Cita";
         this.class_heading = "carrot";
         this.style_body = "background-color:white";
-        this.url = "";
+        this.url = URL_BASE + "quirofano/agenda/update";
         this.method_form = "put";
         this.method = {
             name: "_method",
@@ -133,6 +137,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             modificar: true
         }
     };
+
     $scope.formCreate = function (dateSelect, hourInit) {
         $("#agenda-list-citas").hide();
         $("#form-cita").show();
@@ -141,14 +146,60 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.time = true;
         $scope.modificar = false;
         $scope.agendar = true;
-        $scope.panel = panelCreate;
         $scope.dateSelect = dateSelect;
         $scope.hourSelect = hourInit;
+        $scope.formData.color = '#E9C341';
         var hora_inicio = $scope.hourSelect.split(" "); //obtener solo la hora
         //convertir a tipo aceptado por el calendario uniendo fecha y hora
         var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
         $scope.hourEnd = moment(start).add($scope.slider.value, 'm');
         $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
+        $scope.setDateTime();
+        $scope.panel = panelCreate;
+        try {
+            $scope.$apply();
+        } catch (e) {
+
+        }
+    };
+    /*
+     * Panel de modificacion de la cita
+     * */
+    $scope.formEdit = function (event) {
+
+        $("#agenda-list-citas").hide();
+        $scope.time = false;
+        $("#agenda-list-citas").hide();
+        $("#form-cita").show();
+        /*
+         * Preparar el panel para modificar una cita
+         * */
+
+        $scope.config = {
+            defaultDate: moment(event.start).format('YYYY-MM-DD'),
+            defaultView: 'agendaDay'
+        };
+        var panelModificar = new $scope.panelModify();
+        $scope.panel = panelModificar;
+        $("#calendar").fullCalendar('gotoDate', moment(event.start).format('YYYY-MM-DD'));
+        // panelModificar.url = URL_BASE + "medico/agenda/update/" + event.id;
+        $scope.cita_id = event.id;
+        //$("#select-paciente").val(event.paciente_id).trigger("change");
+        $scope.searchTextDoctor = event.medico.nombre + " " + event.medico.apellido;
+        $scope.searchTextAnesthesiologist = event.anesteciologo.nombre + " " + event.anesteciologo.apellido;
+        $scope.searchTextResident = event.residente.nombre + " " + event.residente.apellido;
+        $scope.searchTextPatient = event.paciente.cedula + " - " + event.paciente.nombre + " " + event.paciente.apellido;
+        $scope.searchTextSalle = event.quirofano.name;
+        $scope.formData.descripcion = event.detalle_cita;
+
+        $scope.formData.idPatient = event.id_paciente;
+        $scope.formData.idDoctor = event.id_medico;
+        $scope.formData.idAnesthesiologist = event.id_anesteciologo;
+        $scope.formData.idResident = event.id_residente;
+        $scope.formData.idSalle = event.id_quirofano;
+        //cambio de botones
+        $scope.modificar = true;
+        $scope.agendar = false;
 
         try {
             $scope.$apply();
@@ -156,6 +207,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
 
         }
     };
+
     $scope.previewCita = function () {
         $("#agenda-list-citas").show();
         $("#form-cita").hide();
@@ -170,23 +222,37 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
      * Recarga la página actual
      */
     $scope.reloadCalendar = function () {
-        $("#form-save-cita").hide();
-        $("#panel-edit-drop").hide();
+        $("#form-cita").hide();
         $("#agenda-list-citas").show();
         $("#calendar").fullCalendar("refetchEvents");
     };
 
     $scope.resetPanelCita = function () {
         $scope.panel = new $scope.panelDefault();
+        $scope.searchTextDoctor = "";
+        $scope.searchTextAnesthesiologist = "";
+        $scope.searchTextResident = "";
+        $scope.searchTextPatient = "";
+        $scope.searchTextSalle = "";
+        $scope.formData.descripcion = "";
 
     };
 
     /*busar elementos y seleccionarlos*/
-    $scope.searchElement = function (keyEvent, url, element,text) {
-        var url = URL_BASE + url + text;
+    $scope.searchElement = function (keyEvent, url, element, text) {
+        if (element == 2 || element == 3) {
+            if (element == 2) {
+                var url = URL_BASE + url + text + "/" + 1;
+            } else {
+                var url = URL_BASE + url + text + "/" + 2;
+                ;
+            }
+        } else {
+            var url = URL_BASE + url + text;
+        }
         if (keyEvent.which != 38 && keyEvent.which != 40) {
             searchAutocomplet.search(url).then(function (data) {
-                
+
                 if (data.length > 0) {
                     switch (element) {
                         case 1:
@@ -194,40 +260,44 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
                             $scope.newDoctor = false;
                             break;
                         case 2:
-                            $scope.patients = data;
-                            $scope.newPatient = false;
+                            $scope.anesthesiologists = data;
+                            $scope.newAnesthesiologist = false;
                             break;
                         case 3:
-                            $scope.doctors = data;
-                            $scope.newDoctor = false;
+                            $scope.residents = data;
+                            $scope.newResident = false;
                             break;
                         case 4:
                             $scope.patients = data;
                             $scope.newPatient = false;
                             break;
                         case 5:
-                            $scope.patients = data;
-                            $scope.newPatient = false;
+                            $scope.salles = data;
+                            $scope.newSalle = false;
                             break;
                     }
-                    
+
                 } else {
-                      switch (element) {
-                     case 1:
+                    switch (element) {
+                        case 1:
                             $scope.doctors = [];
                             $scope.newDoctor = true;
                             break;
                         case 2:
-                            $scope.patients = [];
-                            $scope.newPatient = true;
+                            $scope.anesthesiologists = [];
+                            $scope.newAnesthesiologist = true;
                             break;
                         case 3:
-                            $scope.doctors = [];
-                            $scope.newDoctor = true;
+                            $scope.residents = [];
+                            $scope.newResident = true;
                             break;
                         case 4:
                             $scope.patients = [];
                             $scope.newPatient = true;
+                            break;
+                        case 5:
+                            $scope.salles = [];
+                            $scope.newSalle = true;
                             break;
                     }
                 }
@@ -235,45 +305,143 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
 
         }
     }
-    /*cierre busar elementos y seleccionarlos*/
+
+    // Set value to search box
+    $scope.setDoctor = function (index) {
+
+        $scope.searchTextDoctor = $scope.doctors[index].name + " " + $scope.doctors[index].apellido;
+        $scope.formData.idDoctor = $scope.doctors[index].id;
+        $scope.doctors = [];
+    }
+    /*
+     * Validar id del doctor seleccionado
+     */
+    $scope.valideIdDoctor = function () {
+
+        if ($scope.formData.idDoctor == "") {
+            $scope.searchTextDoctor = "";
+        }
+    };
+
+    /*
+     * Validar id paciente seleccionado
+     */
+    $scope.valideIdAnesthesiologist = function () {
+        if ($scope.formData.idAnesthesiologist == "") {
+            $scope.searchTextAnesthesiologist = "";
+        }
+    };
+
+    // Set value to search box
+    $scope.setAnesthesiologist = function (index) {
+
+        $scope.searchTextAnesthesiologist = $scope.anesthesiologists[index].name + " " + $scope.anesthesiologists[index].apellido;
+        $scope.formData.idAnesthesiologist = $scope.anesthesiologists[index].id;
+        $scope.anesthesiologists = [];
+    }
+
+
+    /*
+     * Validar id paciente seleccionado
+     */
+    $scope.valideIdResident = function () {
+        if ($scope.formData.idResident == "") {
+            $scope.searchTextResident = "";
+        }
+    };
+
+    // Set value to search box
+    $scope.setResident = function (index) {
+
+        $scope.searchTextResident = $scope.residents[index].name + " " + $scope.residents[index].apellido;
+        $scope.formData.idResident = $scope.residents[index].id;
+        $scope.residents = [];
+    }
 
     /*
      * Validar id paciente seleccionado
      */
     $scope.valideIdPatient = function () {
-        $("#agenda-list-citas").hide();
-        if ($scope.idPatient == "") {
-            $scope.searchText = "";
+        if ($scope.formData.idPatient == "") {
+            $scope.searchTextPatient = "";
         }
     };
 
     // Set value to search box
     $scope.setPatient = function (index) {
 
-        $scope.searchText = $scope.patients[index].ci + " - " + $scope.patients[index].name + " " + $scope.patients[index].apellido;
-        $scope.idPatient = $scope.patients[index].id;
-        $scope.idEmpresa = $scope.patients[index].empresa;
-        $scope.patients = {}
+        $scope.searchTextPatient = $scope.patients[index].ci + " - " + $scope.patients[index].name + " " + $scope.patients[index].apellido;
+        $scope.formData.idPatient = $scope.patients[index].id;
+        //$scope.idEmpresa = $scope.patients[index].empresa;
+        $scope.patients = [];
     }
 
-
-    // Set value to search box
-    $scope.setDoctor = function (index) {
-
-        $scope.searchTextDoctor =  $scope.doctors[index].name + " " + $scope.doctors[index].apellido;
-        $scope.idDoctor = $scope.doctors[index].id;
-        $scope.doctors = {}
-    }
-        /*
-     * Validar id del doctor seleccionado
+    /*
+     * Validar id paciente seleccionado
      */
-    $scope.valideIdDoctor = function () {
-
-        if ($scope.idDoctor == "") {
-            $scope.searchTextDoctor = "";
+    $scope.valideIdSalle = function () {
+        if ($scope.formData.idSalle == "") {
+            $scope.searchTextSalle = "";
         }
     };
 
+    // Set value to search box
+    $scope.setSalle = function (index) {
+
+        $scope.searchTextSalle = $scope.salles[index].name;
+        $scope.formData.idSalle = $scope.salles[index].id;
+        $scope.salles = [];
+    }
+    /*cierre busar elementos y seleccionarlos*/
+    $scope.submitForm = function (e, formData) {
+
+        e.preventDefault();
+
+        var url = $scope.panel.url;
+        swal({
+            title: "Procesando",
+            text: 'Espere...',
+            showConfirmButton: false
+        });
+        $http({
+            url: url,
+            method: $scope.panel.method_form,
+            data: formData,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (data) {
+            if (data.data.response) {
+                swal({
+                    title: "Correcto!",
+                    text: 'Realizado con éxito!',
+                    timer: 400,
+                    type: "success",
+                    showConfirmButton: true,
+                    closeOnConfirm: true
+                }, function () {
+                    $scope.reloadCalendar();
+                    $scope.resetPanelCita();
+                    $scope.init(); //inicializar
+                });
+            } else if (data.status == 500) {
+                swal("Error!", "Contacte al administrador!", "error");
+            } else {
+                swal("Error!", "Error en la transacción!", "error");
+            }
+        });
+    };
+
+    $scope.setDateTime = function () {
+        /*
+         *  Agregar datos de tiempo a los input para ser enviados con submit
+         * */
+        var hora_inicio = $scope.hourSelect.split(" "); //obtener solo la hora
+        //convertir a tipo aceptado por el calendario uniendo fecha y hora
+        $scope.formData.start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
+        $scope.formData.end = moment($scope.formData.start).add($scope.slider.value, 'm');
+        $scope.formData.end = moment($scope.formData.end, 'DD/MM/YYYY,H:mm').format();
+    };
 });
 
 
