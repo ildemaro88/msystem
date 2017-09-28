@@ -20,6 +20,7 @@ class ModCitaQuirofano extends Model {
         "color",
         "trash",
         "estado",
+        "process",
         "constraint",
         "id_medico",
         "id_paciente",

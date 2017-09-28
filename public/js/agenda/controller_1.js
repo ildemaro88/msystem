@@ -191,9 +191,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     } else {
                         var element = jsEvent.target.outerHTML;
                         element = element.substring(0, 3);
-                        var now = moment().format("DD/MM/YYYY HH:mm");
+                        var now = moment();
 
-                        if (date.format('DD/MM/YYYY HH:mm') > now) {
+                        if (date.isAfter(now)) {
                             if (element == "<td") {
                                 $scope.cita.fecha = date.format('DD/MM/YYYY');
                                 $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
@@ -229,16 +229,16 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                     });
                 },
                 eventResize: function (event, delta, revertFunc) {
-                    var now = moment().format("DD/MM/YYYY HH:mm");
-                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                    var now = moment();
+                    if (event.start.isBefore(now)) {
                         revertFunc();
                     } else {
                         $scope.dropModCita(event);
                     }
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-                    var now = moment().format("DD/MM/YYYY HH:mm");
-                    if (event.start.format('DD/MM/YYYY HH:mm') < now) {
+                    var now = moment();
+                    if (event.start.isBefore(now)) {
                         revertFunc();
                     } else {
                         $scope.dropModCita(event);
@@ -366,7 +366,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         // $scope.cita={fecha : $scope.cita.fecha};
         $scope.resetAutorizacion();
         $scope.panel = new $scope.panel_default();
-        
+
         /*$scope.$watch('panel',function(){
          $scope.panel = $scope.panel_default;
          });*/
@@ -525,7 +525,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
     };
 
     $scope.previewCita = function () {
-        
+
         if (this.formCitaSend.$dirty) {
             this.formCitaSend.$dirty = false;
         }
@@ -535,7 +535,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.init(); //inicializar
         $scope.reloadCalendar();
         $scope.resetPanelCita();
-        
+
 
     };
     $scope.setDateTime = function () {
@@ -688,7 +688,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
         $scope.idpaciente = $scope.searchResult[index].id;
         $scope.idEmpresa = $scope.searchResult[index].empresa;
         $scope.searchTextAgreement = 1;
-        $scope.getOptionsAgreements($scope.idEmpresa, 0, $scope.searchTextAgreement );
+        $scope.getOptionsAgreements($scope.idEmpresa, 0, $scope.searchTextAgreement);
     }
     $scope.getOptionsAgreements = function (Idempresa, option, textAgreement) {
         var url = URL_BASE + "medico/agenda/get/agreement/" + Idempresa;
@@ -760,9 +760,9 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
             console.log("false");
             $('#price').click();
         }
-        if(status == true){
+        if (status == true) {
             console.log("verdadero")
-             $('#price').click();
+            $('#price').click();
         }
     }
 

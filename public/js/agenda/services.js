@@ -30,3 +30,17 @@ agenda.service('getElements', function($http){
 
         }
 });
+
+agenda.directive('mySlider', function () {
+        return {
+            restrict: 'E',
+            template: '<rzslider rz-slider-model="model" rz-slider-options="sliderOptions"></rzslider>',
+            scope: {},
+            controller: MySliderCtrl,
+            controllerAs: 'vm',
+            bindToController: {
+                model: '=myModel',
+                onChange: '&onChange'
+            }
+        }
+    })

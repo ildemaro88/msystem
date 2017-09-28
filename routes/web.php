@@ -21,6 +21,7 @@ Route::get('/admin/quirofano/agenda/get/salles', 'AdminAgendaQuirofanoCirugiaCon
 Route::post('/admin/quirofano/agenda/save','AdminAgendaQuirofanoCirugiaController@save');
 Route::delete('/admin/quirofano/agenda/delete/{id}','AdminAgendaQuirofanoCirugiaController@destroy');
 Route::get('/admin/quirofano/agenda/events/{idSalle}','AdminAgendaQuirofanoCirugiaController@getEvents');
+Route::put('/admin/quirofano/agenda/uptade/{id}','AdminAgendaQuirofanoCirugiaController@updateEventDrop');
 
 Route::get('/admin/medico/dashboard', 'AdminMedico1Controller@dashboard');
 Route::get('/admin/medico/dashboard/{id}', 'AdminCitaController@medico_citas');

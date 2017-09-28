@@ -214,7 +214,8 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function updateEventDrop(Request $request, $id) {
-        $cita = ModCita::find($id);
+        
+        $cita = ModCitaQuirofano::find($id);
         $cita->start = $request->get("start");
         $cita->end = $request->get("end");
         $cita->start_datetime = new DateTime($cita->start);
@@ -254,6 +255,7 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         $cita->id_quirofano = $request->get("idSalle");
         $cita->id_residente = $request->get("idResident");
         $cita->id_anesteciologo = $request->get("idAnesthesiologist");
+        $cita->process = $request->get("process");
 
         $medico = ModMedico::find($request->get("idDoctor"));
         $cita->title = ($medico->titulo . " " . $medico->nombre . " " . $medico->apellido . ", Paciente:  " . $paciente->nombre . " " . $paciente->apellido);
