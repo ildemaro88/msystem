@@ -35,9 +35,20 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
     public function index() {
         $page_title = "Agendar Cirugías";
 
-        return view('agenda_quirofano.create', compact('page_title'));
+        return view('agenda_quirofano.index', compact('page_title'));
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAgendaSalle($id) {
+        $salle = ModQuirofano::find($id); 
+        
+        $page_title = "Agendar Cirugías" ." Qurifano: " . strtoupper($salle->name);
 
+        return view('agenda_quirofano.create', compact('page_title'),["idSalle"=>$id]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -108,7 +119,27 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         ]);
     }
     
-    
+       
+            /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSallesForIndex(Request $request) {
+
+        $salles = ModQuirofano::all();
+        $getSalles = array();
+        foreach ($salles as $salle) {
+            $getSalle = array();
+            $getSalle["id"] = $salle["id"];
+            $getSalle["name"] = $salle["name"];
+            $getSalles[] = $getSalle;
+            //$response[] = $getPacientes;
+        }
+        return response()->json([
+                    "response" =>  $getSalles
+        ]);
+    } 
             /**
      * Show the form for creating a new resource.
      *
@@ -340,9 +371,10 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEvents(Request $request) {
+    public function getEvents(Request $request,$idSalle) {
 
         $citas = ModCitaQuirofano::where("estado_cita",1)
+            ->where("id_quirofano",$idSalle)
             ->where("trash",null)
             ->orWhere("trash","=",0) // los que no estan en papelera
             ->with("paciente")

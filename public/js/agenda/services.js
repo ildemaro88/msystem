@@ -1,8 +1,7 @@
 agenda.service('searchAutocomplet', function($http){
          
     /*busar pacientes y seleccionarlo*/
-        this.search = function (urlSearch) {
-            var url = urlSearch;
+        this.search = function (url) {
             return $http({
                 url: url,
                 method: 'GET',
@@ -12,12 +11,22 @@ agenda.service('searchAutocomplet', function($http){
                 }
             }).then(function success(response) {
                   return response.data.response;
-               // this.returnResults(this.searchResult);
             });
 
         }
-     this.returnResults = function (results) {
-      return  this.searchResult;
-     }
-    /*cierre busar pacientes y seleccionarlo*/
+});
+
+agenda.service('getElements', function($http){
+        this.getQuery = function (url) {
+            return $http({
+                url: url,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function success(response) {
+                  return response.data.response;
+            });
+
+        }
 });

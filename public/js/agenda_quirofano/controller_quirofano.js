@@ -5,8 +5,10 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
      */
 
     $scope.init = function () {
+        $scope.idSalleValue = idSalle;
         $scope.citaId = "";
         $scope.formData = {};
+        $scope.formData.idSalle = $scope.idSalleValue;
         /*variables del formulario*/
         $scope.slider = {
             value: 15,
@@ -76,7 +78,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             columnFormat: 'dddd',
             eventOverlap: false,
             events: {
-                url: URL_BASE + "quirofano/agenda/events"
+                url: URL_BASE + "quirofano/agenda/events/"+ $scope.idSalleValue 
             },
             eventRender: function (event, element) {
 
@@ -198,7 +200,6 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.formData.idDoctor = event.id_medico;
         $scope.formData.idAnesthesiologist = event.id_anesteciologo;
         $scope.formData.idResident = event.id_residente;
-        $scope.formData.idSalle = event.id_quirofano;
         //cambio de botones
         $scope.modificar = true;
         $scope.agendar = false;
@@ -378,22 +379,22 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.patients = [];
     }
 
-    /*
-     * Validar id paciente seleccionado
-     */
-    $scope.valideIdSalle = function () {
-        if ($scope.formData.idSalle == "") {
-            $scope.searchTextSalle = "";
-        }
-    };
-
-    // Set value to search box
-    $scope.setSalle = function (index) {
-
-        $scope.searchTextSalle = $scope.salles[index].name;
-        $scope.formData.idSalle = $scope.salles[index].id;
-        $scope.salles = [];
-    }
+//    /*
+//     * Validar id paciente seleccionado
+//     */
+//    $scope.valideIdSalle = function () {
+//        if ($scope.formData.idSalle == "") {
+//            $scope.searchTextSalle = "";
+//        }
+//    };
+//
+//    // Set value to search box
+//    $scope.setSalle = function (index) {
+//
+//        $scope.searchTextSalle = $scope.salles[index].name;
+//        $scope.formData.idSalle = $scope.salles[index].id;
+//        $scope.salles = [];
+//    }
     /*cierre busar elementos y seleccionarlos*/
     $scope.submitForm = function (e, formData) {
 

@@ -1,15 +1,13 @@
 
-<?php
-$page_title = $agenda->nombre ?: "Agendar Cita";
-?>
 @extends("crudbooster::admin_template")
 @section("content")
 <link rel="stylesheet" href="{{asset('bower_resources/angularjs-slider/dist/rzslider.css')}}">
 <link rel="stylesheet" href="{{asset('css/styles_search.css')}}">
 <script src="{{asset('bower_resources/angularjs-slider/dist/rzslider.min.js')}}"></script>
 
-<div  ng-init="cita.fecha = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); descripcion = (''); agendar = (true); fecha_autorizacion = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); fecha_vence = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); cita.hoy = ('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
+<div ng-init="cita.fecha = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); descripcion = (''); agendar = (true); fecha_autorizacion = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); fecha_vence = ('{{Carbon\Carbon::now()->format('d/m/Y')}}'); cita.hoy = ('{{Carbon\Carbon::now()->format('d/m/Y')}}')"
       ng-app="AppAgenda" ng-controller="AppAgendaQuirofano" ng-cloack ng-init="fecha = ('{{Carbon\Carbon::now()->format('d/m/Y')}}');">
+<!--    <input type="text" ng-model="idSalleValue" >-->
     <div class="box">
         <div class="box-header">
             <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}">
@@ -123,14 +121,14 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                 </ul>
                                             </div>
                                         </div>
-                                      <div class="form-group col-md-4">
+<!--                                      <div class="form-group col-md-4">
                                             <label for=""> Seleccione el Quirófano:</label>
                                             <input type="text"  id="salle_valide" ng-keyup='searchElement($event,"quirofano/agenda/get/salle/",5,searchTextSalle)' ng-model='searchTextSalle' name="salle_valide"  class="form-control noEnterSubmit" value="DIRECTORY" autocomplete="off" ng-blur='valideIdSalle()' required/>
                                             <span style="color:red" ng-show="formCitaSend.salle_valide.$dirty && formCitaSend.salle_valide.$invalid">
                                                 <span ng-show="formCitaSend.salle_valide.$dirty && formCitaSend.salle_valide.$error.required">Debe Seleccionar un quirófano.</span>
                                             </span><br>
                                             <div id="search_salle">
-                                                <!-- Example content that is printed out after searchNameDept() is run -->
+                                                 Example content that is printed out after searchNameDept() is run 
                                                 <ul id='searchResultSalle' >
                                                     <li ng-click='setSalle($index)' ng-keyup="setSalle($index)" class="search_org"  ng-repeat="result in salles| limitTo:5" >[[ result.name]] </li>
                                                     <li ng-show="newSalle">No existe el quirofano,
@@ -139,7 +137,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-sm-2"  ng-show="time">
                                             <h5 style="margin:0px">
                                                 <b style="font-size:13px">Fecha:</b>
@@ -204,12 +202,13 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         </div>
     </div>
 </div>
-
-
+<script>
+    var idSalle = {{$idSalle}}; 
+</script>
 <!--  ANGULAR APP -->
 <script src="{{asset('js/agenda/app.js')}}"></script>
 <script src="{{asset('js/agenda/services.js')}}"></script>
-<script src="{{asset('js/agenda/controller_quirofano.js')}}"></script>
+<script src="{{asset('js/agenda_quirofano/controller_quirofano.js')}}"></script>
 <!--<script src="{{asset('js/agenda/directive.js')}}"></script>-->
 <!--<script src="{{asset('js/agenda/moment_library.js')}}"></script>-->
 <!--  ANGULAR APP -->
