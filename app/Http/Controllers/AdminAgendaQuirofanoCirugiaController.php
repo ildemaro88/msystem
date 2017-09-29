@@ -34,8 +34,8 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      */
     public function getAgendaSalle($id) {
         $salle = ModQuirofano::find($id); 
-        
-        $page_title = "Agendar Cirugías" ." Qurifano: " . strtoupper($salle->name);
+       
+        $page_title = "Agendar Cirugías" ." Para El Qurifano: " . strtoupper($salle->name);
 
         return view('agenda_quirofano.create', compact('page_title'),["idSalle"=>$id]);
     }
