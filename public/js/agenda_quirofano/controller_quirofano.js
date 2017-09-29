@@ -381,12 +381,10 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.patients = [];
     }
     /*cierre busar elementos y seleccionarlos*/
+    /*Envio del formulario */
     $scope.submitForm = function (e, formData) {
 
         e.preventDefault();
-//        if ($scope.time) {
-//            $scope.setDateTime();
-//        }
         var url = $scope.panel.url;
         swal({
             title: "Procesando",
@@ -421,7 +419,9 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             }
         });
     };
+/*cierre del envio del formulario*/
 
+/*setear la hora final de la operacion*/
     $scope.setDateTime = function () {
         /*
          *  Agregar datos de tiempo a los input para ser enviados con submit
@@ -435,6 +435,9 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         
         
     };
+    /*cierre del seteo la hora final de la operacion*/
+
+/*Modificar cuando el evento se mueve de fecho o se hala la hora*/
 
     $scope.dropModCita = function (cita) {
         $("#agenda-list-citas").hide();
@@ -450,7 +453,9 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             console.log(err);
         }
     };
+/*cierre de modificar cuando el evento se mueve de fecho o se hala la hora*/
 
+/*enviar el evento cuando se modificó por medio de un drop*/
     $scope.updateDropCita = function (idCita) {
         var url = URL_BASE + "quirofano/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();
@@ -493,6 +498,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
                     });
                 });
     };
+    /*cierre del enviar el evento cuando se modificó por medio de un drop*/
 
     /*
      * -->
@@ -522,7 +528,6 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
                 }
             }).then(function (data) {
                 if (data.data.response == true) {
-                    //swal("Correcto!", "Cita movida correctamente!", "success");
                     swal({
                         title: "Correcto!",
                         type: "success",
@@ -541,6 +546,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         });
 
     };
+    /*cierre de cancelar la cita*/
 });
 
 
