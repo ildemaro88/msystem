@@ -158,13 +158,6 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.formData.color = '#E9C341';
         var hora_inicio = $scope.hourSelect.split(" "); //obtener solo la hora
         $scope.setDateTime();
-        //convertir a tipo aceptado por el calendario uniendo fecha y hora
-//        var start = moment($scope.cita.fecha + "," + hora_inicio[0], 'DD/MM/YYYY,H:mm').format();
-//        $scope.hourEnd = moment(start).add($scope.slider.value, 'hours');
-//        $scope.hourEnd = moment($scope.hourEnd).format('HH:mm a');
-        //$scope.setDateTime();
-        //$scope.hourEnd = moment(start).add($scope.slider.value, 'hours');
-//        $scope.hourEnd = moment($scope.formData.end).format('HH:mm a');
         $scope.panel = panelCreate;
         try {
             $scope.$apply();
