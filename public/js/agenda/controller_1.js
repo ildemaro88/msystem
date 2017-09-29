@@ -192,8 +192,7 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                         var element = jsEvent.target.outerHTML;
                         element = element.substring(0, 3);
                         var now = moment();
-
-                        if (date.isAfter(now)) {
+                        if (date.isAfter(now)|| date.format('DD/MM/YYYY HH:mm') > now.format('DD/MM/YYYY HH:mm')) {
                             if (element == "<td") {
                                 $scope.cita.fecha = date.format('DD/MM/YYYY');
                                 $scope.showFormAppointment($scope.cita.fecha, date.format('HH:mm a'));
@@ -230,18 +229,18 @@ agenda.controller("CtrlApp", function ($scope, $http, $window, $timeout, $q) {
                 },
                 eventResize: function (event, delta, revertFunc) {
                     var now = moment();
-                    if (event.start.isBefore(now)) {
-                        revertFunc();
-                    } else {
+                    if (event.start.isAfter(now) || event.start.format('DD/MM/YYYY HH:mm') > now.format('DD/MM/YYYY HH:mm')) {
                         $scope.dropModCita(event);
+                    } else {
+                        revertFunc();
                     }
                 },
                 eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
                     var now = moment();
-                    if (event.start.isBefore(now)) {
-                        revertFunc();
-                    } else {
+                    if (event.start.isAfter(now) || event.start.format('DD/MM/YYYY HH:mm') > now.format('DD/MM/YYYY HH:mm')) {
                         $scope.dropModCita(event);
+                    } else {
+                        revertFunc();
                     }
                 }
             });

@@ -137,8 +137,11 @@
                                                 <b>Inicio:</b>
                                                 <a>[[hourSelect]]</a>
                                             </h5>
+                                            <h5 for="">
+                                                <b>Fin:</b>
+                                                <a>[[hourEnd]]</a>
+                                            </h5>
                                             <div class="col-sm-">
-
                                                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
                                             </div>
                                         </div>
@@ -228,7 +231,8 @@
     </div>
 </div>
 <script>
-    var idSalle = {{$idSalle}};</script>
+    var idSalle = {{$idSalle}};
+</script>
 <!--  ANGULAR APP -->
 <script src="{{asset('js/agenda/app.js')}}"></script>
 <script src="{{asset('js/agenda/services.js')}}"></script>

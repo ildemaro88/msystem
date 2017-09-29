@@ -9,21 +9,21 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
 <div class="box" ng-app="AppAgenda" ng-controller="CtrlAppSalles" ng-cloack>
 
     <div class="box" >
+        <div class="row box-header">
+            <div class="col-md-4">
+                <a href="{{CRUDBooster::adminPath().'/quirofano/add'}}">
+                    <button class="off btn btn-success btn-sm"><i class="fa fa-hospital-o"></i> Nuevo Quirófano</button>
+                </a>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4 pull-right">
+                <input placeholder="Buscar" class="form-control" type="text" ng-model="search">
+            </div>
+        </div>
         <div class="col-xs-12">
             <div class="panel panel-primary">
-                <div class="row">
-                    <div class="col-md-4 pull-left">
-                        <a href="{{CRUDBooster::adminPath().'/quirofano/add'}}">
-                            <button class="btn btn-success btn-sm"><i class="fa fa-hospital-o"></i> Nuevo paciente</button>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-
-                    </div>
-                    <div class="col-md-4 pull-right">
-                        <input placeholder="Buscar" class="form-control" type="text" ng-model="search">
-                    </div>
-                </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
