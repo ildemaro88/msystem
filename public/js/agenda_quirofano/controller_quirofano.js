@@ -132,7 +132,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         this.title_panel = "Modificar Cita";
         this.class_heading = "carrot";
         this.style_body = "background-color:white";
-        this.url = URL_BASE + "quirofano/agenda/update";
+        this.url = URL_BASE + "quirofano/agenda/update/"+$scope.citaId;
         this.method_form = "put";
         this.method = {
             name: "_method",
@@ -191,6 +191,7 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             defaultView: 'agendaDay'
         };
         $scope.citaId = event.id;
+        $scope.formData.color = event.color;
         var panelModificar = new $scope.panelModify();
         $scope.panel = panelModificar;
         $("#calendar").fullCalendar('gotoDate', moment(event.start).format('YYYY-MM-DD'));

@@ -12,6 +12,14 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         <div class="col-xs-12">
             <div class="panel panel-primary">
                 <div class="row">
+                    <div class="col-md-4 pull-left">
+                        <a href="{{CRUDBooster::adminPath().'/quirofano/add'}}">
+                            <button class="btn btn-success btn-sm"><i class="fa fa-hospital-o"></i> Nuevo paciente</button>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
                     <div class="col-md-4 pull-right">
                         <input placeholder="Buscar" class="form-control" type="text" ng-model="search">
                     </div>
@@ -26,8 +34,8 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                         </thead>
                         <tbody>
                             <tr ng-repeat="salle in salles| filter:search">
-                                <td><a ng-href="{{CRUDBooster::adminPath().'/agenda_cirugia/salle/[[salle.id]]'}}">[[salle.name]]</a></td>
-                                <td><a ng-href="{{CRUDBooster::adminPath().'/agenda_cirugia/salle/[[salle.id]]'}}">Seleccionar</a></td>
+                                <td><a class="btn btn-primary btn-sm" ng-href="{{CRUDBooster::adminPath().'/agenda_cirugia/salle/[[salle.id]]'}}">[[salle.name]] - Ingresar</a></td>
+                                <td><a class="btn btn-warning btn-xs"ng-href="{{CRUDBooster::adminPath().'/quirofano/edit/[[salle.id]]'}}"><i class="fa fa-pencil"</a></td>
                             </tr>
                         </tbody>
                     </table>

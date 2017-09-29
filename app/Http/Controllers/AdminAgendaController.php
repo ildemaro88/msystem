@@ -285,6 +285,8 @@ class AdminAgendaController extends Controller {
 
 
         $cita = ModCita::find($id);
+        $paciente = ModPaciente::find($request->get("idPatient"));
+        $medico = ModMedico::find($request->get("idDoctor"));
         $cita->paciente_id = $request->get("idpaciente");
         $cita->detalle_cita = $request->get("descripcion");
         $cita->agenda_id = $request->get("agenda_id");

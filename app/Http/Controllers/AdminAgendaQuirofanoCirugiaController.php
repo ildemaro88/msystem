@@ -32,16 +32,6 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $page_title = "Agendar Cirugías";
-
-        return view('agenda_quirofano.index', compact('page_title'));
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getAgendaSalle($id) {
         $salle = ModQuirofano::find($id); 
         
@@ -293,52 +283,29 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
     public function update(Request $request, $id) {
 
 
-        $cita = ModCita::find($id);
-        $cita->paciente_id = $request->get("idpaciente");
+        $cita = ModCitaQuirofano::find($id);
+        $paciente = ModPaciente::find($request->get("idPatient"));
+        $medico = ModMedico::find($request->get("idDoctor"));
+        $cita->estado = 5;
+        $cita->color = $request->get("color");
         $cita->detalle_cita = $request->get("descripcion");
-        $cita->agenda_id = $request->get("agenda_id");
-        $sel_convenio = $request->get("sel_convenio");
-        if (is_null($request->get("agenda_id"))) { //si es null viene por solicitud de usuario
-            $a = ModAgenda::where("medico_id", "=", $request->get('medico_id'))->first();
-            $agenda_id = $a->id;
-            $cita->agenda_id = $agenda_id;
-        } else { //si tiene valor viene por solicitud de call center
-            $agenda_id = $request->get('agenda_id');
-            $cita->agenda_id = $agenda_id;
-        }//var_dump($cita);
+        $cita->estado_cita = 1;
+        $cita->start_datetime = new DateTime($cita->start);
+        $cita->end_datetime = new DateTime($cita->end);
+        $cita->id_medico = $request->get("idDoctor");
+        $cita->id_paciente = $request->get("idPatient");
+        $cita->id_quirofano = $request->get("idSalle");
+        $cita->id_residente = $request->get("idResident");
+        $cita->id_anesteciologo = $request->get("idAnesthesiologist");
+        $cita->process = $request->get("process");
+
         $response = $cita->save();
-        $convenio = ModConvenio::where("cita_calendario_id", $cita->id)->first();
         if ($response) {// si se guarda la cita
-            if ($sel_convenio > 1 && !is_null($request->get("fecha_autorizacion")) && !is_null($request->get("fecha_vence"))) { // si el convenio es I.E.S.S.
-                $convenio->autorizacion = $request->get("autorizacion");
-                $date1 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_autorizacion"))->format("Y-m-d");
-                $date2 = Carbon::createFromFormat("d/m/Y", $request->get("fecha_vence"))->format("Y-m-d");
-                $convenio->fecha_autorizacion = $date1;
-                $convenio->fecha_vence = $date2;
-                $convenio->id_convenio = $sel_convenio;
-                $convenio->save();
-            } else {
-                $convenio->autorizacion = $request->get("autorizacion");
-                $convenio->fecha_autorizacion = "";
-                $convenio->fecha_vence = "";
-                $convenio->id_convenio = $sel_convenio;
-                $convenio->save();
-            }
-           // $typePayment = ModTypePayment::find(1);
-            $payment =  ModPayment::where("parent_id", $cita->id)->first();
-            if($request->get("status_price") == "true"){
-                $status = true;
-            }else{
-                $status = false; 
-            }
-            $payment->status =  $status;
-            $payment->aumont = $request->get("price");
-            $payment->save();
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
-            $email_medico = !is_null($medico->email) ? $medico->email : "pablodcd002@gmail.com";
-            $email_paciente = !is_null($paciente->email) ? $paciente->email : "pabloddc002@gmail.com";
+            $email_medico = !is_null($medico->email) ? $medico->email : "felipe.vinoles@gmail.com";
+            $email_paciente = !is_null($paciente->email) ? $paciente->email : "felipe.vinoles@gmail.com";
             try {
                 Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
                 Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));

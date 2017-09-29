@@ -37,7 +37,7 @@
 			$this->form[] = array (
   'style' => NULL,
   'help' => NULL,
-  'placeholder' => 'Sólo puede introducir letras',
+  'placeholder' => 'Ejemplo: Quirófano Uno',
   'readonly' => NULL,
   'disabled' => NULL,
   'label' => 'Nombre',
@@ -268,9 +268,12 @@
 	        //Your code here
 
 	    }
+            
+            public function getIndex(){
+                $page_title = "Agendar Cirugías";
 
-
-
+                return view('agenda_quirofano.index', compact('page_title'));
+            }
 	    //By the way, you can still create your own method in here... :) 
 
 
