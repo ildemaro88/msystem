@@ -1,4 +1,4 @@
-agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, $timeout, $q) {
+agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, $timeout, $q, $interval) {
 
     /*
      * Inicializacion
@@ -65,7 +65,7 @@ agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, 
                 revertFunc();
             },
             eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
-               revertFunc();
+                revertFunc();
             }
         });
     };
@@ -77,13 +77,13 @@ agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, 
 
         $scope.startDateEdit = "";
         $scope.detailsCitas = "";
-         $scope.detailsCitas = "";
+        $scope.detailsCitas = "";
         $scope.aesthesiologist = "";
         $scope.resident = "";
         $scope.salle = "";
         $scope.descripcion = "";
         $scope.process = "";
-         try {
+        try {
             $scope.$apply();
         } catch (err) {
             console.log(err);
@@ -112,6 +112,14 @@ agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, 
     };
     /*cierre de modificar cuando el evento se mueve de fecho o se hala la hora*/
 
+  $scope.reloadCalendarAutomatic = function () {
+        $("#calendar").fullCalendar("refetchEvents");
+    };
+
+    //recargar calendario cada 2 minutos
+    $interval(function () {
+        $scope.reloadCalendarAutomatic();
+    }, 120 * 1000);
 });
 
 
