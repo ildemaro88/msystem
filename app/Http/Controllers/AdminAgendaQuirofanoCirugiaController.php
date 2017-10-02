@@ -11,14 +11,13 @@ use App\ModMedico;
 use DB;
 use App\ModCitaQuirofano;
 use App\ModConvenios;
-use App\Mail\EmailPaciente;
-use App\Mail\EmailMedico;
+use App\Mail\EmailPacienteCirugia;
+use App\Mail\EmailMedicoCirugia;
 use App\HorarioMedico;
-use App\ModSpecialtyPrice;
-use App\ModPayment;
-use App\ModTypePayment;
 use App\ModAsistenteCirugia;
 use App\ModQuirofano;
+use App\Mail\EmailMedicoResident;
+use App\Mail\EmailMedicoAnesthesiologist;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
@@ -256,15 +255,20 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
+           $resident = ModAsistenteCirugia::find($request->get("idResident"));
+           $anesthesiologist = ModAsistenteCirugia::find($request->get("idAnesthesiologist"));
             $email_medico = !is_null($medico->email) ? $medico->email : "felipe.vinoles@gmail.com";
             $email_paciente = !is_null($paciente->email) ? $paciente->email : "felipe.vinoles@gmail.com";
+            $email_resident = !is_null($resident->email) ? $resident->email : "felipe.vinoles@gmail.com";
+            $email_anesthesiologist = !is_null($anesthesiologist->email) ? $anesthesiologist->email : "felipe.vinoles@gmail.com";
             try {
             $status = true;
-//                Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
-//                Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
+//                Mail::to(trim($email_paciente))->send(new EmailPacienteCirugia($paciente, $medico, $cita));
+//                Mail::to(trim($email_medico))->send(new EmailMedicoCirugia($medico, $paciente, $cita));
+//                Mail::to(trim($email_resident))->send(new EmailMedicoResident($resident, $medico, $cita));
+//                Mail::to(trim($email_anesthesiologist))->send(new EmailMedicoAnesthesiologist($email_anesthesiologist, $medico, $cita));
             } catch (\Error $x) {
                 $status = false;
-                echo $x->getMessage();
             }
         }
         return response()->json([
