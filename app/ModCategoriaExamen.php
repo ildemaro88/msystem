@@ -16,4 +16,8 @@ class ModCategoriaExamen extends Model
 	public function tipo() {
 	  return $this->hasOne('\App\ModTipoExamen','id','id_tipo_examen');
 	}
+        
+        public function examenes() {
+        return $this->hasMany('\App\ModExamen', "id_categoria_examen");
+    }
 }

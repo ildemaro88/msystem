@@ -56,6 +56,10 @@ Route::get('admin/orden_examenes_carga/{id}/upload', 'AdminOrdenExamenesCargaCon
 Route::post('admin/orden_examenes_carga/uploadSave/{id}',['as' => 'uploadSave', 'uses' => 'AdminOrdenExamenesCargaController@saveResult']); 
 // ------  End Route Orden_examen_ocupacional ----/////
 
+//----- Start Route Orden_examen_ocupacional -----//
+Route::get('admin/examenes/price/add', 'AdminPriceExamensConsultationController@getAdd');
+Route::get('admin/examenes/price/elements', 'AdminPriceExamensConsultationController@getExamens');
+// ------  End Route Orden_examen_ocupacional ----/////
 //----- Start Route Optometria -----//
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');
