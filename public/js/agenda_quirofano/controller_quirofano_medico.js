@@ -120,7 +120,7 @@ agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, 
     //recargar calendario cada 2 minutos
     $interval(function () {
         $scope.reloadCalendarAutomatic();
-    }, 10 * 1000);
+    }, 20 * 1000);
 });
 
 
