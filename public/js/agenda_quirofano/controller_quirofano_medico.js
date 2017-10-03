@@ -113,13 +113,14 @@ agenda.controller("AppAgendaQuirofanoMedico", function ($scope, $http, $window, 
     /*cierre de modificar cuando el evento se mueve de fecho o se hala la hora*/
 
   $scope.reloadCalendarAutomatic = function () {
+      //alert("JHJJ")
         $("#calendar").fullCalendar("refetchEvents");
     };
 
     //recargar calendario cada 2 minutos
     $interval(function () {
         $scope.reloadCalendarAutomatic();
-    }, 120 * 1000);
+    }, 10 * 1000);
 });
 
 

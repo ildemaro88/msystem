@@ -33,17 +33,17 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-3">
+                        <div class="col-md-4 col-md-offset-2">
 
-                            <h1>Fecha Inicial: <a>[[startDateEdit]]</a></h1>    
-                            <h1>Fecha Final: <a>[[endDateEdit]]</a> </h1> 
-                            <h1>Residente: <a>  [[resident]]</a></h1>    
-                            <h1>Anesteciologo: <a>[[anesthesiologist]]</a> </h1>  
+                            <h4>Fecha Inicial: <a>[[startDateEdit]]</a></h4>    
+                            <h4>Fecha Final: <a>[[endDateEdit]]</a> </h4> 
+                            <h4>Residente: <a>  [[resident]]</a></h4>    
+                            <h4>Anesteciologo: <a>[[anesthesiologist]]</a> </h4>  
                         </div>
-                        <div class="col-md-4"> 
-                            <h1>Quirófano: <a>[[salle]]</a> </h1> 
-                            <h1>Proceso: <a>[[process]]</a></h1>    
-                            <h1>Observaciones: <a>[[descripcion]]</a> </h1>    
+                        <div class="col-md-6"> 
+                            <h4>Quirófano: <a>[[salle]]</a> </h4> 
+                            <h4>Proceso: <a>[[process]]</a></h4>    
+                            <h4>Observaciones: <a>[[descripcion]]</a> </h4>    
                         </div>
                     </div>
                     <div class=" ">
