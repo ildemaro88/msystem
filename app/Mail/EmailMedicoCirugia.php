@@ -3,13 +3,13 @@
 namespace App\Mail;
 use App\ModMedico;
 use App\ModPaciente;
-use App\ModCita;
+use App\ModCitaQuirofano;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailMedico extends Mailable
+class EmailMedicoCirugia extends Mailable
 {
     use Queueable, SerializesModels;
     protected $paciente;
@@ -21,7 +21,7 @@ class EmailMedico extends Mailable
      *
      * @return void
      */
-    public function __construct(ModMedico $medico,ModPaciente $paciente, ModCita $cita)
+    public function __construct(ModMedico $medico,ModPaciente $paciente, ModCitaQuirofano $cita)
     {
         $this->paciente = $paciente;
         $this->medico = $medico;

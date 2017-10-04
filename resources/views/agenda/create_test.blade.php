@@ -148,7 +148,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                 </div>
             </div>
         </div>
-        <div id="form-save-cita" class="col-xs-12 col-sm-12" ng-show="formCitaSend" style="display: none;">
+        <div id="form-save-cita" class="" ng-show="formCitaSend" style="display: none;">
             {{--Panel de gestion de citas--}}
 
             <div id="pan-nueva-cita" class="panel [[panel.class_heading]]">

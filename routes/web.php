@@ -10,6 +10,22 @@ Route::get('/admin/medico/agenda/get/information/{id}', 'AdminAgendaController@g
 Route::get('/admin/medico/agenda/get/patient/{value}', 'AdminAgendaController@getPatients');
 Route::get('/admin/medico/agenda/get/agreement/{business}', 'AdminAgendaController@getAgreements');
 Route::get('/admin/medico/agenda/get/price/{business}/{specialty}', 'AdminAgendaController@getPrice');
+
+Route::get('/admin/agenda_cirugia/salle/{id}', 'AdminAgendaQuirofanoCirugiaController@getAgendaSalle');
+Route::get('/admin/quirofano/agenda/get/patient/{value}', 'AdminAgendaQuirofanoCirugiaController@getPatients');
+Route::get('/admin/quirofano/agenda/get/doctor/{value}', 'AdminAgendaQuirofanoCirugiaController@getDoctors');
+Route::get('/admin/quirofano/agenda/get/assistant/{value}/{type}', 'AdminAgendaQuirofanoCirugiaController@getAssistants');
+Route::get('/admin/quirofano/agenda/get/salle/{value}', 'AdminAgendaQuirofanoCirugiaController@getSalles');
+Route::get('/admin/quirofano/agenda/get/salles', 'AdminAgendaQuirofanoCirugiaController@getSallesForIndex');
+Route::post('/admin/quirofano/agenda/save','AdminAgendaQuirofanoCirugiaController@save');
+Route::put('/admin/quirofano/agenda/update/{id}','AdminAgendaQuirofanoCirugiaController@update');
+Route::delete('/admin/quirofano/agenda/delete/{id}','AdminAgendaQuirofanoCirugiaController@destroy');
+Route::get('/admin/quirofano/agenda/events/{idSalle}','AdminAgendaQuirofanoCirugiaController@getEvents');
+Route::put('/admin/quirofano/agenda/uptade/{id}','AdminAgendaQuirofanoCirugiaController@updateEventDrop');
+
+Route::get('/admin/medico/agenda/cirugia/index', 'AdminAgendaMedicoCirugiaController@getAgenda');
+Route::get('/admin/medico/agenda/cirugia/events', 'AdminAgendaMedicoCirugiaController@getEvents');
+
 Route::get('/admin/medico/dashboard', 'AdminMedico1Controller@dashboard');
 Route::get('/admin/medico/dashboard/{id}', 'AdminCitaController@medico_citas');
 Route::resource('/admin/medico/cita','AdminCitaController');
@@ -40,6 +56,10 @@ Route::get('admin/orden_examenes_carga/{id}/upload', 'AdminOrdenExamenesCargaCon
 Route::post('admin/orden_examenes_carga/uploadSave/{id}',['as' => 'uploadSave', 'uses' => 'AdminOrdenExamenesCargaController@saveResult']); 
 // ------  End Route Orden_examen_ocupacional ----/////
 
+//----- Start Route Orden_examen_ocupacional -----//
+Route::get('admin/examenes/price/add', 'AdminPriceExamensConsultationController@getAdd');
+Route::get('admin/examenes/price/elements', 'AdminPriceExamensConsultationController@getExamens');
+// ------  End Route Orden_examen_ocupacional ----/////
 //----- Start Route Optometria -----//
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
 Route::get('admin/optometria/print_r/{id}', 'AdminOptometriaController@print_rPDF');

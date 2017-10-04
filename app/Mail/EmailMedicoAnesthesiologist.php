@@ -2,17 +2,17 @@
 
 namespace App\Mail;
 use App\ModMedico;
-use App\ModPaciente;
-use App\ModCita;
+use App\ModAsistenteCirugia;
+use App\ModCitaQuirofano;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailMedico extends Mailable
+class EmailMedicoAnesthesiologist extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $paciente;
+    protected $anesthesiologist;
     protected $medico;
     protected $cita;
 
@@ -21,9 +21,9 @@ class EmailMedico extends Mailable
      *
      * @return void
      */
-    public function __construct(ModMedico $medico,ModPaciente $paciente, ModCita $cita)
+    public function __construct(ModAsistenteCirugia $anesthesiologist, ModMedico $medico,  ModCitaQuirofano $cita)
     {
-        $this->paciente = $paciente;
+        $this->anesthesiologist = $anesthesiologist;
         $this->medico = $medico;
         $this->cita = $cita;
     }
@@ -35,8 +35,8 @@ class EmailMedico extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.mailMedico')->with([
-            'paciente' => $this->paciente,
+        return $this->view('mail.mailMedicoAnesthesiologist')->with([
+            'anesthesiologist' => $this->anesthesiologist,
             'medico' => $this->medico,
             'cita' => $this->cita
         ]);
