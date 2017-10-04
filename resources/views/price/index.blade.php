@@ -1,5 +1,6 @@
 @extends("crudbooster::admin_template")
 @section("content")
+
 <style type="text/css">
     .panel-group{
         max-height: auto;
@@ -59,22 +60,20 @@
     .panel-collapse{
         padding-left: 3px;
     }
+    .price{
+        font-size: 20px;
+    }
 </style>
 
-<div class = "box" ng-app="MyAppPrice" ng-controller="ControllerPrice">
-    <div class = "panel-footer">
-        <div class="text-right">
-            <input class = "btn btn-success" id="btnSave" type = "button" style = "margin-left: 10px" value = "Guardar"ng-click = "toggle('{{$operation}}')">
-        </div>
-    </div>
+<div class = "box" ng-app="MyAppPrice" ng-controller="ControllerPrice" >
     <div class = "box-body">
-        <!--<form id="form_laboratorio" method="POST" action="" name="form_laboratorio" >-->
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li ng-class='{active:$first} ' ng-repeat="result in elements" ><a data-toggle="tab" href="#parent_[[result.id]]"> [[ result.nombre]]</li>
             </ul>
         </div>
         <div class="tab-content">
+
             <!--Inicio pestaña Laboratorio-->
             <div ng-repeat="element in elements" id="parent_[[element.id]]" class="tab-pane fade">
 
@@ -90,16 +89,23 @@
                         <div id="category_[[category.id]]" class="panel-collapse collapse">
                             <div class="box-body col-md-6" ng-repeat="examen in category.examenes">
 
-                                <form  method="post"  name="[[examen.id]]" id="[[examen.id]]" ng-submit="submitForm($event, formData,examen.id)" novalidate>
-                                    <div class="form-group">
+                                <form  method="post"  name="formPriceSend[[examen.id]]" id="[[examen.id]]"  novalidate ng-submit="submitForm($event, formData,examen.id, {{$idEmpresa}})">
+                                    <div class="form-group row pull-right">
                                         <label>[[examen.nombre]]</label>
-                                        <input class="form-control"  type="text" ng-model="formData.priceExamen[[examen.id]]">
+                                        <div class="col-md-7 row">
+                                            <input  class="form-control price" type="text" ng-model="formData.priceExamen[[examen.id]]" required>
+                                            <input  class="form-control price" type="hidden" ng-model="formData.priceEdit[[examen.id]]" >
+
+                                        </div>
+                                        <div class="col-md-3 row" ng-model="formData.priceEdit[[examen.id]]">
+                                            <button type="submit" class="btn btn-success" 
+                                                    ng-disabled="!formPriceSend[[examen.id]].$valid"
+                                                    style="margin-right: 5px;">
+                                                <i class="fa fa-check"></i> OK
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button
-                                        type="submit" class="btn btn-success"
-                                        style="margin-right: 5px;">
-                                        <i class="fa fa-check"></i> OK
-                                    </button>
+
                                 </form>
 
                             </div>
@@ -113,5 +119,7 @@
 <script src="{{ asset ('js/price/app.js')}}"></script>
 <script src="{{ asset ('js/price/services.js')}}"></script>
 <script src="{{ asset ('js/price/controller.js')}}"></script>
-
+<script>
+    var idEmpresa = "{{$idEmpresa}}";
+</script>
 @endsection
