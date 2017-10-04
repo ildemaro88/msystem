@@ -21,6 +21,7 @@
       table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+    text-transform:uppercase;
 }
  td {
     
@@ -50,6 +51,9 @@ th {
    
     table-layout: fixed;
 }
+img{
+  display: block;
+}
       /*#pr{ width:auto; height: 80px; }
       #pr #izq{ float:left; width:50%; }
       #pr #der{ float:left; padding-left: 3px; height: 60px; width: 45%; }
@@ -76,37 +80,36 @@ th {
 
 
 
-    <div id="content"  class="table-responsive">
-     
-            <!--table id="" class="table table-borderless" >
-            
-            <tbody>
-             
-                  <td style="background-color: #fff"  >
-                    <div class="categoria "><b>{{$examen->categoria}}</b>:</div>
-                    <div style="background-color: #f9f9f9">
-                      
-                        <p>  {{$examen->lista}}<br>
-                    </div>
-      						</td>
-      					</tr>
-
-             
-            </tbody>
-          </table-->
+    <div id="content"  class="table-responsive">     
 
       <table width="760px">
   <tbody>
+  <tr>
+    <td scope="col"  class="center" colspan="4"> 
+      <img class="img-responsive" src="{{url('/')}}/img/logo.jpg" width="200" height="50" alt=""/>      
+    </td>
+
+    <td scope="col"  class="center" colspan="4"> 
+
+      @if($empresa->logo)
+        <img class="img-responsive" src="{{$empresa->logo}}" style="max-height:50px" width="200" height="50" alt=""/> 
+      @else
+        <th scope="col"  class="center" colspan="8"> {{ $empresa->nombre}} </th>
+      @endif
+    </td>
+      
+   
+    </tr>
     <tr>
-    <th scope="col"  class="center" colspan="8"> HISTORIA CL&Iacute;NICA DE OPTOMETR&Iacute;A </th>
+    <th scope="col"  class="center" style="background-color: #F0F0F0;" colspan="8"> HISTORIA CL&Iacute;NICA DE OPTOMETR&Iacute;A </th>
       
    
     </tr>
     <tr>
       <td class="title">FECHA:</td>
-      <td colspan="3" class="center" >31-ago-17</td>
+      <td colspan="3" class="center" >{{$optometria->fecha}}</td>
       <td colspan="2" class="title" >HISTORIA CL&Iacute;NICA N&ordm;:</td>
-      <td colspan="2" class="center">001</td>
+      <td colspan="2" class="center">{{$optometria->id}}</td>
      
     </tr>
     <tr>
@@ -118,48 +121,48 @@ th {
     </tr>
     <tr>
       <td class="title">FECHA DE NAC:</td>
-      <td class="center">01/01/01</td>
+      <td class="center">{{$optometria->fecha_nacimiento}}</td>
       <td class="title">EDAD:</td>
-      <td class="title">10</td>
+      <td class="title">{{$optometria->edad}}</td>
       <td class="title" >G&Eacute;NERO:</td>
-      <td class="center">FDFFEFEFE</td>
+      <td class="center">{{$optometria->sexo}}</td>
       <td class="title">C.I:</td>
-      <td class="center">12346678990</td>
+      <td class="center">{{$optometria->cedula}}</td>
       
     </tr>
     <tr>
       <td class="title">OCUPACI&Oacute;N:</td>
-      <td colspan="3" class="center"></td>
+      <td colspan="3" class="center">{{$optometria->cargo}}</td>
       <td class="title">TEL&Eacute;FONO:</td>
-      <td colspan="3" class="center"></td>
+      <td colspan="3" class="center">{{$optometria->telefono}}</td>
     </tr>
     <tr>
       <td class="title" colspan="2">&Uacute;LTIMO CONTROL VISUAL:</td>
-      <td colspan="2" class="center">12/12/12</td>
+      <td colspan="2" class="center">{{$optometria->ultimo_control_visual}}</td>
       <td class="title" colspan="2">USA RX:</td>
-      <td colspan="2" class="center"></td>
+      <td colspan="2" class="center">{{$optometria->usa_rx}}</td>
 
     </tr>
     <tr>
       <td class="title">EPRESA</td>
-      <td colspan="3" class="center"></td>
+      <td colspan="3" class="center">{{$empresa->nombre}}</td>
       <td class="title">CORREO</td>
-      <td colspan="3" class="center"></td>
+      <td colspan="3" class="center">{{$optometria->correo}}</td>
      
     </tr>
     <tr>
      <td scope="col" colspan="8" class="title"> MOTIVO DE CONSULTA </td>
     <tr>
-      <td colspan="8">CONTROL OCUPACIONAL</td>
+      <td colspan="8">{{$optometria->motivoConsulta}}</td>
   
     </tr>
     <tr>
       <td class="title">ANTECEDENTES PERSONALES</td>
-      <td colspan="7">&nbsp;</td>
+      <td colspan="7">{{$optometria->antecedentes_personales}}</td>
     </tr>
     <tr>
      <td class="title">ANTECEDENTES FAMILIARES</td>
-      <td colspan="7">&nbsp;</td>
+      <td colspan="7">{{$optometria->antecedentes_familiares}}</td>
     </tr>
     <tr>
       <td class="title">ANTECEDENTES EXTERNO</td>
@@ -167,194 +170,191 @@ th {
     </tr>
     <tr>
      
-      <td colspan="4"><img class="img-responsive" src="{{url('/')}}/img/dojo.jpg" width="320" height="120" alt=""/></td>
-      <td colspan="4"><img class="img-responsive" src="{{url('/')}}/img/iojo.jpg" width="320" height="120" alt=""/></td>
+      <td colspan="4" align="center"><img class="img-responsive" src="{{url('/')}}/img/dojo.jpg" width="200" height="50" alt=""/></td>
+      <td colspan="4" align="center"><img  class="img-responsive" src="{{url('/')}}/img/iojo.jpg" width="200" height="50" alt=""/></td>
 <tr>
-      <td class="center" colspan="4">NORMAL</td>
-      <td class="center" colspan="4">NORMAL</td>
+      <td class="center" colspan="4">{{$optometria->ojo_derecho}}</td>
+      <td class="center" colspan="4">{{$optometria->ojo_izquierdo}}</td>
       
     </tr>
     <tr>
-     <td scope= "col" colspan="8" class="title"> AGUDEZA VISUAL </td>
+     <td scope= "col" colspan="8" style="background-color: #F0F0F0;" class="title"> AGUDEZA VISUAL </td>
     </tr>
     <tr>
       <td class="title" colspan="2"></td>
-      <td class="title">VL SC</td>
-     <td class="title">VP SC</td>
-     <td class="title">VL CC</td>
-     <td class="title">VP CC</td>
-      <td class="title" colspan="2">PH</td>
+      <td class="title" style="background-color: #F0F0F0;">VL SC</td>
+     <td class="title" style="background-color: #F0F0F0;">VP SC</td>
+     <td class="title" style="background-color: #F0F0F0;">VL CC</td>
+     <td class="title" style="background-color: #F0F0F0;">VP CC</td>
+      <td class="title" style="background-color: #F0F0F0;"colspan="2">PH</td>
 </tr>
     <tr>
        <td class="title" colspan="2">OD</td>
-      <td class="center">20/20</td>
-     <td class="center">20/20</td>
-     <td class="title"></td>
-     <td class="title"></td>
-      <td class="title" colspan="2"></td>
+      <td class="center">{{$optometria->txt_od_vl_sc}}</td>
+     <td class="center">{{$optometria->txt_od_vp_sc}}</td>
+     <td class="center">{{$optometria->txt_od_vl_cc}}</td>
+     <td class="center">{{$optometria->txt_od_vp_cc}}</td>
+      <td class="center" colspan="2">{{$optometria->txt_od_vp_ph}}</td>
     </tr>
     <tr>
       <td class="title" colspan="2">OI</td>
-      <td class="center">20/20</td>
-     <td class="center">20/20</td>
-     <td class="title"></td>
-     <td class="title"></td>
-      <td class="title" colspan="2"></td>
+      <td class="center">{{$optometria->txt_oi_vl_sc}}</td>
+     <td class="center">{{$optometria->txt_oi_vp_sc}}</td>
+     <td class="center">{{$optometria->txt_oi_vl_cc}}</td>
+     <td class="center">{{$optometria->txt_oi_vp_cc}}</td>
+      <td class="center" colspan="2">{{$optometria->txt_oi_vp_ph}}</td>
     </tr>
     <tr>
       <td class="title" colspan="2">AO</td>
-      <td class="center"></td>
-     <td class="center"></td>
-     <td class="title"></td>
-     <td class="title"></td>
-      <td class="title" colspan="2"></td>
+     <td class="center">{{$optometria->txt_ao_vl_sc}}</td>
+     <td class="center">{{$optometria->txt_ao_vp_sc}}</td>
+     <td class="center">{{$optometria->txt_ao_vl_cc}}</td>
+     <td class="center">{{$optometria->txt_ao_vp_cc}}</td>
+      <td class="center" colspan="2">{{$optometria->txt_ao_vp_ph}}</td>
     </tr>
     <tr>
-      <td class="title">LENSOMETRIA</td>
-      <td class="title">ESFERA</td>
-      <td class="title">CILINDRO</td>
-      <td class="title">EJE</td>
-      <td class="title">AVL</td>
-      <td class="title">AVC</td>
+      <td class="title" style="background-color: #F0F0F0;">LENSOMETRIA</td>
+      <td class="title" style="background-color: #F0F0F0;">ESFERA</td>
+      <td class="title" style="background-color: #F0F0F0;">CILINDRO</td>
+      <td class="title" style="background-color: #F0F0F0;">EJE</td>
+      <td class="title" style="background-color: #F0F0F0;">AVL</td>
+      <td class="title" style="background-color: #F0F0F0;">AVC</td>
       <td>&nbsp;</td>
       <td class="title">DP</td>
     </tr>
     <tr>
       <td class="title">OD</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_lensometria_od_esfera}}</td>
+      <td class="center">{{$optometria->txt_lensometria_od_cilindro}}</td>
+      <td class="center">{{$optometria->txt_lensometria_od_eje}}</td>
+      <td class="center">{{$optometria->txt_lensometria_od_avl}}</td>
+      <td class="center">{{$optometria->txt_lensometria_od_avc}}</td>
       <td>&nbsp;</td>
       <td rowspan="2">&nbsp;</td>
     </tr>
     <tr>
       <td class="title">OI</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_lensometria_oi_esfera}}</td>
+      <td class="center">{{$optometria->txt_lensometria_oi_cilindro}}</td>
+      <td class="center">{{$optometria->txt_lensometria_oi_eje}}</td>
+      <td class="center">{{$optometria->txt_lensometria_oi_avl}}</td>
+      <td class="center">{{$optometria->txt_lensometria_oi_avc}}</td>
       <td>&nbsp;</td>
 </tr>
     <tr>
       <td class="title">ADD</td>
+      <td colspan="3">{{$optometria->txt_lensometria}}</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
+       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      
     </tr>
     <tr>
-      <td class="title">RETINOSCOPIA</td>
-      <td class="title">ESFERA</td>
-      <td class="title">CILINDRO</td>
-      <td class="title">EJE</td>
-      <td class="title">AVL</td>
-      <td class="title">AVC</td>
+      <td class="title" style="background-color: #F0F0F0;">RETINOSCOPIA</td>
+      <td class="title" style="background-color: #F0F0F0;">ESFERA</td>
+      <td class="title" style="background-color: #F0F0F0;">CILINDRO</td>
+      <td class="title" style="background-color: #F0F0F0;">EJE</td>
+      <td class="title" style="background-color: #F0F0F0;">AVL</td>
+      <td class="title" style="background-color: #F0F0F0;">AVC</td>
       <td>&nbsp;</td>
       <td class="title">DP</td>
     </tr>
     <tr>
       <td class="title">OD</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_retinoscopia_od_esfera}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_od_cilindro}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_od_eje}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_od_avl}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_od_avc}}</td>
       <td>&nbsp;</td>
       <td rowspan="2">&nbsp;</td>
     </tr>
     <tr>
       <td class="title">OI</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_retinoscopia_oi_esfera}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_oi_cilindro}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_oi_eje}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_oi_avl}}</td>
+      <td class="center">{{$optometria->txt_retinoscopia_oi_avc}}</td>
       <td>&nbsp;</td>
 </tr>
     <tr>
       <td class="title" colspan="2">OBSERVACIONES</td>
+      <td colspan="4">{{$optometria->txt_retinoscopia}}</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      
 </tr>
     <tr>
-      <td class="title">SUBJETIVO</td>
-      <td class="title">ESFERA</td>
-      <td class="title">CILINDRO</td>
-      <td class="title">EJE</td>
-      <td class="title">AVL</td>
-      <td class="title">AVC</td>
+      <td class="title" style="background-color: #F0F0F0;">SUBJETIVO</td>
+      <td class="title" style="background-color: #F0F0F0;">ESFERA</td>
+      <td class="title" style="background-color: #F0F0F0;">CILINDRO</td>
+      <td class="title" style="background-color: #F0F0F0;">EJE</td>
+      <td class="title" style="background-color: #F0F0F0;">AVL</td>
+      <td class="title" style="background-color: #F0F0F0;">AVC</td>
       <td>&nbsp;</td>
       <td class="title">DP</td>
     </tr>
     <tr>
       <td class="title">OD</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_subjetivo_od_esfera}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_od_cilindro}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_od_eje}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_od_avl}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_od_avc}}</td>
       <td>&nbsp;</td>
       <td rowspan="2">&nbsp;</td>
     </tr>
     <tr>
       <td class="title">OI</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_subjetivo_oi_esfera}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_oi_cilindro}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_oi_eje}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_oi_avl}}</td>
+      <td class="center">{{$optometria->txt_subjetivo_oi_avc}}</td>
       <td>&nbsp;</td>
 </tr>
     <tr>
       <td class="title">ADD:</td>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3">{{$optometria->txt_subjetivo}}</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td class="title">RX FINAL</td>
-      <td class="title">ESFERA</td>
-      <td class="title">CILINDRO</td>
-      <td class="title">EJE</td>
-      <td class="title">AVL</td>
-      <td class="title">AVC</td>
+      <td class="title" style="background-color: #F0F0F0;">RX FINAL</td>
+      <td class="title" style="background-color: #F0F0F0;">ESFERA</td>
+      <td class="title" style="background-color: #F0F0F0;">CILINDRO</td>
+      <td class="title" style="background-color: #F0F0F0;">EJE</td>
+      <td class="title" style="background-color: #F0F0F0;">AVL</td>
+      <td class="title" style="background-color: #F0F0F0;">AVC</td>
       <td>&nbsp;</td>
       <td class="title">DP</td>
     </tr>
     <tr>
       <td class="title">OD</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+       <td class="center">{{$optometria->txt_distancia_od_esfera}}</td>
+      <td class="center">{{$optometria->txt_distancia_od_cilindro}}</td>
+      <td class="center">{{$optometria->txt_distancia_od_eje}}</td>
+      <td class="center">{{$optometria->txt_distancia_od_avl}}</td>
+      <td class="center">{{$optometria->txt_distancia_od_avc}}</td>
       <td>&nbsp;</td>
       <td rowspan="2">&nbsp;</td>
     </tr>
     <tr>
       <td class="title">OI</td>
-      <td class="center">N</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td class="center">{{$optometria->txt_distancia_oi_esfera}}</td>
+      <td class="center">{{$optometria->txt_distancia_oi_cilindro}}</td>
+      <td class="center">{{$optometria->txt_distancia_oi_eje}}</td>
+      <td class="center">{{$optometria->txt_distancia_oi_avl}}</td>
+      <td class="center">{{$optometria->txt_distancia_oi_avc}}</td>
       <td>&nbsp;</td>
 </tr>
     <tr>
       <td class="title">ADD:</td>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3">{{$optometria->txt_distancia}}</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -365,17 +365,17 @@ th {
       
     </tr>
     <tr>
-      <td colspan="8">EMETROPE</td>
+      <td colspan="8">{{$optometria->diagnostico}}</td>
     </tr>
     <tr>
       <td colspan="8" class="title">TRATAMIENTO / DISPOSICION FINAL</td>
     </tr>
     <tr>
-      <td colspan="8">CONTROL ANUAL Y USO DE GAFAS DE PROTECCI&Oacute;N USO DE LAGRIMAS ARTIFICIALES</td>
+      <td colspan="8">{{$optometria->disposiciones}}</td>
     </tr>
     <tr>
       <td colspan="3" class="title">NOMBRE DEL EXAMINADOR</td>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3" class="title">{{$optometria->medico}}</td>
       <td colspan="2">&nbsp;</td>
 </tr>
   </tbody>
