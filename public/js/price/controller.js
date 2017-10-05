@@ -90,14 +90,4 @@ price.controller("ControllerPrice", function ($scope, $http, getElements)
         });
     };
     /*cierre del envio del formulario*/
-    //By the way, you can still create your own method in here... :)
-    $scope.checkedElement = function (value) {
-        console.log(value);
-        if (value) {
-            console.log(value);
-            return true;
-        } else {
-            return false;
-        }
-    }
 });

@@ -93,7 +93,7 @@
                                     <div class="form-group row pull-right">
                                         <label>[[examen.nombre]]</label>
                                         <div class="col-md-7 row">
-                                            <input  class="form-control price" type="text" ng-model="formData.priceExamen[[examen.id]]" required>
+                                            <input  class="form-control price" type="text" maxlength="6" onkeypress="return isNumericInteger(event)" ng-model="formData.priceExamen[[examen.id]]" required>
                                             <input  class="form-control price" type="hidden" ng-model="formData.priceEdit[[examen.id]]" >
 
                                         </div>
@@ -121,5 +121,13 @@
 <script src="{{ asset ('js/price/controller.js')}}"></script>
 <script>
     var idEmpresa = "{{$idEmpresa}}";
+function isNumericInteger(evt) {
+   var charCode = (evt.which) ? evt.which : event.keyCode;
+   if (charCode > 31
+       && (charCode < 48 || charCode > 57))
+       return false;
+
+   return true;
+}
 </script>
 @endsection
