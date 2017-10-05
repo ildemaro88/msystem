@@ -23,5 +23,7 @@ class ModEmpresa extends Model {
     public function convenio() {
         return $this->hasOne('\App\ModConvenios', 'id', 'id_convenio');
     }
-
+     public function priceExamen() {
+        return $this->hasMany('\App\ModPriceExamen', 'id', 'id_empresa');
+    }
 }

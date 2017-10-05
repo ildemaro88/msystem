@@ -57,8 +57,15 @@ Route::post('admin/orden_examenes_carga/uploadSave/{id}',['as' => 'uploadSave', 
 // ------  End Route Orden_examen_ocupacional ----/////
 
 //----- Start Route Orden_examen_ocupacional -----//
-Route::get('admin/examenes/price/add', 'AdminPriceExamensConsultationController@getAdd');
+Route::get('admin/examenes/price/add/{idEmpresa}', 'AdminPriceExamensConsultationController@index');
+Route::post('admin/examenes/price/add/save/{idEmpresa}', 'AdminPriceExamensConsultationController@savePrice');
+Route::put('admin/examenes/price/send/udate/{idEmpresa}', 'AdminPriceExamensConsultationController@updatePrice');
+Route::post('admin/specialty/price/add/save/{idEmpresa}', 'AdminPriceExamensConsultationController@savePriceSpecialty');
+Route::put('admin/specialty/price/send/udate/{idEmpresa}', 'AdminPriceExamensConsultationController@updatePriceSpecialty');
 Route::get('admin/examenes/price/elements', 'AdminPriceExamensConsultationController@getExamens');
+Route::get('admin/examenes/price/specialties', 'AdminPriceExamensConsultationController@getSpecialties');
+Route::get('admin/examenes/price/business/{idEmpresa}', 'AdminPriceExamensConsultationController@getPrices');
+Route::get('admin/examenes/price/specialties/{idEmpresa}', 'AdminPriceExamensConsultationController@getPricesSpecialties');
 // ------  End Route Orden_examen_ocupacional ----/////
 //----- Start Route Optometria -----//
 Route::get('admin/optometria/print/{id}', 'AdminOptometriaController@printPDF');
