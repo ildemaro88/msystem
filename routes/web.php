@@ -89,6 +89,7 @@ Route::post('admin/empresa', 'AdminEmpresaController@store');
 Route::post('admin/empresa/{id}', 'AdminEmpresaController@update');
 Route::get('admin/empresa/{id}/add/sucursal', 'AdminEmpresaController@addSucursal');
 Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursales');
+Route::delete('admin/empresa/delete/{id}','AdminEmpresaController@destroy');
 // ------  End Route Empresa ----/////
 
 //----- Start Route Paciente -----//

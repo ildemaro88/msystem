@@ -262,8 +262,8 @@
           var url1 ="admin/orden_examenes/"+id;
           $this.attr("href",url1);
           $.ajax({
-            url: "empresa/delete/"+id,
-            type: "GET",
+            url:  URL_BASE +"empresa/delete/"+id,
+            type: "DELETE",
             success: function(){
               document.location.reload();
             },
@@ -587,6 +587,23 @@
 	         Mail::to(trim($usuario->email))->send(new EmailEmpresa($empresa,false));
 
 		}
+
+		/**
+	     * Remove the specified resource from storage.
+	     *
+	     * @param  int  $id
+	     * @return \Illuminate\Http\Response
+	     */
+	    public function destroy($id)
+	    {
+	        $empresa = ModEmpresa::findOrFail($id);
+	        $empresa->delete();
+	        $response = $empresa;
+
+	        return response()->json([
+	            "response"=>$response
+	        ]);
+	    }
 
 
 	}
