@@ -241,6 +241,7 @@
       $(".sucursales").attr("title","Ver sucursales");
       $(".add_sucursales").attr("title","Agregar sucursal");
       $(".eliminar").attr("title","Eliminar");
+      $(".price").attr("title","Agregar precios a empresa");
       $(".print").attr("target","_blank");
       $(".print_r").attr("target","_blank");
       $(".eliminar").click(function(e){
