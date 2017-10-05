@@ -12,6 +12,7 @@
   use App\ModConsulta;
   use Carbon\Carbon;
   use App\ModReceta;
+  use App\ModEmpresa;
   use App\ModOptometria;
 
 	class AdminOptometriaController extends \crocodicstudio\crudbooster\controllers\CBController {
@@ -1512,9 +1513,13 @@
       public function printPDF($id){
         $medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
         $optometria =DB::table('optometrias')->select('*')->where(['id' => $id])->first();
+        $empresa = ModEmpresa::find($optometria->id_empresa);
+        $empresa->logo =asset("uploads/".$empresa->logo);
+        //$empresa->logo =$empresa->logo;
+        //dd($empresa->logo);
         //tipos =DB::table('orden_pdf')->select('tipo_id')->where(['id' => $id])->groupBy('tipo_id')->get();
         //$examenes= DB::table('orden_pdf')->select('*')->where(['id' => $id])->get();
-        $pdf = \PDF::loadView('optometria.pdf',['optometria' => $optometria,'medico' => $medico]);
+        $pdf = \PDF::loadView('optometria.pdf',['optometria' => $optometria,'medico' => $medico,'empresa' => $empresa]);
         $pdf->setPaper('A4');
 
         return $pdf->stream();
@@ -1527,6 +1532,7 @@
       public function print_rPDF($id){
         $medico = ModMedico::where("cms_user_id",CRUDBooster::myId())->first();
         $optometria =DB::table('optometrias')->select('*')->where(['id' => $id])->first();
+       
         //tipos =DB::table('orden_pdf')->select('tipo_id')->where(['id' => $id])->groupBy('tipo_id')->get();
         //$examenes= DB::table('orden_pdf')->select('*')->where(['id' => $id])->get();
         $pdf = \PDF::loadView('optometria.recetapdf',['optometria' => $optometria,'medico' => $medico]);
@@ -1642,6 +1648,8 @@
         $optometria->cb_tsexual = $request->get('cb_tsexual');
         $optometria->cb_riesgofamiliar = $request->get('cb_riesgofamiliar');
         $optometria->cb_otro = $request->get('cb_otro');
+        $optometria->ultimo_control_visual = $request->get('ultimo_control_visual');
+        $optometria->usa_rx = $request->get('usa_rx');
         $optometria->cb_cardiopatia = $request->get('cb_cardiopatia');
         $optometria->cb_diabetes = $request->get('cb_diabetes');
         $optometria->cb_enfvasculares = $request->get('cb_enfvasculares');
@@ -1698,6 +1706,10 @@
         $optometria->txt_subjetivo_oi_eje = $request->get('txt_subjetivo_oi_eje');
         $optometria->txt_subjetivo_oi_avl = $request->get('txt_subjetivo_oi_avl');
         $optometria->txt_subjetivo_oi_avc = $request->get('txt_subjetivo_oi_avc');
+        $optometria->txt_distancia_oi_avl = $request->get('txt_distancia_oi_avl');
+        $optometria->txt_distancia_oi_avc = $request->get('txt_distancia_oi_avc');
+        $optometria->txt_distancia_od_avl = $request->get('txt_distancia_od_avl');
+        $optometria->txt_distancia_od_avc = $request->get('txt_distancia_od_avc');
         $optometria->txt_distancia_od_esfera = $request->get('txt_distancia_od_esfera');
         $optometria->txt_distancia_od_cilindro = $request->get('txt_distancia_od_cilindro');
         $optometria->txt_distancia_od_eje = $request->get('txt_distancia_od_eje');
@@ -1768,6 +1780,8 @@
   $optometria->cb_dietahabitos = $request->get('cb_dietahabitos');
   $optometria->cb_infancia = $request->get('cb_infancia');
   $optometria->cb_respiratoria = $request->get('cb_respiratoria');
+  $optometria->ultimo_control_visual = $request->get('ultimo_control_visual');
+  $optometria->usa_rx = $request->get('usa_rx');
   $optometria->cb_hemolinf = $request->get('cb_hemolinf');
   $optometria->cb_mental = $request->get('cb_mental');
   $optometria->cb_riesgolaboral = $request->get('cb_riesgolaboral');
@@ -1833,6 +1847,10 @@
   $optometria->txt_subjetivo_oi_eje = $request->get('txt_subjetivo_oi_eje');
   $optometria->txt_subjetivo_oi_avl = $request->get('txt_subjetivo_oi_avl');
   $optometria->txt_subjetivo_oi_avc = $request->get('txt_subjetivo_oi_avc');
+  $optometria->txt_distancia_oi_avl = $request->get('txt_distancia_oi_avl');
+  $optometria->txt_distancia_oi_avc = $request->get('txt_distancia_oi_avc');
+  $optometria->txt_distancia_od_avl = $request->get('txt_distancia_od_avl');
+  $optometria->txt_distancia_od_avc = $request->get('txt_distancia_od_avc');
   $optometria->txt_distancia_od_esfera = $request->get('txt_distancia_od_esfera');
   $optometria->txt_distancia_od_cilindro = $request->get('txt_distancia_od_cilindro');
   $optometria->txt_distancia_od_eje = $request->get('txt_distancia_od_eje');
@@ -1868,6 +1886,7 @@
   $optometria->txtProbActual = $request->get('txtProbActual');
   $optometria->txt_ojo_derecho = $request->get('txt_ojo_derecho');
   $optometria->txt_ojo_izquierdo = $request->get('txt_ojo_izquierdo');
+  $optometria->txt_lensometria = $request->get('txt_lensometria');
   $optometria->txt_agudeza_visual = $request->get('txt_agudeza_visual');
   $optometria->txt_retinoscopia = $request->get('txt_retinoscopia');
   $optometria->txt_subjetivo = $request->get('txt_subjetivo');

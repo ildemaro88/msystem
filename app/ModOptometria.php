@@ -60,6 +60,8 @@ class ModOptometria extends Model
 		'txt_ao_vl_cc',
 		'txt_ao_vp_cc',
 		'txt_ao_vp_ph',
+		'ultimo_control_visual',
+		'usa_rx',
 		'txt_lensometria_od_esfera',
 		'txt_lensometria_od_cilindro',
 		'txt_lensometria_od_eje',

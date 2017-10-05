@@ -100,7 +100,23 @@
 				  	<tr>
 				    	
 				    	<td colspan="20"><textarea type="text" style="border-width:0px; width:95%" value="" id="motivoConsulta" ng-model="motivoConsulta" name="motivoConsulta"></textarea></td>
-					    
+				    </tr>
+				    <tr>
+					    <td colspan="10">
+					    	<label class="control-label" for="ultimo_control_visual">ÚLTIMO CONTROL VISUAL</label> 
+						    <div class="input-group col-md-12">  								
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								<input type="text" title="Último control visual" class="form-control notfocus datepicker datepickerfecha_nac" name="ultimo_control_visual" ng-model="ultimo_control_visual" id="ultimo_control_visual" value="">						
+							</div>   
+							
+						</td>
+						<td colspan="10">
+							<div class="col-md-12" >
+								<label class="control-label " for="fecha_nac">USA RX</label> 
+								<input type="text" ng-model="usa_rx" name="usa_rx" class="form-control" id="usa_rx" />
+							</div>
+							
+						</td>
 				  	</tr><tr>
 				    	<td colspan="20" class="active"><strong>2. ANTECEDENTES PERSONALES</strong></td>
 				  	</tr>
@@ -1304,7 +1320,7 @@
 					    </td>
 					    <td colspan="3" class="active">&nbsp;</td>	    
 				  	</tr>
-				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
+				  	<tr><td class="active" colspan="19">ADD:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
 				  	<tr height="10px">
 
 					    <td colspan="20" class="active"><textarea id="txt_lensometria" style=" border-width:0px; height:100%; width:98%" ng-model="txt_lensometria" name="txt_lensometria"></textarea></td>
@@ -2662,7 +2678,7 @@
 
 					    <td colspan="3" class="active">&nbsp;</td>
 				  	</tr>
-				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
+				  	<tr><td class="active" colspan="19">ADD:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
 				  	<tr height="10px">
 
 					    <td colspan="20" class="active"><textarea id="txt_subjetivo" style=" border-width:0px; height:100%; width:98%" ng-model="txt_subjetivo" name="txt_subjetivo"></textarea></td>
@@ -2670,17 +2686,19 @@
 					<tr>
 				    	<td colspan="20" class="active"><strong>10. RX FINAL</strong></td>
 				  	</tr>
-				  	<tr align="center">
+				  	<!--tr align="center">
 				    	<td colspan="20" class="active"><strong>CORRECCIÓN DISTANCIA</strong></td>
-				  	</tr>
+				  	</tr-->
 				  	<tr align="center">
 					    <td colspan="2" class="active">&nbsp;</td>
 					    <td colspan="3" class="active">ESFERA</td>
 					    <td colspan="3" class="active">CILINDRO</td>
 					    <td colspan="3" class="active">EJE</td>
-					    <td colspan="3" class="active">D.P.N</td>
+					    <td colspan="3" class="active">AVL</td>
+					    <td colspan="3" class="active">AVC</td>
+					    <!--td colspan="3" class="active">D.P.N</td>
 					    <td colspan="3" class="active">ADICION</td>
-					    <td colspan="3" class="active">ALTURA</td>
+					    <td colspan="3" class="active">ALTURA</td-->
 					   
 					    
 				  	</tr>
@@ -2962,9 +2980,61 @@
 								<option value="180">180</option>										    		
 						    </select>
 					    </td>
-					    <td colspan="3" class="active"><input id="txt_distancia_od_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_dp" name="txt_distancia_od_dp"></td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_od_avl"  style="width: 100px;" ng-model="txt_distancia_od_avl"  name="txt_distancia_od_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_od_avc"  style="width: 100px;" ng-model="txt_distancia_od_avc"  name="txt_distancia_od_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>					    
+					    <td colspan="3" class="active">&nbsp;</td>
+				  	
+					    <!--td colspan="3" class="active"><input id="txt_distancia_od_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_dp" name="txt_distancia_od_dp"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_od_adicion" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_adicion" name="txt_distancia_od_adicion"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_altura" name="txt_distancia_od_altura"></td>
+					    <td colspan="3" class="active"><input id="txt_distancia_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_od_altura" name="txt_distancia_od_altura"></td-->
 
 					   
 				  	</tr>
@@ -3246,28 +3316,78 @@
 								<option value="180">180</option>										    		
 						    </select>
 					    </td>
-					    <td colspan="3" class="active"><input id="txt_distancia_oi_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_dp" name="txt_distancia_oi_dp"></td>
+					     <td colspan="3" class="active">
+							<select id="txt_distancia_oi_avl"  style="width: 100px;" ng-model="txt_distancia_oi_avl"  name="txt_distancia_oi_avl">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <td colspan="3" class="active">
+							<select id="txt_distancia_oi_avc"  style="width: 100px;" ng-model="txt_distancia_oi_avc"  name="txt_distancia_oi_avc">
+						    	<option value="">...</option>
+						    	<option value="20/200">20/200</option>
+						    	<option value="20/190">20/190</option>
+						    	<option value="20/180">20/180</option>
+						    	<option value="20/170">20/170</option>
+						    	<option value="20/160">20/160</option>
+						    	<option value="20/150">20/150</option>
+						    	<option value="20/140">20/140</option>
+						    	<option value="20/130">20/130</option>
+						    	<option value="20/120">20/120</option>
+						    	<option value="20/110">20/110</option>
+						    	<option value="20/100">20/100</option>
+						    	<option value="20/90">20/90</option>
+						    	<option value="20/80">20/80</option>
+						    	<option value="20/70">20/70</option>
+						    	<option value="20/60">20/60</option>
+						    	<option value="20/50">20/50</option>
+						    	<option value="20/40">20/40</option>
+						    	<option value="20/30">20/30</option>
+						    	<option value="20/20">20/20</option>
+						    	<option value="20/10">20/10</option>
+							</select>
+					    </td>
+					    <!--td colspan="3" class="active"><input id="txt_distancia_oi_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_dp" name="txt_distancia_oi_dp"></td>
 					    <td colspan="3" class="active"><input id="txt_distancia_oi_adicion" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_adicion" name="txt_distancia_oi_adicion"></td>
-					    <td colspan="3" class="active"><input id="txt_distancia_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_altura" name="txt_distancia_oi_altura"></td>	    
+					    <td colspan="3" class="active"><input id="txt_distancia_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_distancia_oi_altura" name="txt_distancia_oi_altura"></td-->	    
 
 					    
 				  	</tr>
-				  	<tr><td class="active" colspan="19">Observaciones:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
+				  	<tr><td class="active" colspan="19">ADD:</td><td colspan="3" class="active">&nbsp;</td>	 </tr>
 				  	<tr height="10px">
 
 					    <td colspan="20" class="active"><textarea id="txt_distancia" style=" border-width:0px; height:100%; width:98%" ng-model="txt_distancia" name="txt_distancia"></textarea></td>
 					</tr>
 
-					<tr align="center">
+					<!--tr align="center">
 				    	<td colspan="20" class="active"><strong>CORRECCIÓN CERCANA</strong></td>
-				  	</tr>
-				  	<tr align="center">
+				  	</tr-->
+				  	<!--tr align="center">
 					    <td colspan="2" class="active">&nbsp;</td>
 					    <td colspan="4" class="active">ESFERA</td>
 					    <td colspan="3" class="active">CILINDRO</td>
 					    <td colspan="4" class="active">EJE</td>
 					    <td colspan="3" class="active">D.P.N.</td>
-					    <!--td colspan="3" class="active">ALTURA</td-->
+					    <td colspan="3" class="active">ALTURA</td>
 					    <td colspan="6" class="active">&nbsp;</td>
 					    
 				  	</tr>
@@ -3550,7 +3670,7 @@
 						    </select>
 					    </td>
 					    <td colspan="3" class="active"><input id="txt_cercano_od_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_dp" name="txt_cercano_od_dp"></td>
-					    <!--td colspan="3" class="active"><input id="txt_cercano_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_altura" name="txt_cercano_od_altura"></td-->					    
+					    <td colspan="3" class="active"><input id="txt_cercano_od_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_od_altura" name="txt_cercano_od_altura"></td>					    
 					    <td colspan="6" class="active">&nbsp;</td>
 				  	</tr>
 				  	<tr style="font-size:10px; " class="active" align="center">
@@ -3832,7 +3952,7 @@
 						    </select>
 					    </td>
 					    <td colspan="3" class="active"><input id="txt_cercano_oi_dp" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_dp" name="txt_cercano_oi_dp"></td>
-					    <!--td colspan="3" class="active"><input id="txt_cercano_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_altura" name="txt_cercano_oi_altura"></td-->	    
+					    <td colspan="3" class="active"><input id="txt_cercano_oi_altura" type="text" style="border-width:0px;width: 100%; " value="" ng-model="txt_cercano_oi_altura" name="txt_cercano_oi_altura"></td>	    
 
 					    <td colspan="6" class="active">&nbsp;</td>
 				  	</tr>
@@ -3840,7 +3960,7 @@
 				  	<tr height="10px">
 
 					    <td colspan="20" class="active"><textarea id="txt_cercano" style=" border-width:0px; height:100%; width:98%" ng-model="txt_cercano" name="txt_cercano"></textarea></td>
-					</tr>
+					</tr-->
 					<tr>
 				    	<td colspan="20" class="active"><strong>11. TEST</strong></td>
 				  	</tr>
@@ -3975,7 +4095,7 @@ $(document).ready(function(){
 			$('#d'+id).attr('style','visibility:visible');
 		}
 	});
-
+	$('.datepicker').datepicker({language:'es',autoclose:true,format:'yyyy-mm-dd'});
 	$(".typeahead").change(function(){
 	        
 	    var path = "{{ route('searchCie') }}";
@@ -4056,6 +4176,10 @@ $(document).ready(function(){
 	$("#txt_subjetivo_oi_eje").select2();
 	$("#txt_subjetivo_oi_avl").select2();
 	$("#txt_subjetivo_oi_avc").select2();
+	$("#txt_distancia_oi_avl").select2();
+	$("#txt_distancia_oi_avc").select2();
+	$("#txt_distancia_od_avl").select2();
+	$("#txt_distancia_od_avc").select2();
 	$("#txt_distancia_od_eje").select2();
 	$("#txt_distancia_oi_eje").select2();
 	$("#txt_subjetivo_oi_avc").select2();
@@ -4089,7 +4213,8 @@ $(document).ready(function(){
     	
     
 
-	    
+	    $scope.ultimo_control_visual = "{{($operation == 'update')?$optometria->ultimo_control_visual :''}}";
+	    $scope.usa_rx ="{{($operation == 'update')?$optometria->usa_rx :''}}";
 		$scope.cb_vacunas = "{{($operation == 'update')?$optometria->cb_vacunas :''}}";
 		$scope.cb_alergica = "{{($operation == 'update')?$optometria->cb_alergica :''}}";
 		$scope.cb_neurologica = "{{($operation == 'update')?$optometria->cb_neurologica :''}}";
@@ -4170,6 +4295,11 @@ $(document).ready(function(){
 		$scope.txt_subjetivo_oi_eje = "{{($operation == 'update')?$optometria->txt_subjetivo_oi_eje :''}}";
 		$scope.txt_subjetivo_oi_avl = "{{($operation == 'update')?$optometria->txt_subjetivo_oi_avl :''}}";
 		$scope.txt_subjetivo_oi_avc = "{{($operation == 'update')?$optometria->txt_subjetivo_oi_avc :''}}";
+
+		$scope.txt_distancia_od_avl = "{{($operation == 'update')?$optometria->txt_distancia_od_avl :''}}";
+		$scope.txt_distancia_od_avc = "{{($operation == 'update')?$optometria->txt_distancia_od_avc :''}}";
+		$scope.txt_distancia_oi_avl = "{{($operation == 'update')?$optometria->txt_distancia_oi_avl :''}}";
+		$scope.txt_distancia_oi_avc = "{{($operation == 'update')?$optometria->txt_distancia_oi_avc :''}}";
 		$scope.txt_distancia_od_esfera = "{{($operation == 'update')?$optometria->txt_distancia_od_esfera :''}}";
 		$scope.txt_distancia_od_cilindro = "{{($operation == 'update')?$optometria->txt_distancia_od_cilindro :''}}";
 		$scope.txt_distancia_od_eje = "{{($operation == 'update')?$optometria->txt_distancia_od_eje :''}}";
@@ -4237,6 +4367,10 @@ $(document).ready(function(){
 			$("#txt_subjetivo_oi_eje").val("{{$optometria->txt_subjetivo_oi_eje}}").trigger('change');
 			$("#txt_subjetivo_oi_avl").val("{{$optometria->txt_subjetivo_oi_avl}}").trigger('change');
 			$("#txt_subjetivo_oi_avc").val("{{$optometria->txt_subjetivo_oi_avc}}").trigger('change');
+			$("#txt_distancia_od_avl").val("{{$optometria->txt_distancia_od_avl}}").trigger('change');
+			$("#txt_distancia_od_avc").val("{{$optometria->txt_distancia_od_avc}}").trigger('change');
+			$("#txt_distancia_oi_avl").val("{{$optometria->txt_distancia_oi_avl}}").trigger('change');
+			$("#txt_distancia_oi_avc").val("{{$optometria->txt_distancia_oi_avc}}").trigger('change');
 			$("#txt_distancia_od_eje").val("{{$optometria->txt_distancia_od_eje}}").trigger('change');
 			$("#txt_distancia_oi_eje").val("{{$optometria->txt_distancia_oi_eje}}").trigger('change');
 			$("#txt_subjetivo_oi_avc").val("{{$optometria->txt_subjetivo_oi_avc}}").trigger('change');
