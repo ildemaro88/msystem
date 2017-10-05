@@ -164,7 +164,7 @@
 	        | 
 	        */
 	        if(Session::get('admin_privileges') === 5 ){
-	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-plus','target'=>'_blank','color'=>'primary add_sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/add/sucursal'],['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales']);
+	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-plus','target'=>'_blank','color'=>'primary add_sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/add/sucursal'],['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales'],['label'=>'','icon'=>'fa fa-usd','target'=>'_blank','color'=>'success price','url'=>CRUDBooster::adminPath($slug='').'/examenes/price/add/[id]']);
 	    	}
 
 	        /* 
