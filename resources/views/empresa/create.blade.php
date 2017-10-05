@@ -82,7 +82,7 @@
 
 	            <div class="col-md-6">
 	            	<label class="col-md-3 control-label">Subir logo</label>   
-	              	<input type="file" class="form-control" name="logo" ng-model='file' >               
+	              	<input type="file" id="logo" class="form-control" name="logo" ng-model='logo' >               
 	            </div>  
 	        </div> 
 	        @else
@@ -240,6 +240,7 @@
 
 	$scope.init = function ()
 	{
+		$scope.logo = " ";
 		$scope.nombre = "{{($operation == 'update')?$empresa->nombre :''}}";
 		$scope.ruc = "{{($operation == 'update')?$empresa->ruc :''}}";
 		$scope.telefono = "{{($operation == 'update')?$empresa->telefono :''}}";
@@ -289,49 +290,54 @@
 			switch (operation) {
 
 				case 'add':
-				
-					$(".modal").modal('show');
-					$.ajax({
-                      url: API_URL + 'empresa',
-                      data:
-                        new FormData($("#form_empresa")[0]),
-                        
-                      dataType:'json',
-                      async:false,
-                      type:'post',
-                      processData: false,
-                      contentType: false,
-                      success:function(response){
-                         $(".modal").modal('hide');
-                        swal({
-                          title: response.title,
-                          text: response.mensaje,
-                          type: response.type,
-                          showCancelButton: false,
-                          confirmButtonClass: "btn-succes",
-                          confirmButtonText: "OK",
-                          closeOnConfirm: response.close,
-                          showLoaderOnConfirm: response.show
-                        },
-                        function(){
-                          if(response.type == 'success'){
-                            window.location = "{{ url()->previous() }}";
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
+						$.ajax({
+	                      url: API_URL + 'empresa',
+	                      data:
+	                        new FormData($("#form_empresa")[0]),
+	                        
+	                      dataType:'json',
+	                      async:false,
+	                      type:'post',
+	                      processData: false,
+	                      contentType: false,
+	                      success:function(response){
+	                         $(".modal").modal('hide');
+	                        swal({
+	                          title: response.title,
+	                          text: response.mensaje,
+	                          type: response.type,
+	                          showCancelButton: false,
+	                          confirmButtonClass: "btn-succes",
+	                          confirmButtonText: "OK",
+	                          closeOnConfirm: response.close,
+	                          showLoaderOnConfirm: response.show
+	                        },
+	                        function(){
+	                          if(response.type == 'success'){
+	                            window.location = "{{ url()->previous() }}";
 
-                          }
-                        });
-                      } ,
-                      error: function (xhr, ajaxOptions, thrownError) {
-                        $(".modal").modal('hide');
-                          swal("Error", "¡No se guardó!", "error");
-                          
-                        },
-                        beforeSend: function(){
-					       $(".modal").modal('show');
-					   },
-                      
-                      }
-                    );
-
+	                          }
+	                        });
+	                      } ,
+	                      error: function (xhr, ajaxOptions, thrownError) {
+	                        $(".modal").modal('hide');
+	                          swal("Error", "¡No se actualizó!", "error");
+	                          
+	                        },
+	                        beforeSend: function(){
+						       $(".modal").modal('show');
+						   },
+	                    });
+					});		
 					
 					console.log($scope.serializeObject($("#form_empresa")));
 					
@@ -340,46 +346,54 @@
 
 				case 'update':
 
-					$(".modal").modal('show');
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
+						$.ajax({
+	                      url: API_URL + 'empresa/{{$empresa->id}}',
+	                      data:
+	                        new FormData($("#form_empresa")[0]),
+	                        
+	                      dataType:'json',
+	                      async:false,
+	                      type:'post',
+	                      processData: false,
+	                      contentType: false,
+	                      success:function(response){
+	                        swal({
+	                          title: response.title,
+	                          text: response.mensaje,
+	                          type: response.type,
+	                          showCancelButton: false,
+	                          confirmButtonClass: "btn-succes",
+	                          confirmButtonText: "OK",
+	                          closeOnConfirm: response.close,
+	                          showLoaderOnConfirm: response.show
+	                        },
+	                        function(){
+	                          if(response.type == 'success'){
+	                            window.location = "{{ url()->previous() }}";
 
-					$http({
-						url    : API_URL + 'empresa/{{$empresa->id}}',
-						method : 'PUT',
-						params : $scope.serializeObject($("#form_empresa")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Actualización exitosa!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: true
-							},
-							function(){
-								$(".modal").modal('show');
-								if(response.data.empresa.id_padre){
-									console.log($("#id_padre").val());
-									window.location = "{{ url('/admin/sucursal?m=92') }}";
-									//$("#volver").attr("href","{{ url('/admin/sucursal?m=92') }}");
-								}else{
-									window.location = "{{ url('/admin/empresa?m=89') }}";
-									
-									//$("#volver").attr("href","{{ url('/admin/empresa?m=89') }}");
-								}
-								
-							});
-							} else {
-								swal("Error", "No se actualizó", "error");
-							}
-						});
-						break;
+	                          }
+	                        });
+	                      } ,
+	                      error: function (xhr, ajaxOptions, thrownError) {
+	                        $(".modal").modal('hide');
+	                          swal("Error", "¡No se guardó!", "error");
+	                          
+	                        },
+	                        beforeSend: function(){
+						       $(".modal").modal('show');
+						   },                      
+	                    });
+					});
+				break;
 			}
 		}
 	}

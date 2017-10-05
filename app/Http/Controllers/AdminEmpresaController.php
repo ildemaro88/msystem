@@ -449,7 +449,7 @@
 			$empresa->correo = $request->get('correo');
 			$empresa->direccion = $request->get('direccion');
 			$empresa->id_convenio = $request->get('id_convenio');
-
+			dd($request->file('logo'));
 			if($request->get('id_padre')){// validamos sí es una sucursal 
 				$empresa->id_padre = $request->get('id_padre');	
 				$response = $empresa->save();			
@@ -460,6 +460,8 @@
 				$empresa->logo =($request->logo)?$request->logo->store('logos'):null;
 				$photo=($request->logo)?$request->logo->store(date("Y") .'-'. date("m")):null;
 		        $response = $empresa->save();
+
+
 		       
 				$title ="Buen trabajo!";
 				$type = 'success';
@@ -491,6 +493,7 @@
 		}
 
 		public function update(Request $request, $id){
+			
 		 	$empresa = ModEmpresa::findOrFail($id); 
 		 	$correoEmpresa = $empresa->correo;
 		 	$rucEmpresa = $empresa->ruc;
@@ -529,10 +532,21 @@
 				$sucursal_updated->save();
 				
 			}
+			$title ="Buen trabajo!";
+				$type = 'success';
+				$mensaje = 'Se ha actualizado exitosamente!';
+				$close = false;
+				$show = true;
 			$response = $empresa->save();
 			return response()->json([
-				"response" => $response,				
-				"empresa" =>$empresa]);
+				"response" => $response,
+				"title" => $title,
+				"mensaje" => $mensaje,
+				"type" => $type,
+				"close"=> $close,
+				"show" => $show,
+				"empresa" =>$empresa]
+			);
 		}
 
 		public function addSucursal($id){

@@ -79,7 +79,7 @@ Route::get('admin/receta/print/{id_consulta}/{descripcion}', 'AdminRecetaControl
 
 //----- Start Route Empresa -----//
 Route::post('admin/empresa', 'AdminEmpresaController@store');
-Route::put('admin/empresa/{id}', 'AdminEmpresaController@update');
+Route::post('admin/empresa/{id}', 'AdminEmpresaController@update');
 Route::get('admin/empresa/{id}/add/sucursal', 'AdminEmpresaController@addSucursal');
 Route::get('admin/empresa/{id}/sucursales', 'AdminEmpresaController@getSucursales');
 // ------  End Route Empresa ----/////
@@ -102,3 +102,7 @@ Route::get('autocompleteCodigo',array('as'=>'autocompleteCodigo','uses'=>'Search
 
 Route::get('searchCie',  array('as' =>'searchCie' ,'uses' => 'AdminCieController@getCieByDescription'));
 Route::get('searchDescripcion',  array('as' =>'searchDescripcion' ,'uses' => 'AdminCieController@getDescriptionByCie'));
+
+//----- Start Route chequeo de retiro -----//
+Route::get('admin/medicina-ocupacional/retiro', 'AdminConsultasController@ingresar');
+// ------  End Route chequeo de retiro ----/////

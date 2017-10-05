@@ -381,71 +381,89 @@
 			switch (operation) {
 				case 'add':
 
-					$(".modal").modal('show');
-					console.log($scope.serializeObject($("#form_paciente")));
-					$http({
-						url    : API_URL + 'paciente',
-						method : 'POST',
-						params : $scope.serializeObject($("#form_paciente")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Se ha guardado exitosamente!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: true
-							},
-							function(){
-								$(".modal").modal('show');
-								window.location = "{{ url('/admin/paciente?m=11') }}";
-							});
-						} else {
-							swal("Error", "¡No se guardó!", "error");
-						}
-					});
-
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
+						console.log($scope.serializeObject($("#form_paciente")));
+						$http({
+							url    : API_URL + 'paciente',
+							method : 'POST',
+							params : $scope.serializeObject($("#form_paciente")),
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							}
+						}).then(function (response)
+						{
+							$(".modal").modal('hide');
+							if (response.data.response) {
+								swal({
+									title: "Buen trabajo!",
+									text: "Se ha guardado exitosamente!",
+									type: "success",
+									showCancelButton: false,
+									confirmButtonClass: "btn-succes",
+									confirmButtonText: "OK",
+									closeOnConfirm: true
+								},
+								function(){
+									$(".modal").modal('show');
+									window.location = "{{ url('/admin/paciente?m=11') }}";
+								});
+							} else {
+								swal("Error", "¡No se guardó!", "error");
+							}
+						});
+					});		
 					break;
 
 				case 'update':
 
-					$(".modal").modal('show');
+					//$(".modal").modal('show');
+					swal({
+						html:true,
+						title: "Espere...",
+						text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+						showConfirmButton: false,
+						timer:1000,
+				    },
+			      	
+					function(){
 
-					$http({
-						url    : API_URL + 'paciente/{{$paciente->id}}',
-						method : 'PUT',
-						params : $scope.serializeObject($("#form_paciente")),
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						}
-					}).then(function (response)
-					{
-						$(".modal").modal('hide');
-						if (response.data.response) {
-							swal({
-								title: "Buen trabajo!",
-								text: "Actualización exitosa!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonClass: "btn-succes",
-								confirmButtonText: "OK",
-								closeOnConfirm: true
-							},
-							function(){
-								$(".modal").modal('show');
-								window.location = "{{ url('/admin/paciente?m=11') }}";
-							});
+						$http({
+							url    : API_URL + 'paciente/{{$paciente->id}}',
+							method : 'PUT',
+							params : $scope.serializeObject($("#form_paciente")),
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							}
+						}).then(function (response)
+						{
+							//$(".modal").modal('hide');
+							if (response.data.response) {
+								swal({
+									title: "Buen trabajo!",
+									text: "Actualización exitosa!",
+									type: "success",
+									showCancelButton: false,
+									confirmButtonClass: "btn-succes",
+									confirmButtonText: "OK",
+									closeOnConfirm: true
+								},
+								function(){
+									$(".modal").modal('show');
+									window.location = "{{ url('/admin/paciente?m=11') }}";
+								});
 							} else {
 								swal("Error", "No se actualizó", "error");
 							}
 						});
+					});
 						break;
 			}
 		}
