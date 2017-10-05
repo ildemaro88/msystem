@@ -25,8 +25,8 @@
 			$this->button_table_action = true;
 			$this->button_action_style = "button_icon";
 			$this->button_add = true;
-			$this->button_edit = true;
-			$this->button_delete = true;
+			$this->button_edit = false;
+			$this->button_delete = false;
 			$this->button_detail = false;
 			$this->button_show = true;
 			$this->button_filter = true;
@@ -164,7 +164,7 @@
 	        | 
 	        */
 	        if(Session::get('admin_privileges') === 5 ){
-	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales'],['label'=>'','icon'=>'fa fa-usd','target'=>'_blank','color'=>'success price','url'=>CRUDBooster::adminPath($slug='').'/examenes/price/add/[id]']);
+	        $this->addaction =  array(['label'=>'','icon'=>'fa fa-building-o','target'=>'_blank','color'=>'primary sucursales','url'=>CRUDBooster::mainpath($slug='').'/[id]/sucursales','showIf'=>'[id] != 0'],['label'=>'','icon'=>'fa fa-usd','target'=>'_blank','color'=>'success price','url'=>CRUDBooster::adminPath($slug='').'/examenes/price/add/[id]'],['label'=>'','icon'=>'fa fa-pencil','target'=>'_blank','color'=>'success edit','url'=>CRUDBooster::mainpath($slug='').'/edit/[id]','showIf'=>'[id] != 0'],['label'=>'','icon'=>'fa fa-trash','target'=>'_blank','color'=>'warning eliminar','url'=>'[id]','showIf'=>'[id] != 0']);
 	    	}
 
 	        /* 
@@ -239,7 +239,7 @@
       // corregir error de doble calendario
 	        	
       $(".sucursales").attr("title","Sucursales");
-      $(".add_sucursales").attr("title","Agregar sucursal");
+      $(".edit").attr("title","Editar Empresa");
       $(".eliminar").attr("title","Eliminar");
       $(".price").attr("title","Agregar precios a empresa");
       $(".print").attr("target","_blank");
@@ -262,7 +262,7 @@
           var url1 ="admin/orden_examenes/"+id;
           $this.attr("href",url1);
           $.ajax({
-            url: "orden_examenes/delete/"+id,
+            url: "empresa/delete/"+id,
             type: "GET",
             success: function(){
               document.location.reload();
@@ -319,7 +319,7 @@
 		            ->from('empresa');
 		        });
 	    	}else{
-	    		$query->where('empresa.id_padre',0);
+	    		$query->where('empresa.id_padre',0)->orWhere('empresa.id',0);
 	    	}
 	      //
 	        
@@ -450,7 +450,6 @@
 			$empresa->correo = $request->get('correo');
 			$empresa->direccion = $request->get('direccion');
 			$empresa->id_convenio = $request->get('id_convenio');
-			dd($request->file('logo'));
 			if($request->get('id_padre')){// validamos sí es una sucursal 
 				$empresa->id_padre = $request->get('id_padre');	
 				$response = $empresa->save();			
