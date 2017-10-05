@@ -627,8 +627,8 @@
   <option value="Comun en tratamiento">2</option>
   <option value="Laboral">3</option>
   <option value="Secuela accidente">4</option></select></td>
-      <td class="center" colspan="5"><input id="cmuscular" type="text" style="width:200px;" name="cmuscular"></td>
-      <td class="center"><select id="ccodificacion">
+      <td class="center" colspan="5"><input id="patologia3" type="text" style="width:200px;" name="patologia3"></td>
+      <td class="center"><select id="p3codificacion">
   <option value=""> </option>
   <option value="Pre-existente">1</option>
   <option value="Comun en tratamiento">2</option>
@@ -636,22 +636,22 @@
   <option value="Secuela accidente">4</option></select></td>
     </tr>
     <tr>
-       <td class="center" colspan="4"><input id="rlordosis" type="text" style="width:200px;" name="rlordosis"></td>
-      <td class="center"><select id="rlcodificacion">
+       <td class="center" colspan="4"><input id="patologia4" type="text" style="width:200px;" name="patologia4"></td>
+      <td class="center"><select id="p4codificacion">
   <option value=""> </option>
   <option value="Pre-existente">1</option>
   <option value="Comun en tratamiento">2</option>
   <option value="Laboral">3</option>
   <option value="Secuela accidente">4</option></select></td>
-      <td class="center" colspan="4"><input id="patologia3" type="text" style="width:200px;" name="patologia3"></td>
-      <td class="center"><select id="pacodificacion">
+      <td class="center" colspan="4"><input id="patologia5" type="text" style="width:200px;" name="patologia5"></td>
+      <td class="center"><select id="p5codificacion">
   <option value=""> </option>
   <option value="Pre-existente">1</option>
   <option value="Comun en tratamiento">2</option>
   <option value="Laboral">3</option>
   <option value="Secuela accidente">4</option></select></td>
-      <td class="center" colspan="5"><input id="patologia4" type="text" style="width:200px;" name="patologia4"></td>
-      <td class="center"><select id="pcodificacion">
+      <td class="center" colspan="5"><input id="patologia6" type="text" style="width:200px;" name="patologia6"></td>
+      <td class="center"><select id="p6codificacion">
   <option value=""> </option>
   <option value="Pre-existente">1</option> 
   <option value="Comun en tratamiento">2</option>
