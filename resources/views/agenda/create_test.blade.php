@@ -136,7 +136,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                 <button class="btn btn-default btn-sm"><i class="fa fa-male"></i> Nuevo paciente</button>
             </a>
             <button type="button" ng-click="agendaWorker.load()" class="btn btn-default btn-sm"><i
-                    class="fa fa-refresh"></i> Actualizar/Recargar
+                    class="fa fa-refresh"></i> Actualizar/Agenda
             </button>
         </div>
 

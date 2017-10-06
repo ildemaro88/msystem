@@ -86,30 +86,36 @@
                 <!--Inicio pestaña Consultas-->
                 <div id="consultations" class="tab-pane active">
 
-                    <div  class="panel-group col-md-6" id="consultation">
+                    <div  class="panel-group col-md-12" id="consultation">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="opcion" data-parent="#consultation" data-toggle="collapse" href="#specialty">
-                                        ESPECIALIDADES
-                                    </a>
+                                    <div class="row">
+                                        <div class="col-md-6 pull-left">
+                                            <a ng-click="activeSearchSpecialty()" class="opcion" data-parent="#consultation" data-toggle="collapse" href="#specialty">
+                                                ESPECIALIDADES
+                                            </a> 
+                                        </div>
+                                        <div class="col-md-6 pull-right" id="filter_specialty">
+                                            <input placeholder="Buscar" class="form-control" type="text" ng-model="searchSpecialty">
+                                        </div>
+                                    </div>
                                 </h4>
                             </div>
-                            <div id="specialty" class="panel-collapse collapse">
-                                <div class="box-body col-md-4" ng-repeat="specialty in specialties">
-
+                            <div id="specialty" class="panel-collapse collapse in ">
+                                <div class="box-body col-md-4" ng-repeat="specialty in specialties |filter:searchSpecialty">
                                     <form name="formPriceSpecialty[[specialty.id]]" id="form_specialty[[specialty.id]]"  novalidate>
                                         <div class="form-group row pull-right">
                                             <label>[[specialty.descripcion]]</label>
-                                            <div class="col-md-7 row">
-                                                <input  class="form-control price" type="text" maxlength="6" onkeypress="return isNumericInteger(event)"
+                                            <div class="col-md-7 row" >
+                                                <input  class="form-control price" type="text" maxlength="6" onkeypress="return isNumericCurrency(event)"
                                                         ng-model="formDataSpecialty.priceSpecialty[[specialty.id]]" required>
                                                 <input  class="form-control price" type="hidden" ng-model="formDataSpecialty.priceEdit[[examen.id]]" >
 
                                             </div>
                                             <div class="col-md-3 row" ng-model="formDataSpecialty.priceEdit[[examen.id]]">
                                                 <button type="button" class="btn btn-success" 
-                                                        ng-click="submitFormSpecialty($event,formDataSpecialty,specialty.id, {{$idEmpresa}})"
+                                                        ng-click="submitFormSpecialty($event, formDataSpecialty, specialty.id, {{$idEmpresa}})"
                                                         ng-disabled="!formPriceSpecialty[[specialty.id]].$valid"
                                                         style="margin-right: 5px;">
                                                     <i class="fa fa-check"></i> OK
@@ -131,25 +137,33 @@
                     <div   ng-repeat="category in element.categorias" class="panel-group col-md-6" id="accordion_[[category.id]]">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="opcion" data-parent="#accordion" data-toggle="collapse" href="#category_[[category.id]]">
-                                        [[category.nombre]]
-                                    </a>
-                                </h4>
+                                <div class="row">
+                                    <div class="col-md-6 pull-left">
+                                        <h4 class="panel-title">
+                                            <a class="opcion" ng-click="activeSearch(category.id)" data-parent="#accordion" data-toggle="collapse" href="#category_[[category.id]]">
+                                                [[category.nombre]]
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-6 pull-right" id="filter_[[category.id]]" style="display:none">
+                                        <input placeholder="Buscar" class="form-control" type="text" ng-model="searchExamen[[category.id]]">
+                                    </div>
+                                </div>
                             </div>
                             <div id="category_[[category.id]]" class="panel-collapse collapse">
-                                <div class="box-body col-md-6" ng-repeat="examen in category.examenes">
+                                <div class="box-body col-md-6" ng-repeat="examen in category.examenes |filter:searchExamen[[category.id]]">
 
-                                    <form  method="post"  name="formPriceSend[[examen.id]]" id="[[examen.id]]"  novalidate ng-submit="submitForm($event, formData,examen.id, {{$idEmpresa}})">
+                                    <form  method="post"  name="formPriceSend[[examen.id]]" id="[[examen.id]]"  novalidate>
                                         <div class="form-group row pull-right">
                                             <label>[[examen.nombre]]</label>
                                             <div class="col-md-7 row">
-                                                <input  class="form-control price" type="text" maxlength="6" onkeypress="return isNumericInteger(event)" ng-model="formData.priceExamen[[examen.id]]" required>
+                                                <input  class="form-control price" type="text" maxlength="6" onkeypress="return isNumericCurrency(event)" ng-model="formData.priceExamen[[examen.id]]" required>
                                                 <input  class="form-control price" type="hidden" ng-model="formData.priceEdit[[examen.id]]" >
 
                                             </div>
                                             <div class="col-md-3 row" ng-model="formData.priceEdit[[examen.id]]">
-                                                <button type="submit" class="btn btn-success" 
+                                                <button type="button" ng-click="submitForm($event, formData,examen.id, {{$idEmpresa}})"
+                                                        class="btn btn-success" 
                                                         ng-disabled="!formPriceSend[[examen.id]].$valid"
                                                         style="margin-right: 5px;">
                                                     <i class="fa fa-check"></i> OK
@@ -173,13 +187,25 @@
 <script src="{{ asset ('js/price/services.js')}}"></script>
 <script src="{{ asset ('js/price/controller.js')}}"></script>
 <script>
-                                                        var idEmpresa = "{{$idEmpresa}}";
-                                                        function isNumericInteger(evt) {
-                                                        var charCode = (evt.which) ? evt.which : event.keyCode;
-                                                        if (charCode > 31
-                                                                && (charCode < 48 || charCode > 57))
-                                                                return false;
-                                                        return true;
-                                                        }
+    var idEmpresa = "{{$idEmpresa}}";
+    function isNumericCurrency(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+ console.log(charCode)
+    if (charCode == 8 || charCode == 37 || charCode == 39)
+        return true;
+    //Chequear solo un punto (.)
+    if (charCode == 46 && $(evt.target).val().lastIndexOf('.') !== -1)
+        return false;
+
+    //Solo 2 lugares decimales
+    if ($(evt.target).val().lastIndexOf('.') !== -1 && $(evt.target).val().length - $(evt.target).val().lastIndexOf('.') >= 3)
+        return false;
+
+    if (charCode != 46 && charCode > 31
+        && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
 </script>
 @endsection
