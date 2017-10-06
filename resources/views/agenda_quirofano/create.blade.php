@@ -10,8 +10,8 @@
 <!--    <input type="text" ng-model="idSalleValue" >-->
     <div class="box">
         <div class="box-header">
-            <a href="{{CRUDBooster::adminPath().'/paciente/add?m=3'}}">
-                <button class="btn btn-default btn-sm"><i class="fa fa-male"></i> Nuevo paciente</button>
+            <a href="{{CRUDBooster::adminPath().'/quirofano'}}">
+                <button class="btn btn-default btn-sm"><i class="fa fa-arrow-left"></i>Volver </button>
             </a>
             <button type="button" ng-click="agendaWorker.load()" class="btn btn-default btn-sm"><i
                     class="fa fa-refresh"></i> Actualizar/Agenda

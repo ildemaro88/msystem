@@ -25,7 +25,7 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
         <div class="col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <table class="table">
+                    <table class="table table-striped table-hove">
                         <thead>
                             <tr>
                                 <th>Quirofano</th>
@@ -34,8 +34,19 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                         </thead>
                         <tbody>
                             <tr ng-repeat="salle in salles| filter:search">
-                                <td><a class="btn btn-primary btn-sm" ng-href="{{CRUDBooster::adminPath().'/agenda_cirugia/salle/[[salle.id]]'}}">[[salle.name]] - Ingresar</a></td>
-                                <td><a class="btn btn-warning btn-xs"ng-href="{{CRUDBooster::adminPath().'/quirofano/edit/[[salle.id]]'}}"><i class="fa fa-pencil"</a></td>
+                                <td><a class="btn btn-info btn-sm" ng-href="{{CRUDBooster::adminPath().'/agenda_cirugia/salle/[[salle.id]]'}}">[[salle.name]] - Ingresar</a></td>
+                                <td>
+                                    <a class="btn btn-warning btn-xs" ng-href="{{CRUDBooster::adminPath().'/quirofano/edit/[[salle.id]]'}}"><i class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-xs" 
+                                       onclick='swal({ title: "Estás seguro ?",
+                                       text: "No podrá recuperar estos datos de registro!",
+                                       type: "warning", 
+                                       showCancelButton: true, 
+                                       confirmButtonColor: "#DD6B55", 
+                                       confirmButtonText: "Yes!",
+                                       closeOnConfirm: false }, 
+                                   function(){ location.href= URL_BASE+"quirofano/delete/"+salle.id});'><i class="fa fa-trash"></i></a></td>
+                                
                             </tr>
                         </tbody>
                     </table>
