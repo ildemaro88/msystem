@@ -22,6 +22,8 @@ use App\ModTypePayment;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
+use App\CmsUser;
+use App\ModNotifications;
 
 class AdminAgendaController extends Controller {
 
@@ -149,8 +151,10 @@ class AdminAgendaController extends Controller {
         $cita->end_datetime = new DateTime($cita->end);
         $cita->color = $request->get("color");
         $result = $cita->save();
+        $medico = ModMedico::find($cita->id_medico);
         try {
-            $response = true;
+            $notification = $this->sendNotifications("Cita Modificada", $id, $medico);
+            $response = $notification;
         } catch (\Error $x) {
             $response = false;
         }
@@ -230,10 +234,12 @@ class AdminAgendaController extends Controller {
             $email_medico = !is_null($medico->email) ? $medico->email : "pablodc0s02@gmail.com";
             $email_paciente = !is_null($paciente->email) ? $paciente->email : "pasblodc002@gmail.com";
             try {
+                $notification = $this->sendNotifications("Nueva Cita", $cita->id, $medico);
+                $response = $notification;
                 Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
                 Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
             } catch (\Error $x) {
-                
+                $response = false;
             }
         }
         return response()->json([
@@ -250,8 +256,23 @@ class AdminAgendaController extends Controller {
      */
     public function show(Request $request, $id) {
         $medico = ModMedico::find($id);
-        //dd($medico);
         return view('agenda.index', ["medico" => $medico]);
+    }
+
+    /**
+     * Show the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ShowEvent($id, ModNotifications $idNotification) {
+        $cita = ModCita::where("id", $id)
+                ->with("paciente")
+                ->first();
+        $idNotification->is_read = 1;
+        $idNotification->save();
+        $page_title = "Cita";
+        return view('agenda.show_event', compact('page_title'), ["cita" => $cita]);
     }
 
     /**
@@ -317,14 +338,14 @@ class AdminAgendaController extends Controller {
                 $convenio->id_convenio = $sel_convenio;
                 $convenio->save();
             }
-           // $typePayment = ModTypePayment::find(1);
-            $payment =  ModPayment::where("parent_id", $cita->id)->first();
-            if($request->get("status_price") == "true"){
+            // $typePayment = ModTypePayment::find(1);
+            $payment = ModPayment::where("parent_id", $cita->id)->first();
+            if ($request->get("status_price") == "true") {
                 $status = true;
-            }else{
-                $status = false; 
+            } else {
+                $status = false;
             }
-            $payment->status =  $status;
+            $payment->status = $status;
             $payment->aumont = $request->get("price");
             $payment->save();
             /*
@@ -333,10 +354,12 @@ class AdminAgendaController extends Controller {
             $email_medico = !is_null($medico->email) ? $medico->email : "pablodcd002@gmail.com";
             $email_paciente = !is_null($paciente->email) ? $paciente->email : "pabloddc002@gmail.com";
             try {
+                $notification = $this->sendNotifications("Cita Modificada", $id, $medico);
+                $response = $notification;
                 Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
                 Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
             } catch (\Error $x) {
-                
+                $response = false;
             }
         }
         return response()->json([
@@ -365,6 +388,27 @@ class AdminAgendaController extends Controller {
         $price = ModSpecialtyPrice::Where('id_empresa', $business)->where('id_especialidad', $specialty)->first();
 
         return ($price["precio"]);
+    }
+
+    private function sendNotifications($content, $idCita, ModMedico $doctor) {
+        try {
+            $userDoctor = CmsUser::where("id", $doctor->cms_user_id)->first();
+            //Create notification
+            $notificationDoctor = new ModNotifications();
+            $notificationDoctor->id_cms_users = $userDoctor->id;
+            $notificationDoctor->content = $content;
+            $notificationDoctor->is_read = 0;
+            //salvar notificaciones 
+
+            $notificationDoctor->save();
+
+            $notificationDoctor->url = url('/admin/medico/agenda/event/' . $idCita . '/' . $notificationDoctor->id);
+            $notificationDoctor->save();
+            $status = true;
+        } catch (\Error $x) {
+            $status = false;
+        }
+        return $status;
     }
 
 }

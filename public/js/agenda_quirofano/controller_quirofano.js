@@ -387,41 +387,45 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         e.preventDefault();
         var url = $scope.panel.url;
         swal({
-            title: "Procesando",
-            text: 'Espere...',
-            showConfirmButton: false
-        });
-        $http({
-            url: url,
-            method: $scope.panel.method_form,
-            data: formData,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (data) {
-            if (data.data.response) {
-                swal({
-                    title: "Correcto!",
-                    text: 'Realizado con éxito!',
-                    timer: 400,
-                    type: "success",
-                    showConfirmButton: true,
-                    closeOnConfirm: true
-                }, function () {
-                    $scope.reloadCalendar();
-                    $scope.resetPanelCita();
-                    $scope.init(); //inicializar
+            html: true,
+            title: "Espere...",
+            text: '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>',
+            showConfirmButton: false,
+            timer: 1000,
+        },
+                function () {
+                    $http({
+                        url: url,
+                        method: $scope.panel.method_form,
+                        data: formData,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (data) {
+                        if (data.data.response) {
+                            swal({
+                                title: "Correcto!",
+                                text: 'Realizado con éxito!',
+                                timer: 400,
+                                type: "success",
+                                showConfirmButton: true,
+                                closeOnConfirm: true
+                            }, function () {
+                                $scope.reloadCalendar();
+                                $scope.resetPanelCita();
+                                $scope.init(); //inicializar
+                            });
+                        } else if (data.status == 500) {
+                            swal("Error!", "Contacte al administrador!", "error");
+                        } else {
+                            swal("Error!", "Error en la transacción!", "error");
+                        }
+                    });
                 });
-            } else if (data.status == 500) {
-                swal("Error!", "Contacte al administrador!", "error");
-            } else {
-                swal("Error!", "Error en la transacción!", "error");
-            }
-        });
     };
-/*cierre del envio del formulario*/
+    /*cierre del envio del formulario*/
 
-/*setear la hora final de la operacion*/
+    /*setear la hora final de la operacion*/
     $scope.setDateTime = function () {
         /*
          *  Agregar datos de tiempo a los input para ser enviados con submit
@@ -432,12 +436,12 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
         $scope.formData.end = moment($scope.formData.start).add($scope.slider.value, 'hours');
         $scope.hourEnd = moment($scope.formData.end).format('HH:mm a');
         $scope.formData.end = moment($scope.formData.end, 'DD/MM/YYYY,H:mm').format();
-        
-        
+
+
     };
     /*cierre del seteo la hora final de la operacion*/
 
-/*Modificar cuando el evento se mueve de fecho o se hala la hora*/
+    /*Modificar cuando el evento se mueve de fecho o se hala la hora*/
 
     $scope.dropModCita = function (cita) {
         $("#agenda-list-citas").hide();
@@ -453,9 +457,9 @@ agenda.controller("AppAgendaQuirofano", function ($scope, $http, $window, $timeo
             console.log(err);
         }
     };
-/*cierre de modificar cuando el evento se mueve de fecho o se hala la hora*/
+    /*cierre de modificar cuando el evento se mueve de fecho o se hala la hora*/
 
-/*enviar el evento cuando se modificó por medio de un drop*/
+    /*enviar el evento cuando se modificó por medio de un drop*/
     $scope.updateDropCita = function (idCita) {
         var url = URL_BASE + "quirofano/agenda/uptade/" + idCita;
         var start = moment($scope.startDateEdit, 'DD/MM/YYYY,H:mm').format();

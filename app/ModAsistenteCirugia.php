@@ -16,7 +16,8 @@ class ModAsistenteCirugia extends Model
       "telefono",
       "email",
       "id_asistente_tipo",
-      "registro"
+      "registro",
+      'cms_user_id'
     ];
     
     public function tipoAsistente() {

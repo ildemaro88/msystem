@@ -10,6 +10,7 @@ Route::get('/admin/medico/agenda/get/information/{id}', 'AdminAgendaController@g
 Route::get('/admin/medico/agenda/get/patient/{value}', 'AdminAgendaController@getPatients');
 Route::get('/admin/medico/agenda/get/agreement/{business}', 'AdminAgendaController@getAgreements');
 Route::get('/admin/medico/agenda/get/price/{business}/{specialty}', 'AdminAgendaController@getPrice');
+Route::get('/admin/medico/agenda/event/{id}/{idNotification}', 'AdminAgendaController@showEvent');
 
 Route::get('/admin/agenda_cirugia/salle/{id}', 'AdminAgendaQuirofanoCirugiaController@getAgendaSalle');
 Route::get('/admin/quirofano/agenda/get/patient/{value}', 'AdminAgendaQuirofanoCirugiaController@getPatients');
@@ -25,6 +26,7 @@ Route::put('/admin/quirofano/agenda/uptade/{id}','AdminAgendaQuirofanoCirugiaCon
 
 Route::get('/admin/medico/agenda/cirugia/index', 'AdminAgendaMedicoCirugiaController@getAgenda');
 Route::get('/admin/medico/agenda/cirugia/events', 'AdminAgendaMedicoCirugiaController@getEvents');
+Route::get('/admin/medico/agenda/cirugia/event/{id}/{idNotification}', 'AdminAgendaMedicoCirugiaController@show');
 
 Route::get('/admin/medico/dashboard', 'AdminMedico1Controller@dashboard');
 Route::get('/admin/medico/dashboard/{id}', 'AdminCitaController@medico_citas');

@@ -21,8 +21,8 @@ use App\Mail\EmailMedicoAnesthesiologist;
 use Mail;
 use Carbon\Carbon;
 use DateTime;
-
-
+use App\ModNotifications;
+use App\CmsUser;
 
 class AdminAgendaQuirofanoCirugiaController extends Controller {
 
@@ -32,12 +32,13 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function getAgendaSalle($id) {
-        $salle = ModQuirofano::find($id); 
-       
-        $page_title = "Agendar Cirugías" ." Para El Qurifano: " . strtoupper($salle->name);
+        $salle = ModQuirofano::find($id);
 
-        return view('agenda_quirofano.create', compact('page_title'),["idSalle"=>$id]);
+        $page_title = "Agendar Cirugías" . " Para El Qurifano: " . strtoupper($salle->name);
+
+        return view('agenda_quirofano.create', compact('page_title'), ["idSalle" => $id]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,11 +59,11 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" =>  $getPacientes
+                    "response" => $getPacientes
         ]);
     }
 
-        /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -80,20 +81,19 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" =>  $getDoctors
+                    "response" => $getDoctors
         ]);
     }
-    
-    
-        /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAssistants(Request $request, $value,$type) {
+    public function getAssistants(Request $request, $value, $type) {
 
         $assistants = ModAsistenteCirugia::where(DB::raw('concat(nombre,apellido)'), 'LIKE', "%{$value}%")
-                 ->where('id_asistente_tipo','=', $type)->get();
+                        ->where('id_asistente_tipo', '=', $type)->get();
         $getAssistants = array();
         foreach ($assistants as $assistant) {
             $getAssistant = array();
@@ -104,12 +104,11 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" =>  $getAssistants
+                    "response" => $getAssistants
         ]);
     }
-    
-       
-            /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -126,10 +125,11 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" =>  $getSalles
+                    "response" => $getSalles
         ]);
-    } 
-            /**
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -146,10 +146,10 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             //$response[] = $getPacientes;
         }
         return response()->json([
-                    "response" =>  $getSalles
+                    "response" => $getSalles
         ]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -203,7 +203,7 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function updateEventDrop(Request $request, $id) {
-        
+
         $cita = ModCitaQuirofano::find($id);
         $cita->start = $request->get("start");
         $cita->end = $request->get("end");
@@ -211,11 +211,17 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         $cita->end_datetime = new DateTime($cita->end);
         $cita->color = $request->get("color");
         $result = $cita->save();
+
+        $resident = ModAsistenteCirugia::find($cita->id_residente);
+        $anesthesiologist = ModAsistenteCirugia::find($cita->id_anesteciologo);
+        $medico = ModMedico::find($cita->id_medico);
         try {
-            $response = true;
+            $notification = $this->sendNotifications("Cita Modificada", $cita->id, $medico, $resident, $anesthesiologist);
+            $response = $notification;
         } catch (\Error $x) {
             $response = false;
         }
+
         return response()->json([$response
         ]);
     }
@@ -227,7 +233,6 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function save(Request $request) {
-//        print_r( $request->all());
 
         $cita = new ModCitaQuirofano;
         $paciente = ModPaciente::find($request->get("idPatient"));
@@ -255,18 +260,21 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
-           $resident = ModAsistenteCirugia::find($request->get("idResident"));
-           $anesthesiologist = ModAsistenteCirugia::find($request->get("idAnesthesiologist"));
+            $resident = ModAsistenteCirugia::find($request->get("idResident"));
+            $anesthesiologist = ModAsistenteCirugia::find($request->get("idAnesthesiologist"));
             $email_medico = !is_null($medico->email) ? $medico->email : "felipe.vinoles@gmail.com";
             $email_paciente = !is_null($paciente->email) ? $paciente->email : "felipe.vinoles@gmail.com";
             $email_resident = !is_null($resident->email) ? $resident->email : "felipe.vinoles@gmail.com";
             $email_anesthesiologist = !is_null($anesthesiologist->email) ? $anesthesiologist->email : "felipe.vinoles@gmail.com";
             try {
-            $status = true;
-//                Mail::to(trim($email_paciente))->send(new EmailPacienteCirugia($paciente, $medico, $cita));
-//                Mail::to(trim($email_medico))->send(new EmailMedicoCirugia($medico, $paciente, $cita));
-//                Mail::to(trim($email_resident))->send(new EmailMedicoResident($resident, $medico, $cita));
-//                Mail::to(trim($email_anesthesiologist))->send(new EmailMedicoAnesthesiologist($email_anesthesiologist, $medico, $cita));
+                $notification = $this->sendNotifications("Nueva Cita", $cita->id, $medico, $resident, $anesthesiologist);
+                if ($notification) {
+                    Mail::to(trim($email_paciente))->send(new EmailPacienteCirugia($paciente, $medico, $cita));
+                    Mail::to(trim($email_medico))->send(new EmailMedicoCirugia($medico, $paciente, $cita));
+                    Mail::to(trim($email_resident))->send(new EmailMedicoResident($resident, $medico, $cita));
+                    Mail::to(trim($email_anesthesiologist))->send(new EmailMedicoAnesthesiologist($anesthesiologist, $medico, $cita));
+                }
+                $status = $notification;
             } catch (\Error $x) {
                 $status = false;
             }
@@ -275,7 +283,6 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
                     "response" => $status
         ]);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -308,13 +315,13 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
             /*
              * Envio de e-mail cuando se guarda la cita
              * */
-            $email_medico = !is_null($medico->email) ? $medico->email : "felipe.vinoles@gmail.com";
-            $email_paciente = !is_null($paciente->email) ? $paciente->email : "felipe.vinoles@gmail.com";
+            $resident = ModAsistenteCirugia::find($request->get("idResident"));
+            $anesthesiologist = ModAsistenteCirugia::find($request->get("idAnesthesiologist"));
             try {
-                Mail::to(trim($email_paciente))->send(new EmailPaciente($paciente, $medico, $cita));
-                Mail::to(trim($email_medico))->send(new EmailMedico($medico, $paciente, $cita));
+                $notification = $this->sendNotifications("Cita Modificada", $cita->id, $medico, $resident, $anesthesiologist);
+                $response = $notification;
             } catch (\Error $x) {
-                
+                $response = false;
             }
         }
         return response()->json([
@@ -323,41 +330,90 @@ class AdminAgendaQuirofanoCirugiaController extends Controller {
         ]);
     }
 
-   /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $cita = ModCitaQuirofano::findOrFail($id);
         $cita->trash = 1;
         $response = $cita->save();
-
+        $resident = ModAsistenteCirugia::find($cita->id_residente);
+        $anesthesiologist = ModAsistenteCirugia::find($cita->id_anesteciologo);
+        $medico = ModMedico::find($cita->id_medico);
+        try {
+            $notification = $this->sendNotifications("Cita Cancelada", $cita->id, $medico, $resident, $anesthesiologist);
+            $response = $notification;
+        } catch (\Error $x) {
+            $response = false;
+        }
         return response()->json([
-            "response"=>$response
+                    "response" => $response
         ]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getEvents(Request $request,$idSalle) {
+    public function getEvents(Request $request, $idSalle) {
 
-        $citas = ModCitaQuirofano::where("estado_cita",1)
-            ->where("id_quirofano",$idSalle)
-            ->where("trash",null)
-            ->orWhere("trash","=",0) // los que no estan en papelera
-            ->with("paciente")
-            ->with("medico")
-            ->with("residente")
-            ->with("anesteciologo")
-            ->with("quirofano")
-            ->get();
+        $citas = ModCitaQuirofano::where("estado_cita", 1)
+                ->where("id_quirofano", $idSalle)
+                ->where("trash", null)
+                ->orWhere("trash", "=", 0) // los que no estan en papelera
+                ->with("paciente")
+                ->with("medico")
+                ->with("residente")
+                ->with("anesteciologo")
+                ->with("quirofano")
+                ->get();
 
         return ($citas);
+    }
+
+    private function sendNotifications($content, $idCita, ModMedico $doctor, ModAsistenteCirugia $resident, ModAsistenteCirugia $anesthesiologist) {
+        try {
+            $userDoctor = CmsUser::where("id", $doctor->cms_user_id)->first();
+            //Create notification
+            $notificationDoctor = new ModNotifications();
+            $notificationDoctor->id_cms_users = $userDoctor->id;
+            $notificationDoctor->content = $content;
+            $notificationDoctor->is_read = 0;
+
+            $userResident = CmsUser::where("id", $resident->cms_user_id)->first();
+            $notificationResident = new ModNotifications();
+            $notificationResident->id_cms_users = $userResident->id;
+            $notificationResident->content = $content;
+            $notificationResident->is_read = 0;
+
+            $userAnesthesiologist = CmsUser::where("id", $anesthesiologist->cms_user_id)->first();
+            $notificationAnesthesiologist = new ModNotifications();
+            $notificationAnesthesiologist->id_cms_users = $userAnesthesiologist->id;
+            $notificationAnesthesiologist->content = $content;
+            $notificationAnesthesiologist->is_read = 0;
+            //salvar notificaciones 
+
+            $notificationDoctor->save();
+            $notificationResident->save();
+            $notificationAnesthesiologist->save();
+
+            $notificationDoctor->url = url('/admin/medico/agenda/cirugia/event/' . $idCita . '/' . $notificationDoctor->id);
+            $notificationResident->url = url('/admin/medico/agenda/cirugia/event/' . $idCita . '/' . $notificationResident->id);
+            $notificationAnesthesiologist->url = url('/admin/medico/agenda/cirugia/event/' . $idCita . '/' . $notificationAnesthesiologist->id);
+
+            $notificationDoctor->save();
+            $notificationResident->save();
+            $notificationAnesthesiologist->save();
+            $status = true;
+        } catch (\Error $x) {
+
+            $status = false;
+        }
+        return $status;
     }
 
 }
