@@ -38,14 +38,10 @@ $page_title = $agenda->nombre ?: "Agendar Cita";
                                 <td>
                                     <a class="btn btn-warning btn-xs" ng-href="{{CRUDBooster::adminPath().'/quirofano/edit/[[salle.id]]'}}"><i class="fa fa-pencil"></i></a>
                                     <a class="btn btn-danger btn-xs" 
-                                       onclick='swal({ title: "Estás seguro ?",
-                                       text: "No podrá recuperar estos datos de registro!",
-                                       type: "warning", 
-                                       showCancelButton: true, 
-                                       confirmButtonColor: "#DD6B55", 
-                                       confirmButtonText: "Yes!",
-                                       closeOnConfirm: false }, 
-                                   function(){ location.href= URL_BASE+"quirofano/delete/"+salle.id});'><i class="fa fa-trash"></i></a></td>
+                                       ng-click="deleteSalle(salle.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
                                 
                             </tr>
                         </tbody>
